@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,14 +24,17 @@ export function LanguageSwitcher() {
   const currentLocale = pathname.split("/")[1] || "en";
   const active = locales.find((l) => l.code === currentLocale) || locales[0];
 
-  function changeLanguage(locale: string) {
-    // save cookie
-    document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000`;
+  const [selectedLocale, setSelectedLocale] = useState(active.code);
 
-    // replace locale in URL
+  // run side-effect when locale changes
+  useEffect(() => {
+    document.cookie = `NEXT_LOCALE=${selectedLocale}; path=/; max-age=31536000`;
+  }, [selectedLocale]);
+
+  function changeLanguage(locale: string) {
+    setSelectedLocale(locale); // ✅ trigger useEffect
     const segments = pathname.split("/");
     segments[1] = locale;
-
     router.push(segments.join("/"));
   }
 
@@ -41,8 +45,8 @@ export function LanguageSwitcher() {
           variant="outline"
           className="rounded-full px-4 py-2 h-auto flex items-center gap-1 bg-primary text-primary-foreground"
         >
-          <span>{active.flag}</span>
-          <span className="uppercase">{active.code}</span>
+          <span>{locales.find((l) => l.code === selectedLocale)?.flag}</span>
+          <span className="uppercase">{selectedLocale}</span>
           <ChevronDown className="h-3 w-3 opacity-70" />
         </Button>
       </PopoverTrigger>

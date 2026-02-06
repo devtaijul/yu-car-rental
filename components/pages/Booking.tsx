@@ -294,6 +294,7 @@ const Booking = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {cars.map((car) => (
                 <CarCard
+                  id={car.id}
                   key={car.id}
                   name={car.name}
                   image={car.image}

@@ -130,7 +130,7 @@ export const ServicesCarousel = ({
   }, [emblaApi, slidesToScroll]);
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-[#BFD1D780]">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="flex items-start justify-between mb-10">
@@ -151,7 +151,7 @@ export const ServicesCarousel = ({
               size="icon"
               onClick={scrollPrev}
               disabled={!canScrollPrev}
-              className="rounded-lg border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-none border-border  disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -160,7 +160,7 @@ export const ServicesCarousel = ({
               size="icon"
               onClick={scrollNext}
               disabled={!canScrollNext}
-              className="rounded-lg border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-none border-border disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -173,28 +173,17 @@ export const ServicesCarousel = ({
             {services.map((service, index) => {
               const IconComponent = iconMap[service.icon];
 
-              // Calculate active state based on carousel position
-              const isActive = index === activeIndex;
-
               return (
                 <div
                   key={index}
-                  className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] group lg:flex-[0_0_calc(33.333%-16px)] min-w-0"
+                  className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] group lg:flex-[0_0_calc(33.333%-16px)] min-w-0 min-h-[380px]"
                 >
                   <div
-                    className={`relative h-full rounded-2xl p-6 md:p-8 overflow-hidden transition-all duration-300 ${
-                      isActive
-                        ? "gradient-teal text-primary-foreground"
-                        : "bg-card border border-border group-hover:gradient-teal/20 group-hover:text-primary-foreground"
-                    }`}
+                    className={`relative h-full rounded-2xl  p-6 md:p-8 overflow-hidden transition-all duration-300 bg-card border border-border group-hover:bg-[linear-gradient(_135deg,_hsl(193,_30%,_25%)_0%,_hsl(180,_25%,_35%)_100%_)] group-hover:text-primary-foreground`}
                   >
                     {/* Background Number */}
                     <span
-                      className={`absolute top-4 right-4 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none ${
-                        isActive
-                          ? "text-primary-foreground/10"
-                          : "text-muted/50 group-hover:text-primary-foreground/10"
-                      }`}
+                      className={`absolute -top-8 -right-8 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none text-muted/50 group-hover:text-primary-foreground/10`}
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
@@ -202,39 +191,23 @@ export const ServicesCarousel = ({
                     {/* Content */}
                     <div className="relative z-10">
                       <div
-                        className={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 ${
-                          isActive
-                            ? "bg-primary-foreground/20"
-                            : "bg-muted group-hover:bg-primary-foreground/10"
-                        }`}
+                        className={`w-12 h-12 rounded-lg flex items-center justify-center bg-muted group-hover:bg-primary/10 mb-6`}
                       >
                         {IconComponent && (
                           <IconComponent
-                            className={`h-6 w-6 ${
-                              isActive
-                                ? "text-primary-foreground"
-                                : "text-foreground group-hover:text-primary-foreground"
-                            }`}
+                            className={`h-6 w-6 text-foreground group-hover:text-primary-foreground `}
                           />
                         )}
                       </div>
 
                       <h3
-                        className={`text-lg font-semibold mb-3 ${
-                          isActive
-                            ? "text-primary-foreground"
-                            : "text-foreground group-hover:text-primary-foreground"
-                        }`}
+                        className={`text-lg md:text-2xl font-semibold mb-3 text-foreground group-hover:text-primary-foreground`}
                       >
                         {service.title}
                       </h3>
 
                       <p
-                        className={`text-sm leading-relaxed ${
-                          isActive
-                            ? "text-primary-foreground/80"
-                            : "text-muted-foreground group-hover:text-primary-foreground/80"
-                        }`}
+                        className={`text-sm md:text-base leading-relaxed text-muted-foreground group-hover:text-primary-foreground/80`}
                       >
                         {service.description}
                       </p>

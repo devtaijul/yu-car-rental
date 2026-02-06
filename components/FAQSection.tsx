@@ -1,11 +1,12 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+"use client";
+
+import { useState } from "react";
+import { Plus, Minus } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   const faqs = [
     {
       question: "Do I Need An International Driver's License On Bonaire?",
@@ -34,11 +35,15 @@ const FAQSection = () => {
     },
   ];
 
+  const toggleFaq = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
-    <section className="py-20 bg-linear-to-b from-[hsl(193,20%,75%)] to-[hsl(193,25%,70%)]">
+    <section className="py-20 bg-linear-to-b from-[hsl(193,25%,78%)] to-[hsl(193,30%,72%)]">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-12">
-          <span className="section-badge mb-4 bg-primary/20 text-primary">
+          <span className="section-badge mb-4 bg-card text-foreground border border-border">
             FAQ
           </span>
           <h2 className="text-3xl md:text-4xl font-display text-foreground">
@@ -46,22 +51,60 @@ const FAQSection = () => {
           </h2>
         </div>
 
-        <Accordion type="single" collapsible className="space-y-3">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`faq-${index}`}
-              className="bg-card border-0 rounded-xl overflow-hidden shadow-sm data-[state=open]:shadow-md transition-shadow"
-            >
-              <AccordionTrigger className="px-6 py-4 text-left font-medium hover:no-underline data-[state=open]:gradient-teal data-[state=open]:text-primary-foreground [&[data-state=open]>svg]:text-primary-foreground">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="px-6 pb-4 pt-2 text-muted-foreground bg-card">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <div className="space-y-3">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
+                key={index}
+                className={cn(
+                  "rounded-xl overflow-hidden transition-all duration-300",
+                  isOpen
+                    ? "gradient-teal text-primary-foreground"
+                    : "bg-[hsl(193,20%,82%)] text-foreground hover:bg-[hsl(193,22%,78%)]",
+                )}
+              >
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full flex items-center justify-between px-5 md:px-6 py-4 text-left"
+                >
+                  <span
+                    className={cn(
+                      "font-medium text-sm md:text-base",
+                      isOpen ? "text-primary-foreground" : "text-foreground",
+                    )}
+                  >
+                    {faq.question}
+                  </span>
+                  <span className="shrink-0 ml-4">
+                    {isOpen ? (
+                      <Minus className="h-5 w-5" />
+                    ) : (
+                      <Plus className="h-5 w-5" />
+                    )}
+                  </span>
+                </button>
+                <div
+                  className={cn(
+                    "overflow-hidden transition-all duration-300",
+                    isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0",
+                  )}
+                >
+                  <p
+                    className={cn(
+                      "px-5 md:px-6 pb-4 text-sm",
+                      isOpen
+                        ? "text-primary-foreground/90"
+                        : "text-muted-foreground",
+                    )}
+                  >
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

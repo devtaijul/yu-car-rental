@@ -169,15 +169,20 @@
   h6 {
     font-family: "Poppins", serif;
   }
+
+  button {
+    @apply cursor-pointer;
+  }
 }
+
 @layer components {
-  .gradient-teal {
+  /*   .gradient-teal {
     background: linear-gradient(
       135deg,
       hsl(193, 30%, 25%) 0%,
       hsl(180, 25%, 35%) 100%
     );
-  }
+  } */
 
   .gradient-teal-light {
     background: linear-gradient(
@@ -232,6 +237,10 @@
 
   .input-booking {
     @apply bg-white/90 backdrop-blur-sm border-0 px-4 py-3 text-foreground shadow-sm;
+  }
+
+  .gradient-teal {
+    @apply bg-[linear-gradient(_135deg,_hsl(193,_30%,_25%)_0%,_hsl(180,_25%,_35%)_100%_)];
   }
 }
 

@@ -1,7 +1,12 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Gauge, Fuel, Settings, Users } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface CarCardProps {
+  id: string;
   name: string;
   image: string;
   price: number;
@@ -15,22 +20,39 @@ interface CarCardProps {
   onRent?: () => void;
 }
 
-const CarCard = ({ name, image, price, specs, variant = "dark", onRent }: CarCardProps) => {
+const CarCard = ({
+  id,
+  name,
+  image,
+  price,
+  specs,
+  variant = "dark",
+}: CarCardProps) => {
   const isDark = variant === "dark";
+  const router = useRouter();
+  const onRent = () => {
+    router.push(`/booking/${id}`);
+  };
 
   return (
-    <div className={`card-car ${isDark ? "card-car-gradient" : "bg-card border border-border"}`}>
+    <div
+      className={`card-car ${isDark ? "card-car-gradient" : "bg-card border border-border"}`}
+    >
       {/* Image */}
       <div className="relative h-48 flex items-center justify-center p-4">
-        <img 
-          src={image} 
+        <Image
+          src={image}
           alt={name}
           className="max-h-full max-w-full object-contain"
+          width={500}
+          height={500}
         />
       </div>
 
       {/* Content */}
-      <div className={`p-5 ${isDark ? "text-primary-foreground" : "text-foreground"}`}>
+      <div
+        className={`p-5 ${isDark ? "text-primary-foreground" : "text-foreground"}`}
+      >
         <h3 className="text-xl font-display font-semibold mb-4">{name}</h3>
 
         {/* Specs */}

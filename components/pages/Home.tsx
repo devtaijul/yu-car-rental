@@ -1,5 +1,3 @@
-"use client";
-
 import CarCard from "@/components/CarCard";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
@@ -19,21 +17,19 @@ import {
 } from "lucide-react";
 
 import { cars } from "@/data/cars";
-import { useRouter } from "next/navigation";
 import { FeatureSection } from "../FeatureSection";
 import { HeroSection } from "../HeroSection";
 import { Button } from "../ui/button";
 import { ServicesSection } from "../ServicesSection";
+import { Locale } from "@/types/utils";
 
-export const HomePage = () => {
-  const navigate = useRouter();
-
+export const HomePage = ({ lang }: { lang: Locale }) => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
       {/* Hero Section */}
-      <HeroSection />
+      <HeroSection lang={lang} />
 
       {/* Features Bar */}
       <FeatureSection />
@@ -63,7 +59,7 @@ export const HomePage = () => {
                 price={car.price}
                 specs={car.specs}
                 variant={index < 3 ? "dark" : "light"}
-                onRent={() => navigate.push(`/booking?car=${car.id}`)}
+                id={car.id}
               />
             ))}
           </div>

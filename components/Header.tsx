@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -107,9 +108,7 @@ const Header = () => {
 
               {/* Right */}
               <div className="hidden md:flex items-center gap-3">
-                <Button className="rounded-full px-4 py-2 h-auto">
-                  🇬🇧 En <ChevronDown className="ml-1 h-3 w-3" />
-                </Button>
+                <LanguageSwitcher />
                 <Link href="/booking">
                   <Button className="rounded-full px-6 py-2 h-auto">
                     Explore Fleet

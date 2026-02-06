@@ -6,7 +6,7 @@ import { getDictionary } from "@/app/[lang]/dictionaries/dictionaries";
 export const HeroSection = async ({ lang }: { lang: Locale }) => {
   const dict = await getDictionary(lang);
   return (
-    <section className="relative min-h-[98vh] flex flex-col">
+    <section className="relative min-h-[98vh] flex flex-col justify-center">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -29,16 +29,17 @@ export const HeroSection = async ({ lang }: { lang: Locale }) => {
         </p>
 
         {/* Booking Search */}
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-7xl">
           <BookingSearch />
         </div>
       </div>
 
       {/* Quote */}
       <div className="relative z-10 bg-[#2B6174] py-6">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-primary-foreground italic text-sm md:text-base font-poppins">
-            {dict.home.hero.quote}
+        <div className="container mx-auto px-4 text-center max-w-7xl">
+          <p className="text-primary-foreground italic text-lg md:text-2xl lg:text-3xl font-poppins">
+            {'"'}
+            {dict.home.hero.quote} {'"'}
           </p>
         </div>
       </div>

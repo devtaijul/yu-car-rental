@@ -11,7 +11,8 @@ export async function getDictionary(locale: Locale): Promise<Dictionary> {
   const loader = dictionaries[locale];
 
   if (!loader) {
-    throw new Error(`Dictionary not found for locale: ${locale}`);
+    // throw new Error(`Dictionary not found for locale: ${locale}`);
+    return dictionaries["en"]!();
   }
 
   return loader();

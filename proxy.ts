@@ -24,8 +24,17 @@ function getLocale(request: NextRequest): Locale {
 }
 
 export function proxy(request: NextRequest) {
-  // get the pathname from request url
-  const pathname = request.nextUrl.pathname;
+  const { pathname } = request.nextUrl;
+
+  // Skip public assets and static files
+  if (
+    pathname.startsWith("/_next") || // Next.js internal files
+    pathname.startsWith("/public") || // Public folder
+    pathname.includes(".") || // Files with extensions (e.g., .jpg, .css, .js)
+    pathname.startsWith("/api") // API routes if any
+  ) {
+    return NextResponse.next();
+  }
 
   const pathNameIsMissingLocale = locales.every(
     (locale) =>
@@ -36,14 +45,15 @@ export function proxy(request: NextRequest) {
     // detect user's preference & redirect with a locale with a path eg: /en/about
     const locale = getLocale(request);
 
-    return NextResponse.redirect(
-      new URL(`/${locale}/${pathname}`, request.url),
-    );
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|.*\\..*).*)"],
+  matcher: [
+    // Skip all internal paths (_next) and static files
+    "/((?!_next|public|api|favicon.ico).*)",
+  ],
 };

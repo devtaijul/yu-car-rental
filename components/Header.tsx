@@ -33,8 +33,8 @@ const Header = () => {
   return (
     <header className="fixed top-0 z-50 w-full py-4">
       <div className="container mx-auto px-4">
-        <div className="bg-white backdrop-blur rounded-full shadow-lg ">
-          <div className="bg-background-soft px-6 py-3 rounded-full">
+        <div className="bg-white backdrop-blur  shadow-lg ">
+          <div className="bg-background-soft px-6 py-5">
             <div className="flex items-center justify-between">
               {/* Logo */}
               <Link href="/" className="flex items-center gap-2">
@@ -110,7 +110,7 @@ const Header = () => {
               <div className="hidden md:flex items-center gap-3">
                 <LanguageSwitcher />
                 <Link href="/booking">
-                  <Button className="rounded-full px-6 py-2 h-auto">
+                  <Button className="rounded-none px-6 py-2 h-auto">
                     Explore Fleet
                   </Button>
                 </Link>
@@ -180,7 +180,7 @@ const Header = () => {
               })}
 
               <Link href="/booking" onClick={() => setIsOpen(false)}>
-                <Button className="w-full mt-3 rounded-full">
+                <Button className="w-full mt-3 rounded-none">
                   Explore Fleet
                 </Button>
               </Link>

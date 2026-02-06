@@ -1,76 +1,44 @@
-import { Car, Clock, Percent, Plane, Shield, Sparkles } from "lucide-react";
-import React from "react";
+import { ServicesCarousel } from "./ServiceCarousel";
 
 export const ServicesSection = () => {
   const services = [
     {
-      icon: Shield,
-      title: "Zero Deductible with 100% Coverage Package",
+      icon: "Sparkles",
+      title: "24/7 SELF-SERVICE",
       description:
-        "With our 100% coverage package, you'll enjoy peace of mind as there's no deposit required, and you won't need to worry about paying for scratches or dents. All damages, even to the rental vehicle, is fully covered.",
+        "Pick up your car whenever it suits you — day or night, fully contactless. No waiting, no hassle.",
     },
     {
-      icon: Clock,
-      title: "100% Flexible Cancellation Policy",
+      icon: "Car",
+      title: "No Hidden Fees",
       description:
-        "Life is full of surprises, and we understand that. With our flexible cancellation policy, you only pay for the days you rent, allowing you the freedom to adjust your plans without any hassles.",
+        "Transparency is at the core of our values. With YU Car Rental, what you see is what you get. Say goodbye to hidden charges and unexpected fees.",
     },
     {
-      icon: Car,
-      title: "New and Fuel Efficient Cars and Unlimited Miles",
+      icon: "Clock",
+      title: "Free pick-up service",
       description:
-        "Drive around the island in style with eco-friendly vehicles with our fleet of new Toyota cars and pickups. Enjoy a smooth and efficient ride while exploring Bonaire's stunning landscapes.",
+        "No more waiting in line! We offer a hassle free pick-up process, with our free pick-up service. Your rental vehicle will be waiting for you, so you can get started on your Bonaire adventure right away.",
     },
     {
-      icon: Percent,
-      title: "Online Reservation Discounts Up To 15%",
+      icon: "Shield",
+      title: "100% Coverage Package",
+      description:
+        "With our 100% coverage package, you'll enjoy peace of mind as there's no deposit required, and you won't need to worry about paying for scratches or dents.",
+    },
+    {
+      icon: "Percent",
+      title: "Up To 15% Discount",
       description:
         "Book online and save! Get up to 15% off on reservations of 7 days or longer.",
     },
     {
-      icon: Sparkles,
-      title: "Self Service Option (24 Hours A Day)",
+      icon: "Plane",
+      title: "Airport Pickup",
       description:
-        "We provide free self-service options to all customers. Just fill out the online check-in form that we will send to you by mail or WhatsApp and choose the Self-service after-work option.",
-    },
-    {
-      icon: Plane,
-      title: "Airport Pickup Service",
-      description:
-        "Upon arriving at the airport, your car will be in the airport parking lot, so you can just hop in and drive off and start the vacation.",
+        "Upon arriving at the airport, your car will be in the airport parking lot, so you can just hop in and drive off.",
     },
   ];
 
-  return (
-    <section className="py-20 bg-primary/15">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <span className="section-badge mb-4">
-            <Sparkles className="h-3 w-3" />
-            Services
-          </span>
-          <h2 className="text-3xl md:text-4xl font-display font-semibold">
-            Our Services
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-2xl border border-border bg-card hover:shadow-card transition-shadow"
-            >
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <service.icon className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
-              <p className="text-sm text-muted-foreground">
-                {service.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <ServicesCarousel services={services} />;
 };

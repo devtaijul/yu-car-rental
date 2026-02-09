@@ -57,7 +57,7 @@ const BookingSearch = () => {
       {/* Pickup Date */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="input-booking w-full max-w-56 flex items-center gap-2 min-w-40">
+          <button className="input-booking w-full md:max-w-56 flex items-center gap-2 min-w-40">
             <Calendar className="h-4 w-4 text-muted-foreground" />
             <span
               className={
@@ -82,7 +82,7 @@ const BookingSearch = () => {
       {/* Pickup Time */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="input-booking flex  max-w-56 w-full  items-center gap-2 min-w-35">
+          <button className="input-booking flex  md:max-w-56 w-full  items-center gap-2 min-w-35">
             <Clock className="h-4 w-4 text-muted-foreground" />
             <span>{pickupTime}</span>
             <ChevronDown className="h-4 w-4 text-muted-foreground ml-auto" />
@@ -109,7 +109,7 @@ const BookingSearch = () => {
       {/* Dropoff Date */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="input-booking flex w-full max-w-56   items-center gap-2 min-w-40">
+          <button className="input-booking flex w-full md:max-w-56   items-center gap-2 min-w-40">
             <Calendar className="h-4 w-4 text-muted-foreground" />
             <span
               className={
@@ -134,7 +134,7 @@ const BookingSearch = () => {
       {/* Dropoff Time */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="input-booking flex w-full  max-w-56 items-center gap-2 min-w-35">
+          <button className="input-booking flex w-full  md:max-w-56 items-center gap-2 min-w-35">
             <Clock className="h-4 w-4 text-muted-foreground" />
             <span>{dropoffTime}</span>
             <ChevronDown className="h-4 w-4 text-muted-foreground ml-auto" />
@@ -161,7 +161,7 @@ const BookingSearch = () => {
       {/* Search Button */}
       <Button
         onClick={handleSearch}
-        className="gradient-teal w-full  max-w-56 text-primary-foreground px-8 h-full py-3.5 rounded-none  font-semibold hover:opacity-90"
+        className="gradient-teal w-full  md:max-w-56 text-primary-foreground px-8 h-full py-3.5 rounded-none  font-semibold hover:opacity-90"
       >
         SEARCH
       </Button>

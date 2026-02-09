@@ -170,52 +170,53 @@ export const ServicesCarousel = ({
         {/* Carousel */}
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex gap-6">
-            {services.map((service, index) => {
-              const IconComponent = iconMap[service.icon];
+            {services?.length > 0 &&
+              services.map((service, index) => {
+                const IconComponent = iconMap[service.icon];
 
-              return (
-                <div
-                  key={index}
-                  className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] group lg:flex-[0_0_calc(33.333%-16px)] min-w-0 min-h-[380px]"
-                >
+                return (
                   <div
-                    className={`relative h-full rounded-2xl  p-6 md:p-8 overflow-hidden transition-all duration-300 bg-card border border-border group-hover:bg-[linear-gradient(_135deg,_hsl(193,_30%,_25%)_0%,_hsl(180,_25%,_35%)_100%_)] group-hover:text-primary-foreground`}
+                    key={index}
+                    className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] group lg:flex-[0_0_calc(33.333%-16px)] min-w-0 min-h-[380px]"
                   >
-                    {/* Background Number */}
-                    <span
-                      className={`absolute -top-8 -right-8 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none text-muted/50 group-hover:text-primary-foreground/10`}
+                    <div
+                      className={`relative h-full  p-6 md:p-8 overflow-hidden transition-colors duration-500 bg-card border border-border group-hover:bg-[linear-gradient(_135deg,_hsl(193,_30%,_25%)_0%,_hsl(180,_25%,_35%)_100%_)]  group-hover:text-primary-foreground`}
                     >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <div
-                        className={`w-12 h-12 rounded-lg flex items-center justify-center bg-muted group-hover:bg-primary/10 mb-6`}
+                      {/* Background Number */}
+                      <span
+                        className={`absolute -top-8 -right-8 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none text-muted/50 group-hover:text-primary-foreground/10`}
                       >
-                        {IconComponent && (
-                          <IconComponent
-                            className={`h-6 w-6 text-foreground group-hover:text-primary-foreground `}
-                          />
-                        )}
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div
+                          className={`w-12 h-12 rounded-lg flex items-center justify-center bg-muted group-hover:bg-primary/10 mb-6`}
+                        >
+                          {IconComponent && (
+                            <IconComponent
+                              className={`h-6 w-6 text-foreground group-hover:text-primary-foreground `}
+                            />
+                          )}
+                        </div>
+
+                        <h3
+                          className={`text-lg md:text-2xl font-semibold mb-3 text-foreground group-hover:text-primary-foreground`}
+                        >
+                          {service.title}
+                        </h3>
+
+                        <p
+                          className={`text-sm md:text-base leading-relaxed text-muted-foreground group-hover:text-primary-foreground/80`}
+                        >
+                          {service.description}
+                        </p>
                       </div>
-
-                      <h3
-                        className={`text-lg md:text-2xl font-semibold mb-3 text-foreground group-hover:text-primary-foreground`}
-                      >
-                        {service.title}
-                      </h3>
-
-                      <p
-                        className={`text-sm md:text-base leading-relaxed text-muted-foreground group-hover:text-primary-foreground/80`}
-                      >
-                        {service.description}
-                      </p>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </div>

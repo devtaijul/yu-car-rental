@@ -10,33 +10,33 @@ export const services = {
     },
     {
       icon: "Car",
-      title: "No Hidden Fees",
+      title: "Direct from Airport",
       description:
-        "Transparency is at the core of our values. With YU Car Rental, what you see is what you get. Say goodbye to hidden charges and unexpected fees.",
+        "Your car will be waiting in the airport parking lot. Just hop in and drive off. Your journey begins immediately.",
     },
     {
       icon: "Clock",
-      title: "Free pick-up service",
+      title: "Online Discount",
       description:
-        "No more waiting in line! We offer a hassle free pick-up process, with our free pick-up service. Your rental vehicle will be waiting for you, so you can get started on your Bonaire adventure right away.",
+        "Book through our digital platform and save up  to 3%, 6% and 12% instantly. Premium service at the best market price.",
     },
     {
       icon: "Shield",
-      title: "100% Coverage Package",
+      title: "Multilingual Team",
       description:
-        "With our 100% coverage package, you'll enjoy peace of mind as there's no deposit required, and you won't need to worry about paying for scratches or dents.",
+        "We speak your language. Our support is available in Dutch, English, Spanish and Papiamentu.",
     },
     {
       icon: "Percent",
-      title: "Up To 15% Discount",
+      title: "Local Expertise",
       description:
-        "Book online and save! Get up to 15% off on reservations of 7 days or longer.",
+        "As a local business, we know Bonaire inside and out — and we’re happy to share our secret  tips with you.",
     },
     {
       icon: "Plane",
-      title: "Airport Pickup",
+      title: "Effortless Flow",
       description:
-        "Upon arriving at the airport, your car will be in the airport parking lot, so you can just hop in and drive off.",
+        "From perfectly prepared cars to clear instructions, we make sure your journey begins relaxed, smooth and stress-free.",
     },
   ],
 

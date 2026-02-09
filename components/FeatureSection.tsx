@@ -1,19 +1,19 @@
-import { Car, Shield } from "lucide-react";
-import React from "react";
+import { IconName } from "@/config/icons.config";
+import { Icons } from "./icons";
 
 const Item = ({
   title,
   details,
-  Icon,
+  icon,
 }: {
   title: string;
   details: string;
-  Icon: React.ElementType;
+  icon: IconName;
 }) => {
   return (
     <div className="max-w-sm flex flex-col space-y-3">
       <div className="flex items-center gap-4">
-        <Icon />
+        <Icons name="car_icon" className="h-8 w-8" />
         <h3 className="font-semibold mb-1">{title}</h3>
       </div>
       <div>
@@ -28,18 +28,18 @@ export const FeatureSection = () => {
     {
       title: "Distinctive fleet",
       details: "From high-end convertibles to premium SUVs",
-      Icon: () => <Car className="h-8 w-8" />,
+      icon: "car_icon ",
     },
     {
       title: "Exceptional service",
       details: "Stress-free, trustworthy, no hidden costs",
-      Icon: () => <Shield className="h-8  w-8" />,
+      icon: "car_icon ",
     },
   ];
   return (
     <section className="bg-white py-20">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center gap-5 md:gap-28 ">
+        <div className="flex items-center justify-center gap-14 md:gap-28 flex-col md:flex-row">
           {features.map((feature, index) => (
             <Item key={index} {...feature} />
           ))}

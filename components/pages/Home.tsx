@@ -4,17 +4,16 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
-import { Car, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Car } from "lucide-react";
 
 import { cars } from "@/data/cars";
 import { Locale } from "@/types/utils";
+import FAQSection from "../FAQSection";
 import { FeatureSection } from "../FeatureSection";
 import { HeroSection } from "../HeroSection";
-import { ServicesSection } from "../ServicesSection";
-import { Button } from "../ui/button";
 import { PricingTable } from "../PricingTable";
-import FAQSection from "../FAQSection";
 import ReviewsCarousel from "../ReviewsCarousel";
+import { ServicesSection } from "../ServicesSection";
 
 export const HomePage = ({ lang }: { lang: Locale }) => {
   return (
@@ -44,14 +43,13 @@ export const HomePage = ({ lang }: { lang: Locale }) => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cars.slice(0, 6).map((car, index) => (
+            {cars.slice(0, 6).map((car) => (
               <CarCard
                 key={car.id}
                 name={car.name}
                 image={car.image}
                 price={car.price}
                 specs={car.specs}
-                variant={index < 3 ? "dark" : "light"}
                 id={car.id}
               />
             ))}

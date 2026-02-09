@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Gauge, Fuel, Settings, Users } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Icons } from "./icons";
 
 interface CarCardProps {
   id: string;
@@ -20,15 +21,7 @@ interface CarCardProps {
   onRent?: () => void;
 }
 
-const CarCard = ({
-  id,
-  name,
-  image,
-  price,
-  specs,
-  variant = "dark",
-}: CarCardProps) => {
-  const isDark = variant === "dark";
+const CarCard = ({ id, name, image, price, specs }: CarCardProps) => {
   const router = useRouter();
   const onRent = () => {
     router.push(`/booking/${id}`);
@@ -36,7 +29,7 @@ const CarCard = ({
 
   return (
     <div
-      className={`card-car ${isDark ? "card-car-gradient" : "bg-card border border-border"}`}
+      className={`card-car rounded-none card-car-gradient bg-card border border-border`}
     >
       {/* Image */}
       <div className="relative h-48 flex items-center justify-center p-4">
@@ -50,31 +43,31 @@ const CarCard = ({
       </div>
 
       {/* Content */}
-      <div
-        className={`p-5 ${isDark ? "text-primary-foreground" : "text-foreground"}`}
-      >
-        <h3 className="text-xl font-display font-semibold mb-4">{name}</h3>
+      <div className={`p-5 text-primary-foreground `}>
+        <h3 className="text-xl md:text-2xl lg:text-3xl font-display font-semibold mb-4">
+          {name}
+        </h3>
 
         {/* Specs */}
-        <div className="grid grid-cols-4 gap-2 mb-6">
+        <div className="grid grid-cols-4 gap-2 mb-6 border border-gray-400 p-2 rounded-xl ">
           <div className="flex flex-col items-center gap-1">
-            <Users className="h-4 w-4 opacity-70" />
-            <span className="text-xs opacity-70">{specs.seats}</span>
+            <Icons name="mile_icon" className="w-7 h-7" />
+            <span className="text-xs ">{specs.seats}</span>
             <span className="text-[10px] opacity-50">Seats</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Gauge className="h-4 w-4 opacity-70" />
-            <span className="text-xs opacity-70">{specs.engine}</span>
+            <Icons name="gas_icon" className="w-7 h-7" />
+            <span className="text-xs ">{specs.engine}</span>
             <span className="text-[10px] opacity-50">Engine</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Fuel className="h-4 w-4 opacity-70" />
-            <span className="text-xs opacity-70">{specs.fuel}</span>
+            <Icons name="fuel_icon" className="w-7 h-7" />
+            <span className="text-xs ">{specs.fuel}</span>
             <span className="text-[10px] opacity-50">Fuel</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Settings className="h-4 w-4 opacity-70" />
-            <span className="text-xs opacity-70">{specs.transmission}</span>
+            <Icons name="setting_icon" className="w-7 h-7" />
+            <span className="text-xs ">{specs.transmission}</span>
             <span className="text-[10px] opacity-50">Trans</span>
           </div>
         </div>
@@ -87,8 +80,7 @@ const CarCard = ({
           </div>
           <Button
             onClick={onRent}
-            variant={isDark ? "secondary" : "outline"}
-            className={isDark ? "bg-card text-foreground hover:bg-card/90" : ""}
+            className={"bg-card text-foreground hover:bg-card/90 rounded-none"}
           >
             Rent Now
           </Button>

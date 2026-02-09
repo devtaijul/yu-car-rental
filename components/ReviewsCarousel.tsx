@@ -91,7 +91,7 @@ const ReviewsCarousel = () => {
         {/* Content */}
         <div className="flex flex-col lg:flex-row gap-6 items-stretch">
           {/* Rating Card */}
-          <div className="gradient-teal text-primary-foreground rounded-2xl p-8 flex flex-col justify-center items-center lg:min-w-[280px]">
+          <div className="gradient-teal text-primary-foreground  p-8 flex flex-col justify-center items-center lg:min-w-[280px]">
             <div className="text-5xl md:text-6xl font-bold mb-3">4.6/5</div>
             <div className="flex justify-center gap-1 mb-3">
               {[1, 2, 3, 4, 5].map((star) => (
@@ -111,7 +111,7 @@ const ReviewsCarousel = () => {
           </div>
 
           {/* Review Card */}
-          <div className="flex-1 bg-card border border-border rounded-2xl p-6 md:p-8 transition-all duration-300">
+          <div className="flex-1 bg-card border border-border  p-6 md:p-8 transition-all duration-300">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
               <div className="flex items-center gap-4 flex-1">
                 <div className="w-12 h-12 rounded-full bg-linear-to-br from-primary/30 to-primary/10 flex items-center justify-center shrink-0">

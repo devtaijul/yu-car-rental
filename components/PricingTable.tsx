@@ -97,12 +97,12 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto py-20">
       {/* Header Row */}
-      <div className="grid grid-cols-3 mb-4">
+      <div className="grid grid-cols-3 ">
         <div></div>
         <div className="text-center">
-          <div className="border border-border rounded-t-xl py-4 bg-card">
+          <div className="border border-border  py-4 bg-card">
             <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
               Standard
             </p>
@@ -112,7 +112,7 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
           </div>
         </div>
         <div className="text-center">
-          <div className="gradient-teal rounded-t-xl py-4 relative">
+          <div className="gradient-teal  py-4 relative">
             <span className="absolute top-2 right-4 text-[10px] text-primary-foreground/80 uppercase tracking-wider">
               Recommended
             </span>
@@ -127,21 +127,21 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
       </div>
 
       {/* Feature Rows */}
-      <div className="border border-border rounded-xl overflow-hidden bg-card">
+      <div className="border border-border  overflow-hidden bg-card">
         {features.map((feature, index) => (
           <div
             key={feature.name}
-            className={`grid grid-cols-3 items-center py-4 px-4 ${
+            className={`grid grid-cols-3 items-center   ${
               index !== features.length - 1 ? "border-b border-border" : ""
             }`}
           >
-            <div className="text-sm font-medium text-foreground">
+            <div className="text-sm font-medium text-foreground p-4">
               {feature.name}
             </div>
-            <div className="text-center text-sm">
+            <div className="text-center text-sm p-4">
               {renderValue(feature.standard, true, feature.isPremiumHighlight)}
             </div>
-            <div className="text-center text-sm font-medium">
+            <div className="text-center text-sm font-medium p-4 bg-primary/10">
               {renderValue(feature.premium, false, feature.isPremiumHighlight)}
             </div>
           </div>
@@ -169,7 +169,7 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
         <div>
           <Button
             variant="outline"
-            className={`w-full rounded-full py-6 ${
+            className={`w-full rounded-none py-6 ${
               selectedPackage === "standard" ? "border-primary border-2" : ""
             }`}
             onClick={() => onSelectPackage("standard")}
@@ -179,7 +179,7 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
         </div>
         <div>
           <Button
-            className={`w-full gradient-teal text-primary-foreground rounded-full py-6 hover:opacity-90 ${
+            className={`w-full gradient-teal text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
               selectedPackage === "premium"
                 ? "ring-2 ring-offset-2 ring-primary"
                 : ""

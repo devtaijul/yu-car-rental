@@ -16,7 +16,7 @@ export const cars: Car[] = [
   {
     id: "1",
     name: "Lunova Hatch",
-    image: `/assets/car-hatchback.png`,
+    image: `/car/car-1.png`,
     price: 599,
     specs: {
       seats: 5,
@@ -29,7 +29,7 @@ export const cars: Car[] = [
   {
     id: "2",
     name: "Altura X5",
-    image: "/assets/car-suv-white.png",
+    image: "/car/car-2.png",
     price: 599,
     specs: {
       seats: 7,
@@ -42,7 +42,7 @@ export const cars: Car[] = [
   {
     id: "3",
     name: "Veyra Trail",
-    image: "/assets/car-crossover.png",
+    image: "/car/car-3.png",
     price: 599,
     specs: {
       seats: 5,
@@ -55,7 +55,7 @@ export const cars: Car[] = [
   {
     id: "4",
     name: "Aventa Solis",
-    image: "/assets/car-sedan-blue.png",
+    image: "/car/car-4.png",
     price: 799,
     specs: {
       seats: 4,
@@ -68,7 +68,7 @@ export const cars: Car[] = [
   {
     id: "5",
     name: "Orion Terra",
-    image: "/assets/car-electric.png",
+    image: "/car/car-5.png",
     price: 699,
     specs: {
       seats: 5,
@@ -81,7 +81,7 @@ export const cars: Car[] = [
   {
     id: "6",
     name: "Nova Compact",
-    image: "/assets/car-hatchback.png",
+    image: "/car/car-6.png",
     price: 449,
     specs: {
       seats: 5,

@@ -29,7 +29,7 @@ const Deals = () => {
                 <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground">
                   SELF-SERVICE
                 </h1>
-                <h2 className="text-4xl md:text-5xl font-display italic text-primary/40">
+                <h2 className="text-4xl md:text-5xl font-display italic text-stroke-3 text-primary/40">
                   24/7
                 </h2>
                 <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground">

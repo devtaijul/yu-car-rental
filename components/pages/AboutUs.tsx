@@ -1,23 +1,26 @@
-import { Button } from "@/components/ui/button";
-import {
-  Heart,
-  Shield,
-  Settings,
-  Users,
-  Globe,
-  Zap,
-  Clock,
-  Plane,
-  Percent,
-  ArrowRight,
-} from "lucide-react";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { Button } from "@/components/ui/button";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import {
+  Clock,
+  Globe,
+  Heart,
+  Percent,
+  Plane,
+  Settings,
+  Shield,
+  Users,
+  Zap,
+} from "lucide-react";
 
-const aboutRelaxed = "/assets/about-relaxed.jpg";
 import Link from "next/link";
-import Image from "next/image";
+import { AboutHero } from "../AboutHero";
+import { AboutMobilitySection } from "../AboutMobilitySection";
+import { HeaderSpace } from "../HeaderSpace";
+import { Marquee } from "../Marquee";
+import { TextStroke } from "../TextStroke";
+import { DividerText } from "../DividerText";
 
 const marqueeItems = [
   "PURE ENJOYMENT",
@@ -94,170 +97,69 @@ const AboutUs = () => {
       <div className="relative min-h-[90vh] bg-background overflow-hidden">
         <div className="relative z-20">
           <Header />
+          <HeaderSpace />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 pt-8 md:pt-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center min-h-[60vh]">
-            {/* Left Content */}
-            <div>
-              <span className="text-xs tracking-[0.2em] text-muted-foreground font-medium">
-                WELCOME TO YU CAR RENTAL
-              </span>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.9] mt-4 mb-6">
-                DRIVE
-                <br />
-                <span
-                  className="font-display italic"
-                  style={{
-                    WebkitTextStroke: "2px hsl(193, 30%, 25%)",
-                    WebkitTextFillColor: "transparent",
-                    color: "transparent",
-                  }}
-                >
-                  INTO
-                </span>
-                <br />
-                FREEDOM
-              </h1>
-            </div>
-
-            {/* Right Content */}
-            <div className="relative flex flex-col justify-center">
-              {/* Large YU watermark */}
-              <div className="absolute -top-10 -right-10 text-[200px] font-display italic text-muted/30 select-none pointer-events-none z-0 opacity-20">
-                yu
-              </div>
-              <p className="text-sm text-muted-foreground max-w-sm leading-relaxed mb-6 relative z-10">
-                Your trusted partner for worry-free transportation on the
-                beautiful island of Bonaire. Effortless driving starts at YU —
-                smooth, reliable, unforgettable.
-              </p>
-              <Link href="/booking" className="relative z-10">
-                <Button className=" px-8 py-6 group" variant={"ghost"}>
-                  EXPLORE OUR FLEET
-                  <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
+        <AboutHero />
       </div>
 
       {/* Marquee Section */}
-      <div className="bg-[hsl(var(--primary))] text-primary-foreground py-4 overflow-hidden">
-        <div className="flex animate-[marquee_20s_linear_infinite] whitespace-nowrap">
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span
-              key={i}
-              className="mx-8 text-sm font-semibold tracking-widest flex items-center gap-3"
-            >
-              <span className="text-primary-foreground/50">✦</span> {item}
-            </span>
-          ))}
-        </div>
-      </div>
+
+      <Marquee
+        items={[...marqueeItems, ...marqueeItems]}
+        className="bg-primary text-primary-foreground py-12"
+        speed={25}
+        direction="left"
+        pauseOnHover
+      />
 
       {/* Mobility as Relaxed Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="relative rounded-2xl overflow-hidden aspect-4/3">
-              <Image
-                src={aboutRelaxed}
-                alt="Relaxed mobility"
-                className="w-full h-full object-cover"
-                width={500}
-                height={500}
-              />
-              <div className="absolute bottom-4 left-4 bg-primary text-primary-foreground rounded-xl px-4 py-3 flex items-center gap-2">
-                <Heart className="h-4 w-4" />
-                <div>
-                  <div className="text-xs font-bold">5+ YEARS</div>
-                  <div className="text-[10px] opacity-70">ON THE ROAD</div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 leading-tight">
-                MOBILITY AS{" "}
-                <span
-                  className="font-display italic"
-                  style={{
-                    WebkitTextStroke: "2px hsl(193, 30%, 25%)",
-                    WebkitTextFillColor: "transparent",
-                    color: "transparent",
-                  }}
-                >
-                  RELAXED
-                </span>
-                <br />
-                AS YOUR VACATION.
-              </h2>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                We understand exactly what you need to experience: fun, beauty,
-                and leisure. Travelers are welcome and offered an easy,
-                comfortable and special car fleet with a heartfelt welcome. You
-                can simply leave it to us — relaxed, smooth and stress-free.
-              </p>
-              <p className="text-xs text-muted-foreground italic mb-6">
-                Our Mission: To give you the best experience from the moment you
-                land until the moment you leave.
-              </p>
-              <Link
-                href="/booking"
-                className="text-sm font-semibold text-primary hover:underline flex items-center gap-2"
-              >
-                BOOK YOUR ADVENTURE <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutMobilitySection />
 
       {/* Our Commitment Section */}
-      <section className="py-20 bg-secondary/30">
+      <section className="py-20 bg-primary text-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <span className="text-xs tracking-[0.2em] text-muted-foreground">
               STANDARD OF EXCELLENCE
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-3">
               OUR{" "}
-              <span
-                className="font-display italic"
-                style={{
-                  WebkitTextStroke: "2px hsl(193, 30%, 25%)",
-                  WebkitTextFillColor: "transparent",
-                  color: "transparent",
-                }}
+              <TextStroke
+                className="itelic"
+                fillColor="transparent"
+                strokeColor="white"
+                strokeWidth="1px"
               >
                 COMMITMENT
-              </span>
+              </TextStroke>
               <br />
               TO YOU
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-12 gap-6  mx-auto">
             {commitments.map((item, index) => (
               <div
                 key={index}
-                className="bg-card rounded-2xl p-8 shadow-sm border border-border"
+                className="bg-[#FFFFFF0D] p-8 space-y-6 border border-[#ffffff27]"
               >
-                <item.icon className="h-6 w-6 text-primary mb-4" />
-                <h3 className="text-lg font-display font-bold mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {item.description}
-                </p>
-                <Link
+                <div className="flex items-center gap-4">
+                  <item.icon className="h-12 w-12 text-white " />
+                  <h3 className="text-3xl  font-bold ">{item.title}</h3>
+                </div>
+                <p className="text-lg  leading-relaxed">{item.description}</p>
+                <DividerText
+                  text="ZERO DEDUCTIBLE INCLUDED"
+                  side="left"
+                  className=""
+                />
+                {/* <Link
                   href="/services"
                   className="text-xs font-semibold text-primary hover:underline mt-4 inline-block"
                 >
                   LEARN MORE →
-                </Link>
+                </Link> */}
               </div>
             ))}
           </div>

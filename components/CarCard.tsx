@@ -37,7 +37,7 @@ const CarCard = ({ id, name, image, price, specs }: CarCardProps) => {
           src={image}
           alt={name}
           className="max-h-full max-w-full object-contain"
-          width={500}
+          width={800}
           height={500}
         />
       </div>

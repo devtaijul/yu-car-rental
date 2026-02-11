@@ -6,11 +6,12 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="gradient-teal text-primary-foreground relative overflow-hidden">
+    <footer className="bg-primary text-primary-foreground relative overflow-hidden">
       {/* Large YU watermark */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[300px] font-display italic opacity-10 select-none pointer-events-none">
         yu
@@ -26,17 +27,12 @@ const Footer = () => {
             </h2>
 
             {/* Logo */}
-            <div className="flex items-center gap-2 mb-8">
-              <span className="text-4xl font-display font-bold italic">yu</span>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold tracking-wider">
-                  CAR RENTAL
-                </span>
-                <span className="text-[10px] opacity-70 tracking-widest">
-                  DRIVE INTO ADVENTURE
-                </span>
-              </div>
-            </div>
+            <Image
+              src="/assets/logo-footer.png"
+              alt="Logo"
+              width={100}
+              height={100}
+            />
           </div>
 
           {/* Right Side */}

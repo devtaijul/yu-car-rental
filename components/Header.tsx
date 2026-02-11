@@ -39,7 +39,7 @@ const Header = () => {
               {/* Logo */}
               <Link href="/" className="flex items-center gap-2">
                 <Image
-                  src="/assets/car-rental-logo.png"
+                  src="/assets/logo-nav.png"
                   alt="yu"
                   width={150}
                   height={32}

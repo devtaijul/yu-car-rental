@@ -161,7 +161,7 @@ const BookingSearch = () => {
       {/* Search Button */}
       <Button
         onClick={handleSearch}
-        className="gradient-teal w-full  md:max-w-56 text-primary-foreground px-8 h-full py-3.5 rounded-none  font-semibold hover:opacity-90"
+        className="bg-primary w-full  md:max-w-56 text-primary-foreground px-8 h-full py-3.5 rounded-none  font-semibold hover:opacity-90"
       >
         SEARCH
       </Button>

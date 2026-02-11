@@ -60,7 +60,7 @@ const FAQSection = () => {
                 className={cn(
                   " overflow-hidden transition-all duration-300",
                   isOpen
-                    ? "gradient-teal text-primary-foreground"
+                    ? "bg-primary text-primary-foreground"
                     : "bg-[hsl(193,20%,82%)] text-foreground hover:bg-[hsl(193,22%,78%)]",
                 )}
               >

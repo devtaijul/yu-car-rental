@@ -18,6 +18,9 @@ export const AboutHero = () => {
             backgroundRepeat: "no-repeat",
           }}
         ></div>
+        <div className="absolute right-0 rotate-90 top-[50%] font-bold tracking-[0.3rem] text-primary">
+          PREMIUM ISLAND MOBILITY
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-[40vh] gap-8 items-end h-full  ">
           {/* Left Content */}
           <div>

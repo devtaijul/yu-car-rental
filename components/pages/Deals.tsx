@@ -6,6 +6,7 @@ import { Calendar, CheckCircle, Car, Key } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeaderSpace } from "../HeaderSpace";
+import { TextStroke } from "../TextStroke";
 
 const Deals = () => {
   return (
@@ -16,9 +17,9 @@ const Deals = () => {
       {/* Deal 01 - Self Service */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="flex flex-col md:flex-row gap-12 items-start">
             {/* Left Content */}
-            <div>
+            <div className="flex-1">
               {/* Badge */}
               <span className="text-xs font-bold tracking-[0.15em] text-primary uppercase">
                 Deal 01 — Exclusive Benefits
@@ -26,12 +27,15 @@ const Deals = () => {
 
               {/* Title */}
               <div className="mt-4 mb-8">
-                <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground">
                   SELF-SERVICE
                 </h1>
-                <h2 className="text-4xl md:text-5xl font-display italic text-stroke-3 text-primary/40">
+                <TextStroke
+                  strokeWidth="1px"
+                  className="italic font-bold text-4xl md:text-5xl lg:text-6xl "
+                >
                   24/7
-                </h2>
+                </TextStroke>
                 <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground">
                   EXCLUSIVE
                   <br />
@@ -120,14 +124,14 @@ const Deals = () => {
             </div>
 
             {/* Right Content - Image */}
-            <div className="relative">
-              <div className="rounded-xl overflow-hidden shadow-2xl">
+            <div className="relative ">
+              <div className=" overflow-hidden shadow-2xl">
                 <Image
                   src="/assets/driving-hand.png"
                   alt="Hands on steering wheel"
-                  className="w-full h-auto object-cover grayscale"
+                  className="w-full max-w-[500px] h-auto object-cover aspect-3/4   grayscale"
                   width={500}
-                  height={500}
+                  height={800}
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-6">
                   <h4 className="text-xs font-bold tracking-[0.15em] text-white/70 uppercase mb-1">
@@ -157,9 +161,12 @@ const Deals = () => {
             <div>
               {/* Title */}
               <div className="mb-8">
-                <h2 className="text-4xl md:text-5xl font-display italic text-primary/40">
+                <TextStroke
+                  strokeWidth="1px"
+                  className="italic font-bold text-4xl md:text-5xl "
+                >
                   FREEDOM
-                </h2>
+                </TextStroke>
                 <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground">
                   AROUND
                   <br />
@@ -176,8 +183,8 @@ const Deals = () => {
               {/* Features */}
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <Car className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10  bg-primary flex items-center justify-center shrink-0">
+                    <Car className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <h4 className="font-bold text-foreground uppercase text-sm">
@@ -191,8 +198,8 @@ const Deals = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <Key className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 bg-primary flex items-center justify-center shrink-0">
+                    <Key className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <h4 className="font-bold text-foreground uppercase text-sm">
@@ -208,16 +215,16 @@ const Deals = () => {
             </div>
 
             {/* Right Content - Instructions Card */}
-            <div className="bg-card border border-border rounded-xl p-8 shadow-sm">
+            <div className="bg-primary/10  p-12">
               <h4 className="text-xs font-bold tracking-[0.15em] text-primary uppercase mb-6">
                 Instructions
               </h4>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-black mb-8">
                 All instructions and exact details on how this service works
                 will be provided upon completing your reservation.
               </p>
 
-              <p className="text-xl md:text-2xl font-display italic text-foreground mb-6">
+              <p className="text-lg md:text-xl font-display  text-foreground mb-6">
                 We ensure everything is perfectly prepared for your arrival.
                 From the moment you land, your journey begins in style.
               </p>
@@ -227,7 +234,7 @@ const Deals = () => {
               </p>
 
               <Link href="/booking">
-                <Button className="gradient-teal text-primary-foreground hover:opacity-90 rounded-lg px-8 py-3 h-auto font-semibold uppercase tracking-wide">
+                <Button className="bg-primary text-white hover:opacity-90 px-8 py-3 h-auto font-semibold uppercase tracking-wide">
                   Get Started Now
                 </Button>
               </Link>

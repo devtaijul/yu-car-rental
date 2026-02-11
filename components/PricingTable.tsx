@@ -5,12 +5,10 @@ import { Button } from "@/components/ui/button";
 
 interface PricingTableProps {
   selectedPackage?: "standard" | "premium";
-// onSelectCoverage: (coverage: "standard" | "premium") => void;
+  // onSelectCoverage: (coverage: "standard" | "premium") => void;
 }
 
-export const PricingTable = ({
-  selectedPackage,
-}: PricingTableProps) => {
+export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
   const features = [
     {
       name: "Deductible Risk",
@@ -115,7 +113,7 @@ export const PricingTable = ({
           </div>
         </div>
         <div className="text-center">
-          <div className="gradient-teal  py-4 relative">
+          <div className="bg-primary  py-4 relative">
             <span className="absolute top-2 right-4 text-[10px] text-primary-foreground/80 uppercase tracking-wider">
               Recommended
             </span>
@@ -182,7 +180,7 @@ export const PricingTable = ({
         </div>
         <div>
           <Button
-            className={`w-full gradient-teal text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
+            className={`w-full bg-primary text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
               selectedPackage === "premium"
                 ? "ring-2 ring-offset-2 ring-primary"
                 : ""

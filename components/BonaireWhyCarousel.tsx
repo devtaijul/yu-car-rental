@@ -14,6 +14,7 @@ import {
   Plane,
   LucideIcon,
 } from "lucide-react";
+import Image from "next/image";
 
 // Map of icon names to icon components
 const iconMap: Record<string, LucideIcon> = {
@@ -25,11 +26,12 @@ const iconMap: Record<string, LucideIcon> = {
   Plane,
 };
 
-export const ServicesCarousel = ({
+export const BonaireWhyCarousel = ({
   services,
 }: {
   services: {
-    icon: string;
+    image: string;
+    category: string;
     title: string;
     description: string;
   }[];
@@ -133,17 +135,39 @@ export const ServicesCarousel = ({
     <section className="py-20 bg-[#BFD1D780]">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex items-start justify-between mb-10">
-          <div>
-            <span className="section-badge mb-4">
-              <span className="w-2 h-2 rounded-full bg-primary" />
-              Services
-            </span>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold">
-              Our Services
-            </h2>
-          </div>
 
+        {/* Carousel */}
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex gap-6">
+            {services?.length > 0 &&
+              services.map((service, index) => {
+                return (
+                  <div key={index} className="group">
+                    <div className="relative rounded-2xl overflow-hidden aspect-4/3 mb-4">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        width={500}
+                        height={500}
+                      />
+                    </div>
+                    <span className="text-xs tracking-[0.15em] text-primary font-medium">
+                      {service.category}
+                    </span>
+                    <h3 className="text-xl font-display font-bold mt-1 mb-2">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+        {/* Footer */}
+        <div className="flex items-start justify-between mb-10">
           {/* Navigation Arrows */}
           <div className="flex gap-2">
             <Button
@@ -164,59 +188,6 @@ export const ServicesCarousel = ({
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
-          </div>
-        </div>
-
-        {/* Carousel */}
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-6">
-            {services?.length > 0 &&
-              services.map((service, index) => {
-                const IconComponent = iconMap[service.icon];
-
-                return (
-                  <div
-                    key={index}
-                    className="flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] group lg:flex-[0_0_calc(33.333%-16px)] min-w-0 min-h-[380px]"
-                  >
-                    <div
-                      className={`relative h-full  p-6 md:p-8 overflow-hidden transition-all duration-100 bg-card border border-border group-hover:bg-primary  group-hover:text-primary-foreground`}
-                    >
-                      {/* Background Number */}
-                      <span
-                        className={`absolute -top-8 -right-8 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none text-muted/50 group-hover:text-primary-foreground/10`}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      {/* Content */}
-                      <div className="relative z-10">
-                        <div
-                          className={`w-12 h-12 rounded-lg flex items-center justify-center bg-muted group-hover:bg-primary/10 mb-6`}
-                        >
-                          {IconComponent && (
-                            <IconComponent
-                              className={`h-6 w-6 text-foreground group-hover:text-primary-foreground `}
-                            />
-                          )}
-                        </div>
-
-                        <h3
-                          className={`text-lg md:text-2xl font-semibold mb-3 text-foreground group-hover:text-primary-foreground`}
-                        >
-                          {service.title}
-                        </h3>
-
-                        <p
-                          className={`text-sm md:text-base leading-relaxed text-muted-foreground group-hover:text-primary-foreground/80`}
-                        >
-                          {service.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
           </div>
         </div>
       </div>

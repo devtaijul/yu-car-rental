@@ -91,7 +91,7 @@ const ReviewsCarousel = () => {
         {/* Content */}
         <div className="flex flex-col lg:flex-row gap-6 items-stretch">
           {/* Rating Card */}
-          <div className="gradient-teal text-primary-foreground  p-8 flex flex-col justify-center items-center lg:min-w-[280px]">
+          <div className="bg-primary text-primary-foreground  p-8 flex flex-col justify-center items-center lg:min-w-[280px]">
             <div className="text-5xl md:text-6xl font-bold mb-3">4.6/5</div>
             <div className="flex justify-center gap-1 mb-3">
               {[1, 2, 3, 4, 5].map((star) => (

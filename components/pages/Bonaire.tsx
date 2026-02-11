@@ -9,9 +9,11 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
 // Import images
-import heroSunset from "@/assets/bonaire-hero-sunset.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { BonaireWhy } from "../BonaireWhy";
+import { HeaderSpace } from "../HeaderSpace";
+import { TextStroke } from "../TextStroke";
 
 const carouselImages = [
   { id: 1, src: "/assets/bonaire-hero-sunset.jpg", alt: "Sunset view" },
@@ -20,30 +22,6 @@ const carouselImages = [
   { id: 4, src: "/assets/bonaire-beach.jpg", alt: "Beach paradise" },
   { id: 5, src: "/assets/bonaire-diving.jpg", alt: "Diving" },
   { id: 6, src: "/assets/bonaire-diving.jpg", alt: "Island driving" },
-];
-
-const whyNeedCarItems = [
-  {
-    image: `/assets/bonaire-diving.jpg`,
-    category: "SHORE DIVING",
-    title: "DIVE ON YOUR TERMS",
-    description:
-      "Bonaire is the shore-diving capital of the world. Our packages come with custom dive racks, allowing you to drive directly to over 80 dive sites.",
-  },
-  {
-    image: "/assets/bonaire-lighthouse.jpg",
-    category: "NATIONAL PARK",
-    title: "UNREACHABLE HEIGHTS",
-    description:
-      "Washington Slagbaai National Park requires high-clearance vehicles. Our Plazus fleet is fully compliant with park regulations for safety and access.",
-  },
-  {
-    image: "/assets/bonaire-beach.jpg",
-    category: "FREEDOM",
-    title: "NO LIMITS, NO LAGS",
-    description:
-      "Public transport is minimal. Taxis are costly for daily trips. A rental car gives you the freedom to chase sunsets and hidden beaches at any hour.",
-  },
 ];
 
 const drivingLaws = [
@@ -132,6 +110,7 @@ const Bonaire = () => {
         {/* Header */}
         <div className="relative z-20">
           <Header />
+          <HeaderSpace />
         </div>
 
         {/* Hero Content */}
@@ -159,9 +138,9 @@ const Bonaire = () => {
 
           {/* CTA Button */}
           <Link href="/booking">
-            <Button className="gradient-teal text-primary-foreground rounded-lg px-8 py-6 text-base font-semibold group">
+            <Button className="bg-primary text-white px-10 py-6 text-base font-semibold group">
               EXPLORE FLEET
-              <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="h-4 w-4  group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
         </div>
@@ -325,55 +304,15 @@ const Bonaire = () => {
       </div>
 
       {/* Why You Need a Car Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <span className="text-sm tracking-[0.2em] text-primary font-medium">
-              THE ESSENTIAL GUIDE
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-3">
-              WHY YOU NEED A CAR
-              <br />
-              IN BONAIRE.
-            </h2>
-          </div>
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {whyNeedCarItems.map((item, index) => (
-              <div key={index} className="group">
-                <div className="relative rounded-2xl overflow-hidden aspect-4/3 mb-4">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    width={500}
-                    height={500}
-                  />
-                </div>
-                <span className="text-xs tracking-[0.15em] text-primary font-medium">
-                  {item.category}
-                </span>
-                <h3 className="text-xl font-display font-bold mt-1 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BonaireWhy />
 
       {/* Driving Laws Section */}
-      <section className="py-20 bg-[hsl(var(--primary))]">
+      <section className="py-20 bg-[#142D35]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="text-primary-foreground">
-              <span className="text-xs tracking-[0.2em] text-primary-foreground/70 font-medium">
+              <span className="text-xs tracking-[0.2em] text-primary font-medium">
                 LOCAL KNOWLEDGE
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mt-3 mb-8 leading-tight">
@@ -385,7 +324,7 @@ const Bonaire = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {drivingLaws.map((law, index) => (
                   <div key={index}>
-                    <h4 className="text-sm font-semibold text-primary-foreground/70 mb-2">
+                    <h4 className="text-sm font-semibold text-primary mb-2">
                       {law.title}
                     </h4>
                     <p className="text-sm text-primary-foreground/80 leading-relaxed">
@@ -400,7 +339,7 @@ const Bonaire = () => {
             <div className="relative">
               <div className="rounded-2xl overflow-hidden">
                 <Image
-                  src={"/assets/bonaire-diving.jpg"}
+                  src={"/assets/Bonaire Driving.png"}
                   alt="Driving in Bonaire"
                   className="w-full h-auto object-cover"
                   width={500}
@@ -413,33 +352,28 @@ const Bonaire = () => {
       </section>
 
       {/* Your Key to Freedom CTA Section */}
-      <section className="py-24 gradient-teal text-center">
+      <section className="py-24 text-center">
         <div className="container mx-auto px-4">
-          <span className="text-sm tracking-[0.2em] text-primary-foreground/70 font-medium">
+          <span className="text-sm text-primary tracking-[0.3em]  font-medium">
             READY TO EXPLORE BONAIRE AT YOUR OWN PACE?
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground mt-4 mb-2">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl  font-bold mt-4 mb-2">
             YOUR KEY TO
           </h2>
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6"
-            style={{
-              background: "linear-gradient(90deg, #4fd1c5, #38b2ac)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              textShadow: "0 0 40px rgba(79, 209, 197, 0.3)",
-            }}
+          <TextStroke
+            strokeWidth="1px"
+            className="font-bold text-4xl md:text-5xl lg:text-6xl "
           >
             FREEDOM.
-          </h2>
-          <p className="text-primary-foreground/80 text-sm max-w-xl mx-auto mb-8">
+          </TextStroke>
+          <p className="font-medium max-w-xl text-primary mx-auto mb-8 mt-5">
             IF YOU WANT TO LEARN MORE ABOUT OUR BEAUTIFUL ISLAND OF BONAIRE, YOU
             CAN SEARCH FOR MORE ACTIVITIES HERE:
           </p>
           <Link href="/booking">
             <Button
               variant="outline"
-              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary rounded-lg px-8 py-6"
+              className=" text-white bg-primary underline  px-8 py-6"
             >
               EXPLORE BONAIRE MORE
             </Button>

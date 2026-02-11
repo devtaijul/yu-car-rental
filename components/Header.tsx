@@ -21,9 +21,8 @@ const Header = () => {
       name: "Services",
       href: "/services",
       submenu: [
-        { name: "Service-1", href: "/services-1" },
-        { name: "Service-2", href: "/services-2" },
-        { name: "Service-3", href: "/services-3" },
+        { name: "Airport Service", href: "/airport" },
+        { name: "Help Service", href: "/help" },
       ],
     },
     { name: "Bonaire", href: "/bonaire", submenu: [] },

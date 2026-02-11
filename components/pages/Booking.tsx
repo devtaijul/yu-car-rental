@@ -335,7 +335,7 @@ const Booking = () => {
               Coverage Options
             </h1>
 
-            <PricingTable onSelectCoverage={handleSelectCoverage} />
+            <PricingTable />
 
             <div className="flex justify-end gap-4 mt-8">
               <Button variant="ghost" onClick={() => setStep(4)}>

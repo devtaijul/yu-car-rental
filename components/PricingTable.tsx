@@ -5,12 +5,11 @@ import { Button } from "@/components/ui/button";
 
 interface PricingTableProps {
   selectedPackage?: "standard" | "premium";
-  onSelectCoverage: (coverage: "standard" | "premium") => void;
+// onSelectCoverage: (coverage: "standard" | "premium") => void;
 }
 
 export const PricingTable = ({
   selectedPackage,
-  onSelectCoverage,
 }: PricingTableProps) => {
   const features = [
     {
@@ -176,7 +175,7 @@ export const PricingTable = ({
             className={`w-full rounded-none py-6 ${
               selectedPackage === "standard" ? "border-primary border-2" : ""
             }`}
-            onClick={() => onSelectCoverage("standard")}
+            onClick={() => onSelectPackage("standard")}
           >
             Select Package
           </Button>
@@ -188,7 +187,7 @@ export const PricingTable = ({
                 ? "ring-2 ring-offset-2 ring-primary"
                 : ""
             }`}
-            onClick={() => onSelectCoverage("premium")}
+            onClick={() => onSelectPackage("premium")}
           >
             Select Package
           </Button>

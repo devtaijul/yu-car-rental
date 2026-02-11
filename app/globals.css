@@ -115,7 +115,7 @@
     --popover: 200 19% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 180 25% 45%;
+    --primary: 193 30% 25%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 200 15% 20%;
@@ -216,11 +216,11 @@
   }
 
   .booking-step {
-    @apply flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all;
+    @apply flex items-center gap-2 px-4 py-2 text-sm rounded-none font-medium border-2 border-gray-200 transition-all bg-white;
   }
 
   .booking-step-active {
-    @apply border-2 border-primary text-primary;
+    @apply border-primary bg-primary/10 text-primary;
   }
 
   .booking-step-inactive {
@@ -240,7 +240,7 @@
   }
 
   .gradient-teal {
-    @apply bg-[linear-gradient(_135deg,_hsl(193,_30%,_25%)_0%,_hsl(180,_25%,_35%)_100%_)];
+    @apply bg-[linear-gradient(0deg,hsl(193,30%,25%)_0%,hsl(180,25%,35%)_100%)];
   }
 }
 

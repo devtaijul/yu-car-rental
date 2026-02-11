@@ -10,7 +10,6 @@ export default async function Home({
   const { lang } = await params;
 
   const dict = await getDictionary(lang);
-  console.log("dict", dict);
 
   return <HomePage lang={lang} />;
 }

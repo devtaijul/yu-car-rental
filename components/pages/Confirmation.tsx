@@ -1,9 +1,12 @@
+"use client";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { HeaderSpace } from "../HeaderSpace";
 
 const Confirmation = () => {
   const router = useRouter();
@@ -11,11 +14,11 @@ const Confirmation = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
+      <HeaderSpace />
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-md mx-auto text-center">
           {/* Success Card */}
-          <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-card">
+          <div className="bg-card border border-border overflow-hidden shadow-card">
             {/* Header */}
             <div className="gradient-teal py-12 px-6 text-primary-foreground">
               <div className="w-16 h-16 rounded-full bg-primary-foreground/20 flex items-center justify-center mx-auto mb-4">
@@ -34,12 +37,12 @@ const Confirmation = () => {
               </div>
               <div className="text-xl font-semibold mb-6">#YU-9942-XJ</div>
 
-              <div className="border border-border rounded-xl p-4 mb-6">
-                <div className="flex justify-between py-2 border-b border-border">
+              <div className="border border-border rounded-xl bg-[#F9FAFB] p-4 mb-6">
+                <div className="flex justify-between py-2  ">
                   <span className="text-muted-foreground">Vehicle</span>
                   <span className="font-medium">Premium SUV</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-border">
+                <div className="flex justify-between py-2 ">
                   <span className="text-muted-foreground">Dates</span>
                   <span className="font-medium">12 Aug - 15 Aug</span>
                 </div>
@@ -50,10 +53,13 @@ const Confirmation = () => {
               </div>
 
               <div className="space-y-3">
-                <Button className="w-full gradient-teal text-primary-foreground">
+                <Button
+                  className="w-full gradient-teal text-primary-foreground"
+                  size="lg"
+                >
                   Manage Booking
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" size="lg" className="w-full">
                   Download Confirmation
                 </Button>
               </div>

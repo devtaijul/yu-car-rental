@@ -26,8 +26,8 @@ const BookingSteps = ({ currentStep }: BookingStepsProps) => {
                 isActive
                   ? "booking-step-active"
                   : isCompleted
-                  ? "text-primary"
-                  : "booking-step-inactive"
+                    ? "text-primary"
+                    : "booking-step-inactive"
               }`}
             >
               <Icon className="h-4 w-4" />

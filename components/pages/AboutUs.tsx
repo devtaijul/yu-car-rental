@@ -21,6 +21,7 @@ import { HeaderSpace } from "../HeaderSpace";
 import { Marquee } from "../Marquee";
 import { TextStroke } from "../TextStroke";
 import { DividerText } from "../DividerText";
+import Image from "next/image";
 
 const marqueeItems = [
   "PURE ENJOYMENT",
@@ -173,38 +174,40 @@ const AboutUs = () => {
             <span className="text-xs tracking-[0.2em] text-muted-foreground">
               WHY CHOOSE US
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-3">
+            <h2 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold mt-3">
               THE{" "}
-              <span className="text-4xl md:text-5xl lg:text-6xl font-display italic">
-                yu
-              </span>
+              <Image
+                src={"/assets/YU.png"}
+                alt="Relaxed mobility"
+                className="max-w-30 max-h-24 inline-block"
+                width={500}
+                height={500}
+              />
             </h2>
-            <h2
-              className="text-3xl md:text-4xl font-display font-bold italic"
-              style={{
-                WebkitTextStroke: "2px hsl(193, 30%, 25%)",
-                WebkitTextFillColor: "transparent",
-                color: "transparent",
-              }}
+            <TextStroke
+              className="text-4xl md:text-5xl lg:text-6xl font-bold italic"
+              strokeWidth="1px"
             >
               ADVANTAGE.
-            </h2>
+            </TextStroke>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
             {advantages.map((item) => (
               <div
                 key={item.num}
-                className="bg-primary/20 text-primary min-h-80  p-6 relative overflow-hidden group hover:shadow-xl transition-shadow"
+                className="bg-primary/20 text-primary hover:text-white min-h-80  p-12 relative overflow-hidden group hover:bg-primary transition-shadow"
               >
-                <span className="text-4xl font-display font-bold opacity-20 absolute top-4 left-6">
+                <span className="text-4xl  font-bold opacity-20">
                   {item.num}
                 </span>
                 <div className="pt-10">
-                  <h3 className="text-sm font-bold tracking-wider mb-2">
+                  <h3 className="text-2xl font-bold tracking-wider mb-2 text-[#0F172A] group-hover:text-white">
                     {item.title}
                   </h3>
-                  <p className="text-xs  leading-relaxed">{item.description}</p>
+                  <p className=" leading-relaxed text-[#64748B] group-hover:text-[#BFD1D7]">
+                    {item.description}
+                  </p>
                 </div>
                 <item.icon className="h-8 w-8 opacity-10 absolute bottom-4 right-4" />
               </div>
@@ -215,31 +218,24 @@ const AboutUs = () => {
 
       {/* Heartfelt Promise Section */}
       <section className="py-20 bg-background text-center">
-        <div className="container mx-auto px-4 max-w-2xl">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
           <Heart className="h-8 w-8 text-primary mx-auto mb-4" />
           <span className="text-xs tracking-[0.2em] text-muted-foreground">
             THE YU EXPERIENCE
           </span>
-          <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-6xl text-center font-bold mt-3 mb-6">
             OUR{" "}
-            <span
-              className="font-display italic"
-              style={{
-                WebkitTextStroke: "2px hsl(193, 30%, 25%)",
-                WebkitTextFillColor: "transparent",
-                color: "transparent",
-              }}
-            >
+            <TextStroke strokeWidth="1px" className="italic">
               HEARTFELT
-            </span>{" "}
+            </TextStroke>{" "}
             PROMISE
           </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed italic mb-6">
-            "At YU CAR RENTAL, everything revolves around value, trust and a
+          <p className="text-xl font-light mb-12 max-w-3xl text-center mx-auto">
+            "At YU CAR RENTAL, everything revolves around ease, trust and a
             heartfelt welcome. We make sure your car is perfectly prepared, with
             clear instructions and personal service."
           </p>
-          <p className="text-xs text-muted-foreground tracking-widest uppercase">
+          <p className="text-muted-foreground tracking-widest font-bold uppercase opacity-65 max-w-xl mx-auto">
             FROM THE MOMENT YOU ARRIVE, YOUR JOURNEY BEGINS IN STYLE — RELAXED,
             SMOOTH AND STRESS-FREE.
           </p>
@@ -247,26 +243,24 @@ const AboutUs = () => {
       </section>
 
       {/* Freedom CTA */}
-      <section className="py-24 gradient-teal text-center">
+      <section className="py-24 bg-[#F8FAFC] text-center">
         <div className="container mx-auto px-4">
-          <span className="text-xs tracking-[0.2em] text-primary-foreground/60">
+          <span className="text-xs tracking-[0.2em] ">
             READY TO EXPLORE BONAIRE AT YOUR OWN PACE?
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground mt-4 mb-2">
-            YOUR KEY TO
-          </h2>
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold italic mb-8"
-            style={{
-              WebkitTextStroke: "2px hsl(var(--primary-foreground))",
-              WebkitTextFillColor: "transparent",
-              color: "transparent",
-            }}
-          >
-            FREEDOM.
-          </h2>
-          <Link href="/booking">
-            <Button className="gradient-teal text-primary-foreground border-2 border-primary-foreground/30 rounded-lg px-8 py-6">
+          <div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold  mt-4 mb-2">
+              YOUR KEY TO
+            </h2>
+            <TextStroke
+              strokeWidth="1px"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold italic"
+            >
+              FREEDOM.
+            </TextStroke>
+          </div>
+          <Link href="/booking" className="mt-12">
+            <Button className="bg-primary mt-12 border-primary-foreground/30  px-8 py-6">
               BOOK TODAY
             </Button>
           </Link>

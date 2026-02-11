@@ -45,7 +45,7 @@ const Booking = () => {
   const searchParams = useSearchParams();
   const preselectedCar = searchParams.get("car");
 
-  const [step, setStep] = useState(preselectedCar ? 2 : 4);
+  const [step, setStep] = useState(preselectedCar ? 2 : 1);
   const [selectedCar, setSelectedCar] = useState<string | null>("5");
   const [selectedCoverage, setSelectedCoverage] = useState<
     "standard" | "premium"

@@ -16,7 +16,7 @@ import ReviewsCarousel from "../ReviewsCarousel";
 import { ServicesSection } from "../ServicesSection";
 
 export const HomePage = ({ lang }: { lang: Locale }) => {
-  const onSelectCoverage = () => {};
+  
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -58,7 +58,7 @@ export const HomePage = ({ lang }: { lang: Locale }) => {
         </div>
       </section>
 
-      <PricingTable onSelectCoverage={onSelectCoverage} />
+      <PricingTable  />
 
       <ReviewsCarousel />
 

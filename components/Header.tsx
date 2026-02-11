@@ -40,9 +40,10 @@ const Header = () => {
               <Link href="/" className="flex items-center gap-2">
                 <Image
                   src="/assets/logo-nav.png"
+                  className="max-w-52"
                   alt="yu"
-                  width={150}
-                  height={32}
+                  width={1000}
+                  height={400}
                 />
                 {/*  <span className="text-3xl font-bold italic text-primary"></span>
               <div className="flex flex-col">

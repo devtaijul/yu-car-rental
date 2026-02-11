@@ -175,7 +175,7 @@ export const BonaireWhyCarousel = ({
               size="icon"
               onClick={scrollPrev}
               disabled={!canScrollPrev}
-              className="rounded-none border-border  disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-none border-border disabled:opacity-50 disabled:cursor-not-allowed w-12 h-12 bg-primary hover:bg-primary/70"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -184,7 +184,7 @@ export const BonaireWhyCarousel = ({
               size="icon"
               onClick={scrollNext}
               disabled={!canScrollNext}
-              className="rounded-none border-border disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-none border-border disabled:opacity-50 disabled:cursor-not-allowed w-12 h-12 bg-primary hover:bg-primary/70"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>

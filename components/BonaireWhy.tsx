@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { TextStroke } from "./TextStroke";
 import {
@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 
 const whyNeedCarItems = [
   {
@@ -57,6 +58,19 @@ const whyNeedCarItems = [
 ];
 
 export const BonaireWhy = () => {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -78,6 +92,7 @@ export const BonaireWhy = () => {
 
         {/* Carousel */}
         <Carousel
+          setApi={setApi}
           opts={{
             align: "start",
             loop: true,
@@ -113,10 +128,24 @@ export const BonaireWhy = () => {
             ))}
           </CarouselContent>
 
-          {/* Navigation Arrows */}
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
+          <CarouselPrevious className="hidden md:flex w-14 h-14 bg-primary text-white hover:bg-primary/80 opacity-50 left-5 top-[40%] hover:opacity-100" />
+          <CarouselNext className="hidden md:flex w-14 h-14 bg-primary text-white hover:bg-primary/80 opacity-50 right-5 top-[40%] hover:opacity-100" />
         </Carousel>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center gap-2 mt-8">
+          {whyNeedCarItems.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api?.scrollTo(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === current
+                  ? "bg-primary w-6"
+                  : "bg-muted-foreground/30 w-2 hover:bg-muted-foreground/50"
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

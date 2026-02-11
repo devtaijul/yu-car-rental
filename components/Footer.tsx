@@ -13,8 +13,14 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground relative overflow-hidden">
       {/* Large YU watermark */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[300px] font-display italic opacity-10 select-none pointer-events-none">
-        yu
+      <div className="absolute max-w-96 right-[20%] bottom-0 italic opacity-40  select-none pointer-events-none w-full h-full object-center ">
+        <Image
+          src="/assets/YU.png"
+          alt="Logo"
+          className="max-w-125"
+          width={1000}
+          height={500}
+        />
       </div>
 
       <div className="container mx-auto px-4 py-16 relative z-10">
@@ -30,8 +36,9 @@ const Footer = () => {
             <Image
               src="/assets/logo-footer.png"
               alt="Logo"
-              width={100}
-              height={100}
+              className="max-w-125"
+              width={1000}
+              height={500}
             />
           </div>
 
@@ -65,7 +72,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Links */}
-        <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mt-12 pt-8 border-t border-primary-foreground/20">
+        <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8  pt-8 border-t border-primary-foreground/20">
           <Link href="/terms" className="text-sm hover:underline text-center">
             Terms & Conditions
           </Link>

@@ -43,10 +43,10 @@ const FAQSection = () => {
     <section className="py-20 bg-linear-to-b from-[hsl(193,25%,78%)] to-[hsl(193,30%,72%)]">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-12">
-          <span className="section-badge mb-4 bg-card text-foreground border border-border">
-            FAQ
-          </span>
-          <h2 className="text-3xl md:text-4xl font-display text-foreground">
+          <div className="section-badge mb-4 bg-card text-foreground border border-border">
+            <span className="w-3 h-3 bg-primary rounded-full mr-2" /> FAQ
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-roboto text-foreground font-bold">
             Frequently Asked <span className="text-primary">Questions</span>
           </h2>
         </div>

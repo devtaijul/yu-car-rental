@@ -184,7 +184,7 @@ export const ServicesCarousel = ({
                     >
                       {/* Background Number */}
                       <span
-                        className={`absolute -top-8 -right-8 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none text-muted/50 group-hover:text-primary-foreground/10`}
+                        className={`absolute -top-4 -right-2 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none text-muted/50 group-hover:text-primary-foreground/10`}
                       >
                         {String(index + 1).padStart(2, "0")}
                       </span>

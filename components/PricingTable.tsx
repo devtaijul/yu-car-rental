@@ -1,7 +1,8 @@
 "use client";
 
-import { Check, X } from "lucide-react";
+import { Car, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SectionTitle } from "./SectionTitle";
 
 interface PricingTableProps {
   selectedPackage?: "standard" | "premium";
@@ -100,6 +101,10 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
   return (
     <div className="w-full max-w-4xl mx-auto py-20">
       {/* Header Row */}
+      <SectionTitle
+        title="Coverage Options"
+        subtitle="Travel with complete peace of mind"
+      />
       <div className="grid grid-cols-3 ">
         <div></div>
         <div className="text-center">

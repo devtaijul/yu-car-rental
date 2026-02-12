@@ -14,9 +14,9 @@ import { HeroSection } from "../HeroSection";
 import { PricingTable } from "../PricingTable";
 import ReviewsCarousel from "../ReviewsCarousel";
 import { ServicesSection } from "../ServicesSection";
+import { SectionTitle } from "../SectionTitle";
 
 export const HomePage = ({ lang }: { lang: Locale }) => {
-  
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -33,15 +33,7 @@ export const HomePage = ({ lang }: { lang: Locale }) => {
       {/* Featured Cars */}
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="section-badge mb-4">
-              <Car className="h-3 w-3" />
-              Explore Our Fleet
-            </span>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold">
-              Featured Cars
-            </h2>
-          </div>
+          <SectionTitle title="Explore Our Fleet" subtitle="Featured Cars" />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {cars.slice(0, 6).map((car) => (
@@ -58,7 +50,7 @@ export const HomePage = ({ lang }: { lang: Locale }) => {
         </div>
       </section>
 
-      <PricingTable  />
+      <PricingTable />
 
       <ReviewsCarousel />
 

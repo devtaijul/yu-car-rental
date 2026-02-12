@@ -4,39 +4,39 @@ export const services = {
   en: [
     {
       icon: "Sparkles",
-      title: "24/7 SELF-SERVICE",
+      title: "Zero Deductible with 100% Coverage Package",
+      description:
+        "With our 100% coverage package, you'll enjoy peace of mind as there's no deposit required, and you won't need to worry about inspecting for scratches or dents. All damage, even to the rented vehicle, is fully covered.",
+    },
+    {
+      icon: "Car",
+      title: "100% Flexible Cancellation Policy",
+      description:
+        "Life is full of surprises, and we understand that. With our flexible cancellation policy, you only pay for the days you rent, allowing you the freedom to adjust your plans without any hassles.              ",
+    },
+    {
+      icon: "Clock",
+      title: "New and Fuel Efficient  Cars and Unlimited Miles ",
+      description:
+        "Cruise around the island in style and eco-friendliness with our top-of-the-line Toyota cars and pickups. Enjoy a smooth and efficient ride while exploring Bonaire's stunning landscapes. ",
+    },
+    {
+      icon: "Shield",
+      title: "24/7 Self-Service",
       description:
         "Pick up your car whenever it suits you — day or night, fully contactless. No waiting, no hassle.",
     },
     {
-      icon: "Car",
-      title: "Direct from Airport",
-      description:
-        "Your car will be waiting in the airport parking lot. Just hop in and drive off. Your journey begins immediately.",
-    },
-    {
-      icon: "Clock",
-      title: "Online Discount",
-      description:
-        "Book through our digital platform and save up  to 3%, 6% and 12% instantly. Premium service at the best market price.",
-    },
-    {
-      icon: "Shield",
-      title: "Multilingual Team",
-      description:
-        "We speak your language. Our support is available in Dutch, English, Spanish and Papiamentu.",
-    },
-    {
       icon: "Percent",
-      title: "Local Expertise",
+      title: "No Hidden Fees",
       description:
-        "As a local business, we know Bonaire inside and out — and we’re happy to share our secret  tips with you.",
+        "Transparency is at the core of our values. With YU Car Rental, what you see is what you get. Say goodbye to hidden charges and unexpected fees.",
     },
     {
       icon: "Plane",
-      title: "Effortless Flow",
+      title: "Free pick-up service",
       description:
-        "From perfectly prepared cars to clear instructions, we make sure your journey begins relaxed, smooth and stress-free.",
+        "No more waiting in line! We offer a hassle free pick-up process, with our free pick-up service. Your rental vehicle will be waiting for you, so you can get started on your Bonaire adventure right away.",
     },
   ],
 

@@ -7,6 +7,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeaderSpace } from "../HeaderSpace";
 import { TextStroke } from "../TextStroke";
+import { Icons } from "../icons";
+
+const discountDetails: {
+  id: number;
+  parcent: number;
+  text: string;
+}[] = [
+  {
+    id: 1,
+    parcent: 3,
+    text: "FOR RENTAL PERIODS \n OF 7 DAYS OR LESS",
+  },
+  {
+    id: 2,
+    parcent: 6,
+    text: "FOR RENTAL PERIODS \n OF 8 DAYS OR MORE",
+  },
+  {
+    id: 3,
+    parcent: 12,
+    text: "FOR RENTAL PERIODS \n OF 15 DAYS OR MORE",
+  },
+];
 
 const Deals = () => {
   return (
@@ -26,99 +49,75 @@ const Deals = () => {
               </span>
 
               {/* Title */}
-              <div className="mt-4 mb-8">
+              <div className="mt-4 mb-8 leading-14">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground">
                   SELF-SERVICE
                 </h1>
                 <TextStroke
                   strokeWidth="1px"
-                  className="italic font-bold text-4xl md:text-5xl lg:text-6xl "
+                  className="font-bold text-4xl md:text-5xl lg:text-6xl leading-20"
                 >
                   24/7
                 </TextStroke>
-                <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground">
+                <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground lg:text-6xl">
                   EXCLUSIVE
                   <br />
                   ONLINE
                 </h1>
               </div>
 
-              <p className="text-muted-foreground mb-8 max-w-md">
+              <p className="text-[#64748B] mb-8 text-lg md:text-xl max-w-xl">
                 Experience the freedom of top-level travel with our self-service
                 option. Online booking is specially designed for guests who
                 value comfort, flexibility and time savings.
               </p>
 
               {/* Discount Card */}
-              <div className="border-l-4 border-primary pl-6 py-4 mb-8">
-                <h3 className="text-sm font-bold tracking-widest text-foreground uppercase mb-6">
+              <div className="border-l-6 border-primary p-15 mb-8">
+                <h3 className="text-2xl font-bold tracking-widest text-foreground uppercase mb-6">
                   Book Online and Start Receiving
                   <br />
                   Incredible Discount
                 </h3>
 
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <div className="flex items-baseline">
-                      <span className="text-3xl md:text-4xl font-bold text-primary">
-                        3%
-                      </span>
-                      <span className="text-xs text-muted-foreground ml-1 uppercase">
-                        Discount
-                      </span>
+                <div className="grid grid-cols-3 gap-4 pb-10">
+                  {discountDetails.map(({ id, parcent, text }) => (
+                    <div key={id}>
+                      <div className="flex items-baseline">
+                        <span className="text-3xl md:text-4xl lg:text-6xl font-extrabold text-primary">
+                          {parcent}%
+                        </span>
+                        <span className="text-lg text-[#94A3B8] font-bold ml-1 uppercase">
+                          Discount
+                        </span>
+                      </div>
+                      <div className=" text-[#64748B] uppercase tracking-wide mt-4 whitespace-pre-line font-semibold">
+                        {text}
+                      </div>
                     </div>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mt-1">
-                      For Rental Periods
-                      <br />
-                      of 7 Days or Less
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-baseline">
-                      <span className="text-3xl md:text-4xl font-bold text-primary">
-                        6%
-                      </span>
-                      <span className="text-xs text-muted-foreground ml-1 uppercase">
-                        Discount
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mt-1">
-                      For Rental Periods
-                      <br />
-                      of 8 Days or More
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-baseline">
-                      <span className="text-3xl md:text-4xl font-bold text-primary">
-                        12%
-                      </span>
-                      <span className="text-xs text-muted-foreground ml-1 uppercase">
-                        Discount
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mt-1">
-                      For Rental Periods
-                      <br />
-                      of 15 Days or More
-                    </p>
-                  </div>
+                  ))}
                 </div>
-              </div>
-
-              {/* Benefits */}
-              <div className="flex flex-wrap gap-6">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-bold uppercase tracking-wide text-primary">
-                    Valid All Year Round
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-bold uppercase tracking-wide text-primary">
-                    No High/Low Season Exceptions
-                  </span>
+                {/* Benefits */}
+                <div className="w-full max-w-96 h-0.5 bg-gray-200"></div>
+                <div className="flex flex-wrap gap-6 mt-10">
+                  <div className="flex items-center gap-2">
+                    <Icons
+                      name="calender_icon"
+                      className="w-6 h-6 text-primary"
+                    />
+                    <span className="text-xs lg:text-lg font-extrabold uppercase tracking-wide text-primary">
+                      Valid All Year Round
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Icons
+                      name="sheild_icon"
+                      className="w-6 h-6 text-primary"
+                    />
+                    <span className="text-xs lg:text-lg font-extrabold uppercase tracking-wide text-primary">
+                      No High/Low Season Exceptions
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,15 +128,15 @@ const Deals = () => {
                 <Image
                   src="/assets/driving-hand.png"
                   alt="Hands on steering wheel"
-                  className="w-full max-w-[500px] h-auto object-cover aspect-3/4   grayscale"
+                  className="w-full max-w-125 h-auto object-cover aspect-3/4   grayscale"
                   width={500}
                   height={800}
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-6">
-                  <h4 className="text-xs font-bold tracking-[0.15em] text-white/70 uppercase mb-1">
+                  <h4 className="text-xs font-bold tracking-[0.15em] text-white uppercase mb-1">
                     Fast, Easy, Worry-Free
                   </h4>
-                  <p className="text-sm text-white/60">
+                  <p className="text-sm text-white">
                     After completing your online reservation, you&apos;ll
                     receive a personalized booking confirmation by email.
                   </p>
@@ -163,18 +162,18 @@ const Deals = () => {
               <div className="mb-8">
                 <TextStroke
                   strokeWidth="1px"
-                  className="italic font-bold text-4xl md:text-5xl "
+                  className="italic font-bold text-4xl md:text-5xl lg:text-6xl"
                 >
                   FREEDOM
                 </TextStroke>
-                <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-roboto font-extrabold text-foreground">
                   AROUND
                   <br />
                   THE CLOCK
                 </h1>
               </div>
 
-              <p className="text-muted-foreground mb-8 max-w-md">
+              <p className="text-[#1A3B46] mb-8 max-w-lg text-sm md:text-base lg:text-lg">
                 Choose our self-service option and collect your vehicle without
                 any waiting — 24 hours a day, completely contactless. Whether
                 you arrive early or late at night, your car will be ready.
@@ -183,14 +182,14 @@ const Deals = () => {
               {/* Features */}
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10  bg-primary flex items-center justify-center shrink-0">
+                  <div className="w-15 h-15  bg-primary flex items-center justify-center shrink-0">
                     <Car className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground uppercase text-sm">
+                    <h4 className="font-extrabold text-black uppercase text-sm lg:text-xl">
                       Direct Airport Delivery
                     </h4>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-[#64748B] font-roboto lg:text-lg  mt-1 max-w-lg">
                       Upon arrival at the airport, your rental car will be
                       waiting in the airport parking lot.
                     </p>
@@ -198,14 +197,14 @@ const Deals = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-primary flex items-center justify-center shrink-0">
+                  <div className="w-15 h-15 bg-primary flex items-center justify-center shrink-0">
                     <Key className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground uppercase text-sm">
+                    <h4 className="font-extrabold text-black uppercase text-sm lg:text-xl">
                       Simple Drive-Off
                     </h4>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-[#64748B] font-roboto lg:text-lg  mt-1 max-w-lg">
                       You can simply get in and drive off. No paperwork at the
                       counter required.
                     </p>
@@ -216,20 +215,20 @@ const Deals = () => {
 
             {/* Right Content - Instructions Card */}
             <div className="bg-primary/10  p-12">
-              <h4 className="text-xs font-bold tracking-[0.15em] text-primary uppercase mb-6">
+              <h4 className="text-sm md:text-base lg:text-lg font-bold tracking-[0.15em] text-primary uppercase mb-6">
                 Instructions
               </h4>
-              <p className="text-black mb-8">
+              <p className="text-black mb-8 text-base md:text-lg lg:text-xl">
                 All instructions and exact details on how this service works
                 will be provided upon completing your reservation.
               </p>
 
-              <p className="text-lg md:text-xl font-display  text-foreground mb-6">
+              <p className="text-xl md:text-2xl lg:text-3xl font-display  text-foreground mb-6">
                 We ensure everything is perfectly prepared for your arrival.
                 From the moment you land, your journey begins in style.
               </p>
 
-              <p className="text-xs font-bold tracking-widest text-primary uppercase mb-8">
+              <p className="text-xs font-semibold tracking-widest text-primary uppercase mb-8">
                 We Handle the Details — You Enjoy the Experience.
               </p>
 

@@ -38,6 +38,24 @@ export const services = {
       description:
         "No more waiting in line! We offer a hassle free pick-up process, with our free pick-up service. Your rental vehicle will be waiting for you, so you can get started on your Bonaire adventure right away.",
     },
+    {
+      icon: "Shield",
+      title: "Multilingual Team",
+      description:
+        "We speak your language. Our support is available in Dutch, English, Spanish and Papiamentu.",
+    },
+    {
+      icon: "Percent",
+      title: "Local Expertise",
+      description:
+        "As a local business, we know Bonaire inside and out — and we’re happy to share our secret  tips with you.",
+    },
+    {
+      icon: "Plane",
+      title: "Effortless Flow",
+      description:
+        "From perfectly prepared cars to clear instructions, we make sure your journey begins relaxed, smooth and stress-free.",
+    },
   ],
 
   nl: [
@@ -77,6 +95,24 @@ export const services = {
       description:
         "Bij aankomst op de luchthaven staat je auto al voor je klaar op de parkeerplaats. Instappen en wegrijden maar.",
     },
+    {
+      icon: "Shield",
+      title: "Multilingual Team",
+      description:
+        "We speak your language. Our support is available in Dutch, English, Spanish and Papiamentu.",
+    },
+    {
+      icon: "Percent",
+      title: "Local Expertise",
+      description:
+        "As a local business, we know Bonaire inside and out — and we’re happy to share our secret  tips with you.",
+    },
+    {
+      icon: "Plane",
+      title: "Effortless Flow",
+      description:
+        "From perfectly prepared cars to clear instructions, we make sure your journey begins relaxed, smooth and stress-free.",
+    },
   ],
 
   es: [
@@ -115,6 +151,24 @@ export const services = {
       title: "Recogida en el Aeropuerto",
       description:
         "Al llegar al aeropuerto, tu coche te estará esperando en el estacionamiento. Solo súbete y conduce.",
+    },
+    {
+      icon: "Shield",
+      title: "Multilingual Team",
+      description:
+        "We speak your language. Our support is available in Dutch, English, Spanish and Papiamentu.",
+    },
+    {
+      icon: "Percent",
+      title: "Local Expertise",
+      description:
+        "As a local business, we know Bonaire inside and out — and we’re happy to share our secret  tips with you.",
+    },
+    {
+      icon: "Plane",
+      title: "Effortless Flow",
+      description:
+        "From perfectly prepared cars to clear instructions, we make sure your journey begins relaxed, smooth and stress-free.",
     },
   ],
 };

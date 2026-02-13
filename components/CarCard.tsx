@@ -29,7 +29,7 @@ const CarCard = ({ id, name, image, price, specs }: CarCardProps) => {
 
   return (
     <div
-      className={`card-car rounded-none card-car-gradient bg-card border border-border`}
+      className={`card-car rounded-none gradient-color bg-card border border-border`}
     >
       {/* Image */}
       <div className="relative h-48 flex items-center justify-center p-4">

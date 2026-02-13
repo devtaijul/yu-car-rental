@@ -18,7 +18,8 @@
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
-
+  --color-dark-text: "#353b44";
+  --color-primary-light: var(--primary-light);
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
 
@@ -56,6 +57,7 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 200 19% 18%;
+    --primary-light: #7cb7ca;
 
     --card: 0 0% 100%;
     --card-foreground: 200 19% 18%;
@@ -111,6 +113,7 @@
 
     --card: 200 19% 12%;
     --card-foreground: 0 0% 98%;
+    --primary-light: #7cb7ca;
 
     --popover: 200 19% 12%;
     --popover-foreground: 0 0% 98%;
@@ -213,6 +216,10 @@
       hsl(193, 30%, 28%) 0%,
       hsl(180, 25%, 38%) 100%
     );
+  }
+
+  .gradient-color {
+    background: linear-gradient(180deg, #002c3b 0%, #9babb0 100%);
   }
 
   .booking-step {

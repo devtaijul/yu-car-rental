@@ -312,7 +312,7 @@ const Bonaire = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="text-primary-foreground">
-              <span className="text-xs tracking-[0.2em] text-primary font-medium">
+              <span className="text-xs md:text-base tracking-[0.2em] text-[#7CB7CA] font-medium">
                 LOCAL KNOWLEDGE
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mt-3 mb-8 leading-tight">
@@ -324,10 +324,10 @@ const Bonaire = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {drivingLaws.map((law, index) => (
                   <div key={index}>
-                    <h4 className="text-sm font-semibold text-primary mb-2">
+                    <h4 className="text-sm md:text-base font-semibold text-[#7CB7CA] mb-2 ">
                       {law.title}
                     </h4>
-                    <p className="text-sm text-primary-foreground/80 leading-relaxed">
+                    <p className="text-sm md:text-base text-primary-foreground/80 leading-relaxed">
                       {law.description}
                     </p>
                   </div>
@@ -337,13 +337,13 @@ const Bonaire = () => {
 
             {/* Right Image */}
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden">
+              <div className=" flex items-center justify-center">
                 <Image
                   src={"/assets/Bonaire Driving.png"}
                   alt="Driving in Bonaire"
-                  className="w-full h-auto object-cover"
-                  width={500}
-                  height={500}
+                  className="w-full h-auto object-cover object-center"
+                  width={900}
+                  height={800}
                 />
               </div>
             </div>
@@ -354,26 +354,26 @@ const Bonaire = () => {
       {/* Your Key to Freedom CTA Section */}
       <section className="py-24 text-center">
         <div className="container mx-auto px-4">
-          <span className="text-sm text-primary tracking-[0.3em]  font-medium">
+          <span className="text-sm md:text-base text-primary tracking-[0.3em]  font-bold">
             READY TO EXPLORE BONAIRE AT YOUR OWN PACE?
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl  font-bold mt-4 mb-2">
+          <h2 className="text-5xl md:text-7xl lg:text-9xl tracking-tighter font-bold mt-4 mb-2">
             YOUR KEY TO
           </h2>
           <TextStroke
             strokeWidth="1px"
-            className="font-bold text-4xl md:text-5xl lg:text-6xl "
+            className="font-bold text-5xl md:text-7xl lg:text-9xl italic tracking-tighter"
           >
             FREEDOM.
           </TextStroke>
-          <p className="font-medium max-w-xl text-primary mx-auto mb-8 mt-5">
+          <p className="font-medium lg:text-xl tracking-wider text-primary mx-auto mb-8 mt-5 whitespace-pre-line">
             IF YOU WANT TO LEARN MORE ABOUT OUR BEAUTIFUL ISLAND OF BONAIRE, YOU
-            CAN SEARCH FOR MORE ACTIVITIES HERE:
+            CAN SEARCH FOR <br /> MORE ACTIVITIES HERE:
           </p>
           <Link href="/booking">
             <Button
               variant="outline"
-              className=" text-white bg-primary underline  px-8 py-6"
+              className=" text-white bg-primary underline tracking-[0.25rem] px-8 py-6"
             >
               EXPLORE BONAIRE MORE
             </Button>

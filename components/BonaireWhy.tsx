@@ -83,10 +83,7 @@ export const BonaireWhy = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-3">
             WHY YOU NEED A CAR
             <br />
-            IN{" "}
-            <TextStroke strokeWidth="1px" className="font-bold italic">
-              BONAIRE.
-            </TextStroke>
+            IN BONAIRE.
           </h2>
         </div>
 
@@ -103,7 +100,7 @@ export const BonaireWhy = () => {
             {whyNeedCarItems.map((item, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="group p-1">
-                  <div className="relative rounded-2xl overflow-hidden aspect-[4/3] mb-4">
+                  <div className="relative rounded-2xl overflow-hidden aspect-4/3 mb-4">
                     <Image
                       src={item.image}
                       alt={item.title}

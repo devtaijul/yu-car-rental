@@ -5,6 +5,7 @@ import { MilesIcon } from "@/components/icons/miles.icon";
 import { SelfIcon } from "@/components/icons/self.icon";
 import { SettingIcon } from "@/components/icons/setting.icon";
 import { SheildIcon } from "@/components/icons/sheild.icon";
+import { WhatsAppTransparentIcon } from "@/components/icons/whatsapp_transparent.icon";
 
 import { CarIcon, FuelIcon } from "lucide-react";
 
@@ -18,6 +19,7 @@ const ICON_NAMES = {
   self_icon: SelfIcon,
   calender_icon: CalenderIcon,
   sheild_icon: SheildIcon,
+  whatsapp_transparent_icon: WhatsAppTransparentIcon,
 };
 
 export { ICON_NAMES };

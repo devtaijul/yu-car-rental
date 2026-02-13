@@ -17,16 +17,18 @@ export const HeroSection = async ({ lang }: { lang: Locale }) => {
 
       {/* Content */}
       <div className="relative z-10 flex-1 container mx-auto px-4 flex flex-col justify-center items-center text-center py-20">
-        <p className="font-bold  mb-4 text-white max-w-72">
+        <p className="font-bold  mb-4 text-white max-w-72 whitespace-pre-line">
           {dict.home.hero.welcome}
         </p>
         <h1 className="text-4xl md:text-6xl lg:text-8xl font-display mb-2">
-          <span className="text-white ">{dict.home.hero.titleMain}</span>
+          <span className="text-white whitespace-pre-line">
+            {dict.home.hero.titleMain}
+          </span>
         </h1>
-        <h2 className="text-3xl md:text-5xl lg:text-8xl font-display italic text-[#BFD1D7] mb-6 font-extralight">
+        <h2 className="text-3xl md:text-5xl lg:text-8xl font-display italic text-[#BFD1D7] mb-6 font-extralight whitespace-pre-line">
           {dict.home.hero.titleAccent}
         </h2>
-        <p className="max-w-md text-white mb-12  text-base md:text-xl md:leading-9">
+        <p className="max-w-xl text-white mb-12  text-base md:text-xl md:leading-9 whitespace-pre-line">
           {dict.home.hero.description}
         </p>
 

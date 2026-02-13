@@ -34,15 +34,17 @@ const marqueeItems = [
 const commitments = [
   {
     icon: Shield,
-    title: "TOTAL PEACE OF MIND",
+    title: "Total Peace of Mind",
     description:
-      "Drive today, insured for full coverage with zero deductible. Managed by a team of driven specialists in every aspect — accidents, aid coverage damage — you're comprehensively protected.",
+      "Every rental includes full coverage with zero deductible. No need \n to worry about deposits, scratches, or unexpected damage — \n you’re completely protected.",
+    comment: "ZERO DEDUCTIBLE INCLUDED",
   },
   {
     icon: Settings,
     title: "FULLY FLEXIBLE",
     description:
-      "Plans change? No problem. We offer a fully flexible cancellation policy — you only pay for the days you're behind the wheel and return the car late without ever being hit by surprise fees or penalties.",
+      "Plans changed? No problem. We offer a fully flexible cancellation \n policy. You only pay for the days you actually \n use the car. We adapt to you.",
+    comment: "PAY ONLY FOR ACTUAL USE",
   },
 ];
 
@@ -121,13 +123,13 @@ const AboutUs = () => {
       <section className="py-20 bg-primary text-white">
         <div className="container mx-auto px-4">
           <div className="mb-12">
-            <span className="text-xs tracking-[0.2em] text-muted-foreground">
+            <span className="text-xs md:text-base tracking-[0.2em] text-white/80">
               STANDARD OF EXCELLENCE
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-3">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-roboto font-extrabold mt-3">
               OUR{" "}
               <TextStroke
-                className="itelic"
+                className="italic"
                 fillColor="transparent"
                 strokeColor="white"
                 strokeWidth="1px"
@@ -143,18 +145,16 @@ const AboutUs = () => {
             {commitments.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#FFFFFF0D] p-8 space-y-6 border border-[#ffffff27]"
+                className="bg-[#FFFFFF0D] p-8 space-y-6 border whitespace-pre-line border-[#ffffff27]"
               >
                 <div className="flex items-center gap-4">
                   <item.icon className="h-12 w-12 text-white " />
-                  <h3 className="text-3xl  font-bold ">{item.title}</h3>
+                  <h3 className="text-3xl  font-bold whitespace-pre-line">
+                    {item.title}
+                  </h3>
                 </div>
                 <p className="text-lg  leading-relaxed">{item.description}</p>
-                <DividerText
-                  text="ZERO DEDUCTIBLE INCLUDED"
-                  side="left"
-                  className=""
-                />
+                <DividerText text={item.comment} side="left" className="" />
                 {/* <Link
                   href="/services"
                   className="text-xs font-semibold text-primary hover:underline mt-4 inline-block"

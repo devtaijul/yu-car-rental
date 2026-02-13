@@ -44,7 +44,7 @@ const Deals = () => {
             {/* Left Content */}
             <div className="flex-1">
               {/* Badge */}
-              <span className="text-xs font-bold tracking-[0.15em] text-primary uppercase">
+              <span className="text-xs md:text-base font-bold tracking-[0.15em] text-primary uppercase">
                 Deal 01 — Exclusive Benefits
               </span>
 
@@ -66,7 +66,7 @@ const Deals = () => {
                 </h1>
               </div>
 
-              <p className="text-[#64748B] mb-8 text-lg md:text-xl max-w-xl">
+              <p className="text-dark-text mb-8 text-lg md:text-xl max-w-xl">
                 Experience the freedom of top-level travel with our self-service
                 option. Online booking is specially designed for guests who
                 value comfort, flexibility and time savings.
@@ -98,7 +98,7 @@ const Deals = () => {
                   ))}
                 </div>
                 {/* Benefits */}
-                <div className="w-full max-w-96 h-0.5 bg-gray-200"></div>
+                <div className="w-full max-w-[80%] h-0.5 bg-gray-200"></div>
                 <div className="flex flex-wrap gap-6 mt-10">
                   <div className="flex items-center gap-2">
                     <Icons
@@ -151,7 +151,7 @@ const Deals = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           {/* Badge */}
-          <span className="text-xs font-bold tracking-[0.15em] text-primary uppercase">
+          <span className="text-xs md:text-base font-bold tracking-[0.15em] text-primary uppercase">
             Deal 02 — Airport Pickup
           </span>
 
@@ -166,14 +166,14 @@ const Deals = () => {
                 >
                   FREEDOM
                 </TextStroke>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-roboto font-extrabold text-foreground">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-roboto font-black text-dark-text">
                   AROUND
                   <br />
                   THE CLOCK
                 </h1>
               </div>
 
-              <p className="text-[#1A3B46] mb-8 max-w-lg text-sm md:text-base lg:text-lg">
+              <p className="text-dark-text mb-8 max-w-lg text-sm md:text-base lg:text-lg">
                 Choose our self-service option and collect your vehicle without
                 any waiting — 24 hours a day, completely contactless. Whether
                 you arrive early or late at night, your car will be ready.
@@ -189,7 +189,7 @@ const Deals = () => {
                     <h4 className="font-extrabold text-black uppercase text-sm lg:text-xl">
                       Direct Airport Delivery
                     </h4>
-                    <p className="text-sm text-[#64748B] font-roboto lg:text-lg  mt-1 max-w-lg">
+                    <p className="text-sm text-dark-text font-roboto lg:text-lg italic  mt-1 max-w-lg">
                       Upon arrival at the airport, your rental car will be
                       waiting in the airport parking lot.
                     </p>
@@ -204,7 +204,7 @@ const Deals = () => {
                     <h4 className="font-extrabold text-black uppercase text-sm lg:text-xl">
                       Simple Drive-Off
                     </h4>
-                    <p className="text-sm text-[#64748B] font-roboto lg:text-lg  mt-1 max-w-lg">
+                    <p className="text-sm text-dark-text font-roboto lg:text-lg  italic mt-1 max-w-lg">
                       You can simply get in and drive off. No paperwork at the
                       counter required.
                     </p>
@@ -228,7 +228,7 @@ const Deals = () => {
                 From the moment you land, your journey begins in style.
               </p>
 
-              <p className="text-xs font-semibold tracking-widest text-primary uppercase mb-8">
+              <p className="text-xs md:text-base font-semibold tracking-widest text-primary uppercase mb-8">
                 We Handle the Details — You Enjoy the Experience.
               </p>
 

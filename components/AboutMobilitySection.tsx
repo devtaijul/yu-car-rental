@@ -35,12 +35,11 @@ export const AboutMobilitySection = () => {
             </h2>
             <div className="grid  md:grid-cols-2 gap-5">
               <div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  We understand exactly what you need to experience: fun,
-                  beauty, and leisure. Travelers are welcome and offered an
-                  easy, comfortable and special car fleet with a heartfelt
-                  welcome. You can simply leave it to us — relaxed, smooth and
-                  stress-free.
+                <p className="text-sm text-dark-text md:text-base leading-relaxed mb-4">
+                  We understand exactly what you want to <br /> experience —
+                  because we’ve been travelers ourselves, exploring countries
+                  around the world. We know the crave for simplicity and
+                  reliability when arriving in a new place.
                 </p>
                 <p className="text-black font-bold">
                   Our Mission: To give you the best experience from the moment
@@ -48,16 +47,15 @@ export const AboutMobilitySection = () => {
                 </p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  We understand exactly what you need to experience: fun,
-                  beauty, and leisure. Travelers are welcome and offered an
-                  easy, comfortable and special car fleet with a heartfelt
-                  welcome. You can simply leave it to us — relaxed, smooth and
-                  stress-free.
+                <p className="text-sm text-dark-text md:text-base  leading-relaxed mb-4">
+                  At YU CAR RENTAL, we believe in freedom, comfort and good
+                  service. Everything revolves around ease, trust, and a
+                  heartfelt welcome. Your journey begins in style — relaxed,
+                  smooth and stress-free.
                 </p>
                 <Link
                   href="/booking"
-                  className="text-sm font-semibold text-primary hover:underline flex items-center gap-2"
+                  className="text-sm font-semibold text-primary hover:underline flex tracking-widest items-center gap-2"
                 >
                   BOOK YOUR ADVENTURE <ArrowRight className="h-4 w-4" />
                 </Link>

@@ -13,37 +13,37 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
   const features = [
     {
       name: "Deductible Risk",
-      standard: "$750",
+      standard: "$650",
       premium: "$0",
       isPremiumHighlight: true,
     },
     {
       name: "Security Deposit",
-      standard: "$750",
+      standard: "$650",
       premium: "$0",
       isPremiumHighlight: true,
     },
     {
       name: "Additional Driver",
-      standard: "$8 / DAY",
+      standard: "$10 / DAY",
       premium: "INCLUDED",
       isPremiumHighlight: false,
     },
     {
       name: "Tank Rack",
-      standard: "$5 / DAY",
+      standard: "$5",
       premium: "INCLUDED",
       isPremiumHighlight: false,
     },
     {
       name: "Flat Tire Service",
-      standard: "$35",
+      standard: "$40",
       premium: "INCLUDED",
       isPremiumHighlight: false,
     },
     {
       name: "Cancellation Fee",
-      standard: "$75",
+      standard: "$80",
       premium: "$0",
       isPremiumHighlight: true,
     },
@@ -161,7 +161,7 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
         <div className="text-center">
           <p className="text-sm text-muted-foreground">Add for only</p>
           <p className="text-xl font-semibold text-foreground">
-            +$15{" "}
+            +$12{" "}
             <span className="text-sm font-normal text-muted-foreground">
               /day
             </span>

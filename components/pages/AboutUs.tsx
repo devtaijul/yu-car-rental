@@ -22,6 +22,9 @@ import { Marquee } from "../Marquee";
 import { TextStroke } from "../TextStroke";
 import { DividerText } from "../DividerText";
 import Image from "next/image";
+import { YuAdvantages } from "../YuAdvantages";
+import { Locale } from "@/types/utils";
+import { Icons } from "../icons";
 
 const marqueeItems = [
   "PURE ENJOYMENT",
@@ -93,7 +96,7 @@ const advantages = [
   },
 ];
 
-const AboutUs = () => {
+const AboutUs = async ({ lang }: { lang: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Hero Section */}
@@ -168,74 +171,39 @@ const AboutUs = () => {
       </section>
 
       {/* The YU Advantage Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="mb-12">
-            <span className="text-xs tracking-[0.2em] text-muted-foreground">
-              WHY CHOOSE US
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold mt-3">
-              THE{" "}
-              <Image
-                src={"/assets/YU.png"}
-                alt="Relaxed mobility"
-                className="max-w-30 max-h-24 inline-block"
-                width={500}
-                height={500}
-              />
-            </h2>
-            <TextStroke
-              className="text-4xl md:text-5xl lg:text-6xl font-bold italic"
-              strokeWidth="1px"
-            >
-              ADVANTAGE.
-            </TextStroke>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
-            {advantages.map((item) => (
-              <div
-                key={item.num}
-                className="bg-primary/20 text-primary hover:text-white min-h-80  p-12 relative overflow-hidden group hover:bg-primary transition-shadow"
-              >
-                <span className="text-4xl  font-bold opacity-20">
-                  {item.num}
-                </span>
-                <div className="pt-10">
-                  <h3 className="text-2xl font-bold tracking-wider mb-2 text-[#0F172A] group-hover:text-white">
-                    {item.title}
-                  </h3>
-                  <p className=" leading-relaxed text-[#64748B] group-hover:text-[#BFD1D7]">
-                    {item.description}
-                  </p>
-                </div>
-                <item.icon className="h-8 w-8 opacity-10 absolute bottom-4 right-4" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <YuAdvantages lang={lang} />
 
       {/* Heartfelt Promise Section */}
       <section className="py-20 bg-background text-center">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <Heart className="h-8 w-8 text-primary mx-auto mb-4" />
-          <span className="text-xs tracking-[0.2em] text-muted-foreground">
-            THE YU EXPERIENCE
+        <div className="container mx-auto px-4 max-w-6xl text-center">
+          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-10 bg-[#F8FAFC] rounded-full">
+            <Icons name="hart_icon" className="h-9 w-9 text-primary mx-auto" />
+          </div>
+          <span className="text-xs md:text-base tracking-[0.2em] flex justify-center items-center  text-primary font-bold">
+            THE{" "}
+            <Image
+              src={"/assets/YU.png"}
+              alt="Relaxed mobility"
+              className="w-14 mx-2 inline-block"
+              width={500}
+              height={500}
+            />{" "}
+            EXPERIENCE
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-6xl text-center font-bold mt-3 mb-6">
+          <h2 className="text-3xl md:text-5xl lg:text-7xl text-center font-bold mt-3 mb-6">
             OUR{" "}
             <TextStroke strokeWidth="1px" className="italic">
               HEARTFELT
             </TextStroke>{" "}
             PROMISE
           </h2>
-          <p className="text-xl font-light mb-12 max-w-3xl text-center mx-auto">
-            "At YU CAR RENTAL, everything revolves around ease, trust and a
+          <p className="text-xl lg:text-3xl font-light mb-12 text-center mx-auto">
+            "At YU CAR RENTAL, everything revolves around ease, trust and a{" "}
+            <br />
             heartfelt welcome. We make sure your car is perfectly prepared, with
             clear instructions and personal service."
           </p>
-          <p className="text-muted-foreground tracking-widest font-bold uppercase opacity-65 max-w-xl mx-auto">
+          <p className="text-primary tracking-widest text-lg font-bold uppercase opacity-90 max-w-xl mx-auto">
             FROM THE MOMENT YOU ARRIVE, YOUR JOURNEY BEGINS IN STYLE — RELAXED,
             SMOOTH AND STRESS-FREE.
           </p>
@@ -245,22 +213,22 @@ const AboutUs = () => {
       {/* Freedom CTA */}
       <section className="py-24 bg-[#F8FAFC] text-center">
         <div className="container mx-auto px-4">
-          <span className="text-xs tracking-[0.2em] ">
+          <span className="text-xm md:text-base font-bold text-primary tracking-[0.2em] ">
             READY TO EXPLORE BONAIRE AT YOUR OWN PACE?
           </span>
           <div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold  mt-4 mb-2">
+            <h2 className="text-4xl md:text-5xl lg:text-9xl font-display tracking-tighter font-bold  mt-4 mb-2">
               YOUR KEY TO
             </h2>
             <TextStroke
               strokeWidth="1px"
-              className="text-4xl md:text-5xl lg:text-6xl font-bold italic"
+              className="text-4xl md:text-5xl lg:text-9xl tracking-tighter font-bold italic"
             >
               FREEDOM.
             </TextStroke>
           </div>
           <Link href="/booking" className="mt-12">
-            <Button className="bg-primary mt-12 border-primary-foreground/30  px-8 py-6">
+            <Button className="bg-primary mt-12  border-primary-foreground/30  px-16 py-8 tracking-[0.25rem] font-extrabold">
               BOOK TODAY
             </Button>
           </Link>

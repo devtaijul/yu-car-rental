@@ -11,13 +11,15 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+
+const airportHero = "/assets/Arrival Hall.png";
+const arrivalsImg = "/assets/Airport-1.png";
+const luggageImg = "/assets/Airport-2.png";
+const drivingImg = "/assets/Airport-3.png";
+import Image from "next/image";
 import Link from "next/link";
 import { HeaderSpace } from "../HeaderSpace";
-
-const airportHero = "/assets/airport-hero.jpg";
-const arrivalsImg = "/assets/airport-arrivals.jpg";
-const luggageImg = "/assets/airport-luggage.jpg";
-const drivingImg = "/assets/airport-driving.jpg";
+import { TextStroke } from "../TextStroke";
 
 const arrivalSteps = [
   {
@@ -61,83 +63,98 @@ const AirportPickup = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Hero Section */}
-      <div
-        className="relative min-h-[80vh] bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${airportHero})` }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-20">
+      <div className="relative min-h-[80vh] bg-background">
+        <div className="absolute inset-0 z-20">
           <Header />
-          <HeaderSpace />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 flex items-center min-h-[60vh]">
-          <div className="max-w-lg">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-0.5 bg-white/60" />
-              <span className="text-xs tracking-[0.2em] text-white/80 font-medium">
-                AIRPORT PICKUP SERVICE
-              </span>
+        <div className="relative z-10 min-h-[80vh] flex items-center pt-44">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
+            {/* Left - Image */}
+            <div className="relative overflow-hidden  aspect-4/3 before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-primary before:opacity-30">
+              <Image
+                src={airportHero}
+                alt="Airport"
+                className="w-full h-full object-cover "
+                width={1000}
+                height={500}
+              />
+              <div className="absolute bottom-4 left-4 text-white text-xs tracking-widest">
+                <div>FLAMINGO INT'L AIRPORT</div>
+                <div className="text-white/60">BONAIRE (BON)</div>
+              </div>
             </div>
 
-            {/* Location info */}
-            <div className="text-xs text-white/60 tracking-widest mb-4">
-              FLAMINGO INT&apos;L AIRPORT
-              <br />
-              BONAIRE (BON)
-            </div>
+            {/* Right - Content */}
+            <div className="p-20">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-0.5 bg-foreground/40" />
+                <span className="text-xs tracking-[0.2em] text-muted-foreground font-medium">
+                  AIRPORT PICKUP SERVICE
+                </span>
+              </div>
 
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-[0.95] mb-6">
-              LUXURY
-              <br />
-              <span
-                className="text-gradient-teal"
-                style={{
-                  background: "linear-gradient(90deg, #4fd1c5, #38b2ac)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                ARRIVAL.
-              </span>
-            </h1>
+              <h1 className="text-5xl md:text-7xl font-display font-bold leading-[0.95] mb-6">
+                LUXURY
+                <br />
+                <span
+                  className="font-display font-bold italic"
+                  style={{
+                    WebkitTextStroke: "2px hsl(var(--foreground))",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                ></span>
+                <TextStroke strokeWidth="2px" className="font-extrabold ">
+                  ARRIVAL.
+                </TextStroke>
+              </h1>
 
-            <p className="text-white/80 text-sm max-w-sm mb-6 leading-relaxed">
-              Escape the chaos of the terminal. The redesigned airport is
-              expected to provide an experience as tranquil and serene as the
-              Caribbean sea itself. No queues, no shuttles, just your island
-              flow.
-            </p>
+              <p className="text-dark-text text-sm max-w-sm mb-6 leading-relaxed">
+                Escape the chaos of the terminal. The redesigned airport is
+                expected to provide an experience as tranquil and serene as the
+                Caribbean sea itself. No queues, no shuttle, just pure island
+                flow
+              </p>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs text-white/60 tracking-widest">
-              <Link href="/help" className="hover:text-white transition-colors">
-                HELP
-              </Link>
-              <span>•</span>
-              <Link href="/help" className="hover:text-white transition-colors">
-                FAQ
-              </Link>
-              <span>•</span>
-              <Link
-                href="/deals"
-                className="hover:text-white transition-colors"
-              >
-                DEALS
-              </Link>
-              <span>•</span>
-              <Link
-                href="/bonaire"
-                className="hover:text-white transition-colors"
-              >
-                BONAIRE INFO
-              </Link>
-              <span>•</span>
-              <Link
-                href="/booking"
-                className="hover:text-white transition-colors"
-              >
-                EXPANSION
-              </Link>
+              <div className="px-8 border-l-4 border-dark-text">
+                <span className="font-bold ">Available Carriers</span>
+                <div className="flex flex-wrap items-center gap-4 text-lg  text-black font-bold tracking-widest">
+                  <Link
+                    href="/help"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    HELP
+                  </Link>
+                  <span>•</span>
+                  <Link
+                    href="/help"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    FAQ
+                  </Link>
+                  <span>•</span>
+                  <Link
+                    href="/deals"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    DEALS
+                  </Link>
+                  <span>•</span>
+                  <Link
+                    href="/bonaire"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    BONAIRE INFO
+                  </Link>
+                  <span>•</span>
+                  <Link
+                    href="/booking"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    EXPANSION
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,11 +185,13 @@ const AirportPickup = () => {
                   step.imagePosition === "left" ? "" : "md:[direction:rtl]"
                 }`}
               >
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] md:[direction:ltr]">
-                  <img
+                <div className="relative rounded-2xl overflow-hidden aspect-4/3 md:[direction:ltr]">
+                  <Image
                     src={step.image}
                     alt={step.title}
                     className="w-full h-full object-cover"
+                    width={800}
+                    height={500}
                   />
                   {index === 0 && (
                     <div className="absolute bottom-4 right-4 bg-primary text-primary-foreground rounded-xl px-4 py-3 text-center">
@@ -200,12 +219,12 @@ const AirportPickup = () => {
       </section>
 
       {/* Flight Intelligence Section */}
-      <section className="py-20 bg-[hsl(var(--primary))]">
+      <section className="py-20 bg-[#214C5A]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-primary-foreground">
               <div className="flex items-center gap-3 mb-4">
-                <span className="w-8 h-[2px] bg-primary-foreground/40" />
+                <span className="w-8 h-0.5 bg-primary-foreground/40" />
                 <span className="text-xs tracking-[0.2em] text-primary-foreground/60 font-medium">
                   SYSTEM STATUS: MONITORING LIVE
                 </span>
@@ -218,10 +237,10 @@ const AirportPickup = () => {
               </h2>
 
               <p className="text-sm text-primary-foreground/70 max-w-md mb-8 leading-relaxed">
-                We operate on your schedule, not the airline&apos;s. Our
-                proprietary tracking system monitors Flamingo Airport (BON) in
-                real-time to match arrivals with your exact pickup, delayed or
-                early — we are always where you need us to be.
+                We operate on your schedule, not the airline's. Our proprietary
+                tracking system monitors Flamingo Airport (BON) in real-time to
+                match arrivals with your exact pickup, delayed or early — we are
+                always where you need us to be.
               </p>
 
               <div className="flex gap-12">
@@ -241,9 +260,9 @@ const AirportPickup = () => {
             </div>
 
             {/* Flight Board */}
-            <div className="bg-card text-foreground rounded-2xl p-6 shadow-xl">
+            <div className="bg-[#142D35] text-white rounded-2xl p-6 shadow-xl">
               <div className="flex items-center justify-between mb-6">
-                <span className="text-xs tracking-widest text-muted-foreground">
+                <span className="text-xs tracking-widest">
                   FLIGHT TRACKER • BON
                 </span>
                 <span className="flex items-center gap-1 text-xs text-green-500">
@@ -281,36 +300,32 @@ const AirportPickup = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 gradient-teal text-center">
+      <section className="py-24 bg-[#F8FAFC] text-center">
         <div className="container mx-auto px-4">
-          <span className="text-xs tracking-[0.2em] text-primary-foreground/60 font-medium">
+          <span className="text-xm md:text-base font-bold text-primary tracking-[0.2em] ">
             YOUR ISLAND JOURNEY
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground mt-4 mb-2">
-            START IN
-          </h2>
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8"
-            style={{
-              background: "linear-gradient(90deg, #4fd1c5, #38b2ac)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              textShadow: "0 0 40px rgba(79, 209, 197, 0.3)",
-            }}
-          >
-            HIGH GEAR.
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div>
+            <h2 className="text-4xl md:text-5xl lg:text-9xl font-display tracking-tighter font-bold  mt-4 mb-2">
+              START IN
+            </h2>
+            <TextStroke
+              strokeWidth="1px"
+              className="text-4xl md:text-5xl lg:text-9xl tracking-tighter font-bold italic"
+            >
+              HIGH GEAR.
+            </TextStroke>
+          </div>
+          <div className="flex items-center justify-center gap-4  mt-12">
             <Link href="/booking">
-              <Button className="gradient-teal text-primary-foreground border-2 border-primary-foreground/30 rounded-lg px-8 py-6">
-                SCHEDULE YOUR PICKUP
+              <Button className="bg-primary  border-primary-foreground/30  px-16 py-8 tracking-[0.25rem] font-extrabold">
+                BOOK TODAY
               </Button>
             </Link>
             <Link href="/booking">
               <Button
                 variant="outline"
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary rounded-lg px-8 py-6"
+                className=" border-primary text-dark-text hover:bg-primary-foreground hover:text-primary px-16 py-8 tracking-[0.25rem] font-extrabold"
               >
                 VIEW LUXURY FLEET
               </Button>

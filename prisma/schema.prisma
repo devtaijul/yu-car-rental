@@ -1,0 +1,242 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+//////////////////////
+// ENUMS
+//////////////////////
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum CarType {
+  SEDAN
+  SUV
+  MICROBUS
+  HATCHBACK
+  PICKUP
+  LUXURY
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum TransmissionType {
+  MANUAL
+  AUTOMATIC
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  STRIPE
+  SSL_COMMERZ
+  CASH
+  BKASH
+  NAGAD
+}
+
+//////////////////////
+// USER
+//////////////////////
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  phone      String   @unique
+  password   String
+  role       UserRole @default(USER)
+  isVerified Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  bookings Booking[]
+  payments Payment[]
+  reviews  Review[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+//////////////////////
+// CAR
+//////////////////////
+
+model Car {
+  id    String @id @default(uuid())
+  name  String
+  brand String
+  model String
+  year  Int
+
+  speed          Int? // 90 (from UI)
+  engineCapacity String? // 5.2L
+  fuelType       String
+  transmission   String
+  seats          Int?
+
+  carType CarType
+
+  pricePerDay    Float
+  registrationNo String   @unique
+  isAvailable    Boolean  @default(true)
+  description    String?
+  imageUrl       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  bookings     Booking[]
+  reviews      Review[]
+  availability CarAvailability[]
+
+  @@index([carType])
+  @@index([pricePerDay])
+}
+
+//////////////////////
+// CAR AVAILABILITY BLOCKING
+//////////////////////
+
+model CarAvailability {
+  id        String   @id @default(uuid())
+  car       Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  carId     String
+  startDate DateTime
+  endDate   DateTime
+  reason    String? // maintenance, blocked, etc.
+
+  @@index([carId, startDate, endDate])
+}
+
+//////////////////////
+// DRIVER (Optional)
+//////////////////////
+
+model Driver {
+  id          String   @id @default(uuid())
+  name        String
+  phone       String   @unique
+  licenseNo   String   @unique
+  experience  Int // years
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  bookings Booking[]
+}
+
+//////////////////////
+// BOOKING
+//////////////////////
+
+model Booking {
+  id       String  @id @default(uuid())
+  user     User    @relation(fields: [userId], references: [id])
+  userId   String
+  car      Car     @relation(fields: [carId], references: [id])
+  carId    String
+  driver   Driver? @relation(fields: [driverId], references: [id])
+  driverId String?
+
+  startDate   DateTime
+  endDate     DateTime
+  totalDays   Int
+  pricePerDay Float
+  totalAmount Float
+  discount    Float    @default(0)
+
+  status    BookingStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  payment Payment?
+
+  @@index([userId])
+  @@index([carId])
+  @@index([status])
+}
+
+//////////////////////
+// PAYMENT
+//////////////////////
+
+model Payment {
+  id        String  @id @default(uuid())
+  booking   Booking @relation(fields: [bookingId], references: [id])
+  bookingId String  @unique
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+
+  amount        Float
+  paymentMethod PaymentMethod
+  transactionId String?       @unique
+  status        PaymentStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+//////////////////////
+// REVIEW
+//////////////////////
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int // 1-5
+  comment   String?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  car       Car      @relation(fields: [carId], references: [id])
+  carId     String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, carId])
+}
+
+//////////////////////
+// COUPON SYSTEM
+//////////////////////
+
+model Coupon {
+  id            String   @id @default(uuid())
+  code          String   @unique
+  discountType  String // PERCENTAGE / FIXED
+  discountValue Float
+  expiresAt     DateTime
+  usageLimit    Int?
+  usedCount     Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+}

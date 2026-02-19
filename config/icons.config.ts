@@ -1,4 +1,5 @@
 import { CalenderIcon } from "@/components/icons/Calender.icon";
+import { FaceIcon } from "@/components/icons/Face.icon";
 import { GasIcon } from "@/components/icons/gas.icon";
 import { HartIcon } from "@/components/icons/Hart.icon";
 import { LoveHandIcon } from "@/components/icons/love-hand.icon";
@@ -22,6 +23,7 @@ const ICON_NAMES = {
   sheild_icon: SheildIcon,
   whatsapp_transparent_icon: WhatsAppTransparentIcon,
   hart_icon: HartIcon,
+  face_icon: FaceIcon,
 };
 
 export { ICON_NAMES };

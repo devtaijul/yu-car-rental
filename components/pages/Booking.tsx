@@ -39,8 +39,50 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { HeaderSpace } from "../HeaderSpace";
 import Image from "next/image";
 import { PricingTable } from "../PricingTable";
+import { Icons } from "../icons";
+import { IconName } from "@/config/icons.config";
+
+const extras = [
+  {
+    id: "baby-seat-small",
+    icon: "face_icon",
+    name: "BABY SEAT",
+    description: "Baby <18 months",
+    price: 5,
+  },
+  {
+    id: "baby-seat-large",
+    icon: "face_icon",
+    name: "BABY SEAT",
+    description: ">18 months. (9-18 kg)",
+    price: 5,
+  },
+  {
+    id: "coolbox",
+    icon: "face_icon",
+    name: "COOLBOX",
+    description:
+      "Ideal for your groceries or a day at the beach. Capacity 24 liters. Space for 6x 1.5 liter bottles.",
+    price: 4,
+  },
+  {
+    id: "key-secure-box",
+    icon: "face_icon",
+    name: "KEY SECURE BOX",
+    description:
+      "Perfect for divers or snorkelers to safely store their car key.",
+    price: 2.5,
+  },
+];
 
 const Booking = () => {
+  const [extraQuantities, setExtraQuantities] = useState<
+    Record<string, number>
+  >(Object.fromEntries(extras.map((e) => [e.id, 0])));
+  const [selectedExtras, setSelectedExtras] = useState<Record<string, boolean>>(
+    Object.fromEntries(extras.map((e) => [e.id, false])),
+  );
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const preselectedCar = searchParams.get("car");
@@ -97,6 +139,17 @@ const Booking = () => {
     } else {
       router.push("/confirmation");
     }
+  };
+
+  const handleExtraQuantity = (id: string, delta: number) => {
+    setExtraQuantities((prev) => ({
+      ...prev,
+      [id]: Math.max(0, (prev[id] || 0) + delta),
+    }));
+  };
+
+  const handleToggleExtra = (id: string) => {
+    setSelectedExtras((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const selectedCarData = cars.find((c) => c.id === selectedCar);
@@ -337,13 +390,86 @@ const Booking = () => {
 
             <PricingTable />
 
+            {/* Extras Section */}
+            <div className="mt-12">
+              <h2 className="text-2xl font-display font-semibold mb-6">
+                Choose your extra&apos;s
+              </h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {extras.map((extra) => {
+                  const qty = extraQuantities[extra.id] || 0;
+                  const added = selectedExtras[extra.id];
+                  return (
+                    <div
+                      key={extra.id}
+                      className={`border p-5 flex flex-col justify-between gap-3 transition-all ${added ? "border-primary" : "border-border"}`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="w-15 h-15 rounded-3xl bg-primary/20 flex items-center justify-center">
+                          <span className="text-2xl">
+                            <Icons name={extra.icon as IconName} />
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                            Daily
+                          </p>
+                          <p className="text-3xl font-extrabold text-primary">
+                            ${extra.price.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="font-black  text-2xl tracking-wide text-black">
+                          {extra.name}
+                        </h4>
+                        <p className="text-xs text- mt-1">
+                          {extra.description}
+                        </p>
+                      </div>
+                      <div className="flex bg-primary/20 items-center gap-2 mt-1 py-2 px-3">
+                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider flex-1">
+                          Quantity
+                        </span>
+                        <button
+                          onClick={() => handleExtraQuantity(extra.id, -1)}
+                          className="w-7 h-7  bg-primary/90 text-white text-lg font-bold flex items-center justify-center hover:bg-muted/80 transition-colors"
+                        >
+                          −
+                        </button>
+                        <span className="w-6 text-center text-sm font-medium">
+                          {qty}
+                        </span>
+                        <button
+                          onClick={() => handleExtraQuantity(extra.id, 1)}
+                          className="w-7 h-7  bg-primary/90 text-white text-lg font-bold flex items-center justify-center hover:bg-muted/80 transition-colors"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <Button
+                        className={`w-full  text-xs font-bold tracking-widest py-5 transition-all ${
+                          added
+                            ? "bg-primary/20 text-primary border border-primary hover:bg-primary/30"
+                            : "bg-primary text-primary-foreground hover:opacity-90"
+                        }`}
+                        onClick={() => handleToggleExtra(extra.id)}
+                      >
+                        {added ? "✓ ADDED" : "ADD TO SELECTION"}
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             <div className="flex justify-end gap-4 mt-8">
               <Button variant="ghost" onClick={() => setStep(4)}>
                 Go To Step 4
               </Button>
               <Button
                 onClick={() => setStep(4)}
-                className="gradient-teal text-primary-foreground"
+                className="bg-primary text-primary-foreground"
               >
                 Continue
               </Button>
@@ -590,7 +716,7 @@ const Booking = () => {
 
                   {/* Driver's License */}
                   <h3 className="font-semibold mb-4">
-                    Driver's License Details
+                    Driver&apos;s License Details
                   </h3>
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div>
@@ -601,7 +727,7 @@ const Booking = () => {
                     </div>
                     <div>
                       <Label className="text-sm font-medium mb-1 block">
-                        Driver's License Number
+                        Driver&apos;s License Number
                       </Label>
                       <Input placeholder="1234567890" />
                     </div>
@@ -625,7 +751,7 @@ const Booking = () => {
                       Special Requests
                     </Label>
                     <textarea
-                      className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[80px] resize-none"
+                      className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-20 resize-none"
                       placeholder="e.g., Early pick-up, vehicle preference, special equipment..."
                     />
                   </div>

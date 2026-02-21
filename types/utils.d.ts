@@ -15,3 +15,7 @@ export type LocationData = {
   pickupLocation?: string;
   dropoffLocation?: string;
 };
+
+export type LocationDataAndPackage = LocationData & {
+  package?: string;
+};

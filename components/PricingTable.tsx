@@ -1,15 +1,20 @@
 "use client";
 
-import { Car, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Check, X } from "lucide-react";
 import { SectionTitle } from "./SectionTitle";
 
 interface PricingTableProps {
-  selectedPackage?: "standard" | "premium";
-  // onSelectCoverage: (coverage: "standard" | "premium") => void;
+  selectedCoverage?: "standard" | "premium";
+  isSelectable?: boolean;
+  onSelectCoverage: (coverage: "standard" | "premium") => void;
 }
 
-export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
+export const PricingTable = ({
+  selectedCoverage,
+  isSelectable,
+  onSelectCoverage,
+}: PricingTableProps) => {
   const features = [
     {
       name: "Deductible Risk",
@@ -72,10 +77,6 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
       isPremiumHighlight: false,
     },
   ];
-
-  const onSelectPackage = (coverage: "standard" | "premium") => {
-    console.log("Selected coverage:", coverage);
-  };
 
   const renderValue = (
     value: string | boolean,
@@ -170,32 +171,34 @@ export const PricingTable = ({ selectedPackage }: PricingTableProps) => {
       </div>
 
       {/* Action Buttons */}
-      <div className="grid grid-cols-3 mt-6 gap-4">
-        <div></div>
-        <div>
-          <Button
-            variant="outline"
-            className={`w-full rounded-none py-6 ${
-              selectedPackage === "standard" ? "border-primary border-2" : ""
-            }`}
-            onClick={() => onSelectPackage("standard")}
-          >
-            Select Package
-          </Button>
+      {isSelectable && (
+        <div className="grid grid-cols-3 mt-6 gap-4">
+          <div></div>
+          <div>
+            <Button
+              variant="outline"
+              className={`w-full rounded-none py-6 ${
+                selectedCoverage === "standard" ? "border-primary border-2" : ""
+              }`}
+              onClick={() => onSelectCoverage("standard")}
+            >
+              Select Package
+            </Button>
+          </div>
+          <div>
+            <Button
+              className={`w-full bg-primary text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
+                selectedCoverage === "premium"
+                  ? "ring-2 ring-offset-2 ring-primary"
+                  : ""
+              }`}
+              onClick={() => onSelectCoverage("premium")}
+            >
+              Select Package
+            </Button>
+          </div>
         </div>
-        <div>
-          <Button
-            className={`w-full bg-primary text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
-              selectedPackage === "premium"
-                ? "ring-2 ring-offset-2 ring-primary"
-                : ""
-            }`}
-            onClick={() => onSelectPackage("premium")}
-          >
-            Select Package
-          </Button>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -8,5 +8,7 @@ export const PAGES = {
     CONFIRMATION: "/reserve-a-car/confirmation",
     SELECTED_CAR: (carSlug: string) =>
       `/reserve-a-car/${carSlug}/protection-package`,
+    SUMMARY_CHECKOUT: (carSlug: string) =>
+      `/reserve-a-car/${carSlug}/summary-checkout`,
   },
 };

@@ -6,3 +6,12 @@ export type Dictionary = {
     hero: HeroContent;
   };
 };
+
+export type LocationData = {
+  pickupDate?: string;
+  dropoffDate?: string;
+  pickupTime?: string;
+  dropoffTime?: string;
+  pickupLocation?: string;
+  dropoffLocation?: string;
+};

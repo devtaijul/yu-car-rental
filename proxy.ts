@@ -45,7 +45,10 @@ export function proxy(request: NextRequest) {
     // detect user's preference & redirect with a locale with a path eg: /en/about
     const locale = getLocale(request);
 
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+    const url = new URL(request.url);
+    url.pathname = `/${locale}${pathname}`;
+
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.next();

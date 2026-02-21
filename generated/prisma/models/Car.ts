@@ -285,7 +285,7 @@ export type CarGroupByOutputType = {
   registrationNo: string
   isAvailable: boolean
   description: string | null
-  imageUrl: string | null
+  imageUrl: string
   createdAt: Date
   updatedAt: Date
   _count: CarCountAggregateOutputType | null
@@ -329,7 +329,7 @@ export type CarWhereInput = {
   registrationNo?: Prisma.StringFilter<"Car"> | string
   isAvailable?: Prisma.BoolFilter<"Car"> | boolean
   description?: Prisma.StringNullableFilter<"Car"> | string | null
-  imageUrl?: Prisma.StringNullableFilter<"Car"> | string | null
+  imageUrl?: Prisma.StringFilter<"Car"> | string
   createdAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
@@ -353,7 +353,7 @@ export type CarOrderByWithRelationInput = {
   registrationNo?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   bookings?: Prisma.BookingOrderByRelationAggregateInput
@@ -380,7 +380,7 @@ export type CarWhereUniqueInput = Prisma.AtLeast<{
   pricePerDay?: Prisma.FloatFilter<"Car"> | number
   isAvailable?: Prisma.BoolFilter<"Car"> | boolean
   description?: Prisma.StringNullableFilter<"Car"> | string | null
-  imageUrl?: Prisma.StringNullableFilter<"Car"> | string | null
+  imageUrl?: Prisma.StringFilter<"Car"> | string
   createdAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
@@ -404,7 +404,7 @@ export type CarOrderByWithAggregationInput = {
   registrationNo?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CarCountOrderByAggregateInput
@@ -433,7 +433,7 @@ export type CarScalarWhereWithAggregatesInput = {
   registrationNo?: Prisma.StringWithAggregatesFilter<"Car"> | string
   isAvailable?: Prisma.BoolWithAggregatesFilter<"Car"> | boolean
   description?: Prisma.StringNullableWithAggregatesFilter<"Car"> | string | null
-  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Car"> | string | null
+  imageUrl?: Prisma.StringWithAggregatesFilter<"Car"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Car"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Car"> | Date | string
 }
@@ -454,7 +454,7 @@ export type CarCreateInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutCarInput
@@ -478,7 +478,7 @@ export type CarUncheckedCreateInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCarInput
@@ -502,7 +502,7 @@ export type CarUpdateInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutCarNestedInput
@@ -526,7 +526,7 @@ export type CarUncheckedUpdateInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutCarNestedInput
@@ -550,7 +550,7 @@ export type CarCreateManyInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -571,7 +571,7 @@ export type CarUpdateManyMutationInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -592,7 +592,7 @@ export type CarUncheckedUpdateManyInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -769,7 +769,7 @@ export type CarCreateWithoutAvailabilityInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutCarInput
@@ -792,7 +792,7 @@ export type CarUncheckedCreateWithoutAvailabilityInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCarInput
@@ -831,7 +831,7 @@ export type CarUpdateWithoutAvailabilityInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutCarNestedInput
@@ -854,7 +854,7 @@ export type CarUncheckedUpdateWithoutAvailabilityInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutCarNestedInput
@@ -877,7 +877,7 @@ export type CarCreateWithoutBookingsInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewCreateNestedManyWithoutCarInput
@@ -900,7 +900,7 @@ export type CarUncheckedCreateWithoutBookingsInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCarInput
@@ -939,7 +939,7 @@ export type CarUpdateWithoutBookingsInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUpdateManyWithoutCarNestedInput
@@ -962,7 +962,7 @@ export type CarUncheckedUpdateWithoutBookingsInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCarNestedInput
@@ -985,7 +985,7 @@ export type CarCreateWithoutReviewsInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutCarInput
@@ -1008,7 +1008,7 @@ export type CarUncheckedCreateWithoutReviewsInput = {
   registrationNo: string
   isAvailable?: boolean
   description?: string | null
-  imageUrl?: string | null
+  imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCarInput
@@ -1047,7 +1047,7 @@ export type CarUpdateWithoutReviewsInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutCarNestedInput
@@ -1070,7 +1070,7 @@ export type CarUncheckedUpdateWithoutReviewsInput = {
   registrationNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutCarNestedInput
@@ -1247,7 +1247,7 @@ export type $CarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     registrationNo: string
     isAvailable: boolean
     description: string | null
-    imageUrl: string | null
+    imageUrl: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["car"]>

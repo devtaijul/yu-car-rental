@@ -41,6 +41,7 @@ import Image from "next/image";
 import { PricingTable } from "../PricingTable";
 import { Icons } from "../icons";
 import { IconName } from "@/config/icons.config";
+import { times } from "@/data/utils";
 
 const extras = [
   {
@@ -195,7 +196,7 @@ const Booking = () => {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-4 gap-6 mb-8">
               <div>
                 <Label className="text-sm text-muted-foreground mb-2 block">
                   Pickup Date
@@ -225,24 +226,7 @@ const Booking = () => {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-card">
-                    {[
-                      "08:00",
-                      "09:00",
-                      "10:00",
-                      "11:00",
-                      "12:00",
-                      "13:00",
-                      "14:00",
-                      "15:00",
-                      "16:00",
-                      "17:00",
-                      "18:00",
-                      "19:00",
-                      "20:00",
-                      "21:00",
-                      "22:00",
-                      "22:30",
-                    ].map((time) => (
+                    {times.map((time) => (
                       <SelectItem key={time} value={time}>
                         {time}
                       </SelectItem>
@@ -269,6 +253,23 @@ const Booking = () => {
                     />
                   </PopoverContent>
                 </Popover>
+              </div>
+              <div>
+                <Label className="text-sm text-muted-foreground mb-2 block">
+                  Time
+                </Label>
+                <Select defaultValue="22:30">
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-card">
+                    {times.map((time) => (
+                      <SelectItem key={time} value={time}>
+                        {time}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

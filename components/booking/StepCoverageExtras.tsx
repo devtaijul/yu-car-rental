@@ -12,7 +12,7 @@ import { PAGES } from "@/config/pages.config";
 
 type CoverageType = "standard" | "premium";
 
-export default function StepCoverageExtras() {
+export default function StepCoverageExtras({ car_slug }: { car_slug: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setBooking } = useBooking();
@@ -54,7 +54,7 @@ export default function StepCoverageExtras() {
     });
 
     router.push(
-      `${PAGES.RESERVE_A_CAR.SUMMARY_CHECKOUT("879d8c9f-ab91-4688-9fc8-e83e7d800182")}?${query.toString()}`,
+      `${PAGES.RESERVE_A_CAR.SUMMARY_CHECKOUT(car_slug)}?${query.toString()}`,
     );
   };
 

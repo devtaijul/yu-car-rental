@@ -354,7 +354,7 @@ const Booking = () => {
 
             {/* Car Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {cars.map((car) => (
+              {/* {cars.map((car) => (
                 <CarCard
                   id={car.id}
                   key={car.id}
@@ -365,7 +365,7 @@ const Booking = () => {
                   variant="dark"
                   onRent={() => handleSelectCar(car.id)}
                 />
-              ))}
+              ))} */}
             </div>
 
             <div className="flex justify-end gap-4">
@@ -389,7 +389,7 @@ const Booking = () => {
               Coverage Options
             </h1>
 
-            <PricingTable />
+            {/*  <PricingTable /> */}
 
             {/* Extras Section */}
             <div className="mt-12">

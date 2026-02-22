@@ -65,6 +65,7 @@ async function main() {
   const carsData = [
     {
       name: "Toyota Raize",
+      slug: "toyota-raize",
       brand: "Toyota",
       model: "Raize",
       year: 2023,
@@ -77,12 +78,13 @@ async function main() {
       pricePerDay: 50,
       registrationNo: "DHK-RAIZE-001",
       description: "Compact SUV perfect for city driving.",
-      imageUrl: "/cars/raize.png",
+      imageUrl: "car-1_mehwhd",
     },
     {
-      name: "Toyota Raize",
+      name: "Toyota Hilux",
+      slug: "toyota-hilux",
       brand: "Toyota",
-      model: "Raize",
+      model: "Hilux",
       year: 2024,
       speed: 95,
       engineCapacity: "1.0L Turbo",
@@ -93,46 +95,13 @@ async function main() {
       pricePerDay: 55,
       registrationNo: "DHK-RAIZE-002",
       description: "Automatic version for smoother rides.",
-      imageUrl: "/cars/raize.png",
-    },
-
-    // Toyota Hilux Variants
-    {
-      name: "Toyota Hilux",
-      brand: "Toyota",
-      model: "Hilux",
-      year: 2022,
-      speed: 110,
-      engineCapacity: "2.4L",
-      fuelType: "DIESEL",
-      transmission: "MANUAL",
-      seats: 5,
-      carType: CarType.PICKUP,
-      pricePerDay: 55,
-      registrationNo: "DHK-HILUX-003",
-      description: "Strong pickup for heavy duty travel.",
-      imageUrl: "/cars/hilux.png",
-    },
-    {
-      name: "Toyota Hilux",
-      brand: "Toyota",
-      model: "Hilux",
-      year: 2023,
-      speed: 115,
-      engineCapacity: "2.8L",
-      fuelType: "DIESEL",
-      transmission: "AUTOMATIC",
-      seats: 5,
-      carType: CarType.PICKUP,
-      pricePerDay: 65,
-      registrationNo: "DHK-HILUX-004",
-      description: "Premium pickup with automatic transmission.",
-      imageUrl: "/cars/hilux.png",
+      imageUrl: "car-2_wnwqnm",
     },
 
     // Hyundai Venue
     {
       name: "Hyundai Venue",
+      slug: "hyundai-venue",
       brand: "Hyundai",
       model: "Venue",
       year: 2023,
@@ -145,28 +114,13 @@ async function main() {
       pricePerDay: 55,
       registrationNo: "DHK-VENUE-005",
       description: "Stylish compact SUV.",
-      imageUrl: "/cars/venue.png",
-    },
-    {
-      name: "Hyundai Venue",
-      brand: "Hyundai",
-      model: "Venue",
-      year: 2024,
-      speed: 105,
-      engineCapacity: "1.2L",
-      fuelType: "PETROL",
-      transmission: "AUTOMATIC",
-      seats: 5,
-      carType: CarType.SUV,
-      pricePerDay: 60,
-      registrationNo: "DHK-VENUE-006",
-      description: "Automatic variant for comfortable driving.",
-      imageUrl: "/cars/venue.png",
+      imageUrl: "car-3_fbfmgw",
     },
 
     // Hyundai Staria
     {
       name: "Hyundai Staria",
+      slug: "hyundai-staria",
       brand: "Hyundai",
       model: "Staria",
       year: 2023,
@@ -179,28 +133,13 @@ async function main() {
       pricePerDay: 75,
       registrationNo: "DHK-STARIA-007",
       description: "Spacious family van.",
-      imageUrl: "/cars/staria.png",
-    },
-    {
-      name: "Hyundai Staria",
-      brand: "Hyundai",
-      model: "Staria",
-      year: 2024,
-      speed: 100,
-      engineCapacity: "2.2L",
-      fuelType: "DIESEL",
-      transmission: "AUTOMATIC",
-      seats: 9,
-      carType: CarType.MICROBUS,
-      pricePerDay: 80,
-      registrationNo: "DHK-STARIA-008",
-      description: "Premium 9-seater van.",
-      imageUrl: "/cars/staria.png",
+      imageUrl: "car-4_qkxw3g",
     },
 
     // Kia Sonet
     {
       name: "Kia Sonet",
+      slug: "kia-sonet",
       brand: "Kia",
       model: "Sonet",
       year: 2023,
@@ -213,10 +152,11 @@ async function main() {
       pricePerDay: 55,
       registrationNo: "DHK-SONET-009",
       description: "Compact stylish SUV.",
-      imageUrl: "/cars/sonet.png",
+      imageUrl: "car-5_hfqpog",
     },
     {
       name: "Kia Sonet",
+      slug: "kia-sonet-1",
       brand: "Kia",
       model: "Sonet",
       year: 2024,
@@ -229,30 +169,11 @@ async function main() {
       pricePerDay: 60,
       registrationNo: "DHK-SONET-010",
       description: "Automatic premium edition.",
-      imageUrl: "/cars/sonet.png",
+      imageUrl: "car-6_n43tyc",
     },
 
     // Generate more variants (20 more mixed realistic entries)
   ];
-
-  for (let i = 11; i <= 30; i++) {
-    carsData.push({
-      name: "Toyota Raize",
-      brand: "Toyota",
-      model: "Raize",
-      year: 2022 + (i % 3),
-      speed: 85 + i,
-      engineCapacity: "1.0L Turbo",
-      fuelType: i % 2 === 0 ? "PETROL" : "HYBRID",
-      transmission: i % 2 === 0 ? "MANUAL" : "AUTOMATIC",
-      seats: 5,
-      carType: CarType.SUV,
-      pricePerDay: 45 + (i % 10),
-      registrationNo: `DHK-AUTO-${i}`,
-      description: "Generated seed vehicle.",
-      imageUrl: "/cars/default.png",
-    });
-  }
 
   const cars = await prisma.car.createMany({
     data: [...carsData],

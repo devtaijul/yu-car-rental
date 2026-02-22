@@ -7,7 +7,7 @@ import { SectionTitle } from "./SectionTitle";
 interface PricingTableProps {
   selectedCoverage?: "standard" | "premium";
   isSelectable?: boolean;
-  onSelectCoverage: (coverage: "standard" | "premium") => void;
+  onSelectCoverage?: (coverage: "standard" | "premium") => void;
 }
 
 export const PricingTable = ({
@@ -180,7 +180,11 @@ export const PricingTable = ({
               className={`w-full rounded-none py-6 ${
                 selectedCoverage === "standard" ? "border-primary border-2" : ""
               }`}
-              onClick={() => onSelectCoverage("standard")}
+              onClick={() => {
+                if (onSelectCoverage) {
+                  onSelectCoverage("standard");
+                }
+              }}
             >
               Select Package
             </Button>
@@ -192,7 +196,11 @@ export const PricingTable = ({
                   ? "ring-2 ring-offset-2 ring-primary"
                   : ""
               }`}
-              onClick={() => onSelectCoverage("premium")}
+              onClick={() => {
+                if (onSelectCoverage) {
+                  onSelectCoverage("premium");
+                }
+              }}
             >
               Select Package
             </Button>

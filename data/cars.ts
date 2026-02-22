@@ -16,7 +16,7 @@ export const cars: Car[] = [
   {
     id: "1",
     name: "Toyota Raize",
-    image: `/car/car-1.png`,
+    image: `car-1_mehwhd`,
     price: 50,
     specs: {
       seats: 90,
@@ -29,7 +29,7 @@ export const cars: Car[] = [
   {
     id: "2",
     name: "Toyota Hilux",
-    image: "/car/car-2.png",
+    image: "car-2_wnwqnm",
     price: 55,
     specs: {
       seats: 90,
@@ -42,7 +42,7 @@ export const cars: Car[] = [
   {
     id: "3",
     name: "Hyundai Venue",
-    image: "/car/car-3.png",
+    image: "car-3_fbfmgw",
     price: 55,
     specs: {
       seats: 90,
@@ -55,7 +55,7 @@ export const cars: Car[] = [
   {
     id: "4",
     name: "Hyundai Staria",
-    image: "/car/car-4.png",
+    image: "car-4_qkxw3g",
     price: 75,
     specs: {
       seats: 90,
@@ -68,7 +68,7 @@ export const cars: Car[] = [
   {
     id: "5",
     name: "Kia Sonet SUV",
-    image: "/car/car-5.png",
+    image: "car-5_hfqpog",
     price: 55,
     specs: {
       seats: 90,
@@ -81,7 +81,7 @@ export const cars: Car[] = [
   {
     id: "6",
     name: "Toyota Hilux",
-    image: "/car/car-6.png",
+    image: "car-6_n43tyc",
     price: 55,
     specs: {
       seats: 90,

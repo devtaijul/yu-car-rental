@@ -98,3 +98,24 @@ export const getAvailableCars = async ({
     };
   }
 };
+
+export const getCarBySlug = async (slug: string) => {
+  try {
+    const car = await prisma.car.findUnique({
+      where: {
+        slug,
+      },
+    });
+
+    return {
+      success: true,
+      car,
+    };
+  } catch (error) {
+    console.error("Get car by slug error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch car",
+    };
+  }
+};

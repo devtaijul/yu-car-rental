@@ -94,6 +94,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const CarScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   name: 'name',
   brand: 'brand',
   model: 'model',

@@ -14,7 +14,7 @@ const CarCard = ({ car, isBookPage }: { car: Car; isBookPage?: boolean }) => {
   const queryString = searchParams.toString();
 
   const baseHref = isBookPage
-    ? PAGES.RESERVE_A_CAR.SELECTED_CAR(car.id)
+    ? PAGES.RESERVE_A_CAR.SELECTED_CAR(car.slug)
     : PAGES.RESERVE_A_CAR.ROOT;
 
   const finalHref =

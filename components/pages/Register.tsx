@@ -25,6 +25,8 @@ import { registerUser } from "@/actions/register";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const { toast } = useToast();
   const router = useRouter();
 
@@ -72,13 +74,24 @@ export default function Register() {
 
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Name */}
+            {/* First Name */}
             <div className="space-y-2">
-              <Label>Full Name</Label>
-              <Input placeholder="John Doe" {...register("name")} />
-              {errors.name && (
+              <Label>First Name</Label>
+              <Input placeholder="John" {...register("firstName")} />
+              {errors.firstName && (
                 <p className="text-sm text-destructive">
-                  {errors.name.message}
+                  {errors.firstName.message}
+                </p>
+              )}
+            </div>
+
+            {/* Last Name */}
+            <div className="space-y-2">
+              <Label>Last Name</Label>
+              <Input placeholder="Doe" {...register("lastName")} />
+              {errors.lastName && (
+                <p className="text-sm text-destructive">
+                  {errors.lastName.message}
                 </p>
               )}
             </div>
@@ -129,6 +142,34 @@ export default function Register() {
               {errors.password && (
                 <p className="text-sm text-destructive">
                   {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* Confirm Password */}
+            <div className="space-y-2">
+              <Label>Confirm Password</Label>
+              <div className="relative">
+                <Input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  {...register("confirmPassword")}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff size={16} />
+                  ) : (
+                    <Eye size={16} />
+                  )}
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="text-sm text-destructive">
+                  {errors.confirmPassword.message}
                 </p>
               )}
             </div>

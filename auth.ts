@@ -53,7 +53,9 @@ export const {
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
+          firstname: user.firstName,
+          lastname: user.lastName,
+          role: user.role,
         };
       },
     }),

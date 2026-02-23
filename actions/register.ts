@@ -10,14 +10,13 @@ export async function registerUser(formData: unknown) {
   if (!validated.success) {
     return {
       success: false,
-      message: "Invalid fields",
+      message: validated.error.issues[0]?.message || "Invalid fields",
     };
   }
-
-  const { name, email, phone, password } = validated.data;
+  const { firstName, lastName, email, phone, phoneCode, password, company } =
+    validated.data;
 
   try {
-    // check existing user
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [{ email }, { phone }],
@@ -35,10 +34,13 @@ export async function registerUser(formData: unknown) {
 
     await prisma.user.create({
       data: {
-        name,
+        firstName,
+        lastName,
         email,
         phone,
+        phoneCode, // <-- required
         password: hashedPassword,
+        company: company || null, // optional
       },
     });
 
@@ -50,7 +52,7 @@ export async function registerUser(formData: unknown) {
     console.error(error);
     return {
       success: false,
-      message: "Something went wrong",
+      message: "Something went wrong. Please try again.",
     };
   }
 }

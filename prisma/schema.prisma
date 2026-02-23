@@ -70,15 +70,33 @@ enum PaymentMethod {
 //////////////////////
 
 model User {
-  id         String   @id @default(uuid())
-  name       String
-  email      String   @unique
-  phone      String   @unique
+  id String @id @default(uuid())
+
+  firstName String
+  lastName  String
+
+  email     String @unique
+  phoneCode String
+  phone     String @unique
+
   password   String
   role       UserRole @default(USER)
   isVerified Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+
+  dateOfBirth   DateTime?
+  licenseNumber String?
+
+  company String?
+
+  street      String?
+  houseNo     String?
+  postCode    String?
+  city        String?
+  country     String?
+  stateRegion String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   bookings Booking[]
   payments Payment[]

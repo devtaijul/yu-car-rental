@@ -71,7 +71,7 @@ export default function PaymentsInvoices() {
 
       {/* Payment Cards */}
       <div className="flex gap-4">
-        <Card className="w-[280px] gradient-teal text-primary-foreground border-0 overflow-hidden relative">
+        <Card className="w-70 gradient-teal text-primary-foreground border-0 overflow-hidden relative">
           <CardContent className="p-5 space-y-6">
             <div className="flex items-center justify-between">
               <CreditCard className="h-6 w-6" />
@@ -90,7 +90,7 @@ export default function PaymentsInvoices() {
             </div>
           </CardContent>
         </Card>
-        <Card className="w-[200px] border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:bg-muted/50 transition-colors">
+        <Card className="w-50 border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:bg-muted/50 transition-colors">
           <CardContent className="p-5 text-center">
             <Plus className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
             <p className="text-sm text-muted-foreground">

@@ -7,6 +7,7 @@ import {
   UserRole,
 } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import bcrypt from "bcryptjs";
 import "dotenv/config";
 
 const adapter = new PrismaPg({
@@ -36,12 +37,22 @@ async function main() {
   // USERS
   //////////////////////////////////////////////////////
 
+  // Hash passwords
+  const adminPassword = await bcrypt.hash("admin123", 10);
+  const customerPassword = await bcrypt.hash("customer123", 10);
+
+  //////////////////////////////////////////////////////
+  // USERS
+  //////////////////////////////////////////////////////
+
   const admin = await prisma.user.create({
     data: {
-      name: "Admin User",
+      firstName: "Admin",
+      lastName: "User",
       email: "admin@carrental.com",
-      phone: "01700000000",
-      password: "hashed_password",
+      phoneCode: "+880",
+      phone: "1700000000",
+      password: adminPassword,
       role: UserRole.ADMIN,
       isVerified: true,
     },
@@ -49,10 +60,12 @@ async function main() {
 
   const customer = await prisma.user.create({
     data: {
-      name: "John Doe",
+      firstName: "John",
+      lastName: "Doe",
       email: "john@example.com",
-      phone: "01800000000",
-      password: "hashed_password",
+      phoneCode: "+880",
+      phone: "1800000000",
+      password: customerPassword,
       role: UserRole.USER,
       isVerified: true,
     },

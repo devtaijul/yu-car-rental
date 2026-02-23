@@ -1,15 +1,8 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Camera, User } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -18,14 +11,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Camera } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const profileSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(50),
   lastName: z.string().trim().min(1, "Last name is required").max(50),
   email: z.string().email("Invalid email"),
-  phoneCode: z.string().default("+1"),
+  phoneCode: z.string().min(1, "Phone code is required"),
   phone: z.string().trim().min(1, "Phone is required").max(20),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
   licenseNumber: z.string().trim().min(1, "License number is required").max(30),
@@ -87,6 +86,8 @@ export default function ProfileDocuments() {
   });
 
   const onProfileSubmit = (data: ProfileForm) => {
+    console.log("data", data);
+
     toast({
       title: "Profile updated",
       description: "Your changes have been saved.",
@@ -94,6 +95,7 @@ export default function ProfileDocuments() {
   };
 
   const onPasswordSubmit = (data: PasswordForm) => {
+    console.log("data", data);
     toast({
       title: "Password updated",
       description: "Your password has been changed.",
@@ -244,7 +246,7 @@ export default function ProfileDocuments() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground">
-                        Driver's License Number
+                        Driver&apos;s License Number
                       </FormLabel>
                       <FormControl>
                         <Input {...field} />

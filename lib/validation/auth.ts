@@ -1,5 +1,6 @@
 // lib/validations/auth.ts
 
+import { isValidPhoneNumber } from "react-phone-number-input";
 import { z } from "zod";
 
 export const loginSchema = z.object({
@@ -27,8 +28,8 @@ export const registerSchema = z.object({
     .regex(/^\+?[0-9]+$/, "Invalid phone code"),
   phone: z
     .string()
-    .min(10, "Phone must be at least 10 digits")
-    .regex(/^[0-9]+$/, "Invalid phone number"),
+    .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+    .or(z.literal("")),
   password: z.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
   company: z.string().max(100).optional(),

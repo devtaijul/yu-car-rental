@@ -1,20 +1,12 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { registerSchema } from "@/lib/validation/auth";
+import { RegisterSchemaType } from "@/lib/validation/auth";
 import bcrypt from "bcryptjs";
 
-export async function registerUser(formData: unknown) {
-  const validated = registerSchema.safeParse(formData);
-
-  if (!validated.success) {
-    return {
-      success: false,
-      message: validated.error.issues[0]?.message || "Invalid fields",
-    };
-  }
+export async function registerUser(formData: RegisterSchemaType) {
   const { firstName, lastName, email, phone, phoneCode, password, company } =
-    validated.data;
+    formData;
 
   try {
     const existingUser = await prisma.user.findFirst({

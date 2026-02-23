@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -14,14 +12,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-import { useToast } from "@/hooks/use-toast";
-import { Eye, EyeOff } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { registerSchema, RegisterSchemaType } from "@/lib/validation/auth";
 import { registerUser } from "@/actions/register";
+import { useToast } from "@/hooks/use-toast";
+import { registerSchema, RegisterSchemaType } from "@/lib/validation/auth";
+import { Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { PhoneInput } from "../ui/phone-input";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,6 +34,8 @@ export default function Register() {
   const {
     register,
     handleSubmit,
+    control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<RegisterSchemaType>({
     resolver: zodResolver(registerSchema),
@@ -114,10 +117,35 @@ export default function Register() {
             {/* Phone */}
             <div className="space-y-2">
               <Label>Phone</Label>
-              <Input placeholder="01XXXXXXXXX" {...register("phone")} />
+              <Controller
+                control={control}
+                name="phone"
+                render={({ field }) => (
+                  <PhoneInput
+                    value={field.value}
+                    onChange={(value) => {
+                      // react-hook-form field value
+                      field.onChange(value);
+
+                      // extract phone code from value
+                      if (value) {
+                        const match = value.match(/^\+(\d{1,4})/);
+                        if (match) {
+                          setValue("phoneCode", `+${match[1]}`);
+                        }
+                      }
+                    }}
+                  />
+                )}
+              />
               {errors.phone && (
                 <p className="text-sm text-destructive">
                   {errors.phone.message}
+                </p>
+              )}
+              {errors.phoneCode && (
+                <p className="text-sm text-destructive">
+                  {errors.phoneCode.message}
                 </p>
               )}
             </div>

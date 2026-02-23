@@ -1,6 +1,9 @@
 import { CalenderIcon } from "@/components/icons/Calender.icon";
+import { CardIcon } from "@/components/icons/card.icon";
+import { DashboardIcon } from "@/components/icons/dashboard.icon";
 import { FaceIcon } from "@/components/icons/Face.icon";
 import { GasIcon } from "@/components/icons/gas.icon";
+import { GrayCalenderIcon } from "@/components/icons/gray-calender.icon";
 import { HartIcon } from "@/components/icons/Hart.icon";
 import { LoveHandIcon } from "@/components/icons/love-hand.icon";
 import { MilesIcon } from "@/components/icons/miles.icon";
@@ -24,6 +27,9 @@ const ICON_NAMES = {
   whatsapp_transparent_icon: WhatsAppTransparentIcon,
   hart_icon: HartIcon,
   face_icon: FaceIcon,
+  dashbaord_icon: DashboardIcon,
+  card_icon: CardIcon,
+  gray_calender_icon: GrayCalenderIcon,
 };
 
 export { ICON_NAMES };

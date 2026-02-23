@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,27 +14,50 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { useToast } from "@/hooks/use-toast";
 import { Car, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { loginSchema, LoginSchemaType } from "@/lib/validation/auth";
+import { login } from "@/actions/mutation";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    /* const { error } = await signIn(email, password);
-    setLoading(false);
-    if (error) {
-      toast({ title: "Login failed", description: error.message, variant: "destructive" });
-    } else {
-      navigate("/admin");
-    } */
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginSchemaType>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginSchemaType) => {
+    try {
+      // TODO: call your login API / server action
+      // const res = await signIn(data)
+
+      const res = await login(data.email, data.password);
+
+      if (!res.ok) {
+        return toast({
+          title: "Login failed",
+          description: res.error || "Something went wrong",
+          variant: "destructive",
+        });
+      }
+
+      toast({
+        title: "Login successful",
+        description: "Welcome back!",
+      });
+      router.push("/dashboard");
+    } catch {
+      console.log("error");
+    }
   };
 
   return (
@@ -48,29 +73,32 @@ export default function Login() {
           <CardTitle className="text-xl">Welcome Back</CardTitle>
           <CardDescription>Sign in to your account</CardDescription>
         </CardHeader>
+
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label>Email</Label>
               <Input
-                id="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
                 placeholder="you@example.com"
+                {...register("email")}
               />
+              {errors.email && (
+                <p className="text-sm text-destructive">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
+
+            {/* Password */}
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label>Password</Label>
               <div className="relative">
                 <Input
-                  id="password"
                   type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
                   placeholder="••••••••"
+                  {...register("password")}
                 />
                 <button
                   type="button"
@@ -84,13 +112,20 @@ export default function Login() {
                   )}
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-sm text-destructive">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Signing in..." : "Sign In"}
+
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
           </form>
+
           <p className="text-center text-sm text-muted-foreground mt-4">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/register"
               className="text-primary hover:underline font-medium"
@@ -98,6 +133,7 @@ export default function Login() {
               Sign Up
             </Link>
           </p>
+
           <p className="text-center text-sm mt-2">
             <Link href="/" className="text-muted-foreground hover:text-primary">
               ← Back to website

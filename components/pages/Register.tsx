@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,100 +14,130 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { useToast } from "@/hooks/use-toast";
-import { Car, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { registerSchema, RegisterSchemaType } from "@/lib/validation/auth";
+import { registerUser } from "@/actions/register";
 
 export default function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const { toast } = useToast();
+  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password.length < 6) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterSchemaType>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const onSubmit = async (data: RegisterSchemaType) => {
+    const res = await registerUser(data);
+
+    if (!res.success) {
       toast({
-        title: "Error",
-        description: "Password must be at least 6 characters",
+        title: "Registration failed",
+        description: res.message,
         variant: "destructive",
       });
       return;
     }
-    /*  setLoading(true);
-    const { error } = await signUp(email, password, name);
-    setLoading(false);
-    if (error) {
-      toast({ title: "Registration failed", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Success", description: "Please check your email to verify your account." });
-      navigate("/login");
-    } */
+
+    toast({
+      title: "Success",
+      description: "Account created successfully",
+    });
+
+    router.push("/login");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <Image src="/assets/logo.png" alt="logo" width={200} height={50} />
+        <CardHeader className="text-center flex items-center justify-center">
+          <Image
+            src="/assets/logo-nav.png"
+            alt="logo"
+            width={200}
+            height={50}
+          />
           <CardTitle className="text-xl">Create Account</CardTitle>
           <CardDescription>Sign up to get started</CardDescription>
         </CardHeader>
+
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Name */}
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                placeholder="John Doe"
-              />
+              <Label>Full Name</Label>
+              <Input placeholder="John Doe" {...register("name")} />
+              {errors.name && (
+                <p className="text-sm text-destructive">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
+
+            {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label>Email</Label>
               <Input
-                id="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
                 placeholder="you@example.com"
+                {...register("email")}
               />
+              {errors.email && (
+                <p className="text-sm text-destructive">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
+
+            {/* Phone */}
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label>Phone</Label>
+              <Input placeholder="01XXXXXXXXX" {...register("phone")} />
+              {errors.phone && (
+                <p className="text-sm text-destructive">
+                  {errors.phone.message}
+                </p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div className="space-y-2">
+              <Label>Password</Label>
               <div className="relative">
                 <Input
-                  id="password"
                   type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
                   placeholder="••••••••"
+                  {...register("password")}
                 />
                 <button
                   type="button"
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-sm text-destructive">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Creating account..." : "Create Account"}
+
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Creating account..." : "Create Account"}
             </Button>
           </form>
+
           <p className="text-center text-sm text-muted-foreground mt-4">
             Already have an account?{" "}
             <Link

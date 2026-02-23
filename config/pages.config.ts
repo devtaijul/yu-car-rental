@@ -11,4 +11,14 @@ export const PAGES = {
     SUMMARY_CHECKOUT: (carSlug: string) =>
       `/reserve-a-car/${carSlug}/summary-checkout`,
   },
+  AUTH: {
+    LOGIN: "/login",
+    REGISTER: "/register",
+  },
+  DASHBOARD: {
+    ROOT: "/dashboard",
+    BOOKINGS: "/dashboard/bookings",
+    PAYMENTS: "/dashboard/payments",
+    PROFILE: "/dashboard/profile",
+  },
 };

@@ -7,6 +7,7 @@ import { GrayCalenderIcon } from "@/components/icons/gray-calender.icon";
 import { HartIcon } from "@/components/icons/Hart.icon";
 import { LoveHandIcon } from "@/components/icons/love-hand.icon";
 import { MilesIcon } from "@/components/icons/miles.icon";
+import { ProfileIcon } from "@/components/icons/profile.icon";
 import { SelfIcon } from "@/components/icons/self.icon";
 import { SettingIcon } from "@/components/icons/setting.icon";
 import { SheildIcon } from "@/components/icons/sheild.icon";
@@ -30,6 +31,7 @@ const ICON_NAMES = {
   dashbaord_icon: DashboardIcon,
   card_icon: CardIcon,
   gray_calender_icon: GrayCalenderIcon,
+  profile_icon: ProfileIcon,
 };
 
 export { ICON_NAMES };

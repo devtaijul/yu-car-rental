@@ -7,18 +7,23 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { DashboardNav } from "../DashboardNav";
 import Link from "next/link";
+import Image from "next/image";
 
 const navItems = [
   { to: "/dashboard", icon: "dashbaord_icon", label: "Overview" },
-  { to: "/dashboard/bookings", icon: "dashbaord_icon", label: "My Bookings" },
+  {
+    to: "/dashboard/bookings",
+    icon: "gray_calender_icon",
+    label: "My Bookings",
+  },
   {
     to: "/dashboard/payments",
-    icon: "dashbaord_icon",
+    icon: "card_icon",
     label: "Payments & Invoices",
   },
   {
     to: "/dashboard/profile",
-    icon: "dashbaord_icon",
+    icon: "profile_icon",
     label: "Profile & Documents",
   },
 ];
@@ -35,7 +40,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const userName = user?.name || "User";
 
   return (
-    <div className="min-h-screen flex bg-muted/30">
+    <div className="min-h-screen h-screen fixed flex  w-full">
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-foreground/30 lg:hidden"
@@ -46,23 +51,19 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-55 bg-card border-r border-border transform transition-transform lg:translate-x-0 lg:static lg:z-auto flex flex-col",
+          "fixed inset-y-0 left-0 z-50 w-55 h-screen top-0 bg-card border-r border-border transform transition-transform lg:translate-x-0 lg:static lg:z-auto flex flex-col",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex items-center gap-2 p-5 border-b border-border">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-display text-xl font-bold text-primary italic">
-              yu
-            </span>
-            <div className="leading-none">
-              <span className="text-xs font-semibold text-primary tracking-widest uppercase">
-                Car Rental
-              </span>
-              <p className="text-[9px] text-muted-foreground tracking-wider uppercase">
-                Drive into Adventure
-              </p>
-            </div>
+            <Image
+              src="/assets/logo-nav.png"
+              alt="Logo"
+              className="max-w-38"
+              width={1000}
+              height={500}
+            />
           </Link>
           <button
             className="lg:hidden ml-auto"
@@ -126,7 +127,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <main className="flex-1 p-4 lg:p-6">{children}</main>
+        <main className="flex-1 p-4 lg:p-6 overflow-y-auto">{children}</main>
       </div>
     </div>
   );

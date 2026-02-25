@@ -1,28 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Car,
-  LayoutDashboard,
-  CalendarCheck,
-  Users,
-  CreditCard,
-  Star,
-  Tag,
-  Truck,
-  Settings,
-  LogOut,
-  Menu,
-  X,
-} from "lucide-react";
-import { useState } from "react";
 import { cn, stripLocale } from "@/lib/utils";
+import { LogOut, Menu, X } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
-import { PAGES } from "@/config/pages.config";
-import Link from "next/link";
-import { DashboardNav } from "../DashboardNav";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { DashboardNav } from "../DashboardNav";
 
 const navItems = [
   { to: "/admin", icon: "dashbaord_icon", label: "Dashboard" },
@@ -36,15 +22,10 @@ const navItems = [
   { to: "/admin/settings", icon: "dashbaord_icon", label: "Settings" },
 ];
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function AdminLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const location = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const router = useRouter();
 
   if (status === "loading")
     return (
@@ -52,8 +33,8 @@ export default function AdminLayout({
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
       </div>
     );
-  if (!session) return router.push(PAGES.AUTH.LOGIN);
-  /*  if (!session?.user?.role)
+
+  if (!session?.user?.role)
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <h1 className="text-2xl font-bold text-destructive">Access Denied</h1>
@@ -65,7 +46,7 @@ export default function AdminLayout({
         </Link>
       </div>
     );
- */
+
   return (
     <div className="min-h-screen flex bg-muted/20">
       {/* Mobile overlay */}

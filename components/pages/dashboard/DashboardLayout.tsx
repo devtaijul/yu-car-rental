@@ -31,8 +31,6 @@ const navItems = [
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
 
-  console.log("session", session);
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const user = session?.user;

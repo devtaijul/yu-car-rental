@@ -164,3 +164,92 @@ export const getCarsForAdmin = async () => {
     };
   }
 };
+
+export const getBookingsForAdmin = async () => {
+  try {
+    const bookings = await prisma.booking.findMany({
+      include: {
+        user: true,
+        car: true,
+        driver: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return {
+      success: true,
+      bookings,
+    };
+  } catch (error) {
+    console.error("Get bookings error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch bookings",
+    };
+  }
+};
+
+export const getUsersForAdmin = async () => {
+  try {
+    const users = await prisma.user.findMany();
+    return {
+      success: true,
+      users,
+    };
+  } catch (error) {
+    console.error("Get users error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch users",
+    };
+  }
+};
+
+export const getPaymentsForAdmin = async () => {
+  try {
+    const payments = await prisma.payment.findMany();
+    return {
+      success: true,
+      payments,
+    };
+  } catch (error) {
+    console.error("Get payments error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch payments",
+    };
+  }
+};
+
+export const getReviewsForAdmin = async () => {
+  try {
+    const reviews = await prisma.review.findMany();
+    return {
+      success: true,
+      reviews,
+    };
+  } catch (error) {
+    console.error("Get reviews error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch reviews",
+    };
+  }
+};
+
+export const getCouponsForAdmin = async () => {
+  try {
+    const coupons = await prisma.coupon.findMany();
+    return {
+      success: true,
+      coupons,
+    };
+  } catch (error) {
+    console.error("Get coupons error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch coupons",
+    };
+  }
+};

@@ -391,7 +391,9 @@ export const ModelName = {
   Booking: 'Booking',
   Payment: 'Payment',
   Review: 'Review',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  StripeAccount: 'StripeAccount',
+  Setting: 'Setting'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "car" | "carAvailability" | "driver" | "booking" | "payment" | "review" | "coupon"
+    modelProps: "user" | "car" | "carAvailability" | "driver" | "booking" | "payment" | "review" | "coupon" | "stripeAccount" | "setting"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1005,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    StripeAccount: {
+      payload: Prisma.$StripeAccountPayload<ExtArgs>
+      fields: Prisma.StripeAccountFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StripeAccountFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StripeAccountFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>
+        }
+        findFirst: {
+          args: Prisma.StripeAccountFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StripeAccountFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>
+        }
+        findMany: {
+          args: Prisma.StripeAccountFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>[]
+        }
+        create: {
+          args: Prisma.StripeAccountCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>
+        }
+        createMany: {
+          args: Prisma.StripeAccountCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StripeAccountCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>[]
+        }
+        delete: {
+          args: Prisma.StripeAccountDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>
+        }
+        update: {
+          args: Prisma.StripeAccountUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>
+        }
+        deleteMany: {
+          args: Prisma.StripeAccountDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StripeAccountUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StripeAccountUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>[]
+        }
+        upsert: {
+          args: Prisma.StripeAccountUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StripeAccountPayload>
+        }
+        aggregate: {
+          args: Prisma.StripeAccountAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStripeAccount>
+        }
+        groupBy: {
+          args: Prisma.StripeAccountGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StripeAccountGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StripeAccountCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StripeAccountCountAggregateOutputType> | number
+        }
+      }
+    }
+    Setting: {
+      payload: Prisma.$SettingPayload<ExtArgs>
+      fields: Prisma.SettingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SettingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SettingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>
+        }
+        findFirst: {
+          args: Prisma.SettingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SettingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>
+        }
+        findMany: {
+          args: Prisma.SettingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>[]
+        }
+        create: {
+          args: Prisma.SettingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>
+        }
+        createMany: {
+          args: Prisma.SettingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SettingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>[]
+        }
+        delete: {
+          args: Prisma.SettingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>
+        }
+        update: {
+          args: Prisma.SettingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>
+        }
+        deleteMany: {
+          args: Prisma.SettingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SettingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SettingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>[]
+        }
+        upsert: {
+          args: Prisma.SettingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingPayload>
+        }
+        aggregate: {
+          args: Prisma.SettingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSetting>
+        }
+        groupBy: {
+          args: Prisma.SettingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SettingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1178,6 +1328,31 @@ export const CouponScalarFieldEnum = {
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
 
 
+export const StripeAccountScalarFieldEnum = {
+  id: 'id',
+  publishableKey: 'publishableKey',
+  secretKey: 'secretKey',
+  webhookSecret: 'webhookSecret',
+  environment: 'environment',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StripeAccountScalarFieldEnum = (typeof StripeAccountScalarFieldEnum)[keyof typeof StripeAccountScalarFieldEnum]
+
+
+export const SettingScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value',
+  stripeAccountId: 'stripeAccountId',
+  createdAt: 'createdAt'
+} as const
+
+export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1340,6 +1515,20 @@ export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'StripeEnv'
+ */
+export type EnumStripeEnvFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StripeEnv'>
+    
+
+
+/**
+ * Reference to a field of type 'StripeEnv[]'
+ */
+export type ListEnumStripeEnvFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StripeEnv[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1443,6 +1632,8 @@ export type GlobalOmitConfig = {
   payment?: Prisma.PaymentOmit
   review?: Prisma.ReviewOmit
   coupon?: Prisma.CouponOmit
+  stripeAccount?: Prisma.StripeAccountOmit
+  setting?: Prisma.SettingOmit
 }
 
 /* Types for Logging */

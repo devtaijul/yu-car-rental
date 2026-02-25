@@ -58,7 +58,9 @@ export const ModelName = {
   Booking: 'Booking',
   Payment: 'Payment',
   Review: 'Review',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  StripeAccount: 'StripeAccount',
+  Setting: 'Setting'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -211,6 +213,31 @@ export const CouponScalarFieldEnum = {
 } as const
 
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
+
+
+export const StripeAccountScalarFieldEnum = {
+  id: 'id',
+  publishableKey: 'publishableKey',
+  secretKey: 'secretKey',
+  webhookSecret: 'webhookSecret',
+  environment: 'environment',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StripeAccountScalarFieldEnum = (typeof StripeAccountScalarFieldEnum)[keyof typeof StripeAccountScalarFieldEnum]
+
+
+export const SettingScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value',
+  stripeAccountId: 'stripeAccountId',
+  createdAt: 'createdAt'
+} as const
+
+export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
 
 
 export const SortOrder = {

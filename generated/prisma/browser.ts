@@ -57,3 +57,13 @@ export type Review = Prisma.ReviewModel
  * 
  */
 export type Coupon = Prisma.CouponModel
+/**
+ * Model StripeAccount
+ * 
+ */
+export type StripeAccount = Prisma.StripeAccountModel
+/**
+ * Model Setting
+ * 
+ */
+export type Setting = Prisma.SettingModel

@@ -314,6 +314,23 @@ export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
 }
 
+export type EnumStripeEnvFilter<$PrismaModel = never> = {
+  equals?: $Enums.StripeEnv | Prisma.EnumStripeEnvFieldRefInput<$PrismaModel>
+  in?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStripeEnvFilter<$PrismaModel> | $Enums.StripeEnv
+}
+
+export type EnumStripeEnvWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StripeEnv | Prisma.EnumStripeEnvFieldRefInput<$PrismaModel>
+  in?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStripeEnvWithAggregatesFilter<$PrismaModel> | $Enums.StripeEnv
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStripeEnvFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStripeEnvFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -614,6 +631,23 @@ export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumStripeEnvFilter<$PrismaModel = never> = {
+  equals?: $Enums.StripeEnv | Prisma.EnumStripeEnvFieldRefInput<$PrismaModel>
+  in?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStripeEnvFilter<$PrismaModel> | $Enums.StripeEnv
+}
+
+export type NestedEnumStripeEnvWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StripeEnv | Prisma.EnumStripeEnvFieldRefInput<$PrismaModel>
+  in?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StripeEnv[] | Prisma.ListEnumStripeEnvFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStripeEnvWithAggregatesFilter<$PrismaModel> | $Enums.StripeEnv
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStripeEnvFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStripeEnvFilter<$PrismaModel>
 }
 
 

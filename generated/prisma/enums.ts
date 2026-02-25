@@ -76,3 +76,11 @@ export const PaymentMethod = {
 } as const
 
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const StripeEnv = {
+  TEST: 'TEST',
+  LIVE: 'LIVE'
+} as const
+
+export type StripeEnv = (typeof StripeEnv)[keyof typeof StripeEnv]

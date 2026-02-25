@@ -277,3 +277,26 @@ export const getDriversForAdmin = async () => {
     };
   }
 };
+
+export const getSettingsForAdmin = async () => {
+  try {
+    const settings = await prisma.setting.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        stripeAccount: true,
+      },
+    });
+    return {
+      success: true,
+      settings,
+    };
+  } catch (error) {
+    console.error("Get settings error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch settings",
+    };
+  }
+};

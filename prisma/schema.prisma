@@ -259,3 +259,34 @@ model Coupon {
   isActive      Boolean  @default(true)
   createdAt     DateTime @default(now())
 }
+
+model StripeAccount {
+  id             String  @id @default(cuid())
+  publishableKey String
+  secretKey      String
+  webhookSecret  String?
+
+  environment StripeEnv @default(TEST)
+  isActive    Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  setting Setting? // 👈 inverse side (no fields/references here)
+}
+
+model Setting {
+  id    String @id @default(uuid())
+  key   String @unique
+  value String
+
+  stripeAccount   StripeAccount @relation(fields: [stripeAccountId], references: [id])
+  stripeAccountId String        @unique // 👈 UNIQUE makes it one-to-one
+
+  createdAt DateTime @default(now())
+}
+
+enum StripeEnv {
+  TEST
+  LIVE
+}

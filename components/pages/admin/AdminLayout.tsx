@@ -56,8 +56,9 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             <Image
               src="/assets/logo-nav.png"
               alt="Logo"
-              width={200}
-              height={32}
+              className="max-w-38"
+              width={1000}
+              height={500}
             />
           </Link>
           <button className="lg:hidden" onClick={() => setSidebarOpen(false)}>

@@ -20,13 +20,13 @@ export const PricingTable = ({
       name: "Deductible Risk",
       standard: "$650",
       premium: "$0",
-      isPremiumHighlight: true,
+      isPremiumHighlight: false,
     },
     {
       name: "Security Deposit",
       standard: "$650",
       premium: "$0",
-      isPremiumHighlight: true,
+      isPremiumHighlight: false,
     },
     {
       name: "Additional Driver",
@@ -50,7 +50,7 @@ export const PricingTable = ({
       name: "Cancellation Fee",
       standard: "$80",
       premium: "$0",
-      isPremiumHighlight: true,
+      isPremiumHighlight: false,
     },
     {
       name: "After-hours Pickup",
@@ -87,7 +87,7 @@ export const PricingTable = ({
       return value ? (
         <Check className="h-5 w-5 text-primary mx-auto" />
       ) : (
-        <X className="h-5 w-5 text-destructive mx-auto" />
+        <X className="h-5 w-5 text-primary mx-auto" />
       );
     }
     return (
@@ -177,7 +177,7 @@ export const PricingTable = ({
           <div>
             <Button
               variant="outline"
-              className={`w-full rounded-none py-6 ${
+              className={`w-full rounded-none py-6 hover:bg-primary ${
                 selectedCoverage === "standard" ? "border-primary border-2" : ""
               }`}
               onClick={() => {

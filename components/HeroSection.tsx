@@ -17,7 +17,7 @@ export const HeroSection = async ({ lang }: { lang: Locale }) => {
 
       {/* Content */}
       <div className="relative z-10 flex-1 container mx-auto px-4 flex flex-col justify-center items-center text-center py-20">
-        <p className="font-bold  mb-4 text-white max-w-72 whitespace-pre-line">
+        <p className="font-bold  mb-4 text-white  whitespace-pre-line">
           {dict.home.hero.welcome}
         </p>
         <h1 className="text-4xl md:text-6xl lg:text-8xl font-display mb-2">

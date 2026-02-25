@@ -85,7 +85,12 @@ export default function AdminLayout({
       >
         <div className="flex items-center justify-between p-4 border-b">
           <Link href="/admin" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Logo" width={32} height={32} />
+            <Image
+              src="/assets/logo-nav.png"
+              alt="Logo"
+              width={200}
+              height={32}
+            />
           </Link>
           <button className="lg:hidden" onClick={() => setSidebarOpen(false)}>
             <X className="h-5 w-5" />

@@ -28,7 +28,7 @@ export const HomePage = ({ lang }: { lang: Locale }) => {
       {/* Featured Cars */}
       <FeaturedCarSection />
 
-      <PricingTable />
+      <PricingTable isSelectable />
 
       <ReviewsCarousel />
 

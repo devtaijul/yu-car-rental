@@ -119,3 +119,48 @@ export const getCarBySlug = async (slug: string) => {
     };
   }
 };
+
+export const adminDashbaordCount = async () => {
+  try {
+    const totalCars = await prisma.car.count();
+    const totalBookings = await prisma.booking.count();
+    const totalUsers = await prisma.user.count();
+    const totalPayments = await prisma.payment.count();
+    const totalReviews = await prisma.review.count();
+    const totalCoupons = await prisma.coupon.count();
+
+    return {
+      success: true,
+      counts: {
+        totalCars,
+        totalBookings,
+        totalUsers,
+        totalPayments,
+        totalReviews,
+        totalCoupons,
+      },
+    };
+  } catch (error) {
+    console.error("Admin dashboard count error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch dashboard count",
+    };
+  }
+};
+
+export const getCarsForAdmin = async () => {
+  try {
+    const cars = await prisma.car.findMany();
+    return {
+      success: true,
+      cars,
+    };
+  } catch (error) {
+    console.error("Get cars error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch cars",
+    };
+  }
+};

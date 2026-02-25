@@ -24,7 +24,13 @@ const CarCard = ({ car, isBookPage }: { car: Car; isBookPage?: boolean }) => {
     <div className="card-car rounded-none gradient-color bg-card border border-border">
       {/* Image */}
       <div className="relative h-60 flex items-center justify-center p-4">
-        <CldImage src={car.imageUrl} width={400} height={300} alt="Car" />
+        <CldImage
+          src={car.imageUrl}
+          width={400}
+          height={300}
+          alt="Car"
+          className="max-w-80"
+        />
       </div>
 
       <div className="p-5 text-primary-foreground">

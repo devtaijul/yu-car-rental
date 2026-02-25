@@ -34,19 +34,6 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       </div>
     );
 
-  if (!session?.user?.role)
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold text-destructive">Access Denied</h1>
-        <p className="text-muted-foreground">
-          You don&apos;t have admin privileges.
-        </p>
-        <Link href="/" className="text-primary hover:underline">
-          Go to website
-        </Link>
-      </div>
-    );
-
   return (
     <div className="min-h-screen flex bg-muted/20">
       {/* Mobile overlay */}

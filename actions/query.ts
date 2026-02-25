@@ -224,7 +224,15 @@ export const getPaymentsForAdmin = async () => {
 
 export const getReviewsForAdmin = async () => {
   try {
-    const reviews = await prisma.review.findMany();
+    const reviews = await prisma.review.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        user: true,
+        car: true,
+      },
+    });
     return {
       success: true,
       reviews,
@@ -250,6 +258,22 @@ export const getCouponsForAdmin = async () => {
     throw {
       success: false,
       message: "Failed to fetch coupons",
+    };
+  }
+};
+
+export const getDriversForAdmin = async () => {
+  try {
+    const drivers = await prisma.driver.findMany();
+    return {
+      success: true,
+      drivers,
+    };
+  } catch (error) {
+    console.error("Get drivers error:", error);
+    throw {
+      success: false,
+      message: "Failed to fetch drivers",
     };
   }
 };

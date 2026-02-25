@@ -5,3 +5,8 @@ export type BookingWithAll = Booking & {
   driver: Driver;
   user: User;
 };
+
+export type ReviewWithAll = Review & {
+  user: User;
+  car: Car;
+};

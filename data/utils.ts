@@ -58,3 +58,10 @@ export const extras = [
     price: 2.5,
   },
 ];
+
+export const locationCoords: Record<string, [number, number]> = {
+  Dhaka: [23.8103, 90.4125],
+  Chittagong: [22.3569, 91.7832],
+  Sylhet: [24.8949, 91.8687],
+  Khulna: [22.8456, 89.5403],
+};

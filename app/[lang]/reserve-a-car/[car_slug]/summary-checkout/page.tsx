@@ -1,6 +1,7 @@
 import BookingSteps from "@/components/BookingSteps";
 import Header from "@/components/Header";
 import { HeaderSpace } from "@/components/HeaderSpace";
+import BookingSummarySkeleton from "@/components/skeleton/BookingSummarySkeleton";
 import { BookingSummaryServer } from "@/server/BookingSummaryServer";
 import { Suspense } from "react";
 
@@ -13,7 +14,7 @@ const page = async ({ params }: { params: Promise<{ car_slug: string }> }) => {
       <HeaderSpace />
       <div className="container mx-auto px-4 py-8">
         <BookingSteps currentStep={4} />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<BookingSummarySkeleton />}>
           <BookingSummaryServer car_slug={car_slug} />
         </Suspense>
       </div>

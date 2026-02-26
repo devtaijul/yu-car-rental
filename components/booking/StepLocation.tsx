@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
+import dynamic from "next/dynamic";
+
 import {
   Popover,
   PopoverContent,
@@ -16,11 +18,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useBooking } from "@/context/BookingContext";
-import { locations, times } from "@/data/utils";
+import { locationCoords, locations, times } from "@/data/utils";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
+  ssr: false,
+});
 
 interface StepLocationProps {
   path: string;
@@ -29,8 +35,10 @@ interface StepLocationProps {
 export const StepLocation: React.FC<StepLocationProps> = ({ path }) => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
-  const [pickupDate, setPickupDate] = useState<Date>();
-  const [dropoffDate, setDropoffDate] = useState<Date>();
+  const [pickupDate, setPickupDate] = useState<Date>(new Date());
+  const [dropoffDate, setDropoffDate] = useState<Date>(
+    new Date(pickupDate.getTime() + 24 * 60 * 60 * 1000),
+  );
   const [pickupTime, setPickupTime] = useState("22:30");
   const [dropoffTime, setDropoffTime] = useState("22:30");
 
@@ -78,12 +86,15 @@ export const StepLocation: React.FC<StepLocationProps> = ({ path }) => {
       </h1>
 
       {/* Map Placeholder */}
-      <div className="w-full h-64 bg-muted rounded-xl mb-8 flex items-center justify-center">
-        <span className="text-muted-foreground">Map View</span>
+      <div className="w-full h-64 bg-muted rounded-xl mb-8 flex items-center justify-center z-0">
+        <LeafletMap
+          pickupCoords={locationCoords[pickupLocation]}
+          dropoffCoords={locationCoords[dropoffLocation]}
+        />
       </div>
 
       {/* Pickup / Dropoff */}
-      <div className="grid md:grid-cols-2 gap-6 mb-8">
+      <div className="grid md:grid-cols-2 gap-6 mb-8 z-10 relative">
         <div>
           <Label className="text-sm text-muted-foreground mb-2 block">
             Pickup Location
@@ -94,7 +105,7 @@ export const StepLocation: React.FC<StepLocationProps> = ({ path }) => {
             </SelectTrigger>
             <SelectContent>
               {locations.map((loc) => (
-                <SelectItem key={loc} value={loc}>
+                <SelectItem key={loc} value={loc.split(" ").join("-")}>
                   {loc}
                 </SelectItem>
               ))}
@@ -112,7 +123,7 @@ export const StepLocation: React.FC<StepLocationProps> = ({ path }) => {
             </SelectTrigger>
             <SelectContent>
               {locations.map((loc) => (
-                <SelectItem key={loc} value={loc}>
+                <SelectItem key={loc} value={loc.split(" ").join("-")}>
                   {loc}
                 </SelectItem>
               ))}
@@ -185,7 +196,7 @@ export const StepLocation: React.FC<StepLocationProps> = ({ path }) => {
                   if (!pickupDate) return true;
 
                   const minDate = new Date(pickupDate);
-                  minDate.setDate(minDate.getDate() + 2);
+                  minDate.setDate(minDate.getDate() + 1);
 
                   return date < minDate;
                 }}

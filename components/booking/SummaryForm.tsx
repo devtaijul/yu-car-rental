@@ -1,29 +1,43 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  CardExpiryElement,
-  CardCvcElement,
-  CardNumberElement,
-} from "@stripe/react-stripe-js";
+import { useForm } from "react-hook-form";
 
 import { Button } from "../ui/button";
-import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 import {
   CheckoutFormValues,
   checkoutSchema,
 } from "@/lib/validation/checkout.schema";
 import { Check, Shield } from "lucide-react";
+import { useAsyncAction } from "@/hooks/use-async-action";
+import { bookCar } from "@/actions/mutation";
+import { BookingState } from "@/context/BookingContext";
+import { Car } from "@/generated/prisma/client";
 
-export const SummaryForm = ({ total }: { total: number }) => {
+export const SummaryForm = ({
+  total,
+  clientSecret,
+  booking,
+  car,
+}: {
+  total: number;
+  booking: BookingState;
+  clientSecret: string;
+  car: Car;
+}) => {
+  const { runAction, isProcessing } = useAsyncAction(bookCar);
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -47,22 +61,35 @@ export const SummaryForm = ({ total }: { total: number }) => {
 
     if (!cardNumber) return;
 
-    /*  const { error } = await stripe.confirmCardPayment(clientSecretFromBackend, {
-      payment_method: {
-        card: cardNumber,
-        billing_details: {
-          name: data.cardholderName,
-          email: data.email,
-          phone: data.phone,
+    const { error, paymentIntent } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: cardNumber,
+          billing_details: {
+            name: data.cardholderName,
+            email: data.email,
+            phone: data.phone,
+          },
         },
       },
-    });
+    );
 
     if (error) {
       setCardError(error.message || "Payment failed");
       setLoading(false);
       return;
-    } */
+    }
+
+    console.log("paymentIntet", paymentIntent);
+
+    runAction({
+      customer: data,
+      booking,
+      payment: paymentIntent,
+      carId: car.id,
+      pricePerDay: car.pricePerDay,
+    });
 
     router.push("/confirmation");
   };
@@ -124,7 +151,7 @@ export const SummaryForm = ({ total }: { total: number }) => {
         </div>
 
         {/* Promo */}
-        <h3 className="font-semibold mb-4">Additional Information</h3>
+        {/* <h3 className="font-semibold mb-4">Additional Information</h3>
         <div className="mb-4">
           <Label className="mb-1 block">Promo Code</Label>
           <Input {...register("promoCode")} />
@@ -136,7 +163,7 @@ export const SummaryForm = ({ total }: { total: number }) => {
             {...register("specialRequests")}
             className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-20 resize-none"
           />
-        </div>
+        </div> */}
 
         {/* Payment */}
         {/* Payment Information */}
@@ -243,7 +270,7 @@ export const SummaryForm = ({ total }: { total: number }) => {
         <Button
           type="submit"
           disabled={!stripe || loading}
-          className="w-full mt-6 gradient-teal text-primary-foreground py-6 text-base"
+          className="w-full mt-6 bg-primary text-primary-foreground py-6 text-base"
         >
           {loading
             ? "Processing..."

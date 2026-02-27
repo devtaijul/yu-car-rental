@@ -163,6 +163,8 @@ export const BookingScalarFieldEnum = {
   endDate: 'endDate',
   totalDays: 'totalDays',
   pricePerDay: 'pricePerDay',
+  driversDOB: 'driversDOB',
+  driversLicNo: 'driversLicNo',
   totalAmount: 'totalAmount',
   discount: 'discount',
   status: 'status',
@@ -179,8 +181,11 @@ export const PaymentScalarFieldEnum = {
   userId: 'userId',
   amount: 'amount',
   paymentMethod: 'paymentMethod',
-  transactionId: 'transactionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  stripeChargeId: 'stripeChargeId',
+  currency: 'currency',
   status: 'status',
+  customerEmail: 'customerEmail',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

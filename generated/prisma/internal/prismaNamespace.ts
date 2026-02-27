@@ -1276,6 +1276,8 @@ export const BookingScalarFieldEnum = {
   endDate: 'endDate',
   totalDays: 'totalDays',
   pricePerDay: 'pricePerDay',
+  driversDOB: 'driversDOB',
+  driversLicNo: 'driversLicNo',
   totalAmount: 'totalAmount',
   discount: 'discount',
   status: 'status',
@@ -1292,8 +1294,11 @@ export const PaymentScalarFieldEnum = {
   userId: 'userId',
   amount: 'amount',
   paymentMethod: 'paymentMethod',
-  transactionId: 'transactionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  stripeChargeId: 'stripeChargeId',
+  currency: 'currency',
   status: 'status',
+  customerEmail: 'customerEmail',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1499,6 +1504,20 @@ export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'PaymentMethod[]'
  */
 export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CurrencyEnum'
+ */
+export type EnumCurrencyEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CurrencyEnum'>
+    
+
+
+/**
+ * Reference to a field of type 'CurrencyEnum[]'
+ */
+export type ListEnumCurrencyEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CurrencyEnum[]'>
     
 
 

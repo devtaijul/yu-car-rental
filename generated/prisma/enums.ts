@@ -78,6 +78,14 @@ export const PaymentMethod = {
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
 
+export const CurrencyEnum = {
+  USD: 'USD',
+  EUR: 'EUR'
+} as const
+
+export type CurrencyEnum = (typeof CurrencyEnum)[keyof typeof CurrencyEnum]
+
+
 export const StripeEnv = {
   TEST: 'TEST',
   LIVE: 'LIVE'

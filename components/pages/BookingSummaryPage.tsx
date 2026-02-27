@@ -102,7 +102,7 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
           <div className="bg-card border border-border  overflow-hidden">
             {selectedCarData && (
               <>
-                <div className="h-48 gradient-teal flex items-center justify-center">
+                <div className="h-48 gradient-color flex items-center justify-center">
                   <CldImage
                     src={car.imageUrl}
                     width={500}
@@ -303,7 +303,12 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
         {/* Right Column - Customer Info & Payment */}
         {clientSecret && (
           <StripeWrapper clientSecret={clientSecret}>
-            <SummaryForm car={car} total={total} />
+            <SummaryForm
+              car={car}
+              total={total}
+              clientSecret={clientSecret}
+              booking={booking}
+            />
           </StripeWrapper>
         )}
       </div>

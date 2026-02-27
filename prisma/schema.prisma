@@ -162,15 +162,14 @@ model CarAvailability {
 //////////////////////
 
 model Driver {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
-  phone       String   @unique
-  licenseNo   String   @unique
+  phone       String    @unique
+  licenseNo   String    @unique
   experience  Int // years
-  isAvailable Boolean  @default(true)
-  createdAt   DateTime @default(now())
-
-  bookings Booking[]
+  isAvailable Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  bookings    Booking[]
 }
 
 //////////////////////
@@ -186,12 +185,14 @@ model Booking {
   driver   Driver? @relation(fields: [driverId], references: [id])
   driverId String?
 
-  startDate   DateTime
-  endDate     DateTime
-  totalDays   Int
-  pricePerDay Float
-  totalAmount Float
-  discount    Float    @default(0)
+  startDate    DateTime
+  endDate      DateTime
+  totalDays    Int
+  pricePerDay  Float
+  driversDOB   DateTime?
+  driversLicNo String?
+  totalAmount  Float
+  discount     Float     @default(0)
 
   status    BookingStatus @default(PENDING)
   createdAt DateTime      @default(now())
@@ -208,6 +209,11 @@ model Booking {
 // PAYMENT
 //////////////////////
 
+enum CurrencyEnum {
+  USD
+  EUR
+}
+
 model Payment {
   id        String  @id @default(uuid())
   booking   Booking @relation(fields: [bookingId], references: [id])
@@ -215,10 +221,13 @@ model Payment {
   user      User    @relation(fields: [userId], references: [id])
   userId    String
 
-  amount        Float
-  paymentMethod PaymentMethod
-  transactionId String?       @unique
-  status        PaymentStatus @default(PENDING)
+  amount                Float
+  paymentMethod         PaymentMethod
+  stripePaymentIntentId String?       @unique
+  stripeChargeId        String?
+  currency              CurrencyEnum? @default(USD)
+  status                PaymentStatus @default(PENDING)
+  customerEmail         String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

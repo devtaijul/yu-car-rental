@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 
 type CoverageType = "standard" | "premium";
 
-interface BookingState {
+export interface BookingState {
   pickupDate?: Date;
   pickupTime?: string;
   dropoffTime?: string;

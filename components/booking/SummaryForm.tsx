@@ -25,6 +25,7 @@ import { useAsyncAction } from "@/hooks/use-async-action";
 import { bookCar } from "@/actions/mutation";
 import { BookingState } from "@/context/BookingContext";
 import { Car } from "@/generated/prisma/client";
+import { PAGES } from "@/config/pages.config";
 
 export const SummaryForm = ({
   total,
@@ -37,11 +38,24 @@ export const SummaryForm = ({
   clientSecret: string;
   car: Car;
 }) => {
-  const { runAction, isProcessing } = useAsyncAction(bookCar);
   const router = useRouter();
+  const { runAction, isProcessing } = useAsyncAction(bookCar, {
+    onSuccess: (data) => {
+      console.log("data", data);
+
+      if (data.success) {
+        //ts-ignore
+        if (data?.data && data?.data?.id) {
+          router.push(PAGES.RESERVE_A_CAR.CONFIRMATION(data?.data?.id));
+        }
+      }
+    },
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
   const stripe = useStripe();
   const elements = useElements();
-  const [loading, setLoading] = useState(false);
   const [cardError, setCardError] = useState<string | null>(null);
 
   const {
@@ -54,8 +68,6 @@ export const SummaryForm = ({
 
   const onSubmit = async (data: CheckoutFormValues) => {
     if (!stripe || !elements) return;
-
-    setLoading(true);
 
     const cardNumber = elements.getElement(CardNumberElement);
 
@@ -77,11 +89,9 @@ export const SummaryForm = ({
 
     if (error) {
       setCardError(error.message || "Payment failed");
-      setLoading(false);
+
       return;
     }
-
-    console.log("paymentIntet", paymentIntent);
 
     runAction({
       customer: data,
@@ -90,8 +100,6 @@ export const SummaryForm = ({
       carId: car.id,
       pricePerDay: car.pricePerDay,
     });
-
-    router.push("/confirmation");
   };
 
   return (
@@ -269,10 +277,10 @@ export const SummaryForm = ({
         {/* Submit */}
         <Button
           type="submit"
-          disabled={!stripe || loading}
+          disabled={!stripe || isProcessing}
           className="w-full mt-6 bg-primary text-primary-foreground py-6 text-base"
         >
-          {loading
+          {isProcessing
             ? "Processing..."
             : `Confirm & Pay Securely - €${total.toFixed(2)}`}
         </Button>

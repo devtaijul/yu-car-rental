@@ -50,6 +50,7 @@ export type TransmissionType = (typeof TransmissionType)[keyof typeof Transmissi
 export const BookingStatus = {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
+  ACTIVE: 'ACTIVE',
   CANCELLED: 'CANCELLED',
   COMPLETED: 'COMPLETED'
 } as const

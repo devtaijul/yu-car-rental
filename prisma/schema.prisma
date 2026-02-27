@@ -46,6 +46,7 @@ enum TransmissionType {
 enum BookingStatus {
   PENDING
   CONFIRMED
+  ACTIVE
   CANCELLED
   COMPLETED
 }

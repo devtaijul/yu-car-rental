@@ -2,6 +2,7 @@
 
 import { BookingStatus } from "@/generated/prisma/enums";
 import prisma from "@/lib/prisma";
+import { actionError, actionResponse } from "@/types/server";
 import { LocationData } from "@/types/utils";
 
 export async function getFeaturedCar() {
@@ -298,5 +299,25 @@ export const getSettingsForAdmin = async () => {
       success: false,
       message: "Failed to fetch settings",
     };
+  }
+};
+
+// Booking
+export const getBookingByBookingId = async (bookingId: string) => {
+  try {
+    const booking = await prisma.booking.findUnique({
+      where: {
+        id: bookingId,
+      },
+      include: {
+        user: true,
+        car: true,
+        driver: true,
+      },
+    });
+    return actionResponse(booking);
+  } catch (error) {
+    console.error("Get booking error:", error);
+    throw actionError("Failed to fetch booking");
   }
 };

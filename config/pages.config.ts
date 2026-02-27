@@ -5,7 +5,7 @@ export const PAGES = {
     ROOT: "/reserve-a-car",
     LOCATION: "/reserve-a-car/location",
     SELECT_CAR: "/reserve-a-car/select-car",
-    CONFIRMATION: "/reserve-a-car/confirmation",
+    CONFIRMATION: (bookingId: string) => `/confirmation?bookingId=${bookingId}`,
     SELECTED_CAR: (carSlug: string) =>
       `/reserve-a-car/${carSlug}/protection-package`,
     SUMMARY_CHECKOUT: (carSlug: string) =>
@@ -17,6 +17,7 @@ export const PAGES = {
   },
   DASHBOARD: {
     ROOT: "/dashboard",
+    BOOKING_DETAILS: (bookingId: string) => `/dashboard/bookings/${bookingId}`,
     BOOKINGS: "/dashboard/bookings",
     PAYMENTS: "/dashboard/payments",
     PROFILE: "/dashboard/profile",

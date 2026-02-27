@@ -7,11 +7,18 @@ import {
   PaymentStatus,
   UserRole,
 } from "@/generated/prisma/enums";
+import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
 import { CheckoutFormValues } from "@/lib/validation/checkout.schema";
 import { actionError, actionResponse } from "@/types/server";
+import {
+  DocumentProps,
+  renderToBuffer,
+  renderToStream,
+} from "@react-pdf/renderer";
 import { PaymentIntent } from "@stripe/stripe-js";
 import bcrypt from "bcryptjs";
+import React from "react";
 
 export async function login(email: string, password: string) {
   try {
@@ -48,10 +55,7 @@ export const bookCar = async ({
   try {
     // 🔴 1️⃣ Payment must be successful
     if (payment.status !== "succeeded") {
-      return actionResponse({
-        success: false,
-        error: "Payment not successful",
-      });
+      return actionError("Payment failed");
     }
 
     // 🔵 2️⃣ Calculate total days
@@ -132,16 +136,29 @@ export const bookCar = async ({
       return createdBooking;
     });
 
-    return actionResponse({
-      success: true,
-      data: result,
-    });
+    return actionResponse(result);
   } catch (error) {
     console.error("BOOKING ERROR:", error);
 
-    return actionResponse({
-      success: false,
-      error: "Failed to book car",
-    });
+    return actionError("Failed to book car", error);
   }
 };
+
+export async function generateContractPdf(bookingId: string) {
+  const booking = await prisma.booking.findUnique({
+    where: { id: bookingId },
+    include: { car: true },
+  });
+
+  if (!booking) {
+    throw new Error("Booking not found");
+  }
+  const element = React.createElement(
+    ContractDocument as React.ComponentType<DocumentProps>,
+    { booking } as DocumentProps,
+  );
+
+  const buffer = await renderToBuffer(element);
+
+  return buffer;
+}

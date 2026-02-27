@@ -10,9 +10,8 @@ export const checkoutSchema = z.object({
   promoCode: z.string().optional(),
   specialRequests: z.string().optional(),
   cardholderName: z.string().min(2, "Cardholder name required"),
-  termsAccepted: z.literal(true, {
-    errorMap: () => ({ message: "You must accept terms" }),
-  }),
+  termsAccepted: z
+    .boolean()
+    .refine((val) => val === true, { message: "You must accept terms" }),
 });
-
 export type CheckoutFormValues = z.infer<typeof checkoutSchema>;

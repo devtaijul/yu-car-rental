@@ -148,6 +148,7 @@ export const StepLocation: React.FC<StepLocationProps> = ({ path }) => {
             <PopoverContent className="w-auto p-0 bg-card">
               <Calendar
                 mode="single"
+                required
                 selected={pickupDate}
                 onSelect={setPickupDate}
                 disabled={(date) =>
@@ -190,6 +191,7 @@ export const StepLocation: React.FC<StepLocationProps> = ({ path }) => {
             <PopoverContent className="w-auto p-0 bg-card">
               <Calendar
                 mode="single"
+                required
                 selected={dropoffDate}
                 onSelect={setDropoffDate}
                 disabled={(date) => {

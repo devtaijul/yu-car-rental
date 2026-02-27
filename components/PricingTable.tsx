@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Check, X } from "lucide-react";
 import { SectionTitle } from "./SectionTitle";
+import { CoverageType } from "@/generated/prisma/enums";
 
 interface PricingTableProps {
-  selectedCoverage?: "standard" | "premium";
+  selectedCoverage?: CoverageType;
   isSelectable?: boolean;
-  onSelectCoverage?: (coverage: "standard" | "premium") => void;
+  onSelectCoverage?: (coverage: CoverageType) => void;
 }
 
 export const PricingTable = ({
@@ -178,11 +179,11 @@ export const PricingTable = ({
             <Button
               variant="outline"
               className={`w-full rounded-none py-6 hover:bg-primary ${
-                selectedCoverage === "standard" ? "border-primary border-2" : ""
+                selectedCoverage === "STANDARD" ? "border-primary border-2" : ""
               }`}
               onClick={() => {
                 if (onSelectCoverage) {
-                  onSelectCoverage("standard");
+                  onSelectCoverage("STANDARD");
                 }
               }}
             >
@@ -192,13 +193,13 @@ export const PricingTable = ({
           <div>
             <Button
               className={`w-full bg-primary text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
-                selectedCoverage === "premium"
+                selectedCoverage === "PREMIUM"
                   ? "ring-2 ring-offset-2 ring-primary"
                   : ""
               }`}
               onClick={() => {
                 if (onSelectCoverage) {
-                  onSelectCoverage("premium");
+                  onSelectCoverage("PREMIUM");
                 }
               }}
             >

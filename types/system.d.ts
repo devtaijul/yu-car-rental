@@ -1,9 +1,9 @@
 import { Booking, StripeAccount, User } from "@/generated/prisma/client";
 
 export type BookingWithAll = Booking & {
-  car?: Car;
-  driver?: Driver | null;
-  user?: User;
+  car: Car;
+  driver: Driver | null;
+  user: User;
 };
 
 export type ReviewWithAll = Review & {

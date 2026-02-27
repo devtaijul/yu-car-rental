@@ -9,8 +9,7 @@ import { PricingTable } from "../PricingTable";
 import { IconName } from "@/config/icons.config";
 import { Icons } from "../icons";
 import { PAGES } from "@/config/pages.config";
-
-type CoverageType = "standard" | "premium";
+import { CoverageType } from "@/generated/prisma/enums";
 
 export default function StepCoverageExtras({ car_slug }: { car_slug: string }) {
   const router = useRouter();
@@ -18,7 +17,7 @@ export default function StepCoverageExtras({ car_slug }: { car_slug: string }) {
   const { setBooking } = useBooking();
 
   const [selectedCoverage, setSelectedCoverage] =
-    useState<CoverageType>("standard");
+    useState<CoverageType>("STANDARD");
 
   const [extraQuantities, setExtraQuantities] = useState<
     Record<string, number>

@@ -1,8 +1,7 @@
 "use client";
 
+import { CoverageType } from "@/generated/prisma/enums";
 import { createContext, useContext, useState } from "react";
-
-type CoverageType = "standard" | "premium";
 
 export interface BookingState {
   pickupDate?: Date;
@@ -30,7 +29,7 @@ export const BookingProvider = ({
   children: React.ReactNode;
 }) => {
   const [booking, setBookingState] = useState<BookingState>({
-    coverage: "standard",
+    coverage: "STANDARD",
     extras: {},
   });
 
@@ -40,7 +39,7 @@ export const BookingProvider = ({
 
   const resetBooking = () => {
     setBookingState({
-      coverage: "standard",
+      coverage: "STANDARD",
       extras: {},
     });
   };

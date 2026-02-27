@@ -46,8 +46,13 @@ export type BookingMinAggregateOutputType = {
   carId: string | null
   driverId: string | null
   startDate: Date | null
+  pickupLocation: string | null
+  dropoffLocation: string | null
   endDate: Date | null
   totalDays: number | null
+  coverage: $Enums.CoverageType | null
+  pickupTime: string | null
+  dropoffTime: string | null
   pricePerDay: number | null
   driversDOB: Date | null
   driversLicNo: string | null
@@ -64,8 +69,13 @@ export type BookingMaxAggregateOutputType = {
   carId: string | null
   driverId: string | null
   startDate: Date | null
+  pickupLocation: string | null
+  dropoffLocation: string | null
   endDate: Date | null
   totalDays: number | null
+  coverage: $Enums.CoverageType | null
+  pickupTime: string | null
+  dropoffTime: string | null
   pricePerDay: number | null
   driversDOB: Date | null
   driversLicNo: string | null
@@ -82,8 +92,13 @@ export type BookingCountAggregateOutputType = {
   carId: number
   driverId: number
   startDate: number
+  pickupLocation: number
+  dropoffLocation: number
   endDate: number
   totalDays: number
+  coverage: number
+  pickupTime: number
+  dropoffTime: number
   pricePerDay: number
   driversDOB: number
   driversLicNo: number
@@ -116,8 +131,13 @@ export type BookingMinAggregateInputType = {
   carId?: true
   driverId?: true
   startDate?: true
+  pickupLocation?: true
+  dropoffLocation?: true
   endDate?: true
   totalDays?: true
+  coverage?: true
+  pickupTime?: true
+  dropoffTime?: true
   pricePerDay?: true
   driversDOB?: true
   driversLicNo?: true
@@ -134,8 +154,13 @@ export type BookingMaxAggregateInputType = {
   carId?: true
   driverId?: true
   startDate?: true
+  pickupLocation?: true
+  dropoffLocation?: true
   endDate?: true
   totalDays?: true
+  coverage?: true
+  pickupTime?: true
+  dropoffTime?: true
   pricePerDay?: true
   driversDOB?: true
   driversLicNo?: true
@@ -152,8 +177,13 @@ export type BookingCountAggregateInputType = {
   carId?: true
   driverId?: true
   startDate?: true
+  pickupLocation?: true
+  dropoffLocation?: true
   endDate?: true
   totalDays?: true
+  coverage?: true
+  pickupTime?: true
+  dropoffTime?: true
   pricePerDay?: true
   driversDOB?: true
   driversLicNo?: true
@@ -257,8 +287,13 @@ export type BookingGroupByOutputType = {
   carId: string
   driverId: string | null
   startDate: Date
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date
   totalDays: number
+  coverage: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB: Date | null
   driversLicNo: string | null
@@ -298,8 +333,13 @@ export type BookingWhereInput = {
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
   startDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  pickupLocation?: Prisma.StringFilter<"Booking"> | string
+  dropoffLocation?: Prisma.StringFilter<"Booking"> | string
   endDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
   totalDays?: Prisma.IntFilter<"Booking"> | number
+  coverage?: Prisma.EnumCoverageTypeFilter<"Booking"> | $Enums.CoverageType
+  pickupTime?: Prisma.StringFilter<"Booking"> | string
+  dropoffTime?: Prisma.StringFilter<"Booking"> | string
   pricePerDay?: Prisma.FloatFilter<"Booking"> | number
   driversDOB?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   driversLicNo?: Prisma.StringNullableFilter<"Booking"> | string | null
@@ -320,8 +360,13 @@ export type BookingOrderByWithRelationInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  pickupLocation?: Prisma.SortOrder
+  dropoffLocation?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   totalDays?: Prisma.SortOrder
+  coverage?: Prisma.SortOrder
+  pickupTime?: Prisma.SortOrder
+  dropoffTime?: Prisma.SortOrder
   pricePerDay?: Prisma.SortOrder
   driversDOB?: Prisma.SortOrderInput | Prisma.SortOrder
   driversLicNo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -345,8 +390,13 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
   startDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  pickupLocation?: Prisma.StringFilter<"Booking"> | string
+  dropoffLocation?: Prisma.StringFilter<"Booking"> | string
   endDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
   totalDays?: Prisma.IntFilter<"Booking"> | number
+  coverage?: Prisma.EnumCoverageTypeFilter<"Booking"> | $Enums.CoverageType
+  pickupTime?: Prisma.StringFilter<"Booking"> | string
+  dropoffTime?: Prisma.StringFilter<"Booking"> | string
   pricePerDay?: Prisma.FloatFilter<"Booking"> | number
   driversDOB?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   driversLicNo?: Prisma.StringNullableFilter<"Booking"> | string | null
@@ -367,8 +417,13 @@ export type BookingOrderByWithAggregationInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  pickupLocation?: Prisma.SortOrder
+  dropoffLocation?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   totalDays?: Prisma.SortOrder
+  coverage?: Prisma.SortOrder
+  pickupTime?: Prisma.SortOrder
+  dropoffTime?: Prisma.SortOrder
   pricePerDay?: Prisma.SortOrder
   driversDOB?: Prisma.SortOrderInput | Prisma.SortOrder
   driversLicNo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -393,8 +448,13 @@ export type BookingScalarWhereWithAggregatesInput = {
   carId?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   driverId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
+  pickupLocation?: Prisma.StringWithAggregatesFilter<"Booking"> | string
+  dropoffLocation?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   endDate?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
   totalDays?: Prisma.IntWithAggregatesFilter<"Booking"> | number
+  coverage?: Prisma.EnumCoverageTypeWithAggregatesFilter<"Booking"> | $Enums.CoverageType
+  pickupTime?: Prisma.StringWithAggregatesFilter<"Booking"> | string
+  dropoffTime?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   pricePerDay?: Prisma.FloatWithAggregatesFilter<"Booking"> | number
   driversDOB?: Prisma.DateTimeNullableWithAggregatesFilter<"Booking"> | Date | string | null
   driversLicNo?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
@@ -408,8 +468,13 @@ export type BookingScalarWhereWithAggregatesInput = {
 export type BookingCreateInput = {
   id?: string
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -430,8 +495,13 @@ export type BookingUncheckedCreateInput = {
   carId: string
   driverId?: string | null
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -446,8 +516,13 @@ export type BookingUncheckedCreateInput = {
 export type BookingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -468,8 +543,13 @@ export type BookingUncheckedUpdateInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -487,8 +567,13 @@ export type BookingCreateManyInput = {
   carId: string
   driverId?: string | null
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -502,8 +587,13 @@ export type BookingCreateManyInput = {
 export type BookingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -520,8 +610,13 @@ export type BookingUncheckedUpdateManyInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -548,8 +643,13 @@ export type BookingCountOrderByAggregateInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  pickupLocation?: Prisma.SortOrder
+  dropoffLocation?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   totalDays?: Prisma.SortOrder
+  coverage?: Prisma.SortOrder
+  pickupTime?: Prisma.SortOrder
+  dropoffTime?: Prisma.SortOrder
   pricePerDay?: Prisma.SortOrder
   driversDOB?: Prisma.SortOrder
   driversLicNo?: Prisma.SortOrder
@@ -573,8 +673,13 @@ export type BookingMaxOrderByAggregateInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  pickupLocation?: Prisma.SortOrder
+  dropoffLocation?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   totalDays?: Prisma.SortOrder
+  coverage?: Prisma.SortOrder
+  pickupTime?: Prisma.SortOrder
+  dropoffTime?: Prisma.SortOrder
   pricePerDay?: Prisma.SortOrder
   driversDOB?: Prisma.SortOrder
   driversLicNo?: Prisma.SortOrder
@@ -591,8 +696,13 @@ export type BookingMinOrderByAggregateInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
+  pickupLocation?: Prisma.SortOrder
+  dropoffLocation?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   totalDays?: Prisma.SortOrder
+  coverage?: Prisma.SortOrder
+  pickupTime?: Prisma.SortOrder
+  dropoffTime?: Prisma.SortOrder
   pricePerDay?: Prisma.SortOrder
   driversDOB?: Prisma.SortOrder
   driversLicNo?: Prisma.SortOrder
@@ -741,6 +851,10 @@ export type BookingUncheckedUpdateManyWithoutDriverNestedInput = {
   deleteMany?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
 }
 
+export type EnumCoverageTypeFieldUpdateOperationsInput = {
+  set?: $Enums.CoverageType
+}
+
 export type EnumBookingStatusFieldUpdateOperationsInput = {
   set?: $Enums.BookingStatus
 }
@@ -762,8 +876,13 @@ export type BookingUpdateOneRequiredWithoutPaymentNestedInput = {
 export type BookingCreateWithoutUserInput = {
   id?: string
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -782,8 +901,13 @@ export type BookingUncheckedCreateWithoutUserInput = {
   carId: string
   driverId?: string | null
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -830,8 +954,13 @@ export type BookingScalarWhereInput = {
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
   startDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  pickupLocation?: Prisma.StringFilter<"Booking"> | string
+  dropoffLocation?: Prisma.StringFilter<"Booking"> | string
   endDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
   totalDays?: Prisma.IntFilter<"Booking"> | number
+  coverage?: Prisma.EnumCoverageTypeFilter<"Booking"> | $Enums.CoverageType
+  pickupTime?: Prisma.StringFilter<"Booking"> | string
+  dropoffTime?: Prisma.StringFilter<"Booking"> | string
   pricePerDay?: Prisma.FloatFilter<"Booking"> | number
   driversDOB?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   driversLicNo?: Prisma.StringNullableFilter<"Booking"> | string | null
@@ -845,8 +974,13 @@ export type BookingScalarWhereInput = {
 export type BookingCreateWithoutCarInput = {
   id?: string
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -865,8 +999,13 @@ export type BookingUncheckedCreateWithoutCarInput = {
   userId: string
   driverId?: string | null
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -907,8 +1046,13 @@ export type BookingUpdateManyWithWhereWithoutCarInput = {
 export type BookingCreateWithoutDriverInput = {
   id?: string
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -927,8 +1071,13 @@ export type BookingUncheckedCreateWithoutDriverInput = {
   userId: string
   carId: string
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -969,8 +1118,13 @@ export type BookingUpdateManyWithWhereWithoutDriverInput = {
 export type BookingCreateWithoutPaymentInput = {
   id?: string
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -990,8 +1144,13 @@ export type BookingUncheckedCreateWithoutPaymentInput = {
   carId: string
   driverId?: string | null
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -1021,8 +1180,13 @@ export type BookingUpdateToOneWithWhereWithoutPaymentInput = {
 export type BookingUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1042,8 +1206,13 @@ export type BookingUncheckedUpdateWithoutPaymentInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1059,8 +1228,13 @@ export type BookingCreateManyUserInput = {
   carId: string
   driverId?: string | null
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -1074,8 +1248,13 @@ export type BookingCreateManyUserInput = {
 export type BookingUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1094,8 +1273,13 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1112,8 +1296,13 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1129,8 +1318,13 @@ export type BookingCreateManyCarInput = {
   userId: string
   driverId?: string | null
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -1144,8 +1338,13 @@ export type BookingCreateManyCarInput = {
 export type BookingUpdateWithoutCarInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1164,8 +1363,13 @@ export type BookingUncheckedUpdateWithoutCarInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1182,8 +1386,13 @@ export type BookingUncheckedUpdateManyWithoutCarInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1199,8 +1408,13 @@ export type BookingCreateManyDriverInput = {
   userId: string
   carId: string
   startDate: Date | string
+  pickupLocation: string
+  dropoffLocation: string
   endDate: Date | string
   totalDays: number
+  coverage?: $Enums.CoverageType
+  pickupTime: string
+  dropoffTime: string
   pricePerDay: number
   driversDOB?: Date | string | null
   driversLicNo?: string | null
@@ -1214,8 +1428,13 @@ export type BookingCreateManyDriverInput = {
 export type BookingUpdateWithoutDriverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1234,8 +1453,13 @@ export type BookingUncheckedUpdateWithoutDriverInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1252,8 +1476,13 @@ export type BookingUncheckedUpdateManyWithoutDriverInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalDays?: Prisma.IntFieldUpdateOperationsInput | number
+  coverage?: Prisma.EnumCoverageTypeFieldUpdateOperationsInput | $Enums.CoverageType
+  pickupTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
   driversDOB?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driversLicNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1272,8 +1501,13 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   carId?: boolean
   driverId?: boolean
   startDate?: boolean
+  pickupLocation?: boolean
+  dropoffLocation?: boolean
   endDate?: boolean
   totalDays?: boolean
+  coverage?: boolean
+  pickupTime?: boolean
+  dropoffTime?: boolean
   pricePerDay?: boolean
   driversDOB?: boolean
   driversLicNo?: boolean
@@ -1294,8 +1528,13 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   carId?: boolean
   driverId?: boolean
   startDate?: boolean
+  pickupLocation?: boolean
+  dropoffLocation?: boolean
   endDate?: boolean
   totalDays?: boolean
+  coverage?: boolean
+  pickupTime?: boolean
+  dropoffTime?: boolean
   pricePerDay?: boolean
   driversDOB?: boolean
   driversLicNo?: boolean
@@ -1315,8 +1554,13 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   carId?: boolean
   driverId?: boolean
   startDate?: boolean
+  pickupLocation?: boolean
+  dropoffLocation?: boolean
   endDate?: boolean
   totalDays?: boolean
+  coverage?: boolean
+  pickupTime?: boolean
+  dropoffTime?: boolean
   pricePerDay?: boolean
   driversDOB?: boolean
   driversLicNo?: boolean
@@ -1336,8 +1580,13 @@ export type BookingSelectScalar = {
   carId?: boolean
   driverId?: boolean
   startDate?: boolean
+  pickupLocation?: boolean
+  dropoffLocation?: boolean
   endDate?: boolean
   totalDays?: boolean
+  coverage?: boolean
+  pickupTime?: boolean
+  dropoffTime?: boolean
   pricePerDay?: boolean
   driversDOB?: boolean
   driversLicNo?: boolean
@@ -1348,7 +1597,7 @@ export type BookingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "startDate" | "endDate" | "totalDays" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
@@ -1380,8 +1629,13 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     carId: string
     driverId: string | null
     startDate: Date
+    pickupLocation: string
+    dropoffLocation: string
     endDate: Date
     totalDays: number
+    coverage: $Enums.CoverageType
+    pickupTime: string
+    dropoffTime: string
     pricePerDay: number
     driversDOB: Date | null
     driversLicNo: string | null
@@ -1822,8 +2076,13 @@ export interface BookingFieldRefs {
   readonly carId: Prisma.FieldRef<"Booking", 'String'>
   readonly driverId: Prisma.FieldRef<"Booking", 'String'>
   readonly startDate: Prisma.FieldRef<"Booking", 'DateTime'>
+  readonly pickupLocation: Prisma.FieldRef<"Booking", 'String'>
+  readonly dropoffLocation: Prisma.FieldRef<"Booking", 'String'>
   readonly endDate: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly totalDays: Prisma.FieldRef<"Booking", 'Int'>
+  readonly coverage: Prisma.FieldRef<"Booking", 'CoverageType'>
+  readonly pickupTime: Prisma.FieldRef<"Booking", 'String'>
+  readonly dropoffTime: Prisma.FieldRef<"Booking", 'String'>
   readonly pricePerDay: Prisma.FieldRef<"Booking", 'Float'>
   readonly driversDOB: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly driversLicNo: Prisma.FieldRef<"Booking", 'String'>

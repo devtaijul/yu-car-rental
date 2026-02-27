@@ -177,6 +177,11 @@ model Driver {
 // BOOKING
 //////////////////////
 
+enum CoverageType {
+  STANDARD
+  PREMIUM
+}
+
 model Booking {
   id       String  @id @default(uuid())
   user     User    @relation(fields: [userId], references: [id])
@@ -186,14 +191,19 @@ model Booking {
   driver   Driver? @relation(fields: [driverId], references: [id])
   driverId String?
 
-  startDate    DateTime
-  endDate      DateTime
-  totalDays    Int
-  pricePerDay  Float
-  driversDOB   DateTime?
-  driversLicNo String?
-  totalAmount  Float
-  discount     Float     @default(0)
+  startDate       DateTime
+  pickupLocation  String
+  dropoffLocation String
+  endDate         DateTime
+  totalDays       Int
+  coverage        CoverageType @default(STANDARD)
+  pickupTime      String
+  dropoffTime     String
+  pricePerDay     Float
+  driversDOB      DateTime?
+  driversLicNo    String?
+  totalAmount     Float
+  discount        Float        @default(0)
 
   status    BookingStatus @default(PENDING)
   createdAt DateTime      @default(now())

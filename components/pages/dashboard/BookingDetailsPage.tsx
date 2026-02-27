@@ -1,25 +1,20 @@
 "use client";
 
-import Image from "next/image";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Shield, Clock, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { BUSINESS } from "@/config/business.config";
+import { formatDate } from "@/lib/formatDate";
+import { calculateTax } from "@/lib/taxCounter";
+import { BookingWithAll } from "@/types/system";
+import { Clock, Download, MapPin, Shield } from "lucide-react";
+import { CldImage } from "next-cloudinary";
 
-export default function BookingDetailsPage() {
-  const booking = {
-    id: "YU-847291",
-    car: "TOYOTA RAIZE",
-    plate: "BNR-482",
-    status: "ON RENT",
-    amount: 840,
-    pickupDate: "Oct 24, 2024 • 10:00 AM",
-    returnDate: "Nov 02, 2024 • 14:00 PM",
-    location: "Flamingo Airport",
-    daysLeft: 4,
-    hrsLeft: 18,
-  };
-
+export default function BookingDetailsPage({
+  booking,
+}: {
+  booking: BookingWithAll;
+}) {
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -37,14 +32,14 @@ export default function BookingDetailsPage() {
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Car Image */}
-            <div className="bg-muted p-6 relative flex items-center justify-center lg:w-[350px]">
-              <div className="gradient-color w-full h-[200px] flex items-center justify-center">
-                <Image
-                  src="/car/car-1.png"
-                  alt="vehicle"
-                  width={600}
+            <div className="bg-muted p-6 relative flex items-center justify-center lg:w-87.5">
+              <div className="gradient-color w-full h-50 flex items-center justify-center">
+                <CldImage
+                  src={booking.car.imageUrl}
+                  width={400}
                   height={300}
-                  className="max-w-[250px]"
+                  alt="Car"
+                  className="max-w-62.5"
                 />
               </div>
 
@@ -53,7 +48,7 @@ export default function BookingDetailsPage() {
               </Badge>
 
               <div className="absolute bottom-3 left-3 bg-white border px-4 py-1 text-xs font-mono font-bold rounded">
-                PLATE: {booking.plate}
+                PLATE: dfsdkfkf {/* {booking.plate} */}
               </div>
             </div>
 
@@ -62,7 +57,7 @@ export default function BookingDetailsPage() {
               <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-2xl font-display font-bold">
-                    {booking.car}
+                    {booking.car.name}
                   </h2>
                   <p className="text-sm text-muted-foreground">
                     Booking ID: {booking.id}
@@ -71,11 +66,11 @@ export default function BookingDetailsPage() {
 
                 <div className="text-right">
                   <p className="text-2xl font-bold">
-                    ${booking.amount}
+                    ${booking.totalAmount}
                     <span className="text-xs text-muted-foreground">.00</span>
                   </p>
                   <p className="text-xs text-primary flex items-center gap-1 justify-end">
-                    <Shield className="h-3 w-3" /> Full Coverage
+                    <Shield className="h-3 w-3" /> {booking.coverage}
                   </p>
                 </div>
               </div>
@@ -86,9 +81,11 @@ export default function BookingDetailsPage() {
                   <p className="text-xs uppercase tracking-wider text-primary font-bold">
                     Pickup
                   </p>
-                  <p className="font-semibold">{booking.pickupDate}</p>
+                  <p className="font-semibold">
+                    {formatDate(booking.startDate)}
+                  </p>
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
-                    <MapPin className="h-3 w-3" /> {booking.location}
+                    <MapPin className="h-3 w-3" /> {booking.pickupLocation}
                   </p>
                 </div>
 
@@ -96,9 +93,9 @@ export default function BookingDetailsPage() {
                   <p className="text-xs uppercase tracking-wider text-primary font-bold">
                     Return
                   </p>
-                  <p className="font-semibold">{booking.returnDate}</p>
+                  <p className="font-semibold">{formatDate(booking.endDate)}</p>
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
-                    <MapPin className="h-3 w-3" /> {booking.location}
+                    <MapPin className="h-3 w-3" /> {booking.dropoffLocation}
                   </p>
                 </div>
               </div>
@@ -111,11 +108,11 @@ export default function BookingDetailsPage() {
                     Time Remaining
                   </span>
                   <span className="text-xl font-bold text-primary">
-                    {booking.daysLeft}
+                    {booking.totalDays}
                   </span>
                   <span className="text-xs text-muted-foreground">Days</span>
                   <span className="text-xl font-bold text-primary">
-                    {booking.hrsLeft}
+                    {/* {booking.totalHours} */} 250
                   </span>
                   <span className="text-xs text-muted-foreground">Hrs</span>
                 </div>
@@ -143,7 +140,7 @@ export default function BookingDetailsPage() {
               <p className="uppercase text-primary text-xs font-bold">
                 Pickup Date & Time
               </p>
-              <p className="font-semibold">{booking.pickupDate}</p>
+              <p className="font-semibold">{formatDate(booking.startDate)}</p>
               <p className="text-xs text-muted-foreground">
                 Flamingo International Airport (BON)
               </p>
@@ -153,7 +150,7 @@ export default function BookingDetailsPage() {
               <p className="uppercase text-primary text-xs font-bold">
                 Return Date & Time
               </p>
-              <p className="font-semibold">{booking.returnDate}</p>
+              <p className="font-semibold">{formatDate(booking.endDate)}</p>
               <p className="text-xs text-muted-foreground">
                 Flamingo International Airport (BON)
               </p>
@@ -170,21 +167,41 @@ export default function BookingDetailsPage() {
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span>Base Rate (9 days @ $85)</span>
-              <span>$765.00</span>
+              <span>
+                Base Rate ({booking.totalDays} days @ ${booking.car.pricePerDay}
+                )
+              </span>
+              <span>
+                ${(booking.car.pricePerDay * booking.totalDays).toFixed(2)}
+              </span>
             </div>
             <div className="flex justify-between">
               <span>Full Coverage</span>
-              <span>$180.00</span>
+              <span>
+                $
+                {booking.coverage === "PREMIUM"
+                  ? BUSINESS.COVERAGE.PREMIUM.toFixed(2)
+                  : BUSINESS.COVERAGE.STANDARD.toFixed(2)}
+              </span>
             </div>
             <div className="flex justify-between">
               <span>Taxes</span>
-              <span>$59.40</span>
+              <span>
+                $
+                {calculateTax(
+                  booking.car.pricePerDay * booking.totalDays,
+                  booking.coverage === "PREMIUM"
+                    ? BUSINESS.COVERAGE.PREMIUM
+                    : BUSINESS.COVERAGE.STANDARD,
+                ).toFixed(2)}
+              </span>
             </div>
 
             <div className="border-t border-border pt-3 flex justify-between font-bold text-lg">
               <span>Total Paid</span>
-              <span className="text-primary">$1,049.40</span>
+              <span className="text-primary">
+                ${booking.totalAmount.toFixed(2)}
+              </span>
             </div>
 
             <Button

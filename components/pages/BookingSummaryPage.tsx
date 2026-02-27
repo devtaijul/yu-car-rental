@@ -60,7 +60,7 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
   const basePrice = car.pricePerDay * days;
 
   // Coverage
-  const coveragePrice = coverage === "premium" ? 12 * days : 0;
+  const coveragePrice = coverage === "PREMIUM" ? 12 * days : 0;
 
   // Extras (example pricing logic)
   const extrasTotal = Object.entries(extras || {}).reduce((sum, [key, qty]) => {
@@ -187,7 +187,7 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
                       <span>${basePrice.toFixed(2)}</span>
                     </div>
 
-                    {coverage === "premium" && (
+                    {coverage === "PREMIUM" && (
                       <div className="flex justify-between">
                         <span>Premium Coverage ($12/day × {days})</span>
                         <span>${coveragePrice.toFixed(2)}</span>

@@ -48,11 +48,21 @@ export function actionError(
   error?: unknown,
 ): ActionErrorOrSuccess<null> {
   let errorMessage = message;
+
   if (error && error instanceof z.ZodError) {
-    errorMessage = Object.entries(error.flatten().fieldErrors)
-      .map(([key, value]) => `${key}: ${value?.join(", ")}`)
+    const flattened = error.flatten().fieldErrors;
+
+    errorMessage = Object.entries(flattened)
+      .map(([key, value]) => {
+        // Ensure value is array before calling join
+        if (Array.isArray(value)) {
+          return `${key}: ${value.join(", ")}`;
+        }
+        return `${key}: ${value ?? ""}`;
+      })
       .join("\n");
   }
+
   return {
     success: false,
     message: errorMessage,

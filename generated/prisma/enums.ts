@@ -79,6 +79,14 @@ export const PaymentMethod = {
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
 
+export const CoverageType = {
+  STANDARD: 'STANDARD',
+  PREMIUM: 'PREMIUM'
+} as const
+
+export type CoverageType = (typeof CoverageType)[keyof typeof CoverageType]
+
+
 export const CurrencyEnum = {
   USD: 'USD',
   EUR: 'EUR'

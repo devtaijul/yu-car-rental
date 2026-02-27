@@ -104,7 +104,7 @@ export default function PaymentsManagement({
                   <Badge variant="outline">{p.paymentMethod}</Badge>
                 </TableCell>
                 <TableCell className="text-xs font-mono">
-                  {p.transactionId || "—"}
+                  {p.stripePaymentIntentId || "—"}
                 </TableCell>
                 <TableCell>
                   <Badge variant={statusColor(p.status)}>{p.status}</Badge>
@@ -171,7 +171,7 @@ export default function PaymentsManagement({
               </div>
               <div>
                 <span className="text-muted-foreground">Transaction:</span>{" "}
-                {viewPayment.transactionId || "—"}
+                {viewPayment.stripePaymentIntentId || "—"}
               </div>
               <div>
                 <span className="text-muted-foreground">Status:</span>{" "}

@@ -263,11 +263,28 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
+export type EnumCoverageTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CoverageType | Prisma.EnumCoverageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCoverageTypeFilter<$PrismaModel> | $Enums.CoverageType
+}
+
 export type EnumBookingStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.BookingStatus | Prisma.EnumBookingStatusFieldRefInput<$PrismaModel>
   in?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumBookingStatusFilter<$PrismaModel> | $Enums.BookingStatus
+}
+
+export type EnumCoverageTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CoverageType | Prisma.EnumCoverageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCoverageTypeWithAggregatesFilter<$PrismaModel> | $Enums.CoverageType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCoverageTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCoverageTypeFilter<$PrismaModel>
 }
 
 export type EnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -599,11 +616,28 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
+export type NestedEnumCoverageTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CoverageType | Prisma.EnumCoverageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCoverageTypeFilter<$PrismaModel> | $Enums.CoverageType
+}
+
 export type NestedEnumBookingStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.BookingStatus | Prisma.EnumBookingStatusFieldRefInput<$PrismaModel>
   in?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumBookingStatusFilter<$PrismaModel> | $Enums.BookingStatus
+}
+
+export type NestedEnumCoverageTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CoverageType | Prisma.EnumCoverageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CoverageType[] | Prisma.ListEnumCoverageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCoverageTypeWithAggregatesFilter<$PrismaModel> | $Enums.CoverageType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCoverageTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCoverageTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {

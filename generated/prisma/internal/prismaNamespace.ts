@@ -1273,8 +1273,13 @@ export const BookingScalarFieldEnum = {
   carId: 'carId',
   driverId: 'driverId',
   startDate: 'startDate',
+  pickupLocation: 'pickupLocation',
+  dropoffLocation: 'dropoffLocation',
   endDate: 'endDate',
   totalDays: 'totalDays',
+  coverage: 'coverage',
+  pickupTime: 'pickupTime',
+  dropoffTime: 'dropoffTime',
   pricePerDay: 'pricePerDay',
   driversDOB: 'driversDOB',
   driversLicNo: 'driversLicNo',
@@ -1476,6 +1481,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CoverageType'
+ */
+export type EnumCoverageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CoverageType'>
+    
+
+
+/**
+ * Reference to a field of type 'CoverageType[]'
+ */
+export type ListEnumCoverageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CoverageType[]'>
     
 
 

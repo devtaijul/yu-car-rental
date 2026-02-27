@@ -11,11 +11,7 @@ import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
 import { CheckoutFormValues } from "@/lib/validation/checkout.schema";
 import { actionError, actionResponse } from "@/types/server";
-import {
-  DocumentProps,
-  renderToBuffer,
-  renderToStream,
-} from "@react-pdf/renderer";
+import { DocumentProps, renderToBuffer } from "@react-pdf/renderer";
 import { PaymentIntent } from "@stripe/stripe-js";
 import bcrypt from "bcryptjs";
 import React from "react";
@@ -108,6 +104,11 @@ export const bookCar = async ({
           endDate,
           totalDays,
           pricePerDay,
+          coverage: booking.coverage,
+          pickupLocation: booking.pickupLocation as string,
+          dropoffLocation: booking.dropoffLocation as string,
+          pickupTime: booking.pickupTime as string,
+          dropoffTime: booking.dropoffTime as string,
           totalAmount,
           driversDOB: new Date(customer.dateOfBirth),
           driversLicNo: customer.licenseNumber,

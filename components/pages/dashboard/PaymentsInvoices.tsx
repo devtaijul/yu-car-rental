@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -13,45 +11,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Search, Download, Plus, CreditCard } from "lucide-react";
+import { PaymentWithAll } from "@/types/system";
+import { Download, Search } from "lucide-react";
+import { useState } from "react";
+import { PaymentRow } from "./PaymentRow";
 
-const mockInvoices = [
-  {
-    id: "INV-2024-001",
-    date: "Feb 21, 2026",
-    desc: "Rental - Mercedes-Benz S-Class",
-    method: "Visa •••• 4242",
-    amount: "$1,250.00",
-    status: "Paid",
-  },
-  {
-    id: "INV-2024-002",
-    date: "Feb 10, 2026",
-    desc: "Rental - Tesla Model S",
-    method: "Visa •••• 4242",
-    amount: "$450.00",
-    status: "Paid",
-  },
-  {
-    id: "INV-2024-003",
-    date: "Jan 15, 2026",
-    desc: "Refund - Security Deposit",
-    method: "Original Payment Method",
-    amount: "+$500.00",
-    status: "Refunded",
-  },
-  {
-    id: "INV-2024-004",
-    date: "Jan 05, 2026",
-    desc: "Rental - Range Rover Sport",
-    method: "Mastercard •••• 8888",
-    amount: "$1,120.00",
-    status: "Paid",
-  },
-];
-
-export default function PaymentsInvoices() {
+export default function PaymentsInvoices({
+  payments,
+}: {
+  payments: PaymentWithAll;
+}) {
   const [search, setSearch] = useState("");
+
+  const filteredPayments = payments.filter((payment: PaymentWithAll) =>
+    payment.bookingId.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <div className="space-y-6 ">
@@ -70,7 +44,7 @@ export default function PaymentsInvoices() {
       </div>
 
       {/* Payment Cards */}
-      <div className="flex gap-4">
+      {/* <div className="flex gap-4">
         <Card className="w-70 gradient-teal text-primary-foreground border-0 overflow-hidden relative">
           <CardContent className="p-5 space-y-6">
             <div className="flex items-center justify-between">
@@ -98,7 +72,7 @@ export default function PaymentsInvoices() {
             </p>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
 
       {/* Search */}
       <div className="relative w-full sm:w-96">
@@ -141,41 +115,20 @@ export default function PaymentsInvoices() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {mockInvoices.map((inv) => (
-                <TableRow key={inv.id} className="border-b border-border">
-                  <TableCell className="font-mono text-sm font-medium">
-                    {inv.id}
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {inv.date}
-                  </TableCell>
-                  <TableCell className="text-sm">{inv.desc}</TableCell>
-                  <TableCell className="text-sm flex items-center gap-1">
-                    <CreditCard className="h-3 w-3" /> {inv.method}
-                  </TableCell>
+              {filteredPayments.length === 0 ? (
+                <TableRow>
                   <TableCell
-                    className={`text-sm font-semibold ${inv.status === "Refunded" ? "text-success" : ""}`}
+                    colSpan={7}
+                    className="text-center py-6 text-muted-foreground"
                   >
-                    {inv.amount}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      className={
-                        inv.status === "Paid"
-                          ? "bg-primary text-primary-foreground text-[10px]"
-                          : "bg-success/10 text-success border-success/20 text-[10px]"
-                      }
-                    >
-                      {inv.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <button className="text-muted-foreground hover:text-primary">
-                      <Download className="h-4 w-4" />
-                    </button>
+                    No payments found.
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                filteredPayments.map((payment: PaymentWithAll) => (
+                  <PaymentRow key={payment.id} payment={payment} />
+                ))
+              )}
             </TableBody>
           </Table>
         </div>

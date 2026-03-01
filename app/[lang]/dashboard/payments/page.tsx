@@ -1,10 +1,19 @@
-import PaymentsInvoices from "@/components/pages/dashboard/PaymentsInvoices";
-import React from "react";
+import { PaymentsInvoicesSkeleton } from "@/components/skeleton/PaymentsInvoicesSkeleton";
+import { PaymentsServer } from "@/server/booking/PaymentsServer";
+import { Suspense } from "react";
 
-const pages = () => {
+const pages = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; limit?: string; search?: string }>;
+}) => {
+  const query = await searchParams;
+  const { page, limit, search } = query;
   return (
     <div>
-      <PaymentsInvoices />
+      <Suspense fallback={<PaymentsInvoicesSkeleton />}>
+        <PaymentsServer page={page} limit={limit} search={search} />
+      </Suspense>
     </div>
   );
 };

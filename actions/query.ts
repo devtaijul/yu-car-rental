@@ -348,6 +348,9 @@ export const getMyBookings = async (
     const bookings = await prisma.booking.findMany({
       where: {
         userId: user.id,
+        status: status === "ACTIVE" ? "ACTIVE" : undefined,
+        startDate: status === "UPCOMING" ? { gt: new Date() } : undefined,
+        endDate: status === "PAST" ? { lt: new Date() } : undefined,
       },
       include: {
         user: true,
@@ -364,5 +367,60 @@ export const getMyBookings = async (
   } catch (error) {
     console.error("Get my bookings error:", error);
     throw actionError("Failed to fetch my bookings");
+  }
+};
+
+export const getMyPayments = async (
+  page: string = "1",
+  limit: string = "10",
+  search: string = "",
+) => {
+  try {
+    const session = await auth();
+    console.log(session);
+    if (!session || !session.user.email) {
+      return actionError("User not logged in");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session?.user.email,
+      },
+    });
+
+    if (!user) {
+      return actionError("User not found");
+    }
+
+    const payments = await prisma.payment.findMany({
+      where: {
+        userId: user.id,
+        OR: [
+          {
+            id: {
+              contains: search,
+            },
+          },
+          {
+            stripeChargeId: {
+              contains: search,
+            },
+          },
+        ],
+      },
+      include: {
+        user: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      skip: (parseInt(page) - 1) * parseInt(limit),
+      take: parseInt(limit),
+    });
+
+    return actionResponse(payments);
+  } catch (error) {
+    console.error("Get my payments error:", error);
+    throw actionError("Failed to fetch my payments");
   }
 };

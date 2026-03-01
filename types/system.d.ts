@@ -14,3 +14,8 @@ export type ReviewWithAll = Review & {
 export type SettingWithAll = Setting & {
   stripeAccount: StripeAccount;
 };
+
+export type PaymentWithAll = Payment & {
+  user: User;
+  booking: Booking;
+};

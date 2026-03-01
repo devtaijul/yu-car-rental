@@ -45,3 +45,10 @@ export const getTimeLeftFromNow = (date: Date) => {
 
   return { days, hours };
 };
+
+export const formatCurrency = (amount: number, currency: string) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency,
+  }).format(amount);
+};

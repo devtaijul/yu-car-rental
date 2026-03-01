@@ -84,6 +84,11 @@ export default function MyBookings({
 
       {/* Bookings */}
       <div className="space-y-4">
+        {bookings.length === 0 && (
+          <div className="min-h-32 flex items-center justify-center">
+            <p>No bookings found</p>
+          </div>
+        )}
         {bookings.map((booking) => (
           <BookingCard key={booking.id} booking={booking} />
         ))}

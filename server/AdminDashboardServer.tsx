@@ -1,6 +1,5 @@
 import { adminDashbaordCount } from "@/actions/query";
-import Dashboard from "@/components/pages/admin/Dashboard";
-import React from "react";
+import { DashboardOverview } from "@/components/pages/admin/Index";
 
 export const AdminDashboardServer = async () => {
   const data = await adminDashbaordCount();
@@ -9,5 +8,5 @@ export const AdminDashboardServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <Dashboard counts={data.counts} />;
+  return <DashboardOverview />;
 };

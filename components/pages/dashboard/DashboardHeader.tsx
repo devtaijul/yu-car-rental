@@ -31,22 +31,19 @@ export const DashboardHeader = ({
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="relative">
-            <Bell className="h-5 w-5 text-muted-foreground" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-destructive" />
-          </button>
-
           {/* User dropdown using shadcn/ui */}
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2 focus:outline-none">
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-semibold">{session?.user?.name}</p>
                 <p className="text-[10px] font-bold text-primary uppercase tracking-wider">
-                  Premium Member
+                  {session?.user?.firstname + " " + session?.user?.lastname}
                 </p>
               </div>
               <div className="w-9 h-9 rounded-full gradient-teal flex items-center justify-center text-primary-foreground font-bold text-sm">
-                {session?.user?.name?.charAt(0).toUpperCase()}
+                {session?.user?.firstname?.charAt(0).toUpperCase() +
+                  " " +
+                  session?.user?.lastname?.charAt(0).toUpperCase()}
               </div>
               <ChevronDown className="h-3 w-3 text-muted-foreground" />
             </DropdownMenuTrigger>

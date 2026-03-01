@@ -79,6 +79,15 @@ export const PaymentMethod = {
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
 
+export const CarStatus = {
+  ON_RENT: 'ON_RENT',
+  AVAILABLE: 'AVAILABLE',
+  MAINTENANCE: 'MAINTENANCE'
+} as const
+
+export type CarStatus = (typeof CarStatus)[keyof typeof CarStatus]
+
+
 export const CoverageType = {
   STANDARD: 'STANDARD',
   PREMIUM: 'PREMIUM'

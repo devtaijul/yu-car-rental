@@ -1,6 +1,5 @@
 import { getDriversForAdmin } from "@/actions/query";
-import DriversManagement from "@/components/pages/admin/DriversManagement";
-import React from "react";
+import DriversPage from "@/components/pages/admin/DriversPage";
 
 export const AdminDriverManagementServer = async () => {
   const data = await getDriversForAdmin();
@@ -9,5 +8,5 @@ export const AdminDriverManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <DriversManagement drivers={data.drivers} />;
+  return <DriversPage />;
 };

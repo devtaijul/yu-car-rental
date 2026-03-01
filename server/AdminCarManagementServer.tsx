@@ -1,6 +1,5 @@
 import { getCarsForAdmin } from "@/actions/query";
-import { CarsManagement } from "@/components/pages/admin/CarsManagement";
-import React from "react";
+import { CarsPage } from "@/components/pages/admin/CarsPage";
 
 export const AdminCarManagementServer = async () => {
   const data = await getCarsForAdmin();
@@ -8,5 +7,5 @@ export const AdminCarManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <CarsManagement cars={data.cars} />;
+  return <CarsPage />;
 };

@@ -1,6 +1,5 @@
 import { getPaymentsForAdmin } from "@/actions/query";
-import PaymentsManagement from "@/components/pages/admin/PaymentsManagement";
-import React from "react";
+import { PaymentsPage } from "@/components/pages/admin/PaymentsPage";
 
 export const AdminPaymentManagementServer = async () => {
   const data = await getPaymentsForAdmin();
@@ -9,5 +8,5 @@ export const AdminPaymentManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <PaymentsManagement payments={data.payments} />;
+  return <PaymentsPage />;
 };

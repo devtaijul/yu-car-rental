@@ -187,6 +187,13 @@ export type IntNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null
 }
 
+export type EnumCarStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCarStatusFilter<$PrismaModel> | $Enums.CarStatus
+}
+
 export type EnumCarTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.CarType | Prisma.EnumCarTypeFieldRefInput<$PrismaModel>
   in?: $Enums.CarType[] | Prisma.ListEnumCarTypeFieldRefInput<$PrismaModel>
@@ -235,6 +242,16 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
+}
+
+export type EnumCarStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCarStatusWithAggregatesFilter<$PrismaModel> | $Enums.CarStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCarStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCarStatusFilter<$PrismaModel>
 }
 
 export type EnumCarTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -529,6 +546,13 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type NestedEnumCarStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCarStatusFilter<$PrismaModel> | $Enums.CarStatus
+}
+
 export type NestedEnumCarTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.CarType | Prisma.EnumCarTypeFieldRefInput<$PrismaModel>
   in?: $Enums.CarType[] | Prisma.ListEnumCarTypeFieldRefInput<$PrismaModel>
@@ -588,6 +612,16 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumCarStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CarStatus | Prisma.EnumCarStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CarStatus[] | Prisma.ListEnumCarStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCarStatusWithAggregatesFilter<$PrismaModel> | $Enums.CarStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCarStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCarStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumCarTypeWithAggregatesFilter<$PrismaModel = never> = {

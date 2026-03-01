@@ -1,6 +1,5 @@
 import { getSettingsForAdmin } from "@/actions/query";
-import { SettingsPage } from "@/components/pages/admin/SettingsPage";
-import React from "react";
+import SettingsPage from "@/components/pages/admin/SettingsPage";
 
 export const SettingsManagementServer = async () => {
   const data = await getSettingsForAdmin();
@@ -9,5 +8,5 @@ export const SettingsManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <SettingsPage settings={data.settings} />;
+  return <SettingsPage />;
 };

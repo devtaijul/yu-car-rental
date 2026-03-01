@@ -44,6 +44,8 @@ export const BookingProvider = ({
     });
   };
 
+  console.log("booking", booking);
+
   return (
     <BookingContext.Provider value={{ booking, setBooking, resetBooking }}>
       {children}

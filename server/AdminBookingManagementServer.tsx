@@ -1,6 +1,5 @@
 import { getBookingsForAdmin } from "@/actions/query";
-import BookingsManagement from "@/components/pages/admin/BookingsManagement";
-import React from "react";
+import BookingsPage from "@/components/pages/admin/BookingsPage";
 
 export const AdminBookingManagementServer = async () => {
   const data = await getBookingsForAdmin();
@@ -9,5 +8,5 @@ export const AdminBookingManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <BookingsManagement bookings={data.bookings} />;
+  return <BookingsPage />;
 };

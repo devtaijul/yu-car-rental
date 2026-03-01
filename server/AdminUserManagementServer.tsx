@@ -1,6 +1,5 @@
 import { getUsersForAdmin } from "@/actions/query";
-import UsersManagement from "@/components/pages/admin/UsersManagement";
-import React from "react";
+import UsersPage from "@/components/pages/admin/UsersPage";
 
 export const AdminUserManagementServer = async () => {
   const data = await getUsersForAdmin();
@@ -9,5 +8,5 @@ export const AdminUserManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <UsersManagement users={data.users} />;
+  return <UsersPage />;
 };

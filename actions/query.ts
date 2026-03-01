@@ -1,5 +1,7 @@
 "use server";
 
+import { auth } from "@/auth";
+import { TabValue } from "@/data/utils";
 import { BookingStatus } from "@/generated/prisma/enums";
 import prisma from "@/lib/prisma";
 import { actionError, actionResponse } from "@/types/server";
@@ -319,5 +321,48 @@ export const getBookingByBookingId = async (bookingId: string) => {
   } catch (error) {
     console.error("Get booking error:", error);
     throw actionError("Failed to fetch booking");
+  }
+};
+
+export const getMyBookings = async (
+  limit: string,
+  status: TabValue | undefined,
+) => {
+  try {
+    const session = await auth();
+    console.log(session);
+    if (!session || !session.user.email) {
+      return actionError("User not logged in");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session?.user.email,
+      },
+    });
+
+    if (!user) {
+      return actionError("User not found");
+    }
+
+    const bookings = await prisma.booking.findMany({
+      where: {
+        userId: user.id,
+      },
+      include: {
+        user: true,
+        car: true,
+        driver: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: parseInt(limit),
+    });
+
+    return actionResponse(bookings);
+  } catch (error) {
+    console.error("Get my bookings error:", error);
+    throw actionError("Failed to fetch my bookings");
   }
 };

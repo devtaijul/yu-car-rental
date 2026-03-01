@@ -65,3 +65,25 @@ export const locationCoords: Record<string, [number, number]> = {
   Sylhet: [24.8949, 91.8687],
   Khulna: [22.8456, 89.5403],
 };
+
+export const TABS = [
+  {
+    name: "All",
+    value: "ALL_TRIPS",
+  },
+  {
+    name: "Active",
+    value: "ACTIVE",
+  },
+  {
+    name: "Upcoming",
+    value: "UPCOMING",
+  },
+  {
+    name: "Past",
+    value: "PAST",
+  },
+];
+
+export const onlyTabsValue = TABS.map((tab) => tab.value);
+export type TabValue = (typeof onlyTabsValue)[number];

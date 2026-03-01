@@ -7,10 +7,12 @@ import {
   PaymentStatus,
   UserRole,
 } from "@/generated/prisma/enums";
+import { CarRentalInvoice } from "@/lib/pdf/CarRentalInvoice.tsx";
 import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
 import { CheckoutFormValues } from "@/lib/validation/checkout.schema";
 import { actionError, actionResponse } from "@/types/server";
+import { PaymentWithAll } from "@/types/system";
 import { DocumentProps, renderToBuffer } from "@react-pdf/renderer";
 import { PaymentIntent } from "@stripe/stripe-js";
 import bcrypt from "bcryptjs";
@@ -163,3 +165,14 @@ export async function generateContractPdf(bookingId: string) {
 
   return buffer;
 }
+
+export const generateInvoicePDF = async (payment: PaymentWithAll) => {
+  const element = React.createElement(
+    CarRentalInvoice as React.ComponentType<DocumentProps>,
+    { payment } as DocumentProps,
+  );
+  console.log(element);
+
+  const buffer = await renderToBuffer(element);
+  return buffer;
+};

@@ -16,14 +16,12 @@ export const {
   providers: [
     Credentials({
       name: "Credentials",
-
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials) {
-        // 🔹 Fix 1: Properly cast credentials
         const email = credentials?.email as string;
         const password = credentials?.password as string;
 
@@ -35,13 +33,8 @@ export const {
           where: { email },
         });
 
-        if (!user) {
-          throw new Error("User not found");
-        }
-
-        // 🔹 Fix 2: Ensure user.password exists
-        if (!user.password) {
-          throw new Error("User has no password set");
+        if (!user || !user.password) {
+          throw new Error("Invalid credentials");
         }
 
         const isMatch = await compare(password, user.password);
@@ -60,4 +53,27 @@ export const {
       },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token, user }) {
+      // first login e user thakbe
+      if (user) {
+        token.id = user.id;
+        token.firstname = user.firstname;
+        token.lastname = user.lastname;
+        token.role = user.role;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.firstname = token.firstname as string;
+        session.user.lastname = token.lastname as string;
+        session.user.role = token.role as string;
+      }
+      return session;
+    },
+  },
 });

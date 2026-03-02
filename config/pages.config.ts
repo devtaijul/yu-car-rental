@@ -15,11 +15,45 @@ export const PAGES = {
     LOGIN: "/login",
     REGISTER: "/register",
   },
+
   DASHBOARD: {
     ROOT: "/dashboard",
     BOOKING_DETAILS: (bookingId: string) => `/dashboard/bookings/${bookingId}`,
     BOOKINGS: "/dashboard/bookings",
     PAYMENTS: "/dashboard/payments",
     PROFILE: "/dashboard/profile",
+  },
+  ADMIN: {
+    ROOT: "/admin",
+    BOOKINGS: {
+      ROOT: "/admin/bookings",
+      CREATE: "/admin/bookings/create",
+      EDIT: (bookingId: string) => `/admin/bookings/${bookingId}/edit`,
+    },
+    CARS: {
+      ROOT: "/admin/cars",
+      CREATE: "/admin/cars/create",
+      EDIT: (carId: string) => `/admin/cars/${carId}/edit`,
+    },
+    USERS: {
+      ROOT: "/admin/users",
+      CREATE: "/admin/users/create",
+      EDIT: (userId: string) => `/admin/users/${userId}/edit`,
+    },
+    PAYMENTS: {
+      ROOT: "/admin/payments",
+      CREATE: "/admin/payments/create",
+      EDIT: (paymentId: string) => `/admin/payments/${paymentId}/edit`,
+    },
+    DRIVERS: {
+      ROOT: "/admin/drivers",
+      CREATE: "/admin/drivers/create",
+      EDIT: (driverId: string) => `/admin/drivers/${driverId}/edit`,
+    },
+    COUPONS: {
+      ROOT: "/admin/coupons",
+      CREATE: "/admin/coupons/create",
+      EDIT: (couponId: string) => `/admin/coupons/${couponId}/edit`,
+    },
   },
 };

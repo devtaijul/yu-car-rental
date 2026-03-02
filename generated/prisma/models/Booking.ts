@@ -27,6 +27,10 @@ export type AggregateBooking = {
 }
 
 export type BookingAvgAggregateOutputType = {
+  babySeatLarge: number | null
+  babySeatSmall: number | null
+  coolbox: number | null
+  keySecureBox: number | null
   totalDays: number | null
   pricePerDay: number | null
   totalAmount: number | null
@@ -34,6 +38,10 @@ export type BookingAvgAggregateOutputType = {
 }
 
 export type BookingSumAggregateOutputType = {
+  babySeatLarge: number | null
+  babySeatSmall: number | null
+  coolbox: number | null
+  keySecureBox: number | null
   totalDays: number | null
   pricePerDay: number | null
   totalAmount: number | null
@@ -45,6 +53,10 @@ export type BookingMinAggregateOutputType = {
   userId: string | null
   carId: string | null
   driverId: string | null
+  babySeatLarge: number | null
+  babySeatSmall: number | null
+  coolbox: number | null
+  keySecureBox: number | null
   startDate: Date | null
   pickupLocation: string | null
   dropoffLocation: string | null
@@ -68,6 +80,10 @@ export type BookingMaxAggregateOutputType = {
   userId: string | null
   carId: string | null
   driverId: string | null
+  babySeatLarge: number | null
+  babySeatSmall: number | null
+  coolbox: number | null
+  keySecureBox: number | null
   startDate: Date | null
   pickupLocation: string | null
   dropoffLocation: string | null
@@ -91,6 +107,10 @@ export type BookingCountAggregateOutputType = {
   userId: number
   carId: number
   driverId: number
+  babySeatLarge: number
+  babySeatSmall: number
+  coolbox: number
+  keySecureBox: number
   startDate: number
   pickupLocation: number
   dropoffLocation: number
@@ -112,6 +132,10 @@ export type BookingCountAggregateOutputType = {
 
 
 export type BookingAvgAggregateInputType = {
+  babySeatLarge?: true
+  babySeatSmall?: true
+  coolbox?: true
+  keySecureBox?: true
   totalDays?: true
   pricePerDay?: true
   totalAmount?: true
@@ -119,6 +143,10 @@ export type BookingAvgAggregateInputType = {
 }
 
 export type BookingSumAggregateInputType = {
+  babySeatLarge?: true
+  babySeatSmall?: true
+  coolbox?: true
+  keySecureBox?: true
   totalDays?: true
   pricePerDay?: true
   totalAmount?: true
@@ -130,6 +158,10 @@ export type BookingMinAggregateInputType = {
   userId?: true
   carId?: true
   driverId?: true
+  babySeatLarge?: true
+  babySeatSmall?: true
+  coolbox?: true
+  keySecureBox?: true
   startDate?: true
   pickupLocation?: true
   dropoffLocation?: true
@@ -153,6 +185,10 @@ export type BookingMaxAggregateInputType = {
   userId?: true
   carId?: true
   driverId?: true
+  babySeatLarge?: true
+  babySeatSmall?: true
+  coolbox?: true
+  keySecureBox?: true
   startDate?: true
   pickupLocation?: true
   dropoffLocation?: true
@@ -176,6 +212,10 @@ export type BookingCountAggregateInputType = {
   userId?: true
   carId?: true
   driverId?: true
+  babySeatLarge?: true
+  babySeatSmall?: true
+  coolbox?: true
+  keySecureBox?: true
   startDate?: true
   pickupLocation?: true
   dropoffLocation?: true
@@ -286,6 +326,10 @@ export type BookingGroupByOutputType = {
   userId: string
   carId: string
   driverId: string | null
+  babySeatLarge: number | null
+  babySeatSmall: number | null
+  coolbox: number | null
+  keySecureBox: number | null
   startDate: Date
   pickupLocation: string
   dropoffLocation: string
@@ -332,6 +376,10 @@ export type BookingWhereInput = {
   userId?: Prisma.StringFilter<"Booking"> | string
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
+  babySeatLarge?: Prisma.IntNullableFilter<"Booking"> | number | null
+  babySeatSmall?: Prisma.IntNullableFilter<"Booking"> | number | null
+  coolbox?: Prisma.IntNullableFilter<"Booking"> | number | null
+  keySecureBox?: Prisma.IntNullableFilter<"Booking"> | number | null
   startDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
   pickupLocation?: Prisma.StringFilter<"Booking"> | string
   dropoffLocation?: Prisma.StringFilter<"Booking"> | string
@@ -359,6 +407,10 @@ export type BookingOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrderInput | Prisma.SortOrder
+  babySeatLarge?: Prisma.SortOrderInput | Prisma.SortOrder
+  babySeatSmall?: Prisma.SortOrderInput | Prisma.SortOrder
+  coolbox?: Prisma.SortOrderInput | Prisma.SortOrder
+  keySecureBox?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
   pickupLocation?: Prisma.SortOrder
   dropoffLocation?: Prisma.SortOrder
@@ -389,6 +441,10 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Booking"> | string
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
+  babySeatLarge?: Prisma.IntNullableFilter<"Booking"> | number | null
+  babySeatSmall?: Prisma.IntNullableFilter<"Booking"> | number | null
+  coolbox?: Prisma.IntNullableFilter<"Booking"> | number | null
+  keySecureBox?: Prisma.IntNullableFilter<"Booking"> | number | null
   startDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
   pickupLocation?: Prisma.StringFilter<"Booking"> | string
   dropoffLocation?: Prisma.StringFilter<"Booking"> | string
@@ -416,6 +472,10 @@ export type BookingOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrderInput | Prisma.SortOrder
+  babySeatLarge?: Prisma.SortOrderInput | Prisma.SortOrder
+  babySeatSmall?: Prisma.SortOrderInput | Prisma.SortOrder
+  coolbox?: Prisma.SortOrderInput | Prisma.SortOrder
+  keySecureBox?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
   pickupLocation?: Prisma.SortOrder
   dropoffLocation?: Prisma.SortOrder
@@ -447,6 +507,10 @@ export type BookingScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   carId?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   driverId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  babySeatLarge?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
+  babySeatSmall?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
+  coolbox?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
+  keySecureBox?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
   pickupLocation?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   dropoffLocation?: Prisma.StringWithAggregatesFilter<"Booking"> | string
@@ -467,6 +531,10 @@ export type BookingScalarWhereWithAggregatesInput = {
 
 export type BookingCreateInput = {
   id?: string
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -494,6 +562,10 @@ export type BookingUncheckedCreateInput = {
   userId: string
   carId: string
   driverId?: string | null
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -515,6 +587,10 @@ export type BookingUncheckedCreateInput = {
 
 export type BookingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -542,6 +618,10 @@ export type BookingUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -566,6 +646,10 @@ export type BookingCreateManyInput = {
   userId: string
   carId: string
   driverId?: string | null
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -586,6 +670,10 @@ export type BookingCreateManyInput = {
 
 export type BookingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -609,6 +697,10 @@ export type BookingUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -642,6 +734,10 @@ export type BookingCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
+  babySeatLarge?: Prisma.SortOrder
+  babySeatSmall?: Prisma.SortOrder
+  coolbox?: Prisma.SortOrder
+  keySecureBox?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   pickupLocation?: Prisma.SortOrder
   dropoffLocation?: Prisma.SortOrder
@@ -661,6 +757,10 @@ export type BookingCountOrderByAggregateInput = {
 }
 
 export type BookingAvgOrderByAggregateInput = {
+  babySeatLarge?: Prisma.SortOrder
+  babySeatSmall?: Prisma.SortOrder
+  coolbox?: Prisma.SortOrder
+  keySecureBox?: Prisma.SortOrder
   totalDays?: Prisma.SortOrder
   pricePerDay?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
@@ -672,6 +772,10 @@ export type BookingMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
+  babySeatLarge?: Prisma.SortOrder
+  babySeatSmall?: Prisma.SortOrder
+  coolbox?: Prisma.SortOrder
+  keySecureBox?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   pickupLocation?: Prisma.SortOrder
   dropoffLocation?: Prisma.SortOrder
@@ -695,6 +799,10 @@ export type BookingMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
+  babySeatLarge?: Prisma.SortOrder
+  babySeatSmall?: Prisma.SortOrder
+  coolbox?: Prisma.SortOrder
+  keySecureBox?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   pickupLocation?: Prisma.SortOrder
   dropoffLocation?: Prisma.SortOrder
@@ -714,6 +822,10 @@ export type BookingMinOrderByAggregateInput = {
 }
 
 export type BookingSumOrderByAggregateInput = {
+  babySeatLarge?: Prisma.SortOrder
+  babySeatSmall?: Prisma.SortOrder
+  coolbox?: Prisma.SortOrder
+  keySecureBox?: Prisma.SortOrder
   totalDays?: Prisma.SortOrder
   pricePerDay?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
@@ -875,6 +987,10 @@ export type BookingUpdateOneRequiredWithoutPaymentNestedInput = {
 
 export type BookingCreateWithoutUserInput = {
   id?: string
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -900,6 +1016,10 @@ export type BookingUncheckedCreateWithoutUserInput = {
   id?: string
   carId: string
   driverId?: string | null
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -953,6 +1073,10 @@ export type BookingScalarWhereInput = {
   userId?: Prisma.StringFilter<"Booking"> | string
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
+  babySeatLarge?: Prisma.IntNullableFilter<"Booking"> | number | null
+  babySeatSmall?: Prisma.IntNullableFilter<"Booking"> | number | null
+  coolbox?: Prisma.IntNullableFilter<"Booking"> | number | null
+  keySecureBox?: Prisma.IntNullableFilter<"Booking"> | number | null
   startDate?: Prisma.DateTimeFilter<"Booking"> | Date | string
   pickupLocation?: Prisma.StringFilter<"Booking"> | string
   dropoffLocation?: Prisma.StringFilter<"Booking"> | string
@@ -973,6 +1097,10 @@ export type BookingScalarWhereInput = {
 
 export type BookingCreateWithoutCarInput = {
   id?: string
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -998,6 +1126,10 @@ export type BookingUncheckedCreateWithoutCarInput = {
   id?: string
   userId: string
   driverId?: string | null
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1045,6 +1177,10 @@ export type BookingUpdateManyWithWhereWithoutCarInput = {
 
 export type BookingCreateWithoutDriverInput = {
   id?: string
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1070,6 +1206,10 @@ export type BookingUncheckedCreateWithoutDriverInput = {
   id?: string
   userId: string
   carId: string
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1117,6 +1257,10 @@ export type BookingUpdateManyWithWhereWithoutDriverInput = {
 
 export type BookingCreateWithoutPaymentInput = {
   id?: string
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1143,6 +1287,10 @@ export type BookingUncheckedCreateWithoutPaymentInput = {
   userId: string
   carId: string
   driverId?: string | null
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1179,6 +1327,10 @@ export type BookingUpdateToOneWithWhereWithoutPaymentInput = {
 
 export type BookingUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1205,6 +1357,10 @@ export type BookingUncheckedUpdateWithoutPaymentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1227,6 +1383,10 @@ export type BookingCreateManyUserInput = {
   id?: string
   carId: string
   driverId?: string | null
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1247,6 +1407,10 @@ export type BookingCreateManyUserInput = {
 
 export type BookingUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1272,6 +1436,10 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1295,6 +1463,10 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1317,6 +1489,10 @@ export type BookingCreateManyCarInput = {
   id?: string
   userId: string
   driverId?: string | null
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1337,6 +1513,10 @@ export type BookingCreateManyCarInput = {
 
 export type BookingUpdateWithoutCarInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1362,6 +1542,10 @@ export type BookingUncheckedUpdateWithoutCarInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1385,6 +1569,10 @@ export type BookingUncheckedUpdateManyWithoutCarInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1407,6 +1595,10 @@ export type BookingCreateManyDriverInput = {
   id?: string
   userId: string
   carId: string
+  babySeatLarge?: number | null
+  babySeatSmall?: number | null
+  coolbox?: number | null
+  keySecureBox?: number | null
   startDate: Date | string
   pickupLocation: string
   dropoffLocation: string
@@ -1427,6 +1619,10 @@ export type BookingCreateManyDriverInput = {
 
 export type BookingUpdateWithoutDriverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1452,6 +1648,10 @@ export type BookingUncheckedUpdateWithoutDriverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1475,6 +1675,10 @@ export type BookingUncheckedUpdateManyWithoutDriverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
+  babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pickupLocation?: Prisma.StringFieldUpdateOperationsInput | string
   dropoffLocation?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1500,6 +1704,10 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   userId?: boolean
   carId?: boolean
   driverId?: boolean
+  babySeatLarge?: boolean
+  babySeatSmall?: boolean
+  coolbox?: boolean
+  keySecureBox?: boolean
   startDate?: boolean
   pickupLocation?: boolean
   dropoffLocation?: boolean
@@ -1527,6 +1735,10 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   userId?: boolean
   carId?: boolean
   driverId?: boolean
+  babySeatLarge?: boolean
+  babySeatSmall?: boolean
+  coolbox?: boolean
+  keySecureBox?: boolean
   startDate?: boolean
   pickupLocation?: boolean
   dropoffLocation?: boolean
@@ -1553,6 +1765,10 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   userId?: boolean
   carId?: boolean
   driverId?: boolean
+  babySeatLarge?: boolean
+  babySeatSmall?: boolean
+  coolbox?: boolean
+  keySecureBox?: boolean
   startDate?: boolean
   pickupLocation?: boolean
   dropoffLocation?: boolean
@@ -1579,6 +1795,10 @@ export type BookingSelectScalar = {
   userId?: boolean
   carId?: boolean
   driverId?: boolean
+  babySeatLarge?: boolean
+  babySeatSmall?: boolean
+  coolbox?: boolean
+  keySecureBox?: boolean
   startDate?: boolean
   pickupLocation?: boolean
   dropoffLocation?: boolean
@@ -1597,7 +1817,7 @@ export type BookingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "babySeatLarge" | "babySeatSmall" | "coolbox" | "keySecureBox" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
@@ -1628,6 +1848,10 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     userId: string
     carId: string
     driverId: string | null
+    babySeatLarge: number | null
+    babySeatSmall: number | null
+    coolbox: number | null
+    keySecureBox: number | null
     startDate: Date
     pickupLocation: string
     dropoffLocation: string
@@ -2075,6 +2299,10 @@ export interface BookingFieldRefs {
   readonly userId: Prisma.FieldRef<"Booking", 'String'>
   readonly carId: Prisma.FieldRef<"Booking", 'String'>
   readonly driverId: Prisma.FieldRef<"Booking", 'String'>
+  readonly babySeatLarge: Prisma.FieldRef<"Booking", 'Int'>
+  readonly babySeatSmall: Prisma.FieldRef<"Booking", 'Int'>
+  readonly coolbox: Prisma.FieldRef<"Booking", 'Int'>
+  readonly keySecureBox: Prisma.FieldRef<"Booking", 'Int'>
   readonly startDate: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly pickupLocation: Prisma.FieldRef<"Booking", 'String'>
   readonly dropoffLocation: Prisma.FieldRef<"Booking", 'String'>

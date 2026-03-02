@@ -1,7 +1,5 @@
 import { getReviewsForAdmin } from "@/actions/query";
-import { ReviewsManagement } from "@/components/pages/admin/ReviewsManagement";
-
-import React from "react";
+import ReviewsPage from "@/components/pages/admin/ReviewsPage";
 
 export const ReviewsManagementServer = async () => {
   const data = await getReviewsForAdmin();
@@ -10,5 +8,5 @@ export const ReviewsManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <ReviewsManagement reviews={data.reviews} />;
+  return <ReviewsPage />;
 };

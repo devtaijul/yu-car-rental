@@ -110,6 +110,11 @@ model User {
 //////////////////////
 // CAR
 //////////////////////
+enum CarStatus {
+  ON_RENT
+  AVAILABLE
+  MAINTENANCE
+}
 
 model Car {
   id    String @id @default(uuid())
@@ -125,6 +130,9 @@ model Car {
   transmission   String
   seats          Int?
 
+  carStatus CarStatus @default(AVAILABLE)
+  miles     Int       @default(0)
+
   carType CarType
 
   pricePerDay    Float
@@ -134,6 +142,8 @@ model Car {
   imageUrl       String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
+  plate String?
 
   bookings     Booking[]
   reviews      Review[]
@@ -183,14 +193,17 @@ enum CoverageType {
 }
 
 model Booking {
-  id       String  @id @default(uuid())
-  user     User    @relation(fields: [userId], references: [id])
-  userId   String
-  car      Car     @relation(fields: [carId], references: [id])
-  carId    String
-  driver   Driver? @relation(fields: [driverId], references: [id])
-  driverId String?
-
+  id              String       @id @default(uuid())
+  user            User         @relation(fields: [userId], references: [id])
+  userId          String
+  car             Car          @relation(fields: [carId], references: [id])
+  carId           String
+  driver          Driver?      @relation(fields: [driverId], references: [id])
+  driverId        String?
+  babySeatLarge   Int?
+  babySeatSmall   Int?
+  coolbox         Int?
+  keySecureBox    Int?
   startDate       DateTime
   pickupLocation  String
   dropoffLocation String

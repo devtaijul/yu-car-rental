@@ -279,7 +279,7 @@ const DriversPage = () => {
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() =>
-                          router.push(PAGES.ADMIN.DRIVERS.EDIT(d.id))
+                          router.push(PAGES.ADMIN.DRIVERS.EDIT(d.id.toString()))
                         }
                         className="p-2 rounded-lg hover:bg-muted transition-colors"
                       >

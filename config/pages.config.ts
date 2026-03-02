@@ -50,5 +50,10 @@ export const PAGES = {
       CREATE: "/admin/drivers/create",
       EDIT: (driverId: string) => `/admin/drivers/${driverId}/edit`,
     },
+    COUPONS: {
+      ROOT: "/admin/coupons",
+      CREATE: "/admin/coupons/create",
+      EDIT: (couponId: string) => `/admin/coupons/${couponId}/edit`,
+    },
   },
 };

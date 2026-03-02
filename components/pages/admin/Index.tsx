@@ -106,7 +106,7 @@ export const DashboardOverview = () => {
           Welcome back, Alex
         </h1>
         <p className="text-muted-foreground mt-1">
-          Here's what's happening with your rentals today.
+          Here&apos;s what&apos;s happening with your rentals today.
         </p>
       </div>
 
@@ -188,10 +188,11 @@ export const DashboardOverview = () => {
               />
               <YAxis hide />
               <Tooltip
-                formatter={(value: number) => [
-                  `$${(value / 1000).toFixed(0)}k`,
-                  "Revenue",
-                ]}
+                formatter={(value: number | undefined) => {
+                  if (typeof value !== "number") return ["$0k", "Revenue"];
+
+                  return [`$${(value / 1000).toFixed(0)}k`, "Revenue"];
+                }}
                 contentStyle={{
                   borderRadius: 8,
                   border: "1px solid hsl(214, 20%, 90%)",

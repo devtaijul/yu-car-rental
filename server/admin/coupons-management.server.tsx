@@ -1,6 +1,5 @@
 import { getCouponsForAdmin } from "@/actions/query";
-import CouponsManagement from "@/components/pages/admin/CouponsManagement";
-import React from "react";
+import CouponsPage from "@/components/pages/admin/CouponsPage";
 
 export const CouponManagementServer = async () => {
   const data = await getCouponsForAdmin();
@@ -10,5 +9,5 @@ export const CouponManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <CouponsManagement coupons={data.coupons} />;
+  return <CouponsPage />;
 };

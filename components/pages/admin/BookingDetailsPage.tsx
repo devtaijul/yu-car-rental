@@ -1,6 +1,9 @@
+"use client";
+
+import { PAGES } from "@/config/pages.config";
 import { ArrowLeft, Clock, MapPin, Download, Car } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
 const mockBooking = {
   id: "c312bd45-f9be-4053-98e0-bd260e10f45c",
@@ -41,22 +44,34 @@ const mockBooking = {
   },
 };
 
-const statusOptions = ["PENDING", "CONFIRMED", "ACTIVE", "COMPLETED", "CANCELLED"];
+const statusOptions = [
+  "PENDING",
+  "CONFIRMED",
+  "ACTIVE",
+  "COMPLETED",
+  "CANCELLED",
+];
 
 const BookingDetailsPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { id } = useParams();
   const [booking, setBooking] = useState(mockBooking);
   const [editingStatus, setEditingStatus] = useState(false);
 
   const getStatusClass = (status: string) => {
     switch (status) {
-      case "ACTIVE": return "badge-active";
-      case "PENDING": return "badge-pending";
-      case "CONFIRMED": return "badge-active";
-      case "COMPLETED": return "badge-completed";
-      case "CANCELLED": return "badge-cancelled";
-      default: return "badge-pending";
+      case "ACTIVE":
+        return "badge-active";
+      case "PENDING":
+        return "badge-pending";
+      case "CONFIRMED":
+        return "badge-active";
+      case "COMPLETED":
+        return "badge-completed";
+      case "CANCELLED":
+        return "badge-cancelled";
+      default:
+        return "badge-pending";
     }
   };
 
@@ -65,7 +80,7 @@ const BookingDetailsPage = () => {
       {/* Back + Title */}
       <div>
         <button
-          onClick={() => navigate("/bookings")}
+          onClick={() => router.push(PAGES.ADMIN.BOOKINGS.ROOT)}
           className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-2"
         >
           <ArrowLeft className="h-4 w-4" /> BACK TO OVERVIEW
@@ -101,7 +116,9 @@ const BookingDetailsPage = () => {
                     className="text-xs font-semibold px-3 py-1.5 rounded-full border bg-card focus:outline-none"
                   >
                     {statusOptions.map((s) => (
-                      <option key={s} value={s}>{s}</option>
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
                     ))}
                   </select>
                 ) : (
@@ -124,31 +141,46 @@ const BookingDetailsPage = () => {
             <div>
               <div className="flex items-start justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">{booking.car.name}</h2>
+                  <h2 className="text-2xl font-bold text-foreground">
+                    {booking.car.name}
+                  </h2>
                   <p className="text-sm text-muted-foreground mt-0.5">
                     Booking ID: {booking.id}
                   </p>
                 </div>
                 <div className="text-right">
                   <p className="text-3xl font-bold text-foreground">
-                    ${booking.car.pricePerDay}<span className="text-sm font-normal text-muted-foreground">.00</span>
+                    ${booking.car.pricePerDay}
+                    <span className="text-sm font-normal text-muted-foreground">
+                      .00
+                    </span>
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">◇ {booking.car.plan}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    ◇ {booking.car.plan}
+                  </p>
                 </div>
               </div>
 
               {/* Pickup & Return */}
               <div className="flex flex-col sm:flex-row gap-8 mt-6">
                 <div>
-                  <p className="text-xs font-bold text-primary tracking-wider">PICKUP</p>
-                  <p className="text-lg font-bold text-foreground mt-1">{booking.pickup.date}</p>
+                  <p className="text-xs font-bold text-primary tracking-wider">
+                    PICKUP
+                  </p>
+                  <p className="text-lg font-bold text-foreground mt-1">
+                    {booking.pickup.date}
+                  </p>
                   <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                     <MapPin className="h-3 w-3" /> {booking.pickup.location}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-primary tracking-wider">RETURN</p>
-                  <p className="text-lg font-bold text-foreground mt-1">{booking.return.date}</p>
+                  <p className="text-xs font-bold text-primary tracking-wider">
+                    RETURN
+                  </p>
+                  <p className="text-lg font-bold text-foreground mt-1">
+                    {booking.return.date}
+                  </p>
                   <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                     <MapPin className="h-3 w-3" /> {booking.return.location}
                   </p>
@@ -160,10 +192,16 @@ const BookingDetailsPage = () => {
             <div className="flex items-center justify-between mt-6 pt-4 border-t">
               <div className="flex items-center gap-3 text-muted-foreground">
                 <Clock className="h-4 w-4" />
-                <span className="text-xs font-semibold tracking-wider">TIME REMAINING</span>
-                <span className="text-2xl font-bold text-foreground ml-2">{booking.totalDays}</span>
+                <span className="text-xs font-semibold tracking-wider">
+                  TIME REMAINING
+                </span>
+                <span className="text-2xl font-bold text-foreground ml-2">
+                  {booking.totalDays}
+                </span>
                 <span className="text-xs text-muted-foreground">Days</span>
-                <span className="text-2xl font-bold text-primary ml-2">{booking.hoursRemaining}</span>
+                <span className="text-2xl font-bold text-primary ml-2">
+                  {booking.hoursRemaining}
+                </span>
                 <span className="text-xs text-muted-foreground">Hrs</span>
               </div>
               <button className="bg-primary text-primary-foreground px-5 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity">
@@ -178,40 +216,67 @@ const BookingDetailsPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Rental Itinerary */}
         <div className="lg:col-span-2 bg-card rounded-xl border p-6">
-          <h3 className="text-lg font-bold text-foreground mb-4">RENTAL ITINERARY</h3>
+          <h3 className="text-lg font-bold text-foreground mb-4">
+            RENTAL ITINERARY
+          </h3>
           <div className="space-y-4">
             <div className="border rounded-lg p-4">
-              <p className="text-xs font-bold text-primary tracking-wider">PICKUP DATE & TIME</p>
-              <p className="text-base font-bold text-foreground mt-1">{booking.pickup.date}</p>
-              <p className="text-sm text-muted-foreground">{booking.pickup.fullLocation}</p>
+              <p className="text-xs font-bold text-primary tracking-wider">
+                PICKUP DATE & TIME
+              </p>
+              <p className="text-base font-bold text-foreground mt-1">
+                {booking.pickup.date}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {booking.pickup.fullLocation}
+              </p>
             </div>
             <div className="border rounded-lg p-4">
-              <p className="text-xs font-bold text-primary tracking-wider">RETURN DATE & TIME</p>
-              <p className="text-base font-bold text-foreground mt-1">{booking.return.date}</p>
-              <p className="text-sm text-muted-foreground">{booking.return.fullLocation}</p>
+              <p className="text-xs font-bold text-primary tracking-wider">
+                RETURN DATE & TIME
+              </p>
+              <p className="text-base font-bold text-foreground mt-1">
+                {booking.return.date}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {booking.return.fullLocation}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Payment Summary */}
         <div className="bg-card rounded-xl border p-6">
-          <h3 className="text-lg font-bold text-foreground mb-4">PAYMENT SUMMARY</h3>
+          <h3 className="text-lg font-bold text-foreground mb-4">
+            PAYMENT SUMMARY
+          </h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Base Rate ({booking.totalDays} days @ ${booking.car.pricePerDay})</span>
-              <span className="font-medium text-foreground">${booking.payment.baseRate.toFixed(2)}</span>
+              <span className="text-muted-foreground">
+                Base Rate ({booking.totalDays} days @ ${booking.car.pricePerDay}
+                )
+              </span>
+              <span className="font-medium text-foreground">
+                ${booking.payment.baseRate.toFixed(2)}
+              </span>
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Full Coverage</span>
-              <span className="font-medium text-foreground">${booking.payment.coverage.toFixed(2)}</span>
+              <span className="font-medium text-foreground">
+                ${booking.payment.coverage.toFixed(2)}
+              </span>
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Taxes</span>
-              <span className="font-medium text-foreground">${booking.payment.taxes.toFixed(2)}</span>
+              <span className="font-medium text-foreground">
+                ${booking.payment.taxes.toFixed(2)}
+              </span>
             </div>
             <div className="border-t pt-3 flex items-center justify-between">
               <span className="font-bold text-foreground">Total Paid</span>
-              <span className="text-xl font-bold text-primary">${booking.payment.total.toFixed(2)}</span>
+              <span className="text-xl font-bold text-primary">
+                ${booking.payment.total.toFixed(2)}
+              </span>
             </div>
           </div>
           <button className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors">

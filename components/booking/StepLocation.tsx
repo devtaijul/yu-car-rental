@@ -59,25 +59,18 @@ export const StepLocation = ({ path }: { path: string }) => {
     dropoffTime: defaultDropoffTime,
   };
 
-  const {
-    control,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<LocationStepValues>({
+  const { control, handleSubmit } = useForm<LocationStepValues>({
     resolver: zodResolver(LocationStepSchema),
     defaultValues,
   });
 
-  console.log("errors", errors);
-
   // --- Safe watch with useWatch ---
   const pickupDate = useWatch({ control, name: "pickupDate" });
-  const dropoffDate = useWatch({ control, name: "dropoffDate" });
+  //const dropoffDate = useWatch({ control, name: "dropoffDate" });
   const pickupLocation = useWatch({ control, name: "pickupLocation" });
   const dropoffLocation = useWatch({ control, name: "dropoffLocation" });
-  const pickupTime = useWatch({ control, name: "pickupTime" });
-  const dropoffTime = useWatch({ control, name: "dropoffTime" });
+  //const pickupTime = useWatch({ control, name: "pickupTime" });
+  //const dropoffTime = useWatch({ control, name: "dropoffTime" });
 
   console.log("pickupLocation", pickupLocation, dropoffLocation);
 
@@ -88,8 +81,8 @@ export const StepLocation = ({ path }: { path: string }) => {
     const query = new URLSearchParams({
       pickupDate: data.pickupDate.toISOString(),
       dropoffDate: data.dropoffDate.toISOString(),
-      pickupTime: data.pickupTime,
-      dropoffTime: data.dropoffTime,
+      pickupTime: data.pickupTime || "10:00",
+      dropoffTime: data.dropoffTime || "10:00",
       pickupLocation: data.pickupLocation,
       dropoffLocation: data.dropoffLocation,
     });
@@ -117,14 +110,16 @@ export const StepLocation = ({ path }: { path: string }) => {
           control={control}
           name="pickupLocation"
           render={({ field }) => (
-            <div>
+            <div key={field.value}>
               <Label className="text-sm text-muted-foreground mb-2 block">
                 Pickup Location
               </Label>
-              <Select {...field}>
+
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Pickup Location" />
                 </SelectTrigger>
+
                 <SelectContent>
                   {locations.map((loc) => (
                     <SelectItem key={loc} value={loc.split(" ").join("-")}>
@@ -136,19 +131,20 @@ export const StepLocation = ({ path }: { path: string }) => {
             </div>
           )}
         />
-
         <Controller
           control={control}
           name="dropoffLocation"
           render={({ field }) => (
-            <div>
+            <div key={field.value}>
               <Label className="text-sm text-muted-foreground mb-2 block">
                 Dropoff Location
               </Label>
-              <Select {...field}>
+
+              <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Dropoff Location" />
                 </SelectTrigger>
+
                 <SelectContent>
                   {locations.map((loc) => (
                     <SelectItem key={loc} value={loc.split(" ").join("-")}>
@@ -200,14 +196,16 @@ export const StepLocation = ({ path }: { path: string }) => {
           control={control}
           name="pickupTime"
           render={({ field }) => (
-            <div>
+            <div key={field.value}>
               <Label className="text-sm text-muted-foreground mb-2 block">
                 Time
               </Label>
-              <Select {...field}>
+
+              <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger>
-                  <SelectValue />
+                  <SelectValue placeholder="Select Time" />
                 </SelectTrigger>
+
                 <SelectContent className="bg-card">
                   {times.map((time) => (
                     <SelectItem key={time} value={time}>
@@ -219,7 +217,6 @@ export const StepLocation = ({ path }: { path: string }) => {
             </div>
           )}
         />
-
         {/* Dropoff Date */}
         <Controller
           control={control}
@@ -258,14 +255,16 @@ export const StepLocation = ({ path }: { path: string }) => {
           control={control}
           name="dropoffTime"
           render={({ field }) => (
-            <div>
+            <div key={field.value}>
               <Label className="text-sm text-muted-foreground mb-2 block">
                 Time
               </Label>
-              <Select {...field}>
+
+              <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger>
-                  <SelectValue />
+                  <SelectValue placeholder="Select Time" />
                 </SelectTrigger>
+
                 <SelectContent className="bg-card">
                   {times.map((time) => (
                     <SelectItem key={time} value={time}>

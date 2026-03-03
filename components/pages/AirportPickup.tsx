@@ -20,27 +20,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeaderSpace } from "../HeaderSpace";
 import { TextStroke } from "../TextStroke";
+import { DividerText } from "../DividerText";
 
 const arrivalSteps = [
   {
     image: arrivalsImg,
-    title: "PERSONAL MEET & GREET",
+    title: "PERSONAL \n MEET & GREET",
     description:
-      "Step into the arrival hall to find your dedicated concierge waiting. A personalized name display ensures you are met immediately — no idle time, no searching, no confusion.",
+      "Step into the arrival hall to find your dedicated \n concierge waiting. A personalized tablet display \n ensures you spot us immediately amidst the crowd. No \n wandering, no confusion.",
     imagePosition: "right" as const,
   },
   {
     image: luggageImg,
-    title: "LUGGAGE CONCIERGE",
+    title: "LUGGAGE \n CONCIERGE",
     description:
-      "Your transition should be effortless. Our team manages your luggage from the claim belt directly to the trunk of your vehicle. Focus on the island air while we handle the logistics.",
+      "Your transition should be weightless. Our team \n manages your luggage from the arrival hall directly \n to the trunk of your vehicle. Focus on the island air \n while we handle the logistics.",
     imagePosition: "left" as const,
   },
   {
     image: drivingImg,
-    title: "DIRECT-TO-DRIVE PROTOCOL",
+    title: "DIRECT-TO-DRIVE \n PROTOCOL",
     description:
-      "Our team is ready to welcome you. Your documents are pre-processed, your vehicle is climate-controlled. From the keys to the road, arrival to departure in under 180 seconds.",
+      "Our team is ready to welcome you. Your documents are \n pre-processed, your vehicle is climate-controlled \n and the keys are ready. Arrival to departure in under \n 300 seconds.",
     imagePosition: "right" as const,
   },
 ];
@@ -63,12 +64,15 @@ const AirportPickup = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Hero Section */}
-      <div className="relative min-h-[80vh] bg-background">
-        <div className="absolute inset-0 z-20">
-          <Header />
+      <div className="absolute inset-0 ">
+        <Header />
+        <HeaderSpace />
+      </div>
+      <div className="relative min-h-[80vh] bg-background w-full">
+        <div className="absolute right-0 top-2/3 transform -translate-y-1/2 rotate-90 opacity-80 font-bold translate-x-1/3 tracking-[0.3rem] text-primary z-50">
+          ESTABLISHED 2009 — BONAIRE
         </div>
-
-        <div className="relative z-10 min-h-[80vh] flex items-center pt-44">
+        <div className="relative  min-h-[80vh] flex items-center pt-44">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
             {/* Left - Image */}
             <div className="relative overflow-hidden  aspect-4/3 before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-primary before:opacity-30">
@@ -79,20 +83,28 @@ const AirportPickup = () => {
                 width={1000}
                 height={500}
               />
-              <div className="absolute bottom-4 left-4 text-white text-xs tracking-widest">
-                <div>FLAMINGO INT'L AIRPORT</div>
-                <div className="text-white/60">BONAIRE (BON)</div>
+              <div className="absolute bottom-4 uppercase left-4 text-white text-xs">
+                <span className="font-bold text-lg tracking-widest">
+                  Flamingo Int&apos;l Airport
+                </span>
+
+                <DividerText
+                  side="left"
+                  text="Bonaire, Dutch Caribbean"
+                  dividerWidth="50px"
+                  className="tracking-wider"
+                />
               </div>
             </div>
 
             {/* Right - Content */}
-            <div className="p-20">
-              <div className="flex items-center gap-3 mb-4">
+            <div className="p-20 z">
+              {/* <div className="flex items-center gap-3 mb-4">
                 <span className="w-8 h-0.5 bg-foreground/40" />
                 <span className="text-xs tracking-[0.2em] text-muted-foreground font-medium">
                   AIRPORT PICKUP SERVICE
                 </span>
-              </div>
+              </div> */}
 
               <h1 className="text-5xl md:text-7xl font-display font-bold leading-[0.95] mb-6">
                 LUXURY
@@ -105,7 +117,7 @@ const AirportPickup = () => {
                   }}
                 ></span>
                 <TextStroke strokeWidth="2px" className="font-extrabold ">
-                  ARRIVAL.
+                  ARRIVAL
                 </TextStroke>
               </h1>
 
@@ -116,10 +128,13 @@ const AirportPickup = () => {
                 flow
               </p>
 
-              <div className="px-8 border-l-4 border-dark-text">
-                <span className="font-bold ">Available Carriers</span>
-                <div className="flex flex-wrap items-center gap-4 text-lg  text-black font-bold tracking-widest">
-                  <Link
+              <div className="pl-8 border-l-4 border-dark-text uppercase">
+                <span className="font-bold text-[#94A3B8]">
+                  Available Carriers
+                </span>
+                <div className="flex flex-wrap items-center gap-3 mt-3  text-black font-bold tracking-widest">
+                  <span>KLM • TUI • DELTA • AMERICAN • Corendon</span>
+                  {/*  <Link
                     href="/help"
                     className="hover:text-foreground transition-colors"
                   >
@@ -152,7 +167,7 @@ const AirportPickup = () => {
                     className="hover:text-foreground transition-colors"
                   >
                     EXPANSION
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
@@ -169,10 +184,10 @@ const AirportPickup = () => {
               <br />
               SEQUENCE.
             </h2>
-            <p className="text-sm text-muted-foreground max-w-sm mt-4 md:mt-0 leading-relaxed uppercase tracking-wide">
-              A meticulously choreographed transition from cabin to coastline,
-              designed for the discerning traveler and you are that match all in
-              all.
+            <p className="text-sm text-dark-text  mt-4 md:mt-0 leading-relaxed uppercase tracking-wider font-medium text-right">
+              A meticulously choreographed transition from cabin <br />
+              to cockpit, designed for the discerning traveler who <br />
+              values time above all else.
             </p>
           </div>
 
@@ -181,7 +196,7 @@ const AirportPickup = () => {
             {arrivalSteps.map((step, index) => (
               <div
                 key={index}
-                className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${
+                className={`grid grid-cols-1 md:grid-cols-2 gap-16 items-center ${
                   step.imagePosition === "left" ? "" : "md:[direction:rtl]"
                 }`}
               >
@@ -204,11 +219,11 @@ const AirportPickup = () => {
                     </div>
                   )}
                 </div>
-                <div className="md:[direction:ltr]">
+                <div className="md:[direction:ltr] whitespace-pre-line">
                   <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground md:text-base leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -260,7 +275,7 @@ const AirportPickup = () => {
             </div>
 
             {/* Flight Board */}
-            <div className="bg-[#142D35] text-white rounded-2xl p-6 shadow-xl">
+            <div className="bg-[#142D35] text-white  p-6 shadow-xl">
               <div className="flex items-center justify-between mb-6">
                 <span className="text-xs tracking-widest">
                   FLIGHT TRACKER • BON

@@ -370,7 +370,7 @@ const Bonaire = () => {
             IF YOU WANT TO LEARN MORE ABOUT OUR BEAUTIFUL ISLAND OF BONAIRE, YOU
             CAN SEARCH FOR <br /> MORE ACTIVITIES HERE:
           </p>
-          <Link href="/booking">
+          <Link href="https://bonaireisland.com/en/" target="_blank">
             <Button
               variant="outline"
               className=" text-white bg-primary underline tracking-[0.25rem] px-8 py-6"

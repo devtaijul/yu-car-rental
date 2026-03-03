@@ -51,13 +51,6 @@ const Help = () => {
               <br />
               Contact us at{" "}
               <a
-                href="tel:+5997905565"
-                className="text-primary font-extrabold hover:underline"
-              >
-                +599 790 5565
-              </a>
-              {" / "}
-              <a
                 href="tel:+5997955565"
                 className="text-primary font-extrabold hover:underline"
               >
@@ -187,12 +180,6 @@ const Help = () => {
                     <div className="flex items-center gap-3">
                       <Phone className="w-5 h-5" />
                       <div className="font-extrabold text-lg lg:text-2xl">
-                        <a
-                          href="tel:+5997905565"
-                          className="block  hover:underline"
-                        >
-                          +599 790 5565
-                        </a>
                         <a
                           href="tel:+5997955565"
                           className="block  hover:underline"

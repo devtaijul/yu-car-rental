@@ -21,8 +21,8 @@ const Header = () => {
       name: "Services",
       href: "/services",
       submenu: [
-        { name: "Airport Service", href: "/airport" },
-        { name: "Help Service", href: "/help" },
+        { name: "Airport Pickup", href: "/airport", subTitle: "Bonaire (BON)" },
+        { name: "Help By Accident", href: "/help", subTitle: "24/7 Support" },
       ],
     },
     { name: "Bonaire", href: "/bonaire", submenu: [] },
@@ -88,15 +88,18 @@ const Header = () => {
                       </button>
 
                       {/* Dropdown */}
-                      <div className="absolute left-0 top-full mt-3 w-48 rounded-xl bg-card shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                        <div className="p-2">
+                      <div className="absolute left-0 top-full mt-3 w-56  bg-card shadow-lg opacity-0 uppercase invisible group-hover:opacity-100 group-hover:visible transition-all">
+                        <div className="">
                           {link.submenu.map((sub) => (
                             <Link
                               key={sub.name}
                               href={sub.href}
-                              className="block rounded-lg px-3 py-2 text-sm hover:bg-muted"
+                              className="flex items-start flex-col px-6 py-3 border-transparent border-l-4 hover:border-primary text-sm  hover:bg-primary/10"
                             >
-                              {sub.name}
+                              <span>{sub.name}</span>
+                              <span className="text-primary">
+                                {sub.subTitle}
+                              </span>
                             </Link>
                           ))}
                         </div>

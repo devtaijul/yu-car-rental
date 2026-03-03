@@ -29,7 +29,7 @@ export const YuAdvantages = ({ lang }: { lang: Locale }) => {
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="mb-12">
-          <span className="text-xs tracking-[0.2em] text-muted-foreground">
+          <span className="text-xs md:text-base tracking-[0.2em] text-primary font-bold">
             WHY CHOOSE US
           </span>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-extrabold mt-3">

@@ -227,7 +227,11 @@ const AboutUs = async ({ lang }: { lang: Locale }) => {
               FREEDOM.
             </TextStroke>
           </div>
-          <Link href="/booking" className="mt-12">
+          <Link
+            href="https://bonaireisland.com"
+            target="_blank"
+            className="mt-12"
+          >
             <Button className="bg-primary mt-12  border-primary-foreground/30  px-16 py-8 tracking-[0.25rem] font-extrabold">
               BOOK TODAY
             </Button>

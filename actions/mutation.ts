@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { BookingState } from "@/context/BookingContext";
+import { Prisma } from "@/generated/prisma/client";
 import {
   BookingStatus,
   PaymentStatus,
   UserRole,
 } from "@/generated/prisma/enums";
+import { CarCreateInput } from "@/generated/prisma/models";
 import { CarRentalInvoice } from "@/lib/pdf/CarRentalInvoice.tsx";
 import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
@@ -175,4 +178,94 @@ export const generateInvoicePDF = async (payment: PaymentWithAll) => {
 
   const buffer = await renderToBuffer(element);
   return buffer;
+};
+
+export const me = async () => {
+  try {
+    const session = await auth();
+
+    if (!session) {
+      throw {
+        success: false,
+        message: "User not logged in",
+      };
+    }
+
+    if (!session.user.email) {
+      throw {
+        success: false,
+        message: "User not logged in",
+      };
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session?.user.email,
+      },
+    });
+
+    return user;
+  } catch {
+    throw {
+      success: false,
+      message: "User not logged in",
+    };
+  }
+};
+
+async function generateUniqueSlug(baseSlug: string) {
+  let slug = baseSlug;
+  let count = 1;
+
+  while (true) {
+    const existing = await prisma.car.findUnique({
+      where: { slug },
+    });
+
+    if (!existing) break;
+
+    slug = `${baseSlug}-${count}`;
+    count++;
+  }
+
+  return slug;
+}
+
+// CREATE CAR
+export const createCarMutation = async (carData: CarCreateInput) => {
+  console.log("carData", carData);
+  const uniqueSlug = await generateUniqueSlug(carData.slug);
+
+  try {
+    //  const user = await me();
+
+    /* if (user?.role !== UserRole.ADMIN) {
+      return {
+        success: false,
+        message: "You are not authorized to create a car",
+        data: null,
+      };
+    } */
+
+    const createdCar = await prisma.car.create({
+      data: {
+        ...carData,
+        slug: uniqueSlug,
+      },
+    });
+    return actionResponse(createdCar);
+  } catch (error) {
+    console.log(error);
+    // Handle Unique Constraint
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      const field = (error.meta as any)?.target?.[0];
+
+      return actionError(`${field} already exists`);
+    }
+
+    return actionError("Failed to create car", error);
+  }
 };

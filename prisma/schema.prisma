@@ -126,14 +126,14 @@ model Car {
 
   speed          Int? // 90 (from UI)
   engineCapacity String? // 5.2L
-  fuelType       String
-  transmission   String
+  fuelType       FuelType         @default(PETROL)
+  transmission   TransmissionType @default(AUTOMATIC)
   seats          Int?
 
   carStatus CarStatus @default(AVAILABLE)
   miles     Int       @default(0)
 
-  carType CarType
+  carType CarType @default(SUV)
 
   pricePerDay    Float
   registrationNo String   @unique

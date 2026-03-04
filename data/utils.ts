@@ -85,5 +85,14 @@ export const TABS = [
   },
 ];
 
+export const carTypes = [
+  "SEDAN",
+  "SUV",
+  "MICROBUS",
+  "HATCHBACK",
+  "PICKUP",
+  "LUXURY",
+] as const;
+
 export const onlyTabsValue = TABS.map((tab) => tab.value);
 export type TabValue = (typeof onlyTabsValue)[number];

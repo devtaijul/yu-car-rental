@@ -152,9 +152,53 @@ export const adminDashbaordCount = async () => {
   }
 };
 
-export const getCarsForAdmin = async () => {
+export const getCarsForAdmin = async ({
+  limit = "10",
+  page = "1",
+  search = "",
+}: {
+  limit?: string;
+  page?: string;
+  search?: string;
+}) => {
   try {
-    const cars = await prisma.car.findMany();
+    const skip = (Number(page) - 1) * Number(limit);
+    const now = new Date();
+
+    const cars = await prisma.car.findMany({
+      where: {
+        OR: [
+          {
+            id: {
+              contains: search,
+            },
+          },
+          {
+            name: {
+              contains: search,
+            },
+          },
+        ],
+        deletedAt: null,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: Number(limit),
+      skip,
+      include: {
+        availability: {
+          where: {
+            endDate: {
+              gte: now,
+            },
+          },
+          orderBy: {
+            startDate: "asc",
+          },
+        },
+      },
+    });
     return {
       success: true,
       cars,

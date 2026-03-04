@@ -136,12 +136,13 @@ model Car {
   carType CarType @default(SUV)
 
   pricePerDay    Float
-  registrationNo String   @unique
-  isAvailable    Boolean  @default(true)
+  registrationNo String    @unique
+  isAvailable    Boolean   @default(true)
   description    String?
   imageUrl       String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
 
   plate String?
 
@@ -221,6 +222,7 @@ model Booking {
   status    BookingStatus @default(PENDING)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
 
   payment Payment?
 
@@ -253,8 +255,9 @@ model Payment {
   status                PaymentStatus @default(PENDING)
   customerEmail         String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   @@index([userId])
   @@index([status])
@@ -265,14 +268,15 @@ model Payment {
 //////////////////////
 
 model Review {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   rating    Int // 1-5
   comment   String?
-  user      User     @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
   userId    String
-  car       Car      @relation(fields: [carId], references: [id])
+  car       Car       @relation(fields: [carId], references: [id])
   carId     String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
 
   @@unique([userId, carId])
 }
@@ -282,15 +286,16 @@ model Review {
 //////////////////////
 
 model Coupon {
-  id            String   @id @default(uuid())
-  code          String   @unique
+  id            String    @id @default(uuid())
+  code          String    @unique
   discountType  String // PERCENTAGE / FIXED
   discountValue Float
   expiresAt     DateTime
   usageLimit    Int?
-  usedCount     Int      @default(0)
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
+  usedCount     Int       @default(0)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
 }
 
 model StripeAccount {

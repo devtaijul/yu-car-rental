@@ -2,6 +2,7 @@
 "use server";
 
 import { auth, signIn } from "@/auth";
+import { PAGES } from "@/config/pages.config";
 import { BookingState } from "@/context/BookingContext";
 import { Prisma } from "@/generated/prisma/client";
 import {
@@ -19,6 +20,7 @@ import { PaymentWithAll } from "@/types/system";
 import { DocumentProps, renderToBuffer } from "@react-pdf/renderer";
 import { PaymentIntent } from "@stripe/stripe-js";
 import bcrypt from "bcryptjs";
+import { revalidatePath } from "next/cache";
 import React from "react";
 
 export async function login(email: string, password: string) {
@@ -237,15 +239,15 @@ export const createCarMutation = async (carData: CarCreateInput) => {
   const uniqueSlug = await generateUniqueSlug(carData.slug);
 
   try {
-    //  const user = await me();
+    const user = await me();
 
-    /* if (user?.role !== UserRole.ADMIN) {
+    if (user?.role !== UserRole.ADMIN) {
       return {
         success: false,
         message: "You are not authorized to create a car",
         data: null,
       };
-    } */
+    }
 
     const createdCar = await prisma.car.create({
       data: {
@@ -267,5 +269,33 @@ export const createCarMutation = async (carData: CarCreateInput) => {
     }
 
     return actionError("Failed to create car", error);
+  }
+};
+
+export const deleteCarMutation = async (carId: string) => {
+  try {
+    const user = await me();
+
+    if (user?.role !== UserRole.ADMIN) {
+      return {
+        success: false,
+        message: "You are not authorized to delete a car",
+        data: null,
+      };
+    }
+
+    const deletedCar = await prisma.car.update({
+      where: {
+        id: carId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+    revalidatePath(PAGES.ADMIN.CARS.ROOT);
+    return actionResponse(deletedCar);
+  } catch (error) {
+    console.log(error);
+    return actionError("Failed to delete car", error);
   }
 };

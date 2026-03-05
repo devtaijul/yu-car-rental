@@ -89,3 +89,8 @@ export type StripeAccount = Prisma.StripeAccountModel
  * 
  */
 export type Setting = Prisma.SettingModel
+/**
+ * Model PlatformSettings
+ * 
+ */
+export type PlatformSettings = Prisma.PlatformSettingsModel

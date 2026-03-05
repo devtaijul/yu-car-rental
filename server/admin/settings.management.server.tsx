@@ -8,5 +8,9 @@ export const SettingsManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <SettingsPage />;
+  if (!data.data) {
+    return <div>Settings not found</div>;
+  }
+
+  return <SettingsPage settings={data.data} />;
 };

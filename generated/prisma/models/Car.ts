@@ -51,8 +51,8 @@ export type CarMinAggregateOutputType = {
   year: number | null
   speed: number | null
   engineCapacity: string | null
-  fuelType: string | null
-  transmission: string | null
+  fuelType: $Enums.FuelType | null
+  transmission: $Enums.TransmissionType | null
   seats: number | null
   carStatus: $Enums.CarStatus | null
   miles: number | null
@@ -64,6 +64,7 @@ export type CarMinAggregateOutputType = {
   imageUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
   plate: string | null
 }
 
@@ -76,8 +77,8 @@ export type CarMaxAggregateOutputType = {
   year: number | null
   speed: number | null
   engineCapacity: string | null
-  fuelType: string | null
-  transmission: string | null
+  fuelType: $Enums.FuelType | null
+  transmission: $Enums.TransmissionType | null
   seats: number | null
   carStatus: $Enums.CarStatus | null
   miles: number | null
@@ -89,6 +90,7 @@ export type CarMaxAggregateOutputType = {
   imageUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
   plate: string | null
 }
 
@@ -114,6 +116,7 @@ export type CarCountAggregateOutputType = {
   imageUrl: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   plate: number
   _all: number
 }
@@ -157,6 +160,7 @@ export type CarMinAggregateInputType = {
   imageUrl?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   plate?: true
 }
 
@@ -182,6 +186,7 @@ export type CarMaxAggregateInputType = {
   imageUrl?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   plate?: true
 }
 
@@ -207,6 +212,7 @@ export type CarCountAggregateInputType = {
   imageUrl?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   plate?: true
   _all?: true
 }
@@ -306,8 +312,8 @@ export type CarGroupByOutputType = {
   year: number
   speed: number | null
   engineCapacity: string | null
-  fuelType: string
-  transmission: string
+  fuelType: $Enums.FuelType
+  transmission: $Enums.TransmissionType
   seats: number | null
   carStatus: $Enums.CarStatus
   miles: number
@@ -319,6 +325,7 @@ export type CarGroupByOutputType = {
   imageUrl: string
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   plate: string | null
   _count: CarCountAggregateOutputType | null
   _avg: CarAvgAggregateOutputType | null
@@ -354,8 +361,8 @@ export type CarWhereInput = {
   year?: Prisma.IntFilter<"Car"> | number
   speed?: Prisma.IntNullableFilter<"Car"> | number | null
   engineCapacity?: Prisma.StringNullableFilter<"Car"> | string | null
-  fuelType?: Prisma.StringFilter<"Car"> | string
-  transmission?: Prisma.StringFilter<"Car"> | string
+  fuelType?: Prisma.EnumFuelTypeFilter<"Car"> | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFilter<"Car"> | $Enums.TransmissionType
   seats?: Prisma.IntNullableFilter<"Car"> | number | null
   carStatus?: Prisma.EnumCarStatusFilter<"Car"> | $Enums.CarStatus
   miles?: Prisma.IntFilter<"Car"> | number
@@ -367,6 +374,7 @@ export type CarWhereInput = {
   imageUrl?: Prisma.StringFilter<"Car"> | string
   createdAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Car"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Car"> | Date | string | null
   plate?: Prisma.StringNullableFilter<"Car"> | string | null
   bookings?: Prisma.BookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
@@ -395,6 +403,7 @@ export type CarOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   plate?: Prisma.SortOrderInput | Prisma.SortOrder
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
@@ -414,8 +423,8 @@ export type CarWhereUniqueInput = Prisma.AtLeast<{
   year?: Prisma.IntFilter<"Car"> | number
   speed?: Prisma.IntNullableFilter<"Car"> | number | null
   engineCapacity?: Prisma.StringNullableFilter<"Car"> | string | null
-  fuelType?: Prisma.StringFilter<"Car"> | string
-  transmission?: Prisma.StringFilter<"Car"> | string
+  fuelType?: Prisma.EnumFuelTypeFilter<"Car"> | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFilter<"Car"> | $Enums.TransmissionType
   seats?: Prisma.IntNullableFilter<"Car"> | number | null
   carStatus?: Prisma.EnumCarStatusFilter<"Car"> | $Enums.CarStatus
   miles?: Prisma.IntFilter<"Car"> | number
@@ -426,6 +435,7 @@ export type CarWhereUniqueInput = Prisma.AtLeast<{
   imageUrl?: Prisma.StringFilter<"Car"> | string
   createdAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Car"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Car"> | Date | string | null
   plate?: Prisma.StringNullableFilter<"Car"> | string | null
   bookings?: Prisma.BookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
@@ -454,6 +464,7 @@ export type CarOrderByWithAggregationInput = {
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   plate?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CarCountOrderByAggregateInput
   _avg?: Prisma.CarAvgOrderByAggregateInput
@@ -474,8 +485,8 @@ export type CarScalarWhereWithAggregatesInput = {
   year?: Prisma.IntWithAggregatesFilter<"Car"> | number
   speed?: Prisma.IntNullableWithAggregatesFilter<"Car"> | number | null
   engineCapacity?: Prisma.StringNullableWithAggregatesFilter<"Car"> | string | null
-  fuelType?: Prisma.StringWithAggregatesFilter<"Car"> | string
-  transmission?: Prisma.StringWithAggregatesFilter<"Car"> | string
+  fuelType?: Prisma.EnumFuelTypeWithAggregatesFilter<"Car"> | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeWithAggregatesFilter<"Car"> | $Enums.TransmissionType
   seats?: Prisma.IntNullableWithAggregatesFilter<"Car"> | number | null
   carStatus?: Prisma.EnumCarStatusWithAggregatesFilter<"Car"> | $Enums.CarStatus
   miles?: Prisma.IntWithAggregatesFilter<"Car"> | number
@@ -487,6 +498,7 @@ export type CarScalarWhereWithAggregatesInput = {
   imageUrl?: Prisma.StringWithAggregatesFilter<"Car"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Car"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Car"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Car"> | Date | string | null
   plate?: Prisma.StringNullableWithAggregatesFilter<"Car"> | string | null
 }
 
@@ -499,12 +511,12 @@ export type CarCreateInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -512,6 +524,7 @@ export type CarCreateInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   bookings?: Prisma.BookingCreateNestedManyWithoutCarInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCarInput
@@ -527,12 +540,12 @@ export type CarUncheckedCreateInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -540,6 +553,7 @@ export type CarUncheckedCreateInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCarInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCarInput
@@ -555,8 +569,8 @@ export type CarUpdateInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -568,6 +582,7 @@ export type CarUpdateInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUpdateManyWithoutCarNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCarNestedInput
@@ -583,8 +598,8 @@ export type CarUncheckedUpdateInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -596,6 +611,7 @@ export type CarUncheckedUpdateInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutCarNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCarNestedInput
@@ -611,12 +627,12 @@ export type CarCreateManyInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -624,6 +640,7 @@ export type CarCreateManyInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
 }
 
@@ -636,8 +653,8 @@ export type CarUpdateManyMutationInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -649,6 +666,7 @@ export type CarUpdateManyMutationInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -661,8 +679,8 @@ export type CarUncheckedUpdateManyInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -674,6 +692,7 @@ export type CarUncheckedUpdateManyInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -699,6 +718,7 @@ export type CarCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   plate?: Prisma.SortOrder
 }
 
@@ -732,6 +752,7 @@ export type CarMaxOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   plate?: Prisma.SortOrder
 }
 
@@ -757,6 +778,7 @@ export type CarMinOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   plate?: Prisma.SortOrder
 }
 
@@ -787,6 +809,14 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumFuelTypeFieldUpdateOperationsInput = {
+  set?: $Enums.FuelType
+}
+
+export type EnumTransmissionTypeFieldUpdateOperationsInput = {
+  set?: $Enums.TransmissionType
 }
 
 export type EnumCarStatusFieldUpdateOperationsInput = {
@@ -856,12 +886,12 @@ export type CarCreateWithoutAvailabilityInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -869,6 +899,7 @@ export type CarCreateWithoutAvailabilityInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   bookings?: Prisma.BookingCreateNestedManyWithoutCarInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCarInput
@@ -883,12 +914,12 @@ export type CarUncheckedCreateWithoutAvailabilityInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -896,6 +927,7 @@ export type CarUncheckedCreateWithoutAvailabilityInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCarInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCarInput
@@ -926,8 +958,8 @@ export type CarUpdateWithoutAvailabilityInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -939,6 +971,7 @@ export type CarUpdateWithoutAvailabilityInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUpdateManyWithoutCarNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCarNestedInput
@@ -953,8 +986,8 @@ export type CarUncheckedUpdateWithoutAvailabilityInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -966,6 +999,7 @@ export type CarUncheckedUpdateWithoutAvailabilityInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutCarNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCarNestedInput
@@ -980,12 +1014,12 @@ export type CarCreateWithoutBookingsInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -993,6 +1027,7 @@ export type CarCreateWithoutBookingsInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   reviews?: Prisma.ReviewCreateNestedManyWithoutCarInput
   availability?: Prisma.CarAvailabilityCreateNestedManyWithoutCarInput
@@ -1007,12 +1042,12 @@ export type CarUncheckedCreateWithoutBookingsInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -1020,6 +1055,7 @@ export type CarUncheckedCreateWithoutBookingsInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCarInput
   availability?: Prisma.CarAvailabilityUncheckedCreateNestedManyWithoutCarInput
@@ -1050,8 +1086,8 @@ export type CarUpdateWithoutBookingsInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1063,6 +1099,7 @@ export type CarUpdateWithoutBookingsInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviews?: Prisma.ReviewUpdateManyWithoutCarNestedInput
   availability?: Prisma.CarAvailabilityUpdateManyWithoutCarNestedInput
@@ -1077,8 +1114,8 @@ export type CarUncheckedUpdateWithoutBookingsInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1090,6 +1127,7 @@ export type CarUncheckedUpdateWithoutBookingsInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCarNestedInput
   availability?: Prisma.CarAvailabilityUncheckedUpdateManyWithoutCarNestedInput
@@ -1104,12 +1142,12 @@ export type CarCreateWithoutReviewsInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -1117,6 +1155,7 @@ export type CarCreateWithoutReviewsInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   bookings?: Prisma.BookingCreateNestedManyWithoutCarInput
   availability?: Prisma.CarAvailabilityCreateNestedManyWithoutCarInput
@@ -1131,12 +1170,12 @@ export type CarUncheckedCreateWithoutReviewsInput = {
   year: number
   speed?: number | null
   engineCapacity?: string | null
-  fuelType: string
-  transmission: string
+  fuelType?: $Enums.FuelType
+  transmission?: $Enums.TransmissionType
   seats?: number | null
   carStatus?: $Enums.CarStatus
   miles?: number
-  carType: $Enums.CarType
+  carType?: $Enums.CarType
   pricePerDay: number
   registrationNo: string
   isAvailable?: boolean
@@ -1144,6 +1183,7 @@ export type CarUncheckedCreateWithoutReviewsInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   plate?: string | null
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCarInput
   availability?: Prisma.CarAvailabilityUncheckedCreateNestedManyWithoutCarInput
@@ -1174,8 +1214,8 @@ export type CarUpdateWithoutReviewsInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1187,6 +1227,7 @@ export type CarUpdateWithoutReviewsInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUpdateManyWithoutCarNestedInput
   availability?: Prisma.CarAvailabilityUpdateManyWithoutCarNestedInput
@@ -1201,8 +1242,8 @@ export type CarUncheckedUpdateWithoutReviewsInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   speed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   engineCapacity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fuelType?: Prisma.StringFieldUpdateOperationsInput | string
-  transmission?: Prisma.StringFieldUpdateOperationsInput | string
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  transmission?: Prisma.EnumTransmissionTypeFieldUpdateOperationsInput | $Enums.TransmissionType
   seats?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   carStatus?: Prisma.EnumCarStatusFieldUpdateOperationsInput | $Enums.CarStatus
   miles?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1214,6 +1255,7 @@ export type CarUncheckedUpdateWithoutReviewsInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutCarNestedInput
   availability?: Prisma.CarAvailabilityUncheckedUpdateManyWithoutCarNestedInput
@@ -1290,6 +1332,7 @@ export type CarSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   plate?: boolean
   bookings?: boolean | Prisma.Car$bookingsArgs<ExtArgs>
   reviews?: boolean | Prisma.Car$reviewsArgs<ExtArgs>
@@ -1319,6 +1362,7 @@ export type CarSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   plate?: boolean
 }, ExtArgs["result"]["car"]>
 
@@ -1344,6 +1388,7 @@ export type CarSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   plate?: boolean
 }, ExtArgs["result"]["car"]>
 
@@ -1369,10 +1414,11 @@ export type CarSelectScalar = {
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   plate?: boolean
 }
 
-export type CarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "brand" | "model" | "year" | "speed" | "engineCapacity" | "fuelType" | "transmission" | "seats" | "carStatus" | "miles" | "carType" | "pricePerDay" | "registrationNo" | "isAvailable" | "description" | "imageUrl" | "createdAt" | "updatedAt" | "plate", ExtArgs["result"]["car"]>
+export type CarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "brand" | "model" | "year" | "speed" | "engineCapacity" | "fuelType" | "transmission" | "seats" | "carStatus" | "miles" | "carType" | "pricePerDay" | "registrationNo" | "isAvailable" | "description" | "imageUrl" | "createdAt" | "updatedAt" | "deletedAt" | "plate", ExtArgs["result"]["car"]>
 export type CarInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.Car$bookingsArgs<ExtArgs>
   reviews?: boolean | Prisma.Car$reviewsArgs<ExtArgs>
@@ -1398,8 +1444,8 @@ export type $CarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     year: number
     speed: number | null
     engineCapacity: string | null
-    fuelType: string
-    transmission: string
+    fuelType: $Enums.FuelType
+    transmission: $Enums.TransmissionType
     seats: number | null
     carStatus: $Enums.CarStatus
     miles: number
@@ -1411,6 +1457,7 @@ export type $CarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     imageUrl: string
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
     plate: string | null
   }, ExtArgs["result"]["car"]>
   composites: {}
@@ -1846,8 +1893,8 @@ export interface CarFieldRefs {
   readonly year: Prisma.FieldRef<"Car", 'Int'>
   readonly speed: Prisma.FieldRef<"Car", 'Int'>
   readonly engineCapacity: Prisma.FieldRef<"Car", 'String'>
-  readonly fuelType: Prisma.FieldRef<"Car", 'String'>
-  readonly transmission: Prisma.FieldRef<"Car", 'String'>
+  readonly fuelType: Prisma.FieldRef<"Car", 'FuelType'>
+  readonly transmission: Prisma.FieldRef<"Car", 'TransmissionType'>
   readonly seats: Prisma.FieldRef<"Car", 'Int'>
   readonly carStatus: Prisma.FieldRef<"Car", 'CarStatus'>
   readonly miles: Prisma.FieldRef<"Car", 'Int'>
@@ -1859,6 +1906,7 @@ export interface CarFieldRefs {
   readonly imageUrl: Prisma.FieldRef<"Car", 'String'>
   readonly createdAt: Prisma.FieldRef<"Car", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Car", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Car", 'DateTime'>
   readonly plate: Prisma.FieldRef<"Car", 'String'>
 }
     

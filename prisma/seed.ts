@@ -188,9 +188,9 @@ async function main() {
     // Generate more variants (20 more mixed realistic entries)
   ];
 
-  const cars = await prisma.car.createMany({
+  /* const cars = await prisma.car.createMany({
     data: [...carsData],
-  });
+  }); */
 
   const car = await prisma.car.findMany();
 

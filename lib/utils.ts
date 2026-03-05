@@ -1,5 +1,7 @@
+import { CarAvailability } from "@/generated/prisma/client";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { formatDate } from "./formatDate";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -52,3 +54,45 @@ export const formatCurrency = (amount: number, currency: string) => {
     currency,
   }).format(amount);
 };
+
+export function getAvailabilityInfo(blocks: CarAvailability[]) {
+  const now = new Date();
+
+  // sort blocks by startDate
+  const sortedBlocks = [...blocks].sort(
+    (a, b) => a.startDate.getTime() - b.startDate.getTime(),
+  );
+
+  // check if currently blocked
+  const currentBlock = sortedBlocks.find(
+    (block) => now >= block.startDate && now <= block.endDate,
+  );
+
+  // 🚫 Currently Blocked
+  if (currentBlock) {
+    const diffMs = currentBlock.endDate.getTime() - now.getTime();
+    const diffHours = Math.ceil(diffMs / (1000 * 60 * 60));
+
+    return {
+      isAvailable: false,
+      nextAvailableAt: currentBlock.endDate,
+      message:
+        diffHours < 24
+          ? `Available in ${diffHours} hour${diffHours > 1 ? "s" : ""}`
+          : `Available in ${Math.ceil(diffHours / 24)} days`,
+      availableUntil: null, // still blocked, so no availableUntil
+    };
+  }
+
+  // ✅ Currently Available
+  const nextBlock = sortedBlocks.find((block) => block.startDate > now);
+
+  return {
+    isAvailable: true,
+    nextAvailableAt: null,
+    message: "Right now",
+    availableUntil: nextBlock
+      ? `Until ${formatDate(nextBlock.endDate)}`
+      : "Infinite", // ← Infinity if no next block
+  };
+}

@@ -1,21 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
+import { PAGES } from "@/config/pages.config";
 import { BookingState } from "@/context/BookingContext";
+import { Prisma } from "@/generated/prisma/client";
 import {
   BookingStatus,
   PaymentStatus,
   UserRole,
 } from "@/generated/prisma/enums";
+import { CarCreateInput } from "@/generated/prisma/models";
 import { CarRentalInvoice } from "@/lib/pdf/CarRentalInvoice.tsx";
 import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
 import { CheckoutFormValues } from "@/lib/validation/checkout.schema";
+import { PaymentFormValues } from "@/lib/validation/settings.schema";
 import { actionError, actionResponse } from "@/types/server";
 import { PaymentWithAll } from "@/types/system";
 import { DocumentProps, renderToBuffer } from "@react-pdf/renderer";
 import { PaymentIntent } from "@stripe/stripe-js";
 import bcrypt from "bcryptjs";
+import { revalidatePath } from "next/cache";
 import React from "react";
 
 export async function login(email: string, password: string) {
@@ -141,8 +147,6 @@ export const bookCar = async ({
 
     return actionResponse(result);
   } catch (error) {
-    console.error("BOOKING ERROR:", error);
-
     return actionError("Failed to book car", error);
   }
 };
@@ -175,4 +179,215 @@ export const generateInvoicePDF = async (payment: PaymentWithAll) => {
 
   const buffer = await renderToBuffer(element);
   return buffer;
+};
+
+export const me = async () => {
+  try {
+    const session = await auth();
+
+    if (!session) {
+      throw {
+        success: false,
+        message: "User not logged in",
+      };
+    }
+
+    if (!session.user.email) {
+      throw {
+        success: false,
+        message: "User not logged in",
+      };
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session?.user.email,
+      },
+    });
+
+    return user;
+  } catch {
+    throw {
+      success: false,
+      message: "User not logged in",
+    };
+  }
+};
+
+async function generateUniqueSlug(baseSlug: string) {
+  let slug = baseSlug;
+  let count = 1;
+
+  while (true) {
+    const existing = await prisma.car.findUnique({
+      where: { slug },
+    });
+
+    if (!existing) break;
+
+    slug = `${baseSlug}-${count}`;
+    count++;
+  }
+
+  return slug;
+}
+
+// CREATE CAR
+export const createCarMutation = async (carData: CarCreateInput) => {
+  console.log("carData", carData);
+  const uniqueSlug = await generateUniqueSlug(carData.slug);
+
+  try {
+    const user = await me();
+
+    if (user?.role !== UserRole.ADMIN) {
+      return {
+        success: false,
+        message: "You are not authorized to create a car",
+        data: null,
+      };
+    }
+
+    const createdCar = await prisma.car.create({
+      data: {
+        ...carData,
+        slug: uniqueSlug,
+      },
+    });
+    return actionResponse(createdCar);
+  } catch (error) {
+    console.log(error);
+    // Handle Unique Constraint
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      const field = (error.meta as any)?.target?.[0];
+
+      return actionError(`${field} already exists`);
+    }
+
+    return actionError("Failed to create car", error);
+  }
+};
+
+export const deleteCarMutation = async (carId: string) => {
+  try {
+    const user = await me();
+
+    if (user?.role !== UserRole.ADMIN) {
+      return {
+        success: false,
+        message: "You are not authorized to delete a car",
+        data: null,
+      };
+    }
+
+    const deletedCar = await prisma.car.update({
+      where: {
+        id: carId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+    revalidatePath(PAGES.ADMIN.CARS.ROOT);
+    return actionResponse(deletedCar);
+  } catch (error) {
+    console.log(error);
+    return actionError("Failed to delete car", error);
+  }
+};
+
+// settings mutation
+
+export const paymentSettingsMutation = async (data: PaymentFormValues) => {
+  try {
+    const user = await me();
+
+    if (user?.role !== UserRole.ADMIN) {
+      return {
+        success: false,
+        message: "You are not authorized to update payment settings",
+        data: null,
+      };
+    }
+
+    let setting = await prisma.platformSettings.findFirst();
+
+    if (!setting) {
+      setting = await prisma.platformSettings.create({
+        data: {
+          // General Settings
+          platformName: "YuCar Rental",
+          supportEmail: "support@yucarrental.com",
+          supportPhone: "+8801700000000",
+          baseCurrency: "BDT",
+          brandLogoUrl: null,
+
+          // Payment Gateway
+          stripePublishableKey: null,
+          stripeSecretKey: null,
+          stripeEnabled: false,
+          paypalEnabled: false,
+
+          // Notification Preferences
+          notifyNewBooking: true,
+          notifyCancellation: true,
+          notifyDailyRevenue: false,
+          notifySystemErrors: true,
+
+          // Security Settings
+          twoFactorAuthRequired: false,
+          adminSessionTimeout: "30 Minutes",
+          passwordExpiry: "90 Days",
+
+          // User Roles (JSON)
+          roles: [
+            {
+              name: "Super Admin",
+              description: "Full system access",
+              users: 1,
+            },
+            {
+              name: "Admin",
+              description: "Manage bookings, cars and users",
+              users: 0,
+            },
+            {
+              name: "Manager",
+              description: "Manage bookings and revenue",
+              users: 0,
+            },
+          ],
+
+          // System Preferences
+          debugLoggingEnabled: false,
+          maintenanceMode: false,
+          clearCacheRequested: false,
+        },
+      });
+    }
+
+    // এখানে API call দিবে
+    // await updatePaymentSettings(data)
+
+    const updatedSetting = await prisma.platformSettings.update({
+      where: {
+        id: setting.id,
+      },
+      data: {
+        stripePublishableKey: data.publishableKey,
+        stripeSecretKey: data.secretKey,
+        stripeEnabled: data.stripeEnabled,
+        paypalEnabled: data.paypalEnabled,
+      },
+    });
+
+    return actionResponse(updatedSetting);
+  } catch (error) {
+    console.error(error);
+
+    return actionError("Failed to update payment settings", error);
+  }
 };

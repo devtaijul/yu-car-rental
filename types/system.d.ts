@@ -1,4 +1,9 @@
-import { Booking, StripeAccount, User } from "@/generated/prisma/client";
+import {
+  Booking,
+  Prisma,
+  StripeAccount,
+  User,
+} from "@/generated/prisma/client";
 
 export type BookingWithAll = Booking & {
   car: Car;
@@ -19,3 +24,9 @@ export type PaymentWithAll = Payment & {
   user: User;
   booking: Booking;
 };
+
+export type CarWithAvailability = Prisma.CarGetPayload<{
+  include: {
+    availability: true;
+  };
+}>;

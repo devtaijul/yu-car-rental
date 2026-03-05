@@ -126,22 +126,23 @@ model Car {
 
   speed          Int? // 90 (from UI)
   engineCapacity String? // 5.2L
-  fuelType       String
-  transmission   String
+  fuelType       FuelType         @default(PETROL)
+  transmission   TransmissionType @default(AUTOMATIC)
   seats          Int?
 
   carStatus CarStatus @default(AVAILABLE)
   miles     Int       @default(0)
 
-  carType CarType
+  carType CarType @default(SUV)
 
   pricePerDay    Float
-  registrationNo String   @unique
-  isAvailable    Boolean  @default(true)
+  registrationNo String    @unique
+  isAvailable    Boolean   @default(true)
   description    String?
   imageUrl       String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
 
   plate String?
 
@@ -221,6 +222,7 @@ model Booking {
   status    BookingStatus @default(PENDING)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
 
   payment Payment?
 
@@ -253,8 +255,9 @@ model Payment {
   status                PaymentStatus @default(PENDING)
   customerEmail         String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   @@index([userId])
   @@index([status])
@@ -265,14 +268,15 @@ model Payment {
 //////////////////////
 
 model Review {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   rating    Int // 1-5
   comment   String?
-  user      User     @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
   userId    String
-  car       Car      @relation(fields: [carId], references: [id])
+  car       Car       @relation(fields: [carId], references: [id])
   carId     String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
 
   @@unique([userId, carId])
 }
@@ -282,15 +286,16 @@ model Review {
 //////////////////////
 
 model Coupon {
-  id            String   @id @default(uuid())
-  code          String   @unique
+  id            String    @id @default(uuid())
+  code          String    @unique
   discountType  String // PERCENTAGE / FIXED
   discountValue Float
   expiresAt     DateTime
   usageLimit    Int?
-  usedCount     Int      @default(0)
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
+  usedCount     Int       @default(0)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
 }
 
 model StripeAccount {
@@ -322,4 +327,42 @@ model Setting {
 enum StripeEnv {
   TEST
   LIVE
+}
+
+model PlatformSettings {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // General Settings
+  platformName String
+  supportEmail String
+  supportPhone String
+  baseCurrency String
+  brandLogoUrl String?
+
+  // Payment Gateway
+  stripePublishableKey String?
+  stripeSecretKey      String?
+  stripeEnabled        Boolean @default(false)
+  paypalEnabled        Boolean @default(false)
+
+  // Notification Preferences
+  notifyNewBooking   Boolean @default(true)
+  notifyCancellation Boolean @default(true)
+  notifyDailyRevenue Boolean @default(false)
+  notifySystemErrors Boolean @default(true)
+
+  // Security Settings
+  twoFactorAuthRequired Boolean @default(false)
+  adminSessionTimeout   String  @default("30 Minutes") // "30 Minutes" | "1 Hour" | "2 Hours"
+  passwordExpiry        String  @default("90 Days") // "30/60/90 Days"
+
+  // User Roles (JSON array of roles)
+  roles Json? // e.g. [{ name, description, users }]
+
+  // System Preferences
+  debugLoggingEnabled Boolean @default(false)
+  maintenanceMode     Boolean @default(false)
+  clearCacheRequested Boolean @default(false)
 }

@@ -73,6 +73,7 @@ export type BookingMinAggregateOutputType = {
   status: $Enums.BookingStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type BookingMaxAggregateOutputType = {
@@ -100,6 +101,7 @@ export type BookingMaxAggregateOutputType = {
   status: $Enums.BookingStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type BookingCountAggregateOutputType = {
@@ -127,6 +129,7 @@ export type BookingCountAggregateOutputType = {
   status: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -178,6 +181,7 @@ export type BookingMinAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type BookingMaxAggregateInputType = {
@@ -205,6 +209,7 @@ export type BookingMaxAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type BookingCountAggregateInputType = {
@@ -232,6 +237,7 @@ export type BookingCountAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -346,6 +352,7 @@ export type BookingGroupByOutputType = {
   status: $Enums.BookingStatus
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   _count: BookingCountAggregateOutputType | null
   _avg: BookingAvgAggregateOutputType | null
   _sum: BookingSumAggregateOutputType | null
@@ -396,6 +403,7 @@ export type BookingWhereInput = {
   status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   car?: Prisma.XOR<Prisma.CarScalarRelationFilter, Prisma.CarWhereInput>
   driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
@@ -427,6 +435,7 @@ export type BookingOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   car?: Prisma.CarOrderByWithRelationInput
   driver?: Prisma.DriverOrderByWithRelationInput
@@ -461,6 +470,7 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   car?: Prisma.XOR<Prisma.CarScalarRelationFilter, Prisma.CarWhereInput>
   driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
@@ -492,6 +502,7 @@ export type BookingOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.BookingCountOrderByAggregateInput
   _avg?: Prisma.BookingAvgOrderByAggregateInput
   _max?: Prisma.BookingMaxOrderByAggregateInput
@@ -527,6 +538,7 @@ export type BookingScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumBookingStatusWithAggregatesFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Booking"> | Date | string | null
 }
 
 export type BookingCreateInput = {
@@ -551,6 +563,7 @@ export type BookingCreateInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookingsInput
   car: Prisma.CarCreateNestedOneWithoutBookingsInput
   driver?: Prisma.DriverCreateNestedOneWithoutBookingsInput
@@ -582,6 +595,7 @@ export type BookingUncheckedCreateInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutBookingInput
 }
 
@@ -607,6 +621,7 @@ export type BookingUpdateInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   car?: Prisma.CarUpdateOneRequiredWithoutBookingsNestedInput
   driver?: Prisma.DriverUpdateOneWithoutBookingsNestedInput
@@ -638,6 +653,7 @@ export type BookingUncheckedUpdateInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutBookingNestedInput
 }
 
@@ -666,6 +682,7 @@ export type BookingCreateManyInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type BookingUpdateManyMutationInput = {
@@ -690,6 +707,7 @@ export type BookingUpdateManyMutationInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BookingUncheckedUpdateManyInput = {
@@ -717,6 +735,7 @@ export type BookingUncheckedUpdateManyInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BookingListRelationFilter = {
@@ -754,6 +773,7 @@ export type BookingCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type BookingAvgOrderByAggregateInput = {
@@ -792,6 +812,7 @@ export type BookingMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type BookingMinOrderByAggregateInput = {
@@ -819,6 +840,7 @@ export type BookingMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type BookingSumOrderByAggregateInput = {
@@ -1007,6 +1029,7 @@ export type BookingCreateWithoutUserInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   car: Prisma.CarCreateNestedOneWithoutBookingsInput
   driver?: Prisma.DriverCreateNestedOneWithoutBookingsInput
   payment?: Prisma.PaymentCreateNestedOneWithoutBookingInput
@@ -1036,6 +1059,7 @@ export type BookingUncheckedCreateWithoutUserInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutBookingInput
 }
 
@@ -1093,6 +1117,7 @@ export type BookingScalarWhereInput = {
   status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
 }
 
 export type BookingCreateWithoutCarInput = {
@@ -1117,6 +1142,7 @@ export type BookingCreateWithoutCarInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookingsInput
   driver?: Prisma.DriverCreateNestedOneWithoutBookingsInput
   payment?: Prisma.PaymentCreateNestedOneWithoutBookingInput
@@ -1146,6 +1172,7 @@ export type BookingUncheckedCreateWithoutCarInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutBookingInput
 }
 
@@ -1197,6 +1224,7 @@ export type BookingCreateWithoutDriverInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookingsInput
   car: Prisma.CarCreateNestedOneWithoutBookingsInput
   payment?: Prisma.PaymentCreateNestedOneWithoutBookingInput
@@ -1226,6 +1254,7 @@ export type BookingUncheckedCreateWithoutDriverInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutBookingInput
 }
 
@@ -1277,6 +1306,7 @@ export type BookingCreateWithoutPaymentInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookingsInput
   car: Prisma.CarCreateNestedOneWithoutBookingsInput
   driver?: Prisma.DriverCreateNestedOneWithoutBookingsInput
@@ -1307,6 +1337,7 @@ export type BookingUncheckedCreateWithoutPaymentInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type BookingCreateOrConnectWithoutPaymentInput = {
@@ -1347,6 +1378,7 @@ export type BookingUpdateWithoutPaymentInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   car?: Prisma.CarUpdateOneRequiredWithoutBookingsNestedInput
   driver?: Prisma.DriverUpdateOneWithoutBookingsNestedInput
@@ -1377,6 +1409,7 @@ export type BookingUncheckedUpdateWithoutPaymentInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BookingCreateManyUserInput = {
@@ -1403,6 +1436,7 @@ export type BookingCreateManyUserInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type BookingUpdateWithoutUserInput = {
@@ -1427,6 +1461,7 @@ export type BookingUpdateWithoutUserInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   car?: Prisma.CarUpdateOneRequiredWithoutBookingsNestedInput
   driver?: Prisma.DriverUpdateOneWithoutBookingsNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutBookingNestedInput
@@ -1456,6 +1491,7 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutBookingNestedInput
 }
 
@@ -1483,6 +1519,7 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BookingCreateManyCarInput = {
@@ -1509,6 +1546,7 @@ export type BookingCreateManyCarInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type BookingUpdateWithoutCarInput = {
@@ -1533,6 +1571,7 @@ export type BookingUpdateWithoutCarInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   driver?: Prisma.DriverUpdateOneWithoutBookingsNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutBookingNestedInput
@@ -1562,6 +1601,7 @@ export type BookingUncheckedUpdateWithoutCarInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutBookingNestedInput
 }
 
@@ -1589,6 +1629,7 @@ export type BookingUncheckedUpdateManyWithoutCarInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BookingCreateManyDriverInput = {
@@ -1615,6 +1656,7 @@ export type BookingCreateManyDriverInput = {
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type BookingUpdateWithoutDriverInput = {
@@ -1639,6 +1681,7 @@ export type BookingUpdateWithoutDriverInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   car?: Prisma.CarUpdateOneRequiredWithoutBookingsNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutBookingNestedInput
@@ -1668,6 +1711,7 @@ export type BookingUncheckedUpdateWithoutDriverInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutBookingNestedInput
 }
 
@@ -1695,6 +1739,7 @@ export type BookingUncheckedUpdateManyWithoutDriverInput = {
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1724,6 +1769,7 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
   driver?: boolean | Prisma.Booking$driverArgs<ExtArgs>
@@ -1755,6 +1801,7 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
   driver?: boolean | Prisma.Booking$driverArgs<ExtArgs>
@@ -1785,6 +1832,7 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
   driver?: boolean | Prisma.Booking$driverArgs<ExtArgs>
@@ -1815,9 +1863,10 @@ export type BookingSelectScalar = {
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "babySeatLarge" | "babySeatSmall" | "coolbox" | "keySecureBox" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "babySeatLarge" | "babySeatSmall" | "coolbox" | "keySecureBox" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
@@ -1868,6 +1917,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     status: $Enums.BookingStatus
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["booking"]>
   composites: {}
 }
@@ -2319,6 +2369,7 @@ export interface BookingFieldRefs {
   readonly status: Prisma.FieldRef<"Booking", 'BookingStatus'>
   readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Booking", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Booking", 'DateTime'>
 }
     
 

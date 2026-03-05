@@ -1,87 +1,124 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { createCarMutation } from "@/actions/mutation";
 import { PAGES } from "@/config/pages.config";
-import { ArrowLeft, Upload, X } from "lucide-react";
+import { useAsyncAction } from "@/hooks/use-async-action";
+import { useToast } from "@/hooks/use-toast";
+import { CarFormValues, carSchema } from "@/lib/validation/car.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeft, Loader2, Upload, X } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-const carTypes = [
-  "SEDAN",
-  "SUV",
-  "HATCHBACK",
-  "COUPE",
-  "CONVERTIBLE",
-  "MINIVAN",
-  "PICKUP",
-  "LUXURY",
-];
+const carTypes = ["SEDAN", "SUV", "MICROBUS", "HATCHBACK", "PICKUP", "LUXURY"];
 const fuelTypes = ["PETROL", "DIESEL", "ELECTRIC", "HYBRID"];
 const transmissions = ["AUTOMATIC", "MANUAL"];
 
 const CreateCarPage = () => {
+  const { toast } = useToast();
   const router = useRouter();
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+
   const [uploading, setUploading] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    brand: "",
-    model: "",
-    slug: "",
-    year: 2024,
-    speed: "",
-    engineCapacity: "",
-    fuelType: "PETROL",
-    transmission: "AUTOMATIC",
-    seats: 5,
-    carType: "SUV",
-    pricePerDay: "",
-    registrationNo: "",
-    plate: "",
-    description: "",
-    imageUrl: "",
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<CarFormValues>({
+    resolver: zodResolver(carSchema),
+    defaultValues: {
+      fuelType: "PETROL",
+      transmission: "AUTOMATIC",
+      carType: "SUV",
+      year: "2024",
+    },
+  });
+  console.log("errors", errors);
+
+  const { isProcessing, runAction } = useAsyncAction(createCarMutation, {
+    onSuccess: (data) => {
+      console.log(data);
+      if (data.success) {
+        toast({
+          title: "Car created",
+          description: "Your car has been created successfully.",
+        });
+        reset();
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        title: "Error creating car",
+        description: "Please try again.",
+        variant: "destructive",
+      });
+    },
   });
 
-  const update = (key: string, value: any) =>
-    setForm({ ...form, [key]: value });
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Preview
-    const reader = new FileReader();
-    reader.onload = (ev) => setImagePreview(ev.target?.result as string);
-    reader.readAsDataURL(file);
-
-    // Cloudinary upload
-    setUploading(true);
+  const handleImageUpload = async (file: File) => {
     try {
+      setUploading(true);
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "yu_car_rental"); // Configure in Cloudinary
+      formData.append(
+        "upload_preset",
+        process.env.NEXT_PUBLIC_CLOUDINARY_PRESET!,
+      );
+
       const res = await fetch(
-        "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload",
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: "POST",
           body: formData,
         },
       );
+
       const data = await res.json();
-      update("imageUrl", data.public_id || data.secure_url);
-    } catch (err) {
-      console.error("Upload failed:", err);
-    } finally {
-      setUploading(false);
+      console.log("data", data);
+      if (data.error) {
+        setUploading(false);
+        return toast({
+          title: "Error uploading image",
+          description: data.error.message,
+          variant: "destructive",
+        });
+      } else {
+        setValue("imageUrl", data.secure_url);
+        setUploading(false);
+        setPreview(data.secure_url);
+        toast({
+          title: "Image uploaded",
+          description: "Your image has been uploaded successfully.",
+        });
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast({
+        title: "Error uploading image",
+        description: "Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Create car:", form);
-    // API call here
-  };
+  const onSubmit = (data: CarFormValues) => {
+    const formattedData = {
+      ...data,
+      speed: data.speed ? Number(data.speed) : null,
+      seats: data.seats ? Number(data.seats) : null,
+      pricePerDay: Number(data.pricePerDay),
+      year: Number(data.year),
+    };
 
+    runAction(formattedData);
+
+    // axios.post("/api/admin/cars", formattedData)
+  };
   return (
     <div className="space-y-6">
       <div>
@@ -100,27 +137,29 @@ const CreateCarPage = () => {
       </div>
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
         {/* Left: Image Upload */}
         <div className="bg-card rounded-xl border p-6">
           <h3 className="text-sm font-bold text-foreground mb-4">CAR IMAGE</h3>
-          <div className="relative border-2 border-dashed rounded-xl aspect-[4/3] flex items-center justify-center overflow-hidden bg-muted/30">
-            {imagePreview ? (
+          <div className="relative border-2 border-dashed rounded-xl aspect-4/3 flex items-center justify-center overflow-hidden bg-muted/30">
+            {preview ? (
               <>
-                <img
-                  src={imagePreview}
+                <Image
+                  src={preview}
                   alt="Preview"
                   className="w-full h-full object-cover"
+                  width={500}
+                  height={500}
                 />
                 <button
                   type="button"
                   onClick={() => {
-                    setImagePreview(null);
-                    update("imageUrl", "");
+                    setPreview(null);
+                    setValue("imageUrl", "");
                   }}
-                  className="absolute top-2 right-2 p-1 bg-card rounded-full shadow hover:bg-muted"
+                  className="absolute top-2 right-2 bg-card p-1 rounded-full"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -128,26 +167,32 @@ const CreateCarPage = () => {
             ) : (
               <label className="flex flex-col items-center gap-2 cursor-pointer text-muted-foreground">
                 <Upload className="h-8 w-8" />
-                <span className="text-sm font-medium">
-                  Click to upload image
-                </span>
-                <span className="text-xs">PNG, JPG up to 5MB</span>
+                <span>Click to upload</span>
                 <input
                   type="file"
+                  hidden
                   accept="image/*"
-                  onChange={handleImageUpload}
-                  className="hidden"
+                  onChange={(e) => {
+                    return (
+                      e.target.files && handleImageUpload(e.target.files[0])
+                    );
+                  }}
                 />
               </label>
             )}
+
             {uploading && (
-              <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
-                <span className="text-sm font-medium text-primary">
-                  Uploading...
-                </span>
+              <div className="absolute inset-0 bg-background/70 flex items-center justify-center">
+                <Loader2 className="animate-spin" />
               </div>
             )}
           </div>
+
+          {errors.imageUrl && (
+            <p className="text-xs text-red-500 mt-2">
+              {errors.imageUrl.message}
+            </p>
+          )}
         </div>
 
         {/* Right: Form Fields */}
@@ -163,11 +208,9 @@ const CreateCarPage = () => {
                   Car Name *
                 </label>
                 <input
-                  value={form.name}
-                  onChange={(e) => update("name", e.target.value)}
-                  required
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="e.g. Toyota Hilux"
+                  {...register("name")}
                 />
               </div>
               <div>
@@ -175,11 +218,9 @@ const CreateCarPage = () => {
                   Slug *
                 </label>
                 <input
-                  value={form.slug}
-                  onChange={(e) => update("slug", e.target.value)}
-                  required
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="toyota-hilux"
+                  {...register("slug")}
                 />
               </div>
               <div>
@@ -187,11 +228,9 @@ const CreateCarPage = () => {
                   Brand *
                 </label>
                 <input
-                  value={form.brand}
-                  onChange={(e) => update("brand", e.target.value)}
-                  required
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="Toyota"
+                  {...register("brand")}
                 />
               </div>
               <div>
@@ -199,11 +238,9 @@ const CreateCarPage = () => {
                   Model *
                 </label>
                 <input
-                  value={form.model}
-                  onChange={(e) => update("model", e.target.value)}
-                  required
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="Hilux"
+                  {...register("model")}
                 />
               </div>
               <div>
@@ -212,10 +249,8 @@ const CreateCarPage = () => {
                 </label>
                 <input
                   type="number"
-                  value={form.year}
-                  onChange={(e) => update("year", parseInt(e.target.value))}
-                  required
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
+                  {...register("year")}
                 />
               </div>
               <div>
@@ -223,9 +258,8 @@ const CreateCarPage = () => {
                   Car Type *
                 </label>
                 <select
-                  value={form.carType}
-                  onChange={(e) => update("carType", e.target.value)}
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
+                  {...register("carType")}
                 >
                   {carTypes.map((t) => (
                     <option key={t} value={t}>
@@ -249,10 +283,9 @@ const CreateCarPage = () => {
                 </label>
                 <input
                   type="number"
-                  value={form.speed}
-                  onChange={(e) => update("speed", e.target.value)}
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="95"
+                  {...register("speed")}
                 />
               </div>
               <div>
@@ -260,10 +293,9 @@ const CreateCarPage = () => {
                   Engine Capacity
                 </label>
                 <input
-                  value={form.engineCapacity}
-                  onChange={(e) => update("engineCapacity", e.target.value)}
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="1.0L Turbo"
+                  {...register("engineCapacity")}
                 />
               </div>
               <div>
@@ -271,9 +303,8 @@ const CreateCarPage = () => {
                   Fuel Type *
                 </label>
                 <select
-                  value={form.fuelType}
-                  onChange={(e) => update("fuelType", e.target.value)}
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
+                  {...register("fuelType")}
                 >
                   {fuelTypes.map((f) => (
                     <option key={f} value={f}>
@@ -287,9 +318,8 @@ const CreateCarPage = () => {
                   Transmission *
                 </label>
                 <select
-                  value={form.transmission}
-                  onChange={(e) => update("transmission", e.target.value)}
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
+                  {...register("transmission")}
                 >
                   {transmissions.map((t) => (
                     <option key={t} value={t}>
@@ -304,9 +334,8 @@ const CreateCarPage = () => {
                 </label>
                 <input
                   type="number"
-                  value={form.seats}
-                  onChange={(e) => update("seats", parseInt(e.target.value))}
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
+                  {...register("seats")}
                 />
               </div>
             </div>
@@ -324,11 +353,9 @@ const CreateCarPage = () => {
                 </label>
                 <input
                   type="number"
-                  value={form.pricePerDay}
-                  onChange={(e) => update("pricePerDay", e.target.value)}
-                  required
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="55"
+                  {...register("pricePerDay")}
                 />
               </div>
               <div>
@@ -336,11 +363,9 @@ const CreateCarPage = () => {
                   Registration No *
                 </label>
                 <input
-                  value={form.registrationNo}
-                  onChange={(e) => update("registrationNo", e.target.value)}
-                  required
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="DHK-RAIZE-002"
+                  {...register("registrationNo")}
                 />
               </div>
               <div>
@@ -348,10 +373,9 @@ const CreateCarPage = () => {
                   Plate Number
                 </label>
                 <input
-                  value={form.plate}
-                  onChange={(e) => update("plate", e.target.value)}
                   className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30"
                   placeholder="BNR-482"
+                  {...register("plate")}
                 />
               </div>
             </div>
@@ -360,11 +384,10 @@ const CreateCarPage = () => {
                 Description
               </label>
               <textarea
-                value={form.description}
-                onChange={(e) => update("description", e.target.value)}
                 rows={3}
                 className="w-full px-3 py-2.5 text-sm border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring/30 resize-none"
                 placeholder="Brief description of the vehicle..."
+                {...register("description")}
               />
             </div>
           </div>
@@ -375,14 +398,16 @@ const CreateCarPage = () => {
               type="button"
               onClick={() => router.push(PAGES.ADMIN.CARS.ROOT)}
               className="px-6 py-2.5 text-sm font-semibold border rounded-lg hover:bg-muted transition-colors"
+              disabled={isProcessing}
             >
               CANCEL
             </button>
             <button
               type="submit"
               className="px-6 py-2.5 text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+              disabled={isProcessing}
             >
-              CREATE CAR
+              {isProcessing ? "Processing..." : "CREATE CAR"}
             </button>
           </div>
         </div>

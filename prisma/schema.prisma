@@ -328,3 +328,41 @@ enum StripeEnv {
   TEST
   LIVE
 }
+
+model PlatformSettings {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // General Settings
+  platformName String
+  supportEmail String
+  supportPhone String
+  baseCurrency String
+  brandLogoUrl String?
+
+  // Payment Gateway
+  stripePublishableKey String?
+  stripeSecretKey      String?
+  stripeEnabled        Boolean @default(false)
+  paypalEnabled        Boolean @default(false)
+
+  // Notification Preferences
+  notifyNewBooking   Boolean @default(true)
+  notifyCancellation Boolean @default(true)
+  notifyDailyRevenue Boolean @default(false)
+  notifySystemErrors Boolean @default(true)
+
+  // Security Settings
+  twoFactorAuthRequired Boolean @default(false)
+  adminSessionTimeout   String  @default("30 Minutes") // "30 Minutes" | "1 Hour" | "2 Hours"
+  passwordExpiry        String  @default("90 Days") // "30/60/90 Days"
+
+  // User Roles (JSON array of roles)
+  roles Json? // e.g. [{ name, description, users }]
+
+  // System Preferences
+  debugLoggingEnabled Boolean @default(false)
+  maintenanceMode     Boolean @default(false)
+  clearCacheRequested Boolean @default(false)
+}

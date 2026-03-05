@@ -15,6 +15,7 @@ import { CarRentalInvoice } from "@/lib/pdf/CarRentalInvoice.tsx";
 import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
 import { CheckoutFormValues } from "@/lib/validation/checkout.schema";
+import { PaymentFormValues } from "@/lib/validation/settings.schema";
 import { actionError, actionResponse } from "@/types/server";
 import { PaymentWithAll } from "@/types/system";
 import { DocumentProps, renderToBuffer } from "@react-pdf/renderer";
@@ -297,5 +298,98 @@ export const deleteCarMutation = async (carId: string) => {
   } catch (error) {
     console.log(error);
     return actionError("Failed to delete car", error);
+  }
+};
+
+// settings mutation
+
+export const paymentSettingsMutation = async (data: PaymentFormValues) => {
+  try {
+    const user = await me();
+
+    if (user?.role !== UserRole.ADMIN) {
+      return {
+        success: false,
+        message: "You are not authorized to update payment settings",
+        data: null,
+      };
+    }
+
+    let setting = await prisma.platformSettings.findFirst();
+
+    if (!setting) {
+      setting = await prisma.platformSettings.create({
+        data: {
+          // General Settings
+          platformName: "YuCar Rental",
+          supportEmail: "support@yucarrental.com",
+          supportPhone: "+8801700000000",
+          baseCurrency: "BDT",
+          brandLogoUrl: null,
+
+          // Payment Gateway
+          stripePublishableKey: null,
+          stripeSecretKey: null,
+          stripeEnabled: false,
+          paypalEnabled: false,
+
+          // Notification Preferences
+          notifyNewBooking: true,
+          notifyCancellation: true,
+          notifyDailyRevenue: false,
+          notifySystemErrors: true,
+
+          // Security Settings
+          twoFactorAuthRequired: false,
+          adminSessionTimeout: "30 Minutes",
+          passwordExpiry: "90 Days",
+
+          // User Roles (JSON)
+          roles: [
+            {
+              name: "Super Admin",
+              description: "Full system access",
+              users: 1,
+            },
+            {
+              name: "Admin",
+              description: "Manage bookings, cars and users",
+              users: 0,
+            },
+            {
+              name: "Manager",
+              description: "Manage bookings and revenue",
+              users: 0,
+            },
+          ],
+
+          // System Preferences
+          debugLoggingEnabled: false,
+          maintenanceMode: false,
+          clearCacheRequested: false,
+        },
+      });
+    }
+
+    // এখানে API call দিবে
+    // await updatePaymentSettings(data)
+
+    const updatedSetting = await prisma.platformSettings.update({
+      where: {
+        id: setting.id,
+      },
+      data: {
+        stripePublishableKey: data.publishableKey,
+        stripeSecretKey: data.secretKey,
+        stripeEnabled: data.stripeEnabled,
+        paypalEnabled: data.paypalEnabled,
+      },
+    });
+
+    return actionResponse(updatedSetting);
+  } catch (error) {
+    console.error(error);
+
+    return actionError("Failed to update payment settings", error);
   }
 };

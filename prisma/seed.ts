@@ -72,223 +72,74 @@ async function main() {
   });
 
   //////////////////////////////////////////////////////
-  // CAR
-  //////////////////////////////////////////////////////
-
-  const carsData = [
-    {
-      name: "Toyota Raize",
-      slug: "toyota-raize",
-      brand: "Toyota",
-      model: "Raize",
-      year: 2023,
-      speed: 90,
-      engineCapacity: "1.0L Turbo",
-      fuelType: "PETROL",
-      transmission: "MANUAL",
-      seats: 5,
-      carType: CarType.SUV,
-      pricePerDay: 50,
-      registrationNo: "DHK-RAIZE-001",
-      description: "Compact SUV perfect for city driving.",
-      imageUrl: "car-1_mehwhd",
-    },
-    {
-      name: "Toyota Hilux",
-      slug: "toyota-hilux",
-      brand: "Toyota",
-      model: "Hilux",
-      year: 2024,
-      speed: 95,
-      engineCapacity: "1.0L Turbo",
-      fuelType: "PETROL",
-      transmission: "AUTOMATIC",
-      seats: 5,
-      carType: CarType.SUV,
-      pricePerDay: 55,
-      registrationNo: "DHK-RAIZE-002",
-      description: "Automatic version for smoother rides.",
-      imageUrl: "car-2_wnwqnm",
-    },
-
-    // Hyundai Venue
-    {
-      name: "Hyundai Venue",
-      slug: "hyundai-venue",
-      brand: "Hyundai",
-      model: "Venue",
-      year: 2023,
-      speed: 100,
-      engineCapacity: "1.2L",
-      fuelType: "PETROL",
-      transmission: "MANUAL",
-      seats: 5,
-      carType: CarType.SUV,
-      pricePerDay: 55,
-      registrationNo: "DHK-VENUE-005",
-      description: "Stylish compact SUV.",
-      imageUrl: "car-3_fbfmgw",
-    },
-
-    // Hyundai Staria
-    {
-      name: "Hyundai Staria",
-      slug: "hyundai-staria",
-      brand: "Hyundai",
-      model: "Staria",
-      year: 2023,
-      speed: 95,
-      engineCapacity: "2.2L",
-      fuelType: "DIESEL",
-      transmission: "AUTOMATIC",
-      seats: 8,
-      carType: CarType.MICROBUS,
-      pricePerDay: 75,
-      registrationNo: "DHK-STARIA-007",
-      description: "Spacious family van.",
-      imageUrl: "car-4_qkxw3g",
-    },
-
-    // Kia Sonet
-    {
-      name: "Kia Sonet",
-      slug: "kia-sonet",
-      brand: "Kia",
-      model: "Sonet",
-      year: 2023,
-      speed: 100,
-      engineCapacity: "1.5L",
-      fuelType: "PETROL",
-      transmission: "MANUAL",
-      seats: 5,
-      carType: CarType.SUV,
-      pricePerDay: 55,
-      registrationNo: "DHK-SONET-009",
-      description: "Compact stylish SUV.",
-      imageUrl: "car-5_hfqpog",
-    },
-    {
-      name: "Kia Sonet",
-      slug: "kia-sonet-1",
-      brand: "Kia",
-      model: "Sonet",
-      year: 2024,
-      speed: 110,
-      engineCapacity: "1.5L",
-      fuelType: "PETROL",
-      transmission: "AUTOMATIC",
-      seats: 5,
-      carType: CarType.SUV,
-      pricePerDay: 60,
-      registrationNo: "DHK-SONET-010",
-      description: "Automatic premium edition.",
-      imageUrl: "car-6_n43tyc",
-    },
-
-    // Generate more variants (20 more mixed realistic entries)
-  ];
-
-  /* const cars = await prisma.car.createMany({
-    data: [...carsData],
-  }); */
-
-  const car = await prisma.car.findMany();
-
-  console.log("car", car);
-
-  //////////////////////////////////////////////////////
-  // DRIVER
-  //////////////////////////////////////////////////////
-
-  const driver = await prisma.driver.create({
-    data: {
-      name: "Karim Driver",
-      phone: "01900000000",
-      licenseNo: "LIC-12345",
-      experience: 5,
-    },
-  });
-
-  //////////////////////////////////////////////////////
   // CAR AVAILABILITY BLOCK (Maintenance)
   //////////////////////////////////////////////////////
-
-  await prisma.carAvailability.create({
-    data: {
-      carId: car[0].id,
-      startDate: new Date("2026-04-01"),
-      endDate: new Date("2026-04-05"),
-      reason: "Maintenance",
-    },
-  });
 
   //////////////////////////////////////////////////////
   // BOOKING
   //////////////////////////////////////////////////////
 
-  const totalDays = 3;
-  const pricePerDay = car[0].pricePerDay;
-  const totalAmount = totalDays * pricePerDay;
-
-  const booking = await prisma.booking.create({
-    data: {
-      userId: customer.id,
-      carId: car[0].id,
-      driverId: driver.id,
-      startDate: new Date("2026-03-01"),
-      endDate: new Date("2026-03-04"),
-      totalDays,
-      pricePerDay,
-      totalAmount,
-      pickupLocation: "Dhaka",
-      dropoffLocation: "Chittagong",
-      pickupTime: "10:00 AM",
-      dropoffTime: "12:00 PM",
-      discount: 0,
-      status: BookingStatus.CONFIRMED,
-    },
-  });
-
   //////////////////////////////////////////////////////
   // PAYMENT
   //////////////////////////////////////////////////////
-
-  await prisma.payment.create({
-    data: {
-      bookingId: booking.id,
-      userId: customer.id,
-      amount: totalAmount,
-      paymentMethod: PaymentMethod.STRIPE,
-      stripePaymentIntentId: "TXN-123456",
-      stripeChargeId: "CHARGE-123456",
-      status: PaymentStatus.SUCCESS,
-    },
-  });
 
   //////////////////////////////////////////////////////
   // REVIEW
   //////////////////////////////////////////////////////
 
-  await prisma.review.create({
-    data: {
-      userId: customer.id,
-      carId: car[0].id,
-      rating: 5,
-      comment: "Very smooth ride and clean car!",
-    },
-  });
-
   //////////////////////////////////////////////////////
   // COUPON
   //////////////////////////////////////////////////////
 
-  await prisma.coupon.create({
+  const settings = await prisma.platformSettings.create({
     data: {
-      code: "WELCOME10",
-      discountType: "PERCENTAGE",
-      discountValue: 10,
-      expiresAt: new Date("2026-12-31"),
-      usageLimit: 100,
+      // General Settings
+      platformName: "YuCar Rental",
+      supportEmail: "support@yucarrental.com",
+      supportPhone: "+8801700000000",
+      baseCurrency: "BDT",
+      brandLogoUrl: null,
+
+      // Payment Gateway
+      stripePublishableKey: null,
+      stripeSecretKey: null,
+      stripeEnabled: false,
+      paypalEnabled: false,
+
+      // Notification Preferences
+      notifyNewBooking: true,
+      notifyCancellation: true,
+      notifyDailyRevenue: false,
+      notifySystemErrors: true,
+
+      // Security Settings
+      twoFactorAuthRequired: false,
+      adminSessionTimeout: "30 Minutes",
+      passwordExpiry: "90 Days",
+
+      // User Roles (JSON)
+      roles: [
+        {
+          name: "Super Admin",
+          description: "Full system access",
+          users: 1,
+        },
+        {
+          name: "Admin",
+          description: "Manage bookings, cars and users",
+          users: 0,
+        },
+        {
+          name: "Manager",
+          description: "Manage bookings and revenue",
+          users: 0,
+        },
+      ],
+
+      // System Preferences
+      debugLoggingEnabled: false,
+      maintenanceMode: false,
+      clearCacheRequested: false,
     },
   });
 

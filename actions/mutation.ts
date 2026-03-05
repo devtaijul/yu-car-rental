@@ -147,8 +147,6 @@ export const bookCar = async ({
 
     return actionResponse(result);
   } catch (error) {
-    console.error("BOOKING ERROR:", error);
-
     return actionError("Failed to book car", error);
   }
 };

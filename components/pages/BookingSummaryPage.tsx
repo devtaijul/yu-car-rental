@@ -20,12 +20,10 @@ import { StripeWrapper } from "../StripeWrapper";
 import { useEffect, useState } from "react";
 
 export default function BookingSummaryPage({ car }: { car: Car }) {
-  console.log("car", car);
   useSyncBookingFromQuery();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const router = useRouter();
   const { booking } = useBooking();
-  console.log("booking", booking);
 
   const {
     coverage,

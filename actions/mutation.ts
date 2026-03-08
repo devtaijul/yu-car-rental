@@ -11,6 +11,7 @@ import {
   UserRole,
 } from "@/generated/prisma/enums";
 import { CarCreateInput } from "@/generated/prisma/models";
+import { sendContractEmail } from "@/lib/email/sendContractEmail";
 import { CarRentalInvoice } from "@/lib/pdf/CarRentalInvoice.tsx";
 import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
@@ -141,9 +142,21 @@ export const bookCar = async ({
           customerEmail: customer.email,
         },
       });
-
+ 
       return createdBooking;
     });
+
+    // Generate PDF
+const pdfBuffer = await generateContractPdf(result.id);
+
+// Send Email
+await sendContractEmail({
+  email: customer.email,
+  name: customer.firstName,
+  pdfBuffer,
+  bookingId: result.id,
+});
+
 
     return actionResponse(result);
   } catch (error) {

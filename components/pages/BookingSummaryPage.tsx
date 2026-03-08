@@ -314,7 +314,7 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
 
       {/* Bottom Navigation */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button variant="ghost">Go To Step 3</Button>
+        <Button className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300">Go To Step 3</Button>
         <Button
           className="gradient-teal text-primary-foreground px-8"
           onClick={() => {

@@ -153,7 +153,7 @@ export default function StepCoverageExtras({ car_slug }: { car_slug: string }) {
 
       {/* Actions */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button variant="ghost" onClick={() => router.back()}>
+        <Button onClick={() => router.back()} className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300">
           Go Back
         </Button>
         <Button

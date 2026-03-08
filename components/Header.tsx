@@ -37,14 +37,14 @@ const Header = () => {
   return (
     <header className="fixed top-0 z-50 w-full py-3 md:py-4">
       <div className="container mx-auto px-3 sm:px-4">
-        <div className="relative z-50 overflow-hidden bg-white shadow-lg">
+        <div className="relative z-50 bg-white shadow-lg">
           <div className="bg-background-soft px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center justify-between gap-4">
               {/* Logo */}
               <Link href="/" className="flex shrink-0 items-center gap-2">
                 <Image
                   src="/assets/logo-nav.png"
-                  className="h-auto w-36 sm:w-44 lg:w-52"
+                  className="h-auto w-44 lg:w-52"
                   alt="yu"
                   width={1000}
                   height={400}
@@ -61,7 +61,7 @@ const Header = () => {
               </Link>
 
               {/* Desktop Nav */}
-              <nav className="hidden md:flex items-center gap-6 xl:gap-8">
+              <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href;
 
@@ -115,7 +115,7 @@ const Header = () => {
               </nav>
 
               {/* Right */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="hidden lg:flex items-center gap-3">
                 <LanguageSwitcher />
                 <Link href="/booking">
                   <Button className="rounded-none px-6 py-2 h-auto">
@@ -127,7 +127,7 @@ const Header = () => {
               {/* Mobile toggle */}
               <button
                 type="button"
-                className="inline-flex h-10 w-10 items-center justify-center border border-border bg-card text-foreground md:hidden"
+                className="inline-flex h-10 w-10 items-center justify-center border border-border bg-card text-foreground lg:hidden"
                 onClick={() => {
                   setIsOpen((prev) => !prev);
                   setOpenSubmenu(null);
@@ -147,10 +147,10 @@ const Header = () => {
             <button
               type="button"
               aria-label="Close navigation menu"
-              className="fixed inset-0 z-40 bg-black/20 md:hidden"
+              className="fixed inset-0 z-40 bg-black/20 lg:hidden"
               onClick={closeMobileMenu}
             />
-            <div className="relative z-50 mt-3 overflow-hidden rounded-2xl bg-card shadow-lg md:hidden">
+            <div className="relative z-50 mt-3 overflow-hidden rounded-2xl bg-card shadow-lg lg:hidden">
               <div className="flex items-center justify-between border-b border-border px-4 py-3">
                 <span className="text-sm font-medium text-foreground">
                   Menu

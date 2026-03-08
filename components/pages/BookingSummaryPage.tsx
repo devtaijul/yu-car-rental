@@ -100,7 +100,7 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
           <div className="bg-card border border-border  overflow-hidden">
             {selectedCarData && (
               <>
-                <div className="h-48 gradient-color flex items-center justify-center">
+                <div className="h-48 gradient-color flex items-center justify-center rounded-2xl">
                   <CldImage
                     src={car.imageUrl}
                     width={500}
@@ -178,6 +178,7 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
 
                   {/* Price Breakdown */}
                   <div className="space-y-2 text-sm">
+                    <h2 className="text-xl font-display font-semibold mt-6 mb-3">Price Breakdown</h2>
                     <div className="flex justify-between">
                       <span>
                         Base rental (${car.pricePerDay}/day × {days} days)

@@ -32,7 +32,7 @@ export const HeroSection = async ({ lang }: { lang: Locale }) => {
         <h2 className="text-3xl md:text-5xl lg:text-8xl font-display italic text-[#BFD1D7] mb-6 font-extralight whitespace-pre-line">
           {dict.home.hero.titleAccent}
         </h2>
-        <p className="max-w-xl text-[#EAF0F2] mb-12  text-base md:text-xl md:leading-9 whitespace-pre-line">
+        <p className="mb-10 max-w-md px-1 text-base leading-7 whitespace-normal text-[#EAF0F2] tracking-wide sm:max-w-xl sm:px-0 sm:text-center md:mb-12 md:text-xl md:leading-9 md:tracking-widest md:whitespace-pre-line">
           {dict.home.hero.description}
         </p>
 

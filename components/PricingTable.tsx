@@ -21,13 +21,13 @@ export const PricingTable = ({
       name: "Deductible Risk",
       standard: "$650",
       premium: "$0",
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Security Deposit",
       standard: "$650",
       premium: "$0",
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Additional Driver",
@@ -51,25 +51,25 @@ export const PricingTable = ({
       name: "Cancellation Fee",
       standard: "$80",
       premium: "$0",
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "After-hours Pickup",
       standard: false,
       premium: true,
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Discount Coupons",
       standard: false,
       premium: true,
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "All Damage Covered",
       standard: false,
       premium: true,
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Third Party Damage",
@@ -88,7 +88,7 @@ export const PricingTable = ({
       return value ? (
         <Check className="h-5 w-5 text-primary mx-auto" />
       ) : (
-        <X className="h-5 w-5 text-primary mx-auto" />
+        <X className={`${isStandard && isHighlight && 'text-destructive'} h-5 w-5 text-primary mx-auto`} />
       );
     }
     return (
@@ -139,9 +139,8 @@ export const PricingTable = ({
         {features.map((feature, index) => (
           <div
             key={feature.name}
-            className={`grid grid-cols-3 items-center   ${
-              index !== features.length - 1 ? "border-b border-border" : ""
-            }`}
+            className={`grid grid-cols-3 items-center   ${index !== features.length - 1 ? "border-b border-border" : ""
+              }`}
           >
             <div className="text-sm font-medium text-foreground p-4">
               {feature.name}
@@ -178,9 +177,8 @@ export const PricingTable = ({
           <div>
             <Button
               variant="outline"
-              className={`w-full rounded-none py-6 hover:bg-primary ${
-                selectedCoverage === "STANDARD" ? "border-primary border-2" : ""
-              }`}
+              className={`w-full rounded-none py-6 hover:bg-primary ${selectedCoverage === "STANDARD" ? "border-primary border-2" : ""
+                }`}
               onClick={() => {
                 if (onSelectCoverage) {
                   onSelectCoverage("STANDARD");
@@ -192,11 +190,10 @@ export const PricingTable = ({
           </div>
           <div>
             <Button
-              className={`w-full bg-primary text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
-                selectedCoverage === "PREMIUM"
-                  ? "ring-2 ring-offset-2 ring-primary"
-                  : ""
-              }`}
+              className={`w-full bg-primary text-primary-foreground  rounded-none py-6 hover:opacity-90 ${selectedCoverage === "PREMIUM"
+                ? "ring-2 ring-offset-2 ring-primary"
+                : ""
+                }`}
               onClick={() => {
                 if (onSelectCoverage) {
                   onSelectCoverage("PREMIUM");

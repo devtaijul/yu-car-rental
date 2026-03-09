@@ -167,6 +167,7 @@ export const BookingScalarFieldEnum = {
   carId: 'carId',
   driverId: 'driverId',
   babySeatLarge: 'babySeatLarge',
+  bookingId: 'bookingId',
   babySeatSmall: 'babySeatSmall',
   coolbox: 'coolbox',
   keySecureBox: 'keySecureBox',

@@ -1,11 +1,13 @@
 import {
   BookingStatus,
   CarType,
+  Currency,
   PaymentMethod,
   PaymentStatus,
   PrismaClient,
   UserRole,
 } from "@/generated/prisma/client";
+import { CarCreateInput } from "@/generated/prisma/models";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 import "dotenv/config";
@@ -75,6 +77,123 @@ async function main() {
   // CAR AVAILABILITY BLOCK (Maintenance)
   //////////////////////////////////////////////////////
 
+  const carsData: CarCreateInput[] = [
+    {
+      name: "Toyota Raize",
+      slug: "toyota-raize",
+      brand: "Toyota",
+      model: "Raize",
+      year: 2023,
+      speed: 90,
+      engineCapacity: "1.0L Turbo",
+      fuelType: "PETROL",
+      transmission: "MANUAL",
+      seats: 5,
+      carType: CarType.SUV,
+      pricePerDay: 50,
+      registrationNo: "DHK-RAIZE-001",
+      description: "Compact SUV perfect for city driving.",
+      imageUrl: "car-1_mehwhd",
+    },
+    {
+      name: "Toyota Hilux",
+      slug: "toyota-hilux",
+      brand: "Toyota",
+      model: "Hilux",
+      year: 2024,
+      speed: 95,
+      engineCapacity: "1.0L Turbo",
+      fuelType: "PETROL",
+      transmission: "AUTOMATIC",
+      seats: 5,
+      carType: CarType.SUV,
+      pricePerDay: 55,
+      registrationNo: "DHK-RAIZE-002",
+      description: "Automatic version for smoother rides.",
+      imageUrl: "car-2_wnwqnm",
+    },
+
+    // Hyundai Venue
+    {
+      name: "Hyundai Venue",
+      slug: "hyundai-venue",
+      brand: "Hyundai",
+      model: "Venue",
+      year: 2023,
+      speed: 100,
+      engineCapacity: "1.2L",
+      fuelType: "PETROL",
+      transmission: "MANUAL",
+      seats: 5,
+      carType: CarType.SUV,
+      pricePerDay: 55,
+      registrationNo: "DHK-VENUE-005",
+      description: "Stylish compact SUV.",
+      imageUrl: "car-3_fbfmgw",
+    },
+
+    // Hyundai Staria
+    {
+      name: "Hyundai Staria",
+      slug: "hyundai-staria",
+      brand: "Hyundai",
+      model: "Staria",
+      year: 2023,
+      speed: 95,
+      engineCapacity: "2.2L",
+      fuelType: "DIESEL",
+      transmission: "AUTOMATIC",
+      seats: 8,
+      carType: CarType.MICROBUS,
+      pricePerDay: 75,
+      registrationNo: "DHK-STARIA-007",
+      description: "Spacious family van.",
+      imageUrl: "car-4_qkxw3g",
+    },
+
+    // Kia Sonet
+    {
+      name: "Kia Sonet",
+      slug: "kia-sonet",
+      brand: "Kia",
+      model: "Sonet",
+      year: 2023,
+      speed: 100,
+      engineCapacity: "1.5L",
+      fuelType: "PETROL",
+      transmission: "MANUAL",
+      seats: 5,
+      carType: CarType.SUV,
+      pricePerDay: 55,
+      registrationNo: "DHK-SONET-009",
+      description: "Compact stylish SUV.",
+      imageUrl: "car-5_hfqpog",
+    },
+    {
+      name: "Kia Sonet",
+      slug: "kia-sonet-1",
+      brand: "Kia",
+      model: "Sonet",
+      year: 2024,
+      speed: 110,
+      engineCapacity: "1.5L",
+      fuelType: "PETROL",
+      transmission: "AUTOMATIC",
+      seats: 5,
+      carType: CarType.SUV,
+      pricePerDay: 60,
+      registrationNo: "DHK-SONET-010",
+      description: "Automatic premium edition.",
+      imageUrl: "car-6_n43tyc",
+    },
+
+    // Generate more variants (20 more mixed realistic entries)
+  ];
+
+  const cars = await prisma.car.createMany({
+    data: [...carsData],
+  });
+
   //////////////////////////////////////////////////////
   // BOOKING
   //////////////////////////////////////////////////////
@@ -97,7 +216,7 @@ async function main() {
       platformName: "YuCar Rental",
       supportEmail: "support@yucarrental.com",
       supportPhone: "+8801700000000",
-      baseCurrency: "BDT",
+      baseCurrency: Currency.USD,
       brandLogoUrl: null,
 
       // Payment Gateway

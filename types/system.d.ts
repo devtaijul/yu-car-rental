@@ -1,5 +1,6 @@
 import {
   Booking,
+  Payment,
   Prisma,
   StripeAccount,
   User,

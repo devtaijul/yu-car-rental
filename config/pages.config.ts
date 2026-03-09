@@ -28,7 +28,7 @@ export const PAGES = {
     BOOKINGS: {
       ROOT: "/admin/bookings",
       CREATE: "/admin/bookings/create",
-      EDIT: (bookingId: string) => `/admin/bookings/${bookingId}/edit`,
+      EDIT: (bookingId: string) => `/admin/bookings/${bookingId}`,
     },
     CARS: {
       ROOT: "/admin/cars",

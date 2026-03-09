@@ -353,6 +353,24 @@ export const getBookingByBookingId = async (bookingId: string) => {
     throw actionError("Failed to fetch booking");
   }
 };
+export const getBookingByBookingAsAdmin = async (bookingId: string) => {
+  try {
+    const booking = await prisma.booking.findUnique({
+      where: {
+        id: bookingId,
+      },
+      include: {
+        user: true,
+        car: true,
+        driver: true,
+      },
+    });
+    return actionResponse(booking);
+  } catch (error) {
+    console.error("Get booking error:", error);
+    throw actionError("Failed to fetch booking");
+  }
+};
 
 export const getMyBookings = async (
   limit: string,

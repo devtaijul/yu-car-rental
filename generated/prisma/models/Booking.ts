@@ -54,6 +54,7 @@ export type BookingMinAggregateOutputType = {
   carId: string | null
   driverId: string | null
   babySeatLarge: number | null
+  bookingId: string | null
   babySeatSmall: number | null
   coolbox: number | null
   keySecureBox: number | null
@@ -82,6 +83,7 @@ export type BookingMaxAggregateOutputType = {
   carId: string | null
   driverId: string | null
   babySeatLarge: number | null
+  bookingId: string | null
   babySeatSmall: number | null
   coolbox: number | null
   keySecureBox: number | null
@@ -110,6 +112,7 @@ export type BookingCountAggregateOutputType = {
   carId: number
   driverId: number
   babySeatLarge: number
+  bookingId: number
   babySeatSmall: number
   coolbox: number
   keySecureBox: number
@@ -162,6 +165,7 @@ export type BookingMinAggregateInputType = {
   carId?: true
   driverId?: true
   babySeatLarge?: true
+  bookingId?: true
   babySeatSmall?: true
   coolbox?: true
   keySecureBox?: true
@@ -190,6 +194,7 @@ export type BookingMaxAggregateInputType = {
   carId?: true
   driverId?: true
   babySeatLarge?: true
+  bookingId?: true
   babySeatSmall?: true
   coolbox?: true
   keySecureBox?: true
@@ -218,6 +223,7 @@ export type BookingCountAggregateInputType = {
   carId?: true
   driverId?: true
   babySeatLarge?: true
+  bookingId?: true
   babySeatSmall?: true
   coolbox?: true
   keySecureBox?: true
@@ -333,6 +339,7 @@ export type BookingGroupByOutputType = {
   carId: string
   driverId: string | null
   babySeatLarge: number | null
+  bookingId: string
   babySeatSmall: number | null
   coolbox: number | null
   keySecureBox: number | null
@@ -384,6 +391,7 @@ export type BookingWhereInput = {
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
   babySeatLarge?: Prisma.IntNullableFilter<"Booking"> | number | null
+  bookingId?: Prisma.StringFilter<"Booking"> | string
   babySeatSmall?: Prisma.IntNullableFilter<"Booking"> | number | null
   coolbox?: Prisma.IntNullableFilter<"Booking"> | number | null
   keySecureBox?: Prisma.IntNullableFilter<"Booking"> | number | null
@@ -416,6 +424,7 @@ export type BookingOrderByWithRelationInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrderInput | Prisma.SortOrder
   babySeatLarge?: Prisma.SortOrderInput | Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   babySeatSmall?: Prisma.SortOrderInput | Prisma.SortOrder
   coolbox?: Prisma.SortOrderInput | Prisma.SortOrder
   keySecureBox?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -444,6 +453,7 @@ export type BookingOrderByWithRelationInput = {
 
 export type BookingWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  bookingId?: string
   AND?: Prisma.BookingWhereInput | Prisma.BookingWhereInput[]
   OR?: Prisma.BookingWhereInput[]
   NOT?: Prisma.BookingWhereInput | Prisma.BookingWhereInput[]
@@ -475,7 +485,7 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   car?: Prisma.XOR<Prisma.CarScalarRelationFilter, Prisma.CarWhereInput>
   driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
   payment?: Prisma.XOR<Prisma.PaymentNullableScalarRelationFilter, Prisma.PaymentWhereInput> | null
-}, "id">
+}, "id" | "bookingId">
 
 export type BookingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -483,6 +493,7 @@ export type BookingOrderByWithAggregationInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrderInput | Prisma.SortOrder
   babySeatLarge?: Prisma.SortOrderInput | Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   babySeatSmall?: Prisma.SortOrderInput | Prisma.SortOrder
   coolbox?: Prisma.SortOrderInput | Prisma.SortOrder
   keySecureBox?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -519,6 +530,7 @@ export type BookingScalarWhereWithAggregatesInput = {
   carId?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   driverId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
   babySeatLarge?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
+  bookingId?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   babySeatSmall?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
   coolbox?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
   keySecureBox?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
@@ -544,6 +556,7 @@ export type BookingScalarWhereWithAggregatesInput = {
 export type BookingCreateInput = {
   id?: string
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -576,6 +589,7 @@ export type BookingUncheckedCreateInput = {
   carId: string
   driverId?: string | null
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -602,6 +616,7 @@ export type BookingUncheckedCreateInput = {
 export type BookingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -634,6 +649,7 @@ export type BookingUncheckedUpdateInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -663,6 +679,7 @@ export type BookingCreateManyInput = {
   carId: string
   driverId?: string | null
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -688,6 +705,7 @@ export type BookingCreateManyInput = {
 export type BookingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -716,6 +734,7 @@ export type BookingUncheckedUpdateManyInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -754,6 +773,7 @@ export type BookingCountOrderByAggregateInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
   babySeatLarge?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   babySeatSmall?: Prisma.SortOrder
   coolbox?: Prisma.SortOrder
   keySecureBox?: Prisma.SortOrder
@@ -793,6 +813,7 @@ export type BookingMaxOrderByAggregateInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
   babySeatLarge?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   babySeatSmall?: Prisma.SortOrder
   coolbox?: Prisma.SortOrder
   keySecureBox?: Prisma.SortOrder
@@ -821,6 +842,7 @@ export type BookingMinOrderByAggregateInput = {
   carId?: Prisma.SortOrder
   driverId?: Prisma.SortOrder
   babySeatLarge?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   babySeatSmall?: Prisma.SortOrder
   coolbox?: Prisma.SortOrder
   keySecureBox?: Prisma.SortOrder
@@ -1010,6 +1032,7 @@ export type BookingUpdateOneRequiredWithoutPaymentNestedInput = {
 export type BookingCreateWithoutUserInput = {
   id?: string
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1040,6 +1063,7 @@ export type BookingUncheckedCreateWithoutUserInput = {
   carId: string
   driverId?: string | null
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1098,6 +1122,7 @@ export type BookingScalarWhereInput = {
   carId?: Prisma.StringFilter<"Booking"> | string
   driverId?: Prisma.StringNullableFilter<"Booking"> | string | null
   babySeatLarge?: Prisma.IntNullableFilter<"Booking"> | number | null
+  bookingId?: Prisma.StringFilter<"Booking"> | string
   babySeatSmall?: Prisma.IntNullableFilter<"Booking"> | number | null
   coolbox?: Prisma.IntNullableFilter<"Booking"> | number | null
   keySecureBox?: Prisma.IntNullableFilter<"Booking"> | number | null
@@ -1123,6 +1148,7 @@ export type BookingScalarWhereInput = {
 export type BookingCreateWithoutCarInput = {
   id?: string
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1153,6 +1179,7 @@ export type BookingUncheckedCreateWithoutCarInput = {
   userId: string
   driverId?: string | null
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1205,6 +1232,7 @@ export type BookingUpdateManyWithWhereWithoutCarInput = {
 export type BookingCreateWithoutDriverInput = {
   id?: string
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1235,6 +1263,7 @@ export type BookingUncheckedCreateWithoutDriverInput = {
   userId: string
   carId: string
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1287,6 +1316,7 @@ export type BookingUpdateManyWithWhereWithoutDriverInput = {
 export type BookingCreateWithoutPaymentInput = {
   id?: string
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1318,6 +1348,7 @@ export type BookingUncheckedCreateWithoutPaymentInput = {
   carId: string
   driverId?: string | null
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1359,6 +1390,7 @@ export type BookingUpdateToOneWithWhereWithoutPaymentInput = {
 export type BookingUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1390,6 +1422,7 @@ export type BookingUncheckedUpdateWithoutPaymentInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1417,6 +1450,7 @@ export type BookingCreateManyUserInput = {
   carId: string
   driverId?: string | null
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1442,6 +1476,7 @@ export type BookingCreateManyUserInput = {
 export type BookingUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1472,6 +1507,7 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1500,6 +1536,7 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1527,6 +1564,7 @@ export type BookingCreateManyCarInput = {
   userId: string
   driverId?: string | null
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1552,6 +1590,7 @@ export type BookingCreateManyCarInput = {
 export type BookingUpdateWithoutCarInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1582,6 +1621,7 @@ export type BookingUncheckedUpdateWithoutCarInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1610,6 +1650,7 @@ export type BookingUncheckedUpdateManyWithoutCarInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   driverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1637,6 +1678,7 @@ export type BookingCreateManyDriverInput = {
   userId: string
   carId: string
   babySeatLarge?: number | null
+  bookingId?: string
   babySeatSmall?: number | null
   coolbox?: number | null
   keySecureBox?: number | null
@@ -1662,6 +1704,7 @@ export type BookingCreateManyDriverInput = {
 export type BookingUpdateWithoutDriverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1692,6 +1735,7 @@ export type BookingUncheckedUpdateWithoutDriverInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1720,6 +1764,7 @@ export type BookingUncheckedUpdateManyWithoutDriverInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   carId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatLarge?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   babySeatSmall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   coolbox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   keySecureBox?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1750,6 +1795,7 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   carId?: boolean
   driverId?: boolean
   babySeatLarge?: boolean
+  bookingId?: boolean
   babySeatSmall?: boolean
   coolbox?: boolean
   keySecureBox?: boolean
@@ -1782,6 +1828,7 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   carId?: boolean
   driverId?: boolean
   babySeatLarge?: boolean
+  bookingId?: boolean
   babySeatSmall?: boolean
   coolbox?: boolean
   keySecureBox?: boolean
@@ -1813,6 +1860,7 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   carId?: boolean
   driverId?: boolean
   babySeatLarge?: boolean
+  bookingId?: boolean
   babySeatSmall?: boolean
   coolbox?: boolean
   keySecureBox?: boolean
@@ -1844,6 +1892,7 @@ export type BookingSelectScalar = {
   carId?: boolean
   driverId?: boolean
   babySeatLarge?: boolean
+  bookingId?: boolean
   babySeatSmall?: boolean
   coolbox?: boolean
   keySecureBox?: boolean
@@ -1866,7 +1915,7 @@ export type BookingSelectScalar = {
   deletedAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "babySeatLarge" | "babySeatSmall" | "coolbox" | "keySecureBox" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "babySeatLarge" | "bookingId" | "babySeatSmall" | "coolbox" | "keySecureBox" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "status" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
@@ -1898,6 +1947,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     carId: string
     driverId: string | null
     babySeatLarge: number | null
+    bookingId: string
     babySeatSmall: number | null
     coolbox: number | null
     keySecureBox: number | null
@@ -2350,6 +2400,7 @@ export interface BookingFieldRefs {
   readonly carId: Prisma.FieldRef<"Booking", 'String'>
   readonly driverId: Prisma.FieldRef<"Booking", 'String'>
   readonly babySeatLarge: Prisma.FieldRef<"Booking", 'Int'>
+  readonly bookingId: Prisma.FieldRef<"Booking", 'String'>
   readonly babySeatSmall: Prisma.FieldRef<"Booking", 'Int'>
   readonly coolbox: Prisma.FieldRef<"Booking", 'Int'>
   readonly keySecureBox: Prisma.FieldRef<"Booking", 'Int'>

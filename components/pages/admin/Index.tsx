@@ -188,7 +188,7 @@ export const DashboardOverview = () => {
               />
               <YAxis hide />
               <Tooltip
-                formatter={(value: number | undefined) => {
+                formatter={(value) => {
                   if (typeof value !== "number") return ["$0k", "Revenue"];
 
                   return [`$${(value / 1000).toFixed(0)}k`, "Revenue"];

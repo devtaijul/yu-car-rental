@@ -19,11 +19,11 @@ import { PaymentRow } from "./PaymentRow";
 export default function PaymentsInvoices({
   payments,
 }: {
-  payments: PaymentWithAll;
+  payments: PaymentWithAll[];
 }) {
   const [search, setSearch] = useState("");
 
-  const filteredPayments = payments.filter((payment: PaymentWithAll) =>
+  const filteredPayments = payments.filter((payment) =>
     payment.bookingId.toLowerCase().includes(search.toLowerCase()),
   );
 

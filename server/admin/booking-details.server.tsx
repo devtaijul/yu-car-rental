@@ -13,5 +13,5 @@ export const BookingDetailsServer = async ({ slug }: { slug: string }) => {
     return <div>Booking not found</div>;
   }
 
-  return <BookingDetailsPage />;
+  return <BookingDetailsPage booking={data.data} />;
 };

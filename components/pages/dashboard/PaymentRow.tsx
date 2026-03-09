@@ -57,7 +57,7 @@ export function PaymentRow({ payment }: { payment: PaymentWithAll }) {
       </TableCell>
 
       <TableCell className="text-sm font-semibold">
-        {formatCurrency(payment.amount, payment.currency)}
+        {formatCurrency(payment.amount, payment.currency ?? "USD")}
       </TableCell>
 
       <TableCell>

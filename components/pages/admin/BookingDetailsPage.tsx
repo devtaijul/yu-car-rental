@@ -1,6 +1,7 @@
 "use client";
 
 import { PAGES } from "@/config/pages.config";
+import { BookingWithAll } from "@/types/system";
 import { ArrowLeft, Clock, MapPin, Download, Car } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -52,11 +53,17 @@ const statusOptions = [
   "CANCELLED",
 ];
 
-const BookingDetailsPage = () => {
+const BookingDetailsPage = ({
+  booking: databooking,
+}: {
+  booking: BookingWithAll;
+}) => {
   const router = useRouter();
   const { id } = useParams();
   const [booking, setBooking] = useState(mockBooking);
   const [editingStatus, setEditingStatus] = useState(false);
+  console.log("data", booking);
+  
 
   const getStatusClass = (status: string) => {
     switch (status) {

@@ -1,5 +1,5 @@
-import { ReserveACar } from "@/components/pages/ReserveACar";
+import ReserveFlow from "@/components/pages/ReserveFlow";
 
-export default async function ReservePage() {
-  return <ReserveACar step={1} />;
+export default function ReservePage() {
+  return <ReserveFlow />;
 }

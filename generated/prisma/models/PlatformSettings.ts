@@ -31,7 +31,7 @@ export type PlatformSettingsMinAggregateOutputType = {
   platformName: string | null
   supportEmail: string | null
   supportPhone: string | null
-  baseCurrency: string | null
+  baseCurrency: $Enums.Currency | null
   brandLogoUrl: string | null
   stripePublishableKey: string | null
   stripeSecretKey: string | null
@@ -56,7 +56,7 @@ export type PlatformSettingsMaxAggregateOutputType = {
   platformName: string | null
   supportEmail: string | null
   supportPhone: string | null
-  baseCurrency: string | null
+  baseCurrency: $Enums.Currency | null
   brandLogoUrl: string | null
   stripePublishableKey: string | null
   stripeSecretKey: string | null
@@ -258,7 +258,7 @@ export type PlatformSettingsGroupByOutputType = {
   platformName: string
   supportEmail: string
   supportPhone: string
-  baseCurrency: string
+  baseCurrency: $Enums.Currency
   brandLogoUrl: string | null
   stripePublishableKey: string | null
   stripeSecretKey: string | null
@@ -305,7 +305,7 @@ export type PlatformSettingsWhereInput = {
   platformName?: Prisma.StringFilter<"PlatformSettings"> | string
   supportEmail?: Prisma.StringFilter<"PlatformSettings"> | string
   supportPhone?: Prisma.StringFilter<"PlatformSettings"> | string
-  baseCurrency?: Prisma.StringFilter<"PlatformSettings"> | string
+  baseCurrency?: Prisma.EnumCurrencyFilter<"PlatformSettings"> | $Enums.Currency
   brandLogoUrl?: Prisma.StringNullableFilter<"PlatformSettings"> | string | null
   stripePublishableKey?: Prisma.StringNullableFilter<"PlatformSettings"> | string | null
   stripeSecretKey?: Prisma.StringNullableFilter<"PlatformSettings"> | string | null
@@ -360,7 +360,7 @@ export type PlatformSettingsWhereUniqueInput = Prisma.AtLeast<{
   platformName?: Prisma.StringFilter<"PlatformSettings"> | string
   supportEmail?: Prisma.StringFilter<"PlatformSettings"> | string
   supportPhone?: Prisma.StringFilter<"PlatformSettings"> | string
-  baseCurrency?: Prisma.StringFilter<"PlatformSettings"> | string
+  baseCurrency?: Prisma.EnumCurrencyFilter<"PlatformSettings"> | $Enums.Currency
   brandLogoUrl?: Prisma.StringNullableFilter<"PlatformSettings"> | string | null
   stripePublishableKey?: Prisma.StringNullableFilter<"PlatformSettings"> | string | null
   stripeSecretKey?: Prisma.StringNullableFilter<"PlatformSettings"> | string | null
@@ -418,7 +418,7 @@ export type PlatformSettingsScalarWhereWithAggregatesInput = {
   platformName?: Prisma.StringWithAggregatesFilter<"PlatformSettings"> | string
   supportEmail?: Prisma.StringWithAggregatesFilter<"PlatformSettings"> | string
   supportPhone?: Prisma.StringWithAggregatesFilter<"PlatformSettings"> | string
-  baseCurrency?: Prisma.StringWithAggregatesFilter<"PlatformSettings"> | string
+  baseCurrency?: Prisma.EnumCurrencyWithAggregatesFilter<"PlatformSettings"> | $Enums.Currency
   brandLogoUrl?: Prisma.StringNullableWithAggregatesFilter<"PlatformSettings"> | string | null
   stripePublishableKey?: Prisma.StringNullableWithAggregatesFilter<"PlatformSettings"> | string | null
   stripeSecretKey?: Prisma.StringNullableWithAggregatesFilter<"PlatformSettings"> | string | null
@@ -444,7 +444,7 @@ export type PlatformSettingsCreateInput = {
   platformName: string
   supportEmail: string
   supportPhone: string
-  baseCurrency: string
+  baseCurrency?: $Enums.Currency
   brandLogoUrl?: string | null
   stripePublishableKey?: string | null
   stripeSecretKey?: string | null
@@ -470,7 +470,7 @@ export type PlatformSettingsUncheckedCreateInput = {
   platformName: string
   supportEmail: string
   supportPhone: string
-  baseCurrency: string
+  baseCurrency?: $Enums.Currency
   brandLogoUrl?: string | null
   stripePublishableKey?: string | null
   stripeSecretKey?: string | null
@@ -496,7 +496,7 @@ export type PlatformSettingsUpdateInput = {
   platformName?: Prisma.StringFieldUpdateOperationsInput | string
   supportEmail?: Prisma.StringFieldUpdateOperationsInput | string
   supportPhone?: Prisma.StringFieldUpdateOperationsInput | string
-  baseCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  baseCurrency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   brandLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePublishableKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeSecretKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -522,7 +522,7 @@ export type PlatformSettingsUncheckedUpdateInput = {
   platformName?: Prisma.StringFieldUpdateOperationsInput | string
   supportEmail?: Prisma.StringFieldUpdateOperationsInput | string
   supportPhone?: Prisma.StringFieldUpdateOperationsInput | string
-  baseCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  baseCurrency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   brandLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePublishableKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeSecretKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -548,7 +548,7 @@ export type PlatformSettingsCreateManyInput = {
   platformName: string
   supportEmail: string
   supportPhone: string
-  baseCurrency: string
+  baseCurrency?: $Enums.Currency
   brandLogoUrl?: string | null
   stripePublishableKey?: string | null
   stripeSecretKey?: string | null
@@ -574,7 +574,7 @@ export type PlatformSettingsUpdateManyMutationInput = {
   platformName?: Prisma.StringFieldUpdateOperationsInput | string
   supportEmail?: Prisma.StringFieldUpdateOperationsInput | string
   supportPhone?: Prisma.StringFieldUpdateOperationsInput | string
-  baseCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  baseCurrency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   brandLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePublishableKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeSecretKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -600,7 +600,7 @@ export type PlatformSettingsUncheckedUpdateManyInput = {
   platformName?: Prisma.StringFieldUpdateOperationsInput | string
   supportEmail?: Prisma.StringFieldUpdateOperationsInput | string
   supportPhone?: Prisma.StringFieldUpdateOperationsInput | string
-  baseCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  baseCurrency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   brandLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripePublishableKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeSecretKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -693,6 +693,10 @@ export type PlatformSettingsMinOrderByAggregateInput = {
   debugLoggingEnabled?: Prisma.SortOrder
   maintenanceMode?: Prisma.SortOrder
   clearCacheRequested?: Prisma.SortOrder
+}
+
+export type EnumCurrencyFieldUpdateOperationsInput = {
+  set?: $Enums.Currency
 }
 
 
@@ -813,7 +817,7 @@ export type $PlatformSettingsPayload<ExtArgs extends runtime.Types.Extensions.In
     platformName: string
     supportEmail: string
     supportPhone: string
-    baseCurrency: string
+    baseCurrency: $Enums.Currency
     brandLogoUrl: string | null
     stripePublishableKey: string | null
     stripeSecretKey: string | null
@@ -1259,7 +1263,7 @@ export interface PlatformSettingsFieldRefs {
   readonly platformName: Prisma.FieldRef<"PlatformSettings", 'String'>
   readonly supportEmail: Prisma.FieldRef<"PlatformSettings", 'String'>
   readonly supportPhone: Prisma.FieldRef<"PlatformSettings", 'String'>
-  readonly baseCurrency: Prisma.FieldRef<"PlatformSettings", 'String'>
+  readonly baseCurrency: Prisma.FieldRef<"PlatformSettings", 'Currency'>
   readonly brandLogoUrl: Prisma.FieldRef<"PlatformSettings", 'String'>
   readonly stripePublishableKey: Prisma.FieldRef<"PlatformSettings", 'String'>
   readonly stripeSecretKey: Prisma.FieldRef<"PlatformSettings", 'String'>

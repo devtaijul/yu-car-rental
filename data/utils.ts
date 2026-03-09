@@ -60,10 +60,12 @@ export const extras = [
 ];
 
 export const locationCoords: Record<string, [number, number]> = {
-  Dhaka: [23.8103, 90.4125],
-  Chittagong: [22.3569, 91.7832],
-  Sylhet: [24.8949, 91.8687],
-  Khulna: [22.8456, 89.5403],
+  "Kralendijk-Downtown": [12.1443, -68.2655],
+  "Flamingo-International-Airport": [12.131, -68.2685],
+  "Te-Amo-Beach": [12.1365, -68.2777],
+  "Bachelor's-Beach": [12.0906, -68.2486],
+  "Sorobon-Beach": [12.0893, -68.2279],
+  "Rincon-Village": [12.1848, -68.2592],
 };
 
 export const TABS = [

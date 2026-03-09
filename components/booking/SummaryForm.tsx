@@ -32,12 +32,19 @@ export const SummaryForm = ({
   clientSecret,
   booking,
   car,
+  verifiedPhone,
 }: {
   total: number;
   booking: BookingState;
   clientSecret: string;
   car: Car;
+  verifiedPhone?: string;
 }) => {
+
+
+  console.log("client seccret", clientSecret);
+  
+
   const router = useRouter();
   const { runAction, isProcessing } = useAsyncAction(bookCar, {
     onSuccess: (data) => {
@@ -64,6 +71,9 @@ export const SummaryForm = ({
     formState: { errors },
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
+    defaultValues: {
+      phone: verifiedPhone || "",
+    },
   });
 
   const onSubmit = async (data: CheckoutFormValues) => {
@@ -132,8 +142,8 @@ export const SummaryForm = ({
 
           <div>
             <Label className="mb-1 block">Phone Number</Label>
-            <Input {...register("phone")} />
-            <p className="text-xs text-red-500">{errors.phone?.message}</p>
+            <Input {...register("phone")} readOnly className="bg-muted" />
+            <p className="text-xs text-green-600 text-[11px] mt-0.5">Verified</p>
           </div>
         </div>
 
@@ -267,7 +277,7 @@ export const SummaryForm = ({
             </span>
           </label>
           <p className="text-xs text-muted-foreground">
-            Minimum rental 3 days. Prices include 100% coverage option.
+            Prices include 100% coverage option.
           </p>
           <p className="text-xs text-red-500">
             {errors.termsAccepted?.message}

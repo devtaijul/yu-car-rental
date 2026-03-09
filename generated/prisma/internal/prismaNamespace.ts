@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.4.0
- * Query Engine version: ab56fe763f921d033a6c195e7ddeb3e255bdbb57
+ * Prisma Client JS version: 7.4.2
+ * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.4.0",
-  engine: "ab56fe763f921d033a6c195e7ddeb3e255bdbb57"
+  client: "7.4.2",
+  engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
 }
 
 /**
@@ -1277,6 +1277,8 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   isVerified: 'isVerified',
+  verificationToken: 'verificationToken',
+  resetPasswordToken: 'resetPasswordToken',
   dateOfBirth: 'dateOfBirth',
   licenseNumber: 'licenseNumber',
   company: 'company',
@@ -1352,6 +1354,7 @@ export const BookingScalarFieldEnum = {
   carId: 'carId',
   driverId: 'driverId',
   babySeatLarge: 'babySeatLarge',
+  bookingId: 'bookingId',
   babySeatSmall: 'babySeatSmall',
   coolbox: 'coolbox',
   keySecureBox: 'keySecureBox',
@@ -1740,6 +1743,20 @@ export type EnumStripeEnvFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'StripeEnv[]'
  */
 export type ListEnumStripeEnvFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StripeEnv[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Currency'
+ */
+export type EnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Currency'>
+    
+
+
+/**
+ * Reference to a field of type 'Currency[]'
+ */
+export type ListEnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Currency[]'>
     
 
 

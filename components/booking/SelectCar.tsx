@@ -74,8 +74,8 @@ export const SelectCar = ({ cars }: { cars: Car[] }) => {
         ))}
       </div>
 
-      <div className="flex justify-end gap-4">
-        <Button>Go To Step 3</Button>
+      <div className="flex justify-end gap-4 mx-4 lg:mx-0">
+        <Button className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300">Go To Step 3</Button>
         <Button className="gradient-teal text-primary-foreground">
           Continue
         </Button>

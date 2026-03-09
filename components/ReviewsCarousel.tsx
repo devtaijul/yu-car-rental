@@ -91,17 +91,17 @@ const ReviewsCarousel = () => {
         {/* Content */}
         <div className="flex flex-col lg:flex-row gap-6 items-stretch">
           {/* Rating Card */}
-          <div className="bg-primary text-primary-foreground  p-8 flex flex-col justify-center items-center lg:min-w-[280px]">
-            <div className="text-5xl md:text-6xl font-bold mb-3">4.6/5</div>
+          <div className="bg-primary text-primary-foreground  p-8 flex flex-col justify-center items-center lg:min-w-70">
+            <div className="text-5xl md:text-6xl font-bold font-roboto mb-3">4.6/5</div>
+            <hr className="w-full border-primary-foreground/20 mb-3" />
             <div className="flex justify-center gap-1 mb-3">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`h-5 w-5 ${
-                    star <= 4
+                  className={`h-5 w-5 ${star <= 4
                       ? "fill-yellow-400 text-yellow-400"
                       : "fill-yellow-400/50 text-yellow-400/50"
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -132,17 +132,16 @@ const ReviewsCarousel = () => {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star
                     key={star}
-                    className={`h-4 w-4 ${
-                      star <= currentReview.rating
+                    className={`h-4 w-4 ${star <= currentReview.rating
                         ? "fill-yellow-400 text-yellow-400"
                         : "fill-muted text-muted"
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              "{currentReview.text}"
+              &quot;{currentReview.text}&quot;
             </p>
           </div>
         </div>
@@ -173,11 +172,10 @@ const ReviewsCarousel = () => {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
                   ? "bg-primary w-6"
                   : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              }`}
+                }`}
             />
           ))}
         </div>

@@ -78,11 +78,13 @@ model User {
 
   email     String @unique
   phoneCode String
-  phone     String @unique
+  phone     String 
 
-  password   String
-  role       UserRole @default(USER)
-  isVerified Boolean  @default(false)
+  password           String
+  role               UserRole @default(USER)
+  isVerified         Boolean  @default(false)
+  verificationToken  String?
+  resetPasswordToken String?
 
   dateOfBirth   DateTime?
   licenseNumber String?
@@ -194,14 +196,17 @@ enum CoverageType {
 }
 
 model Booking {
-  id              String       @id @default(uuid())
-  user            User         @relation(fields: [userId], references: [id])
-  userId          String
-  car             Car          @relation(fields: [carId], references: [id])
-  carId           String
-  driver          Driver?      @relation(fields: [driverId], references: [id])
-  driverId        String?
-  babySeatLarge   Int?
+  id            String  @id @default(uuid())
+  user          User    @relation(fields: [userId], references: [id])
+  userId        String
+  car           Car     @relation(fields: [carId], references: [id])
+  carId         String
+  driver        Driver? @relation(fields: [driverId], references: [id])
+  driverId      String?
+  babySeatLarge Int?
+
+  bookingId String @unique @default(uuid())
+
   babySeatSmall   Int?
   coolbox         Int?
   keySecureBox    Int?
@@ -329,6 +334,11 @@ enum StripeEnv {
   LIVE
 }
 
+enum Currency {
+  USD
+  EUR
+}
+
 model PlatformSettings {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -338,7 +348,7 @@ model PlatformSettings {
   platformName String
   supportEmail String
   supportPhone String
-  baseCurrency String
+  baseCurrency Currency @default(USD)
   brandLogoUrl String?
 
   // Payment Gateway

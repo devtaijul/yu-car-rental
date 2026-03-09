@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { cn, stripLocale } from "@/lib/utils";
 import { LogOut, Menu, X } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,14 +12,14 @@ import { DashboardNav } from "../DashboardNav";
 
 const navItems = [
   { to: "/admin", icon: "dashbaord_icon", label: "Dashboard" },
-  { to: "/admin/cars", icon: "dashbaord_icon", label: "Cars" },
-  { to: "/admin/bookings", icon: "dashbaord_icon", label: "Bookings" },
-  { to: "/admin/users", icon: "dashbaord_icon", label: "Users" },
-  { to: "/admin/payments", icon: "dashbaord_icon", label: "Payments" },
-  { to: "/admin/drivers", icon: "dashbaord_icon", label: "Drivers" },
-  { to: "/admin/reviews", icon: "dashbaord_icon", label: "Reviews" },
-  { to: "/admin/coupons", icon: "dashbaord_icon", label: "Coupons" },
-  { to: "/admin/settings", icon: "dashbaord_icon", label: "Settings" },
+  { to: "/admin/cars", icon: "dashboard_car_icon", label: "Cars" },
+  { to: "/admin/bookings", icon: "dashboard_callendar_icon", label: "Bookings" },
+  { to: "/admin/users", icon: "dashboard_user_icon", label: "Users" },
+  { to: "/admin/payments", icon: "identity_icon", label: "Payments" },
+  { to: "/admin/drivers", icon: "dashboard_user_check_icon", label: "Drivers" },
+  { to: "/admin/reviews", icon: "dashboard_star", label: "Reviews" },
+  { to: "/admin/coupons", icon: "dashbaord_coupon_icon", label: "Coupons" },
+  { to: "/admin/settings", icon: "dashboard_settings_icon", label: "Settings" },
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -70,7 +70,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           <Button
             variant="ghost"
             className="w-full justify-start gap-3 text-muted-foreground"
-            /*    onClick={signOut} */
+            onClick={() => signOut({ callbackUrl: "/en/login" })}
           >
             <LogOut className="h-4 w-4" /> Sign Out
           </Button>

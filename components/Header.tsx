@@ -14,6 +14,11 @@ const Header = () => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
 
+  const closeMobileMenu = () => {
+    setIsOpen(false);
+    setOpenSubmenu(null);
+  };
+
   const navLinks = [
     { name: "Rental Cars", href: "/cars", submenu: [] },
     { name: "Deals", href: "/deals", submenu: [] },
@@ -30,16 +35,16 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 z-50 w-full py-4">
-      <div className="container mx-auto px-4">
-        <div className="bg-white backdrop-blur  shadow-lg ">
-          <div className="bg-background-soft px-6 py-5">
-            <div className="flex items-center justify-between">
+    <header className="fixed top-0 z-50 w-full py-3 md:py-4">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="relative z-50 bg-white shadow-lg">
+          <div className="bg-background-soft px-4 py-4 sm:px-6 sm:py-5">
+            <div className="flex items-center justify-between gap-4">
               {/* Logo */}
-              <Link href="/" className="flex items-center gap-2">
+              <Link href="/" className="flex shrink-0 items-center gap-2">
                 <Image
                   src="/assets/logo-nav.png"
-                  className="max-w-52"
+                  className="h-auto w-44 lg:w-52"
                   alt="yu"
                   width={1000}
                   height={400}
@@ -56,7 +61,7 @@ const Header = () => {
               </Link>
 
               {/* Desktop Nav */}
-              <nav className="hidden md:flex items-center gap-8">
+              <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href;
 
@@ -110,7 +115,7 @@ const Header = () => {
               </nav>
 
               {/* Right */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="hidden lg:flex items-center gap-3">
                 <LanguageSwitcher />
                 <Link href="/booking">
                   <Button className="rounded-none px-6 py-2 h-auto">
@@ -120,7 +125,16 @@ const Header = () => {
               </div>
 
               {/* Mobile toggle */}
-              <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+              <button
+                type="button"
+                className="inline-flex h-10 w-10 items-center justify-center border border-border bg-card text-foreground lg:hidden"
+                onClick={() => {
+                  setIsOpen((prev) => !prev);
+                  setOpenSubmenu(null);
+                }}
+                aria-expanded={isOpen}
+                aria-label="Toggle navigation menu"
+              >
                 {isOpen ? <X /> : <Menu />}
               </button>
             </div>
@@ -129,66 +143,94 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden mt-3 bg-card rounded-2xl shadow-lg p-4">
-            <nav className="flex flex-col gap-2">
-              {navLinks.map((link) => {
-                if (link.submenu.length === 0) {
-                  return (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className="px-4 py-2 rounded-lg hover:bg-muted"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  );
-                }
+          <>
+            <button
+              type="button"
+              aria-label="Close navigation menu"
+              className="fixed inset-0 z-40 bg-black/20 lg:hidden"
+              onClick={closeMobileMenu}
+            />
+            <div className="relative z-50 mt-3 overflow-hidden rounded-2xl bg-card shadow-lg lg:hidden">
+              <div className="flex items-center justify-between border-b border-border px-4 py-3">
+                <span className="text-sm font-medium text-foreground">
+                  Menu
+                </span>
+                <LanguageSwitcher />
+              </div>
+              <nav className="flex flex-col gap-2 p-2">
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href;
 
-                const isOpenSub = openSubmenu === link.name;
-
-                return (
-                  <div key={link.name}>
-                    <button
-                      onClick={() =>
-                        setOpenSubmenu(isOpenSub ? null : link.name)
-                      }
-                      className="w-full flex items-center justify-between px-4 py-2 rounded-lg hover:bg-muted"
-                    >
-                      <span>{link.name}</span>
-                      <ChevronDown
+                  if (link.submenu.length === 0) {
+                    return (
+                      <Link
+                        key={link.name}
+                        href={link.href}
                         className={cn(
-                          "h-4 w-4 transition-transform",
-                          isOpenSub && "rotate-180",
+                          "rounded-lg px-4 py-3 text-sm hover:bg-muted",
+                          isActive ? "text-primary" : "text-foreground",
                         )}
-                      />
-                    </button>
+                        onClick={closeMobileMenu}
+                      >
+                        {link.name}
+                      </Link>
+                    );
+                  }
 
-                    {isOpenSub && (
-                      <div className="ml-4 mt-1 flex flex-col gap-1">
-                        {link.submenu.map((sub) => (
-                          <Link
-                            key={sub.name}
-                            href={sub.href}
-                            className="px-4 py-2 rounded-lg text-sm hover:bg-muted"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {sub.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                  const isOpenSub = openSubmenu === link.name;
 
-              <Link href="/booking" onClick={() => setIsOpen(false)}>
-                <Button className="w-full mt-3 rounded-none">
-                  Explore Fleet
-                </Button>
-              </Link>
-            </nav>
-          </div>
+                  return (
+                    <div key={link.name}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenSubmenu(isOpenSub ? null : link.name)
+                        }
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm hover:bg-muted",
+                          isActive ? "text-primary" : "text-foreground",
+                        )}
+                      >
+                        <span>{link.name}</span>
+                        <ChevronDown
+                          className={cn(
+                            "h-4 w-4 transition-transform",
+                            isOpenSub && "rotate-180",
+                          )}
+                        />
+                      </button>
+
+                      {isOpenSub && (
+                        <div className="ml-4 mt-1 flex flex-col gap-1">
+                          {link.submenu.map((sub) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              className="rounded-lg px-4 py-2 text-sm hover:bg-muted"
+                              onClick={closeMobileMenu}
+                            >
+                              <span className="block text-foreground">
+                                {sub.name}
+                              </span>
+                              <span className="block text-xs text-primary">
+                                {sub.subTitle}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                <Link href="/booking" onClick={closeMobileMenu}>
+                  <Button className="w-full mt-3 rounded-none">
+                    Explore Fleet
+                  </Button>
+                </Link>
+              </nav>
+            </div>
+          </>
         )}
       </div>
     </header>

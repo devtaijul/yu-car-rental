@@ -1,5 +1,6 @@
 "use client";
 
+import { generateContractPdf } from "@/actions/mutation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -9,12 +10,51 @@ import { calculateTax } from "@/lib/taxCounter";
 import { BookingWithAll } from "@/types/system";
 import { Clock, Download, MapPin, Shield } from "lucide-react";
 import { CldImage } from "next-cloudinary";
+import { useState } from "react";
+
+function getTimeRemaining(endDate: Date) {
+  const ms = Math.max(0, new Date(endDate).getTime() - Date.now());
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  return { days, hours };
+}
 
 export default function BookingDetailsPage({
   booking,
 }: {
   booking: BookingWithAll;
 }) {
+  const { days: daysRemaining, hours: hoursRemaining } = getTimeRemaining(booking.endDate);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownloadReceipt = async () => {
+    setDownloading(true);
+    try {
+      const buffer = await generateContractPdf(booking.id);
+
+      let blob: Blob;
+      if (Buffer.isBuffer(buffer)) {
+        blob = new Blob([new Uint8Array(buffer)], { type: "application/pdf" });
+      } else {
+        const uint8Array = new Uint8Array(
+          Object.keys(buffer as Record<string, number>).map(
+            (k) => (buffer as Record<string, number>)[k],
+          ),
+        );
+        blob = new Blob([uint8Array], { type: "application/pdf" });
+      }
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `contract-${booking.id}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -108,11 +148,11 @@ export default function BookingDetailsPage({
                     Time Remaining
                   </span>
                   <span className="text-xl font-bold text-primary">
-                    {booking.totalDays}
+                    {daysRemaining}
                   </span>
                   <span className="text-xs text-muted-foreground">Days</span>
                   <span className="text-xl font-bold text-primary">
-                    {/* {booking.totalHours} */} 250
+                    {hoursRemaining}
                   </span>
                   <span className="text-xs text-muted-foreground">Hrs</span>
                 </div>
@@ -207,9 +247,11 @@ export default function BookingDetailsPage({
             <Button
               variant="outline"
               className="w-full uppercase text-xs font-bold mt-3"
+              onClick={handleDownloadReceipt}
+              disabled={downloading}
             >
               <Download className="h-4 w-4 mr-2" />
-              Download Receipt
+              {downloading ? "Downloading..." : "Download Receipt"}
             </Button>
           </CardContent>
         </Card>

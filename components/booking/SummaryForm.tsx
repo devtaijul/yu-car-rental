@@ -70,12 +70,17 @@ export const SummaryForm = ({
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState<string | null>(null);
+  const [discount, setDiscount] = useState(0);
   const [promoApplied, setPromoApplied] = useState(false);
+  const [promoError, setPromoError] = useState<string | null>(null);
+  const [promoLoading, setPromoLoading] = useState(false);
+
+  const discountedTotal = Math.max(0, total - discount);
 
   const {
     register,
     handleSubmit,
-    watch,
+    getValues,
     formState: { errors },
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
@@ -84,7 +89,39 @@ export const SummaryForm = ({
     },
   });
 
-  const promoCode = watch("promoCode");
+  const handleApplyPromo = async () => {
+    const code = getValues("promoCode");
+    if (!code) return;
+    setPromoLoading(true);
+    setPromoError(null);
+    try {
+      const res = await fetch("/api/validate-coupon", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code, subtotal: total }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPromoError(data.error || "Invalid promo code");
+        return;
+      }
+      setDiscount(data.discountAmount);
+      setPromoApplied(true);
+      // Update the Stripe payment intent with the new amount
+      await fetch("/api/update-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paymentIntentId: clientSecret.split("_secret_")[0],
+          amount: Math.round((total - data.discountAmount) * 100),
+        }),
+      });
+    } catch {
+      setPromoError("Failed to validate promo code");
+    } finally {
+      setPromoLoading(false);
+    }
+  };
 
   const onSubmit = async (data: CheckoutFormValues) => {
     if (!stripe || !elements) return;
@@ -117,6 +154,7 @@ export const SummaryForm = ({
       payment: paymentIntent,
       carId: car.id,
       pricePerDay: car.pricePerDay,
+      discount,
     });
   };
 
@@ -181,16 +219,28 @@ export const SummaryForm = ({
           <div>
             <Label className="mb-1.5 block text-xs text-muted-foreground">Promo Code</Label>
             <div className="flex gap-2">
-              <Input {...register("promoCode")} placeholder="Enter code" className="flex-1" />
+              <Input
+                {...register("promoCode")}
+                placeholder="Enter code"
+                className="flex-1"
+                disabled={promoApplied}
+              />
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => promoCode && setPromoApplied(true)}
-                className={cn("shrink-0 text-primary border-primary", promoApplied && "bg-primary text-primary-foreground")}
+                onClick={handleApplyPromo}
+                disabled={promoApplied || promoLoading}
+                className={cn("shrink-0 text-primary border-primary", promoApplied && "bg-primary text-primary-foreground border-primary")}
               >
-                {promoApplied ? "Applied!" : "Apply"}
+                {promoLoading ? "..." : promoApplied ? "Applied ✓" : "Apply"}
               </Button>
             </div>
+            {promoError && <p className="text-xs text-red-500 mt-1">{promoError}</p>}
+            {promoApplied && (
+              <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
+                <Check className="h-3 w-3" /> Discount of ${discount.toFixed(2)} applied!
+              </p>
+            )}
           </div>
           <div>
             <Label className="mb-1.5 block text-xs text-muted-foreground">Special Requests</Label>
@@ -290,7 +340,10 @@ export const SummaryForm = ({
 
         {/* Total */}
         <div className="text-center mt-4">
-          <p className="text-lg font-bold">Total: ${total.toFixed(2)}</p>
+          {discount > 0 && (
+            <p className="text-sm text-muted-foreground line-through">${total.toFixed(2)}</p>
+          )}
+          <p className="text-lg font-bold text-primary">Total: ${discountedTotal.toFixed(2)}</p>
           <p className="text-xs text-muted-foreground">(including 6% ABB)</p>
         </div>
 
@@ -321,10 +374,10 @@ export const SummaryForm = ({
           <Lock className="h-4 w-4 mr-2" />
           {isProcessing
             ? "Processing..."
-            : `Confirm & Pay Securely - $${total.toFixed(2)}`}
+            : `Confirm & Pay Securely - $${discountedTotal.toFixed(2)}`}
         </Button>
         <p className="text-center text-xs text-muted-foreground mt-2">
-          Pay ${total.toFixed(2)} now — Full payment secured
+          Pay ${discountedTotal.toFixed(2)} now — Full payment secured
         </p>
       </div>
     </form>

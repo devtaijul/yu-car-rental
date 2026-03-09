@@ -223,6 +223,7 @@ model Booking {
   driversLicNo    String?
   totalAmount     Float
   discount        Float        @default(0)
+  specialRequests String?
 
   status    BookingStatus @default(PENDING)
   createdAt DateTime      @default(now())

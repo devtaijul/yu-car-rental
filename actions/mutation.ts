@@ -59,12 +59,14 @@ export const bookCar = async ({
   payment,
   carId,
   pricePerDay,
+  discount = 0,
 }: {
   customer: CheckoutFormValues;
   booking: BookingState;
   payment: PaymentIntent & { latest_charge?: string | null };
   carId: string;
   pricePerDay: number;
+  discount?: number;
 }) => {
   try {
     // 🔴 1️⃣ Payment must be successful
@@ -159,13 +161,23 @@ export const bookCar = async ({
           pickupTime: booking.pickupTime as string,
           dropoffTime: booking.dropoffTime as string,
           totalAmount,
+          discount,
+          specialRequests: customer.specialRequests,
           driversDOB: new Date(customer.dateOfBirth),
           driversLicNo: customer.licenseNumber,
           status: BookingStatus.PENDING,
         },
       });
 
-      // ✅ 3.4 Create Payment
+      // ✅ 3.4 Increment coupon usage if promo was applied
+      if (customer.promoCode && discount > 0) {
+        await tx.coupon.updateMany({
+          where: { code: customer.promoCode, isActive: true },
+          data: { usedCount: { increment: 1 } },
+        });
+      }
+
+      // ✅ 3.5 Create Payment
       await tx.payment.create({
         data: {
           bookingId: createdBooking.id,

@@ -59,14 +59,12 @@ export const bookCar = async ({
   payment,
   carId,
   pricePerDay,
-  discount = 0,
 }: {
   customer: CheckoutFormValues;
   booking: BookingState;
   payment: PaymentIntent & { latest_charge?: string | null };
   carId: string;
   pricePerDay: number;
-  discount?: number;
 }) => {
   try {
     // 🔴 1️⃣ Payment must be successful
@@ -111,32 +109,13 @@ export const bookCar = async ({
             firstName: customer.firstName,
             lastName: customer.lastName,
             email: customer.email,
-            phoneCode: "+880",
+            phoneCode: "+880", // তুমি চাইলে dynamic করো
             phone: customer.phone,
             password: hashedPassword,
             role: UserRole.USER,
             isVerified: false,
             dateOfBirth: new Date(customer.dateOfBirth),
             licenseNumber: customer.licenseNumber,
-            street: customer.streetAddress,
-            houseNo: customer.houseNumber,
-            postCode: customer.postCode,
-            city: customer.city,
-            country: customer.country,
-            company: customer.company,
-          },
-        });
-      } else {
-        // Update billing info for existing users
-        await tx.user.update({
-          where: { id: user.id },
-          data: {
-            street: customer.streetAddress || user.street,
-            houseNo: customer.houseNumber || user.houseNo,
-            postCode: customer.postCode || user.postCode,
-            city: customer.city || user.city,
-            country: customer.country || user.country,
-            company: customer.company || user.company,
           },
         });
       }
@@ -161,23 +140,13 @@ export const bookCar = async ({
           pickupTime: booking.pickupTime as string,
           dropoffTime: booking.dropoffTime as string,
           totalAmount,
-          discount,
-          specialRequests: customer.specialRequests,
           driversDOB: new Date(customer.dateOfBirth),
           driversLicNo: customer.licenseNumber,
           status: BookingStatus.PENDING,
         },
       });
 
-      // ✅ 3.4 Increment coupon usage if promo was applied
-      if (customer.promoCode && discount > 0) {
-        await tx.coupon.updateMany({
-          where: { code: customer.promoCode, isActive: true },
-          data: { usedCount: { increment: 1 } },
-        });
-      }
-
-      // ✅ 3.5 Create Payment
+      // ✅ 3.4 Create Payment
       await tx.payment.create({
         data: {
           bookingId: createdBooking.id,

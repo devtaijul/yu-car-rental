@@ -1277,6 +1277,8 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   isVerified: 'isVerified',
+  verificationToken: 'verificationToken',
+  resetPasswordToken: 'resetPasswordToken',
   dateOfBirth: 'dateOfBirth',
   licenseNumber: 'licenseNumber',
   company: 'company',
@@ -1352,6 +1354,7 @@ export const BookingScalarFieldEnum = {
   carId: 'carId',
   driverId: 'driverId',
   babySeatLarge: 'babySeatLarge',
+  bookingId: 'bookingId',
   babySeatSmall: 'babySeatSmall',
   coolbox: 'coolbox',
   keySecureBox: 'keySecureBox',
@@ -1740,6 +1743,20 @@ export type EnumStripeEnvFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'StripeEnv[]'
  */
 export type ListEnumStripeEnvFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StripeEnv[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Currency'
+ */
+export type EnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Currency'>
+    
+
+
+/**
+ * Reference to a field of type 'Currency[]'
+ */
+export type ListEnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Currency[]'>
     
 
 

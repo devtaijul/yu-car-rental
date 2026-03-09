@@ -24,7 +24,7 @@ const CarCard = ({ car, isBookPage }: { car: Car; isBookPage?: boolean }) => {
     : `${baseHref}?carSlug=${car.slug}`;
 
   return (
-    <div className="card-car rounded-none gradient-color bg-card border border-border">
+    <div className="card-car rounded-none gradient-color bg-card border border-border mx-4 lg:mx-0">
       {/* Image */}
       <div className="relative h-60 flex items-center justify-center p-4">
         <CldImage

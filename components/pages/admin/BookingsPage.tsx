@@ -1,6 +1,7 @@
 "use client";
 
 import { PAGES } from "@/config/pages.config";
+import { BookingWithAll } from "@/types/system";
 import { Search, Eye, Pencil, X, Filter, Calendar } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -88,7 +89,7 @@ const mockBookings = [
   },
 ];
 
-const BookingsPage = () => {
+const BookingsPage = ({ bookings }: { bookings: BookingWithAll[] }) => {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
@@ -149,71 +150,103 @@ const BookingsPage = () => {
               </tr>
             </thead>
             <tbody>
-              {mockBookings.map((b) => (
-                <tr
-                  key={b.id}
-                  className="border-b last:border-0 hover:bg-muted/30 transition-colors"
-                >
-                  <td className="py-4 px-6 font-mono font-medium text-foreground">
-                    {b.id}
-                  </td>
-                  <td className="py-4 px-4">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold ${b.color}`}
-                      >
-                        {b.initials}
+              {bookings.length > 0 ? (
+                bookings.map((b) => (
+                  <tr
+                    key={b.id}
+                    className="border-b last:border-0 hover:bg-muted/30 transition-colors"
+                  >
+                    <td className="py-4 px-6 font-mono font-medium text-foreground">
+                      {b.id}
+                    </td>
+                    <td className="py-4 px-4">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold `}
+                        >
+                          {b.user.firstName.slice(0, 1) +
+                            b.user.lastName.slice(0, 1)}
+                        </div>
+                        <div>
+                          <p className="font-medium text-foreground">{}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {b.user.firstName + " " + b.user.lastName}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-medium text-foreground">{b.name}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {b.email}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-4 px-4">
-                    <p className="font-medium text-foreground">{b.car}</p>
-                    <p className="text-xs text-muted-foreground">{b.plate}</p>
-                  </td>
-                  <td className="py-4 px-4 text-xs text-muted-foreground">
-                    <p>From: {b.from}</p>
-                    <p>To:&nbsp;&nbsp;&nbsp;&nbsp;{b.to}</p>
-                  </td>
-                  <td className="py-4 px-4">
-                    <span className="flex items-center gap-1.5">
-                      <span className={`status-dot ${b.statusDot}`} />
-                      <span className="font-semibold text-xs tracking-wide">
-                        {b.status}
+                    </td>
+                    <td className="py-4 px-4">
+                      <p className="font-medium text-foreground">
+                        {b.car.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {b.car.plate}
+                      </p>
+                    </td>
+                    <td className="py-4 px-4 text-xs text-muted-foreground">
+                      <p>From: {b.pickupLocation}</p>
+                      <p>To:&nbsp;&nbsp;&nbsp;&nbsp;{b.dropoffLocation}</p>
+                    </td>
+                    <td className="py-4 px-4">
+                      <span className="flex items-center gap-1.5">
+                        <span className={`status-dot `} />
+                        <span className="font-semibold text-xs tracking-wide">
+                          {b.status}
+                        </span>
                       </span>
-                    </span>
-                  </td>
-                  <td className="py-4 px-4">
-                    <p className="font-bold text-foreground">{b.amount}</p>
-                    <p className={`text-xs font-semibold ${b.paymentClass}`}>
-                      {b.payment}
-                    </p>
-                  </td>
-                  <td className="py-4 px-6">
-                    <div className="flex items-center justify-end gap-2">
+                    </td>
+                    <td className="py-4 px-4">
+                      <p className="font-bold text-foreground">
+                        {b.totalAmount}
+                      </p>
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() =>
+                            router.push(PAGES.ADMIN.BOOKINGS.EDIT(b.id))
+                          }
+                          className="flex items-center gap-1.5 border rounded-lg px-3 py-1.5 text-xs font-medium hover:bg-muted transition-colors"
+                        >
+                          VIEW DETAILS
+                        </button>
+                        <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                          <Pencil className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                        <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                          <X className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={7} className="py-20">
+                    <div className="flex flex-col items-center justify-center text-center">
+                      <div className="h-14 w-14 rounded-full bg-muted flex items-center justify-center mb-4">
+                        <Calendar className="h-6 w-6 text-muted-foreground" />
+                      </div>
+
+                      <h3 className="text-lg font-semibold text-foreground">
+                        No bookings found
+                      </h3>
+
+                      <p className="text-sm text-muted-foreground mt-1 max-w-sm">
+                        There are no bookings available yet. When customers make
+                        a reservation, they will appear here.
+                      </p>
+
                       <button
-                        onClick={() =>
-                          router.push(PAGES.ADMIN.BOOKINGS.EDIT(b.id))
-                        }
-                        className="flex items-center gap-1.5 border rounded-lg px-3 py-1.5 text-xs font-medium hover:bg-muted transition-colors"
+                        onClick={() => router.push(PAGES.ADMIN.BOOKINGS.CREATE)}
+                        className="mt-5 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"
                       >
-                        VIEW DETAILS
-                      </button>
-                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
-                        <Pencil className="h-4 w-4 text-muted-foreground" />
-                      </button>
-                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
-                        <X className="h-4 w-4 text-muted-foreground" />
+                        Create Booking
                       </button>
                     </div>
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

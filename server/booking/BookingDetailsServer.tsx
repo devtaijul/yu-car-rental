@@ -17,7 +17,6 @@ export const BookingDetailsServer = async ({
     return <div>Booking not found</div>;
   }
 
-  console.log("data", data);
 
   return <BookingDetailsPage booking={data.data} />;
 };

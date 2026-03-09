@@ -15,12 +15,14 @@ export async function POST(req: Request) {
   }
 
   const settings = await prisma.platformSettings.findFirst();
+  console.log("settings", settings);
+  
 
   if (!settings) {
     return NextResponse.error();
   }
 
-  if (!settings.stripeEnabled) {
+/*   if (!settings.stripeEnabled) {
     return NextResponse.error();
   }
 
@@ -30,7 +32,10 @@ export async function POST(req: Request) {
 
   if (!settings.stripeSecretKey) {
     return NextResponse.error();
-  }
+  } */
+
+  console.log("I am running ");
+  
 
   const paymentIntent = await generateStripe({
     secretKey: settings.stripeSecretKey!,
@@ -39,6 +44,9 @@ export async function POST(req: Request) {
     currency: "usd",
     automatic_payment_methods: { enabled: true },
   });
+
+  console.log("payment intent", paymentIntent);
+  
 
   return NextResponse.json({
     clientSecret: paymentIntent.client_secret,

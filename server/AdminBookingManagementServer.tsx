@@ -8,5 +8,9 @@ export const AdminBookingManagementServer = async () => {
     return <div>Something is wrong</div>;
   }
 
-  return <BookingsPage />;
+  if (!data.bookings) {
+    return <div>Bookings not found</div>;
+  }
+
+  return <BookingsPage bookings={data.bookings} />;
 };

@@ -21,13 +21,13 @@ export const PricingTable = ({
       name: "Deductible Risk",
       standard: "$650",
       premium: "$0",
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Security Deposit",
       standard: "$650",
       premium: "$0",
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Additional Driver",
@@ -51,25 +51,25 @@ export const PricingTable = ({
       name: "Cancellation Fee",
       standard: "$80",
       premium: "$0",
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "After-hours Pickup",
       standard: false,
       premium: true,
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Discount Coupons",
       standard: false,
       premium: true,
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "All Damage Covered",
       standard: false,
       premium: true,
-      isPremiumHighlight: false,
+      isPremiumHighlight: true,
     },
     {
       name: "Third Party Damage",
@@ -104,8 +104,7 @@ export const PricingTable = ({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-20">
-      {/* Header Row */}
+    <div className="w-full max-w-4xl mx-auto px-4 py-20 lg:px-0">
       <SectionTitle
         title="Coverage Options"
         subtitle="Travel with complete peace of mind"
@@ -118,9 +117,7 @@ export const PricingTable = ({
         >
           <div
             className={`py-4 relative transition-colors ${
-              isStandardSelected
-                ? "bg-primary"
-                : "bg-card border border-border"
+              isStandardSelected ? "bg-primary" : "bg-card border border-border"
             }`}
           >
             {isStandardSelected && (
@@ -128,13 +125,55 @@ export const PricingTable = ({
                 Selected
               </span>
             )}
-            <p className={`text-xs uppercase tracking-wider mb-1 ${isStandardSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+            <p
+              className={`text-xs uppercase tracking-wider mb-1 ${isStandardSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+            >
               Standard
             </p>
-            <h3 className={`text-lg font-semibold ${isStandardSelected ? "text-primary-foreground" : "text-foreground"}`}>
+            <h3
+              className={`text-lg font-semibold ${isStandardSelected ? "text-primary-foreground" : "text-foreground"}`}
+            >
               CDW INSURANCE
             </h3>
           </div>
+          <div className="divide-y divide-border">
+            {features.map((feature) => (
+              <div
+                key={feature.name}
+                className="flex items-center justify-between gap-4 px-4 py-3"
+              >
+                <span className="text-sm text-muted-foreground">
+                  {feature.name}
+                </span>
+                <div className="text-sm font-medium">
+                  {renderValue(
+                    feature.standard,
+                    true,
+                    feature.isPremiumHighlight,
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          {isSelectable && (
+            <div className="border-t border-border p-4">
+              <Button
+                variant="outline"
+                className={`w-full rounded-none py-6 hover:bg-primary ${
+                  selectedCoverage === "STANDARD"
+                    ? "border-primary border-2"
+                    : ""
+                }`}
+                onClick={() => {
+                  if (onSelectCoverage) {
+                    onSelectCoverage("STANDARD");
+                  }
+                }}
+              >
+                Select Package
+              </Button>
+            </div>
+          )}
         </div>
         <div
           className="text-center cursor-pointer transition-all"
@@ -142,18 +181,22 @@ export const PricingTable = ({
         >
           <div
             className={`py-4 relative transition-colors ${
-              isPremiumSelected
-                ? "bg-primary"
-                : "bg-card border border-border"
+              isPremiumSelected ? "bg-primary" : "bg-card border border-border"
             }`}
           >
-            <span className={`absolute top-2 right-4 text-[10px] uppercase tracking-wider ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+            <span
+              className={`absolute top-2 right-4 text-[10px] uppercase tracking-wider ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+            >
               {isPremiumSelected ? "Selected" : "Recommended"}
             </span>
-            <p className={`text-xs uppercase tracking-wider mb-1 ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+            <p
+              className={`text-xs uppercase tracking-wider mb-1 ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+            >
               Premium
             </p>
-            <h3 className={`text-lg font-semibold ${isPremiumSelected ? "text-primary-foreground" : "text-foreground"}`}>
+            <h3
+              className={`text-lg font-semibold ${isPremiumSelected ? "text-primary-foreground" : "text-foreground"}`}
+            >
               100% COVERAGE
             </h3>
           </div>

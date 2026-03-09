@@ -7,15 +7,20 @@ import { BookingState } from "@/context/BookingContext";
 import { Prisma } from "@/generated/prisma/client";
 import {
   BookingStatus,
+  Currency,
   PaymentStatus,
   UserRole,
 } from "@/generated/prisma/enums";
 import { CarCreateInput } from "@/generated/prisma/models";
+import { sendContractEmail } from "@/lib/email/sendContractEmail";
 import { CarRentalInvoice } from "@/lib/pdf/CarRentalInvoice.tsx";
 import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
 import { CheckoutFormValues } from "@/lib/validation/checkout.schema";
-import { PaymentFormValues } from "@/lib/validation/settings.schema";
+import {
+  GeneralSettingsFormValues,
+  PaymentFormValues,
+} from "@/lib/validation/settings.schema";
 import { actionError, actionResponse } from "@/types/server";
 import { PaymentWithAll } from "@/types/system";
 import { DocumentProps, renderToBuffer } from "@react-pdf/renderer";
@@ -149,6 +154,17 @@ export const bookCar = async ({
       });
 
       return createdBooking;
+    });
+
+    // Generate PDF
+    const pdfBuffer = await generateContractPdf(result.id);
+
+    // Send Email
+    await sendContractEmail({
+      email: customer.email,
+      name: customer.firstName,
+      pdfBuffer,
+      bookingId: result.id,
     });
 
     return actionResponse(result);
@@ -328,7 +344,7 @@ export const paymentSettingsMutation = async (data: PaymentFormValues) => {
           platformName: "YuCar Rental",
           supportEmail: "support@yucarrental.com",
           supportPhone: "+8801700000000",
-          baseCurrency: "BDT",
+          baseCurrency: Currency.USD,
           brandLogoUrl: null,
 
           // Payment Gateway
@@ -395,5 +411,99 @@ export const paymentSettingsMutation = async (data: PaymentFormValues) => {
     console.error(error);
 
     return actionError("Failed to update payment settings", error);
+  }
+};
+
+export const generalSettingsMutation = async (
+  data: GeneralSettingsFormValues,
+) => {
+  try {
+    const user = await me();
+
+    if (user?.role !== UserRole.ADMIN) {
+      return {
+        success: false,
+        message: "You are not authorized to update general settings",
+        data: null,
+      };
+    }
+
+    // এখানে API call দিবে
+    // await updateGeneralSettings(data)
+
+    let setting = await prisma.platformSettings.findFirst();
+
+    if (!setting) {
+      setting = await prisma.platformSettings.create({
+        data: {
+          // General Settings
+          platformName: "YuCar Rental",
+          supportEmail: "support@yucarrental.com",
+          supportPhone: "+8801700000000",
+          baseCurrency: Currency.USD,
+          brandLogoUrl: null,
+
+          // Payment Gateway
+          stripePublishableKey: null,
+          stripeSecretKey: null,
+          stripeEnabled: false,
+          paypalEnabled: false,
+
+          // Notification Preferences
+          notifyNewBooking: true,
+          notifyCancellation: true,
+          notifyDailyRevenue: false,
+          notifySystemErrors: true,
+
+          // Security Settings
+          twoFactorAuthRequired: false,
+          adminSessionTimeout: "30 Minutes",
+          passwordExpiry: "90 Days",
+
+          // User Roles (JSON)
+          roles: [
+            {
+              name: "Super Admin",
+              description: "Full system access",
+              users: 1,
+            },
+            {
+              name: "Admin",
+              description: "Manage bookings, cars and users",
+              users: 0,
+            },
+            {
+              name: "Manager",
+              description: "Manage bookings and revenue",
+              users: 0,
+            },
+          ],
+
+          // System Preferences
+          debugLoggingEnabled: false,
+          maintenanceMode: false,
+          clearCacheRequested: false,
+        },
+      });
+    }
+
+    const updatedSetting = await prisma.platformSettings.update({
+      where: {
+        id: setting.id,
+      },
+      data: {
+        platformName: data.platformName,
+        supportEmail: data.supportEmail,
+        supportPhone: data.supportPhone,
+        baseCurrency: data.baseCurrency as Currency,
+        brandLogoUrl: data.brandLogoUrl,
+      },
+    });
+
+    return actionResponse(updatedSetting);
+  } catch (error) {
+    console.error(error);
+
+    return actionError("Failed to update general settings", error);
   }
 };

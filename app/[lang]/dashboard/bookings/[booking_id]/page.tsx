@@ -8,7 +8,7 @@ const page = async ({
   params: Promise<{ booking_id: string }>;
 }) => {
   const { booking_id } = await params;
-  console.log("bookingId", booking_id);
+
 
   return (
     <Suspense fallback={<BookingDetailsSkeleton />}>

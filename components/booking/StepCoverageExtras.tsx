@@ -182,7 +182,7 @@ export default function StepCoverageExtras({
 
       {/* Actions */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button variant="ghost" onClick={onBackProp || (() => router.back())}>
+        <Button variant="ghost" className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300" onClick={onBackProp || (() => router.back())}>
           Go Back
         </Button>
         <Button

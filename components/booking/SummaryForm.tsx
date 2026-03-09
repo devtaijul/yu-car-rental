@@ -38,6 +38,11 @@ export const SummaryForm = ({
   clientSecret: string;
   car: Car;
 }) => {
+
+
+  console.log("client seccret", clientSecret);
+  
+
   const router = useRouter();
   const { runAction, isProcessing } = useAsyncAction(bookCar, {
     onSuccess: (data) => {

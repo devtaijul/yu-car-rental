@@ -228,6 +228,11 @@ const Header = () => {
                   );
                 })}
 
+                <Link href="/login">
+                  <Button variant="ghost" className="w-full rounded-none px-6 py-2 h-auto border border-primary">
+                    SIGN IN
+                  </Button>
+                </Link>
                 <Link href="/booking" onClick={closeMobileMenu}>
                   <Button className="w-full mt-3 rounded-none">
                     Explore Fleet

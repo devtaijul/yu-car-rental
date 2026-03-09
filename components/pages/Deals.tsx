@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
-import { Calendar, CheckCircle, Car, Key } from "lucide-react";
+import { Car, Key } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeaderSpace } from "../HeaderSpace";
@@ -40,9 +40,9 @@ const Deals = () => {
       {/* Deal 01 - Self Service */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-12 items-start">
+          <div className="flex flex-col items-start gap-10 md:gap-12 lg:flex-row">
             {/* Left Content */}
-            <div className="flex-1">
+            <div className="w-full flex-1">
               {/* Badge */}
               <span className="text-xs md:text-base font-bold tracking-[0.15em] text-primary uppercase">
                 Deal 01 — Exclusive Benefits
@@ -73,48 +73,48 @@ const Deals = () => {
               </p>
 
               {/* Discount Card */}
-              <div className="border-l-6 border-primary p-15 mb-8">
-                <h3 className="text-2xl font-bold tracking-widest text-foreground uppercase mb-6">
+              <div className="mb-8 border-l-4 border-primary p-4 sm:p-6 md:p-8 lg:border-l-6 lg:p-15">
+                <h3 className="mb-6 text-xl font-bold uppercase tracking-[0.12em] text-foreground sm:text-2xl lg:tracking-widest">
                   Book Online and Start Receiving
                   <br />
                   Incredible Discount
                 </h3>
 
-                <div className="grid grid-cols-3 gap-4 pb-10">
+                <div className="grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-4 lg:pb-10">
                   {discountDetails.map(({ id, parcent, text }) => (
-                    <div key={id}>
+                    <div key={id} className="min-w-0">
                       <div className="flex items-baseline">
-                        <span className="text-3xl md:text-4xl lg:text-6xl font-extrabold text-primary">
+                        <span className="text-4xl font-extrabold text-primary md:text-5xl lg:text-6xl">
                           {parcent}%
                         </span>
-                        <span className="text-lg text-[#94A3B8] font-bold ml-1 uppercase">
+                        <span className="ml-1 text-sm font-bold uppercase text-[#94A3B8] sm:text-base lg:text-lg">
                           Discount
                         </span>
                       </div>
-                      <div className=" text-[#64748B] uppercase tracking-wide mt-4 whitespace-pre-line font-semibold">
+                      <div className="mt-3 whitespace-pre-line text-xs font-semibold uppercase tracking-wide text-[#64748B] sm:text-sm">
                         {text}
                       </div>
                     </div>
                   ))}
                 </div>
                 {/* Benefits */}
-                <div className="w-full max-w-[80%] h-0.5 bg-gray-200"></div>
-                <div className="flex flex-wrap gap-6 mt-10">
-                  <div className="flex items-center gap-2">
+                <div className="h-0.5 w-full bg-gray-200 lg:max-w-[80%]"></div>
+                <div className="mt-8 flex flex-col gap-4 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-6">
+                  <div className="flex items-start gap-2">
                     <Icons
                       name="calender_icon"
                       className="w-6 h-6 text-primary"
                     />
-                    <span className="text-xs lg:text-lg font-extrabold uppercase tracking-wide text-primary">
+                    <span className="text-xs font-extrabold uppercase tracking-wide text-primary sm:text-sm md:text-base lg:text-lg">
                       Valid All Year Round
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-start gap-2">
                     <Icons
                       name="sheild_icon"
                       className="w-6 h-6 text-primary"
                     />
-                    <span className="text-xs lg:text-lg font-extrabold uppercase tracking-wide text-primary">
+                    <span className="text-xs font-extrabold uppercase tracking-wide text-primary sm:text-sm md:text-base lg:text-lg">
                       No High/Low Season Exceptions
                     </span>
                   </div>
@@ -123,20 +123,20 @@ const Deals = () => {
             </div>
 
             {/* Right Content - Image */}
-            <div className="relative ">
+            <div className="relative w-full lg:w-auto">
               <div className=" overflow-hidden shadow-2xl">
                 <Image
                   src="/assets/driving-hand.png"
                   alt="Hands on steering wheel"
-                  className="w-full max-w-125 h-auto object-cover aspect-3/4   grayscale"
+                  className="aspect-3/4 h-auto w-full max-w-full object-cover grayscale sm:max-w-md md:max-w-lg lg:max-w-125"
                   width={500}
                   height={800}
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-6">
+                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4 sm:p-6">
                   <h4 className="text-xs font-bold tracking-[0.15em] text-white uppercase mb-1">
                     Fast, Easy, Worry-Free
                   </h4>
-                  <p className="text-sm text-white">
+                  <p className="text-xs text-white sm:text-sm">
                     After completing your online reservation, you&apos;ll
                     receive a personalized booking confirmation by email.
                   </p>

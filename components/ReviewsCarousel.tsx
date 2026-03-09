@@ -5,38 +5,38 @@ import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const reviews = [
-  {
-    id: 1,
-    name: "Sofia L.",
-    car: "VEYRA TRAIL",
-    rating: 5,
-    avatar: "SL",
-    text: "The YU Car Rental Team Was Incredibly Responsive And Professional. Pick-Up And Drop-Off Were Smooth. And Online Booking Saved Me So Much Time. Highly Recommend Their Service.",
-  },
-  {
-    id: 2,
-    name: "Elena R.",
-    car: "LUXURY SUV",
-    rating: 5,
-    avatar: "ER",
-    text: "Amazing experience! The car was in perfect condition and the process was seamless from start to finish. Will definitely use again for my next trip.",
-  },
-  {
-    id: 3,
-    name: "Marcus T.",
-    car: "PREMIUM SEDAN",
-    rating: 5,
-    avatar: "MT",
-    text: "Best car rental experience I've ever had. No hidden fees, great customer service, and the digital check-in was incredibly convenient.",
-  },
-  {
-    id: 4,
-    name: "Anna K.",
-    car: "COMPACT ELECTRIC",
-    rating: 4,
-    avatar: "AK",
-    text: "Very satisfied with the service. The car was clean and well-maintained. The 100% coverage option gave me complete peace of mind.",
-  },
+    {
+        id: 1,
+        name: "Sofia L.",
+        car: "VEYRA TRAIL",
+        rating: 5,
+        avatar: "SL",
+        text: "The YU Car Rental Team Was Incredibly Responsive And Professional. Pick-Up And Drop-Off Were Smooth. And Online Booking Saved Me So Much Time. Highly Recommend Their Service.",
+    },
+    {
+        id: 2,
+        name: "Elena R.",
+        car: "LUXURY SUV",
+        rating: 5,
+        avatar: "ER",
+        text: "Amazing experience! The car was in perfect condition and the process was seamless from start to finish. Will definitely use again for my next trip.",
+    },
+    {
+        id: 3,
+        name: "Marcus T.",
+        car: "VEYRA TRAIL",
+        rating: 5,
+        avatar: "MT",
+        text: "Best car rental experience I've ever had. No hidden fees, great customer service, and the digital check-in was incredibly convenient.",
+    },
+    {
+        id: 4,
+        name: "Anna K.",
+        car: "LUXURY SUV",
+        rating: 4,
+        avatar: "AK",
+        text: "Very satisfied with the service. The car was clean and well-maintained. The 100% coverage option gave me complete peace of mind.",
+    },
 ];
 
 const ReviewsCarousel = () => {

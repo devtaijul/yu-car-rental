@@ -21,7 +21,7 @@ const FAQSection = () => {
     {
       question: "What Is The Minimum Age To Rent A Car?",
       answer:
-        "The minimum age to rent a car is 21 years old. Drivers under 25 may incur a young driver surcharge.",
+        "The minimum age to rent a car is 21 years old.",
     },
     {
       question: "How Do I Reset My Pin?",

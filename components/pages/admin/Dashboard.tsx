@@ -53,11 +53,11 @@ export default function Dashboard({
   ];
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-display font-bold">Overview</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="space-y-5 sm:space-y-6">
+      <h2 className="text-xl sm:text-2xl font-display font-bold">Overview</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {cards.map((c) => (
-          <Card key={c.label}>
+          <Card key={c.label} className="h-full">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 {c.label}
@@ -65,7 +65,7 @@ export default function Dashboard({
               <c.icon className={`h-5 w-5 ${c.color}`} />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{c.value}</div>
+              <div className="text-2xl sm:text-3xl font-bold">{c.value}</div>
             </CardContent>
           </Card>
         ))}

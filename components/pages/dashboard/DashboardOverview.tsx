@@ -7,7 +7,7 @@ import { MapPin, Shield, Clock, ChevronRight, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { IconName } from "@/config/icons.config";
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import { Booking, Car } from "@/generated/prisma/client";
 import { PAGES } from "@/config/pages.config";
 
@@ -144,7 +144,7 @@ export function DashboardOverview({ data }: { data: DashboardData }) {
                 <div className="relative w-full lg:w-85 h-55 bg-muted flex items-center justify-center">
                   <div className="gradient-color w-full h-full flex items-center justify-center">
                     <div className="max-w-3xs">
-                      <Image
+                      <CldImage
                         src={activeBooking.car.imageUrl}
                         alt={activeBooking.car.name}
                         width={1000}
@@ -249,7 +249,7 @@ export function DashboardOverview({ data }: { data: DashboardData }) {
                 <Card key={booking.id} className="border border-border">
                   <CardContent className="p-4 flex items-center gap-4">
                     <div className="w-16 h-12 rounded-lg overflow-hidden shrink-0">
-                      <Image
+                      <CldImage
                         src={booking.car.imageUrl}
                         alt={booking.car.name}
                         width={64}

@@ -33,6 +33,7 @@ export const BonaireHero = () => {
     align: "start",
     loop: true,
     slidesToScroll: 1,
+    watchDrag: true,
   });
 
   const scrollPrev = useCallback(() => {
@@ -114,7 +115,7 @@ export const BonaireHero = () => {
 
         {/* CTA Button */}
         <Link href="/booking">
-          <Button className="group w-full bg-primary px-6 py-4 text-sm font-semibold text-white sm:w-auto sm:px-8 sm:py-5 sm:text-base md:px-10 md:py-6">
+          <Button className="group w-auto bg-primary px-6 py-4 text-sm font-semibold text-white sm:px-8 sm:py-5 sm:text-base md:px-10 md:py-6">
             EXPLORE FLEET
             <ArrowRight className="h-4 w-4  group-hover:translate-x-1 transition-transform" />
           </Button>
@@ -127,7 +128,7 @@ export const BonaireHero = () => {
           {/* Mobile Layout */}
           <div className="lg:hidden">
             {/* Navigation controls */}
-            <div className="mb-4 flex items-center justify-center gap-4 md:mb-5">
+            <div className="mb-4 flex items-center gap-4 md:mb-5">
               <Button
                 variant="ghost"
                 size="icon"
@@ -155,8 +156,11 @@ export const BonaireHero = () => {
             </div>
 
             {/* Carousel */}
-            <div className="mx-auto max-w-60 overflow-hidden sm:max-w-xl md:max-w-2xl" ref={emblaRef}>
-              <div className="flex gap-3 items-end">
+            <div
+              className="max-w-60 overflow-hidden touch-pan-y sm:max-w-xl md:max-w-2xl"
+              ref={emblaRef}
+            >
+              <div className="flex items-end gap-3 select-none">
                 {carouselImages.map((img, index) => {
                   const isActive = index === currentIndex;
                   return (
@@ -178,6 +182,7 @@ export const BonaireHero = () => {
                         <Image
                           src={img.src}
                           alt={img.alt}
+                          draggable={false}
                           className={`w-full h-full object-cover transition-transform duration-500 ${
                             isActive ? "scale-100" : "scale-95"
                           }`}

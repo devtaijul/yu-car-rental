@@ -64,12 +64,12 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
+          {/* <div className="flex items-center justify-center gap-2 mb-2">
             <Car className="h-8 w-8 text-primary" />
             <span className="text-2xl font-display font-bold text-primary">
               YU Car Rental
             </span>
-          </div>
+          </div> */}
           <CardTitle className="text-xl">Welcome Back</CardTitle>
           <CardDescription>Sign in to your account</CardDescription>
         </CardHeader>

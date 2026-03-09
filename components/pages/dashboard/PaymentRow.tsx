@@ -39,43 +39,48 @@ export function PaymentRow({ payment }: { payment: PaymentWithAll }) {
   };
   return (
     <TableRow className="border-b border-border">
-      <TableCell className="font-mono text-sm font-medium">
-        {payment.stripePaymentIntentId}
+      <TableCell className="font-mono text-xs font-medium whitespace-nowrap sm:text-sm">
+        <span className="block max-w-[120px] truncate sm:max-w-[190px] lg:max-w-none">
+          {payment.stripePaymentIntentId}
+        </span>
       </TableCell>
 
-      <TableCell className="text-sm text-muted-foreground">
+      <TableCell className="hidden whitespace-nowrap text-xs text-muted-foreground sm:table-cell sm:text-sm">
         {formatDate(payment.createdAt)}
       </TableCell>
 
-      <TableCell className="text-sm">
+      <TableCell className="hidden text-sm md:table-cell">
         Booking ID: {payment.bookingId.slice(0, 8)}...
       </TableCell>
 
-      <TableCell className="text-sm flex items-center gap-1">
-        <CreditCard className="h-3 w-3" />
-        Stripe
+      <TableCell className="hidden text-sm lg:table-cell">
+        <div className="flex items-center gap-1">
+          <CreditCard className="h-3 w-3" />
+          Stripe
+        </div>
       </TableCell>
 
-      <TableCell className="text-sm font-semibold">
+      <TableCell className="whitespace-nowrap text-right text-xs font-semibold sm:text-left sm:text-sm">
         {formatCurrency(payment.amount, payment.currency ?? "USD")}
       </TableCell>
 
-      <TableCell>
+      <TableCell className="text-right sm:text-left">
         <Badge
           className={
             payment.status === "SUCCESS"
-              ? "bg-primary text-primary-foreground text-[10px]"
-              : "bg-destructive/10 text-destructive border-destructive/20 text-[10px]"
+              ? "whitespace-nowrap bg-primary text-primary-foreground text-[10px] sm:text-xs"
+              : "whitespace-nowrap bg-destructive/10 text-destructive border-destructive/20 text-[10px] sm:text-xs"
           }
         >
           {payment.status}
         </Badge>
       </TableCell>
 
-      <TableCell>
+      <TableCell className="text-right sm:text-left">
         <button
-          className="text-muted-foreground hover:text-primary"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
           onClick={handleDownload}
+          aria-label={`Download invoice ${payment.id}`}
         >
           <Download className="h-4 w-4" />
         </button>

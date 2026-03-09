@@ -518,3 +518,39 @@ export const getMyPayments = async (
     throw actionError("Failed to fetch my payments");
   }
 };
+
+export const getMyProfile = async () => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        phoneCode: true,
+        phone: true,
+        dateOfBirth: true,
+        licenseNumber: true,
+        company: true,
+        street: true,
+        houseNo: true,
+        postCode: true,
+        city: true,
+        country: true,
+        stateRegion: true,
+        avatarUrl: true,
+        createdAt: true,
+      },
+    });
+
+    if (!user) return actionError("User not found");
+    return actionResponse(user);
+  } catch (error) {
+    console.error("Get profile error:", error);
+    throw actionError("Failed to fetch profile");
+  }
+};

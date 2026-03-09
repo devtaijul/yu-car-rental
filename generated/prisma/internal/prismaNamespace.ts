@@ -1281,6 +1281,7 @@ export const UserScalarFieldEnum = {
   resetPasswordToken: 'resetPasswordToken',
   dateOfBirth: 'dateOfBirth',
   licenseNumber: 'licenseNumber',
+  avatarUrl: 'avatarUrl',
   company: 'company',
   street: 'street',
   houseNo: 'houseNo',

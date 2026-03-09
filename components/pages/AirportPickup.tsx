@@ -1,18 +1,21 @@
-import { Button } from "@/components/ui/button";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { Button } from "@/components/ui/button";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Image from "next/image";
+import Link from "next/link";
+import { DividerText } from "../DividerText";
+import { HeaderSpace } from "../HeaderSpace";
+import { MessageIcon } from "../icons/MessageIcon";
+import One from "../icons/One";
+import Three from "../icons/Three";
+import Two from "../icons/Two";
+import { TextStroke } from "../TextStroke";
 
 const airportHero = "/assets/Arrival Hall.png";
 const arrivalsImg = "/assets/Airport-1.png";
 const luggageImg = "/assets/Airport-2.png";
 const drivingImg = "/assets/Airport-3.png";
-import Image from "next/image";
-import Link from "next/link";
-import { HeaderSpace } from "../HeaderSpace";
-import { TextStroke } from "../TextStroke";
-import { DividerText } from "../DividerText";
-import { MessageIcon } from "../icons/MessageIcon";
 
 const arrivalSteps = [
   {
@@ -21,20 +24,23 @@ const arrivalSteps = [
     description:
       "Step into the arrival hall to find your dedicated \n concierge waiting. A personalized tablet display \n ensures you spot us immediately amidst the crowd. No \n wandering, no confusion.",
     imagePosition: "right" as const,
+    backgroundWaterMark: One
   },
   {
     image: luggageImg,
     title: "LUGGAGE \n CONCIERGE",
     description:
-      "Your transition should be weightless. Our team \n manages your luggage from the arrival hall directly \n to the trunk of your vehicle. Focus on the island air \n while we handle the logistics.",
+    "Your transition should be weightless. Our team \n manages your luggage from the arrival hall directly \n to the trunk of your vehicle. Focus on the island air \n while we handle the logistics.",
     imagePosition: "left" as const,
+    backgroundWaterMark: Two
   },
   {
     image: drivingImg,
     title: "DIRECT-TO-DRIVE \n PROTOCOL",
     description:
-      "Our team is ready to welcome you. Your documents are \n pre-processed, your vehicle is climate-controlled \n and the keys are ready. Arrival to departure in under \n 300 seconds.",
+    "Our team is ready to welcome you. Your documents are \n pre-processed, your vehicle is climate-controlled \n and the keys are ready. Arrival to departure in under \n 300 seconds.",
     imagePosition: "right" as const,
+    backgroundWaterMark: Three
   },
 ];
 
@@ -74,7 +80,7 @@ const AirportPickup = () => {
         <div className="relative min-h-[80vh] flex items-center pt-28 sm:pt-32 lg:pt-44">
           <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
             {/* Left - Image */}
-            <div className="relative aspect-[4/3] overflow-hidden before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-primary before:opacity-30 sm:aspect-[16/10] lg:aspect-4/3">
+            <div className="relative aspect-4/3 overflow-hidden before:absolute before:left-0 before:right-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-primary before:opacity-30 sm:aspect-16/10 lg:aspect-4/3">
               <Image
                 src={airportHero}
                 alt="Airport"
@@ -192,41 +198,53 @@ const AirportPickup = () => {
 
           {/* Steps */}
           <div className="space-y-12 sm:space-y-16 lg:space-y-20">
-            {arrivalSteps.map((step, index) => (
-              <div
-                key={index}
-                className={`grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16 ${step.imagePosition === "left" ? "" : "lg:[direction:rtl]"
-                  }`}
-              >
-                <div className="relative aspect-4/3 overflow-hidden rounded-xl lg:rounded-2xl lg:[direction:ltr]">
-                  <Image
-                    src={step.image}
-                    alt={step.title}
-                    className="w-full h-full object-cover"
-                    width={800}
-                    height={500}
-                  />
-                  {index === 0 && (
-                    <div className="absolute bottom-4 right-4 rounded-lg bg-primary px-3 py-2 text-center text-primary-foreground lg:rounded-xl lg:px-4 lg:py-3">
-                      <span className="text-2xl font-display font-bold italic">
-                        yu
-                      </span>
-                      <div className="text-[8px] tracking-widest">
-                        CAR RENTAL
+            {arrivalSteps.map((step, index) => {
+              const WatermarkIcon = step.backgroundWaterMark;
+
+              return (
+                <div
+                  key={index}
+                  className={`grid grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16 ${step.imagePosition === "left" ? "" : "lg:[direction:rtl]"
+                    }`}
+                >
+                  <div className="relative aspect-4/3 overflow-hidden rounded-xl lg:rounded-2xl lg:[direction:ltr]">
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      className="w-full h-full object-cover"
+                      width={800}
+                      height={500}
+                    />
+                    {index === 0 && (
+                      <div className="absolute bottom-4 right-4 rounded-lg bg-primary px-3 py-2 text-center text-primary-foreground lg:rounded-xl lg:px-4 lg:py-3">
+                        <span className="text-2xl font-display font-bold italic">
+                          yu
+                        </span>
+                        <div className="text-[8px] tracking-widest">
+                          CAR RENTAL
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="relative overflow-hidden whitespace-normal lg:[direction:ltr] lg:whitespace-pre-line">
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-0 top-1/2 z-0 -translate-y-1/2"
+                    >
+                      <div className="origin-center scale-[0.45] sm:scale-[0.55] md:scale-[0.65] lg:scale-[0.75]">
+                        <WatermarkIcon />
                       </div>
                     </div>
-                  )}
+                    <h3 className="relative z-10 mb-4 text-2xl font-display font-bold md:text-3xl">
+                      {step.title}
+                    </h3>
+                    <p className="relative z-10 text-sm leading-relaxed text-muted-foreground md:text-base">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="whitespace-normal lg:[direction:ltr] lg:whitespace-pre-line">
-                  <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground md:text-base leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

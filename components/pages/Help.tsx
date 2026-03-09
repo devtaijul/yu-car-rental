@@ -100,7 +100,7 @@ const Help = () => {
                       href="tel:+5997179292"
                       className="text-primary text-lg font-extrabold hover:underline"
                     >
-                      +(599) 717-9292
+                      +599 785-2604
                     </a>
                   </p>
                 </div>
@@ -161,7 +161,7 @@ const Help = () => {
                       href="tel:+5997852604"
                       className="block text-2xl lg:text-3xl font-bold text-foreground hover:text-primary transition-colors"
                     >
-                      +599 785-2604
+                       +(599) 717-9292
                     </a>
                   </div>
                 </div>

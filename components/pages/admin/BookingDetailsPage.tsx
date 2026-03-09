@@ -3,6 +3,7 @@
 import { PAGES } from "@/config/pages.config";
 import { BookingWithAll } from "@/types/system";
 import { ArrowLeft, Clock, MapPin, Download, Car } from "lucide-react";
+import { CldImage } from "next-cloudinary";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -103,13 +104,12 @@ const BookingDetailsPage = ({
           {/* Car Image */}
           <div className="relative w-full lg:w-[320px] shrink-0">
             <div className="relative rounded-xl overflow-hidden bg-muted aspect-[4/3]">
-              <img
+              <CldImage
                 src={booking.car.imageUrl}
                 alt={booking.car.name}
+                width={320}
+                height={240}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = "/placeholder.svg";
-                }}
               />
               {/* Status Badge */}
               <div className="absolute top-3 right-3">

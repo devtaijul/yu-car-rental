@@ -48,6 +48,7 @@ export const getAvailableCars = async ({
     const cars = await prisma.car.findMany({
       where: {
         isAvailable: true,
+        deletedAt: null,
 
         // ❌ No overlapping bookings
         bookings: {

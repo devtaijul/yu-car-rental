@@ -1,12 +1,10 @@
+import { getDashboardOverview } from "@/actions/query";
 import { DashboardOverview } from "@/components/pages/dashboard/DashboardOverview";
-import React from "react";
 
 const page = async () => {
-  return (
-    <div>
-      <DashboardOverview />
-    </div>
-  );
+  const result = await getDashboardOverview();
+  const data = result?.success ? result.data : null;
+  return <DashboardOverview data={data} />;
 };
 
 export default page;

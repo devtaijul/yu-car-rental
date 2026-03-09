@@ -553,3 +553,97 @@ export const generalSettingsMutation = async (
     return actionError("Failed to update general settings", error);
   }
 };
+
+export const updateProfile = async (data: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneCode: string;
+  phone: string;
+  dateOfBirth: string;
+  licenseNumber: string;
+  company?: string;
+  street: string;
+  houseNo: string;
+  postCode: string;
+  city: string;
+  country: string;
+  stateRegion: string;
+}) => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.update({
+      where: { email: session.user.email },
+      data: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phoneCode: data.phoneCode,
+        phone: data.phone,
+        dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : undefined,
+        licenseNumber: data.licenseNumber,
+        company: data.company || null,
+        street: data.street,
+        houseNo: data.houseNo,
+        postCode: data.postCode,
+        city: data.city,
+        country: data.country,
+        stateRegion: data.stateRegion,
+      },
+    });
+
+    return actionResponse(user);
+  } catch (error) {
+    console.error("Update profile error:", error);
+    return actionError("Failed to update profile");
+  }
+};
+
+export const updatePassword = async (data: {
+  currentPassword: string;
+  newPassword: string;
+}) => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) return actionError("User not found");
+
+    const valid = await bcrypt.compare(data.currentPassword, user.password);
+    if (!valid) return actionError("Current password is incorrect");
+
+    const hashed = await bcrypt.hash(data.newPassword, 10);
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { password: hashed },
+    });
+
+    return actionResponse({ success: true });
+  } catch (error) {
+    console.error("Update password error:", error);
+    return actionError("Failed to update password");
+  }
+};
+
+export const updateAvatar = async (avatarUrl: string) => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.update({
+      where: { email: session.user.email },
+      data: { avatarUrl },
+    });
+
+    return actionResponse(user);
+  } catch (error) {
+    console.error("Update avatar error:", error);
+    return actionError("Failed to update avatar");
+  }
+};

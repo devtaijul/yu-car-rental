@@ -84,6 +84,7 @@ export const bookCar = async ({
     const totalAmount = totalDays * pricePerDay;
 
     // 🟢 3️⃣ Transaction start
+    let plainPassword: string | null = null;
     const result = await prisma.$transaction(async (tx) => {
       // ✅ 3.1 Find existing user
       let user = await tx.user.findUnique({
@@ -92,10 +93,8 @@ export const bookCar = async ({
 
       // ✅ 3.2 If not exist → create user
       if (!user) {
-        const hashedPassword = await bcrypt.hash(
-          Math.random().toString(36), // random password
-          10,
-        );
+        plainPassword = nanoid(12) + "A1!"; // strong: 12 random chars + uppercase + digit + special
+        const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
         user = await tx.user.create({
           data: {
@@ -124,6 +123,10 @@ export const bookCar = async ({
           totalDays,
           pricePerDay,
           coverage: booking.coverage,
+          babySeatSmall: booking.extras?.["baby-seat-small"] ?? 0,
+          babySeatLarge: booking.extras?.["baby-seat-large"] ?? 0,
+          coolbox: booking.extras?.["coolbox"] ?? 0,
+          keySecureBox: booking.extras?.["key-secure-box"] ?? 0,
           pickupLocation: booking.pickupLocation as string,
           dropoffLocation: booking.dropoffLocation as string,
           pickupTime: booking.pickupTime as string,
@@ -156,19 +159,23 @@ export const bookCar = async ({
       return createdBooking;
     });
 
-    // Generate PDF
-    const pdfBuffer = await generateContractPdf(result.id);
-
-    // Send Email
-    await sendContractEmail({
-      email: customer.email,
-      name: customer.firstName,
-      pdfBuffer,
-      bookingId: result.id,
-    });
+    // Generate PDF + Send Email (non-blocking — never fail the booking over email)
+    try {
+      const pdfBuffer = await generateContractPdf(result.id);
+      await sendContractEmail({
+        email: customer.email,
+        name: customer.firstName,
+        pdfBuffer,
+        bookingId: result.id,
+        plainPassword: plainPassword ?? undefined,
+      });
+    } catch (emailError) {
+      console.error("[bookCar] Failed to send confirmation email:", emailError);
+    }
 
     return actionResponse(result);
   } catch (error) {
+    console.error("[bookCar] Error:", error);
     return actionError("Failed to book car", error);
   }
 };
@@ -176,7 +183,7 @@ export const bookCar = async ({
 export async function generateContractPdf(bookingId: string) {
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
-    include: { car: true },
+    include: { car: true, user: true },
   });
 
   if (!booking) {
@@ -184,7 +191,7 @@ export async function generateContractPdf(bookingId: string) {
   }
   const element = React.createElement(
     ContractDocument as React.ComponentType<DocumentProps>,
-    { booking } as DocumentProps,
+    { booking } as unknown as DocumentProps,
   );
 
   const buffer = await renderToBuffer(element);

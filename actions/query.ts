@@ -385,6 +385,7 @@ export const getBookingByBookingId = async (bookingId: string) => {
         user: true,
         car: true,
         driver: true,
+        payment: true,
       },
     });
     return actionResponse(booking);

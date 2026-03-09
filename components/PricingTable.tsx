@@ -136,44 +136,6 @@ export const PricingTable = ({
               CDW INSURANCE
             </h3>
           </div>
-          <div className="divide-y divide-border">
-            {features.map((feature) => (
-              <div
-                key={feature.name}
-                className="flex items-center justify-between gap-4 px-4 py-3"
-              >
-                <span className="text-sm text-muted-foreground">
-                  {feature.name}
-                </span>
-                <div className="text-sm font-medium">
-                  {renderValue(
-                    feature.standard,
-                    true,
-                    feature.isPremiumHighlight,
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-          {isSelectable && (
-            <div className="border-t border-border p-4">
-              <Button
-                variant="outline"
-                className={`w-full rounded-none py-6 hover:bg-primary ${
-                  selectedCoverage === "STANDARD"
-                    ? "border-primary border-2"
-                    : ""
-                }`}
-                onClick={() => {
-                  if (onSelectCoverage) {
-                    onSelectCoverage("STANDARD");
-                  }
-                }}
-              >
-                Select Package
-              </Button>
-            </div>
-          )}
         </div>
         <div
           className="text-center cursor-pointer transition-all"

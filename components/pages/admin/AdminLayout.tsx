@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { cn, stripLocale } from "@/lib/utils";
 import { LogOut, Menu, X } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -70,7 +70,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           <Button
             variant="ghost"
             className="w-full justify-start gap-3 text-muted-foreground"
-            /*    onClick={signOut} */
+            onClick={() => signOut({ callbackUrl: "/en/login" })}
           >
             <LogOut className="h-4 w-4" /> Sign Out
           </Button>

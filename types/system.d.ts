@@ -10,6 +10,7 @@ export type BookingWithAll = Booking & {
   car: Car;
   driver: Driver | null;
   user: User;
+  payment: Payment | null;
 };
 
 export type ReviewWithAll = Review & {

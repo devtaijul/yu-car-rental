@@ -1,7 +1,7 @@
 "use client";
 
 import { DashboardHeaderSkeleton } from "@/components/skeleton/DashboardHeaderSkeleton";
-import { Bell, ChevronDown, Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import React, { Suspense } from "react";
 import {
@@ -35,15 +35,16 @@ export const DashboardHeader = ({
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2 focus:outline-none">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-semibold">{session?.user?.name}</p>
+                <p className="text-sm font-semibold">
+                  {session?.user?.firstname} {session?.user?.lastname}
+                </p>
                 <p className="text-[10px] font-bold text-primary uppercase tracking-wider">
-                  {session?.user?.firstname + " " + session?.user?.lastname}
+                  {session?.user?.email}
                 </p>
               </div>
               <div className="w-9 h-9 rounded-full gradient-teal flex items-center justify-center text-primary-foreground font-bold text-sm">
-                {session?.user?.firstname?.charAt(0).toUpperCase() +
-                  " " +
-                  session?.user?.lastname?.charAt(0).toUpperCase()}
+                {(session?.user?.firstname?.charAt(0) ?? "").toUpperCase()}
+                {(session?.user?.lastname?.charAt(0) ?? "").toUpperCase()}
               </div>
               <ChevronDown className="h-3 w-3 text-muted-foreground" />
             </DropdownMenuTrigger>

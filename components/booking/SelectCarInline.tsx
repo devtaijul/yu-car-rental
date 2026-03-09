@@ -20,6 +20,13 @@ export const SelectCarInline = ({
         Choose Your Best Car
       </h1>
 
+      {cars.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground mb-8">
+          <p className="text-lg font-medium">No cars available on your selected date range</p>
+          <p className="text-sm mt-1">Try adjusting your pickup or dropoff dates.</p>
+        </div>
+      )}
+
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {cars.map((car) => (
           <div

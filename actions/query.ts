@@ -568,14 +568,20 @@ export const getDashboardOverview = async () => {
 
     const [activeBooking, upcomingBookings, pastBookings, payments] = await Promise.all([
       prisma.booking.findFirst({
-        where: { userId: user.id, status: "ACTIVE", deletedAt: null },
+        where: {
+          userId: user.id,
+          status: { notIn: ["CANCELLED", "COMPLETED"] },
+          startDate: { lte: new Date() },
+          endDate: { gte: new Date() },
+          deletedAt: null,
+        },
         include: { car: true },
         orderBy: { createdAt: "desc" },
       }),
       prisma.booking.findMany({
         where: {
           userId: user.id,
-          status: { in: ["PENDING", "CONFIRMED"] },
+          status: { notIn: ["CANCELLED", "COMPLETED"] },
           startDate: { gt: new Date() },
           deletedAt: null,
         },
@@ -600,7 +606,7 @@ export const getDashboardOverview = async () => {
     ]);
 
     const totalTrips = await prisma.booking.count({
-      where: { userId: user.id, deletedAt: null },
+      where: { userId: user.id, status: { not: "CANCELLED" }, deletedAt: null },
     });
 
     const totalSpent = payments.reduce((sum, p) => sum + p.amount, 0);

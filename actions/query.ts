@@ -123,6 +123,46 @@ export const getCarBySlug = async (slug: string) => {
   }
 };
 
+export const getCarBlockedDates = async (slug: string) => {
+  try {
+    const car = await prisma.car.findUnique({
+      where: { slug },
+      select: {
+        id: true,
+        bookings: {
+          where: {
+            status: { not: BookingStatus.CANCELLED },
+            endDate: { gte: new Date() },
+          },
+          select: { startDate: true, endDate: true },
+        },
+        availability: {
+          where: { endDate: { gte: new Date() } },
+          select: { startDate: true, endDate: true },
+        },
+      },
+    });
+
+    if (!car) return { success: false, blockedRanges: [] };
+
+    const blockedRanges = [
+      ...car.bookings.map((b) => ({
+        start: b.startDate.toISOString(),
+        end: b.endDate.toISOString(),
+      })),
+      ...car.availability.map((a) => ({
+        start: a.startDate.toISOString(),
+        end: a.endDate.toISOString(),
+      })),
+    ];
+
+    return { success: true, blockedRanges };
+  } catch (error) {
+    console.error("Get car blocked dates error:", error);
+    return { success: false, blockedRanges: [] };
+  }
+};
+
 export const adminDashbaordCount = async () => {
   try {
     const totalCars = await prisma.car.count();

@@ -7,7 +7,7 @@ import FAQSection from "../FAQSection";
 import { FeaturedCarSection } from "../FeaturedCarSection";
 import { FeatureSection } from "../FeatureSection";
 import { HeroSection } from "../HeroSection";
-import { PricingTable } from "../PricingTable";
+import { HomePricingSection } from "../HomePricingSection";
 import ReviewsCarousel from "../ReviewsCarousel";
 import { ServicesSection } from "../ServicesSection";
 
@@ -28,7 +28,7 @@ export const HomePage = ({ lang }: { lang: Locale }) => {
       {/* Featured Cars */}
       <FeaturedCarSection />
 
-      <PricingTable isSelectable />
+      <HomePricingSection />
 
       <ReviewsCarousel />
 

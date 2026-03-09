@@ -21,8 +21,13 @@ import { PaymentWithAll } from "@/types/system";
 import { DocumentProps, renderToBuffer } from "@react-pdf/renderer";
 import { PaymentIntent } from "@stripe/stripe-js";
 import bcrypt from "bcryptjs";
+import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 import React from "react";
+
+function generateBookingId(): string {
+  return `BK-${nanoid(8).toUpperCase()}`;
+}
 
 export async function login(email: string, password: string) {
   try {
@@ -106,6 +111,7 @@ export const bookCar = async ({
       // ✅ 3.3 Create Booking
       const createdBooking = await tx.booking.create({
         data: {
+          id: generateBookingId(),
           userId: user.id,
           carId,
           startDate,

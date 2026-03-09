@@ -17,8 +17,11 @@ const CarCard = ({ car, isBookPage }: { car: Car; isBookPage?: boolean }) => {
     ? PAGES.RESERVE_A_CAR.SELECTED_CAR(car.slug)
     : PAGES.RESERVE_A_CAR.ROOT;
 
-  const finalHref =
-    isBookPage && queryString ? `${baseHref}?${queryString}` : baseHref;
+  const finalHref = isBookPage
+    ? queryString
+      ? `${baseHref}?${queryString}`
+      : baseHref
+    : `${baseHref}?carSlug=${car.slug}`;
 
   return (
     <div className="card-car rounded-none gradient-color bg-card border border-border">

@@ -17,11 +17,29 @@ import { useRouter } from "next/navigation";
 
 import { SummaryForm } from "../booking/SummaryForm";
 import { StripeWrapper } from "../StripeWrapper";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
-export default function BookingSummaryPage({ car }: { car: Car }) {
+function generateOtp(): string {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+export default function BookingSummaryPage({
+  car,
+  onBack,
+}: {
+  car: Car;
+  onBack?: () => void;
+}) {
   useSyncBookingFromQuery();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [phoneVerified, setPhoneVerified] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpInput, setOtpInput] = useState("");
+  const [otpError, setOtpError] = useState<string | null>(null);
+  const generatedOtpRef = useRef<string | null>(null);
   const router = useRouter();
   const { booking } = useBooking();
 
@@ -34,7 +52,6 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
     dropoffLocation,
   } = booking;
 
-  // Sample car data; ideally fetch from your database or context
   const selectedCarData = {
     name: "Volkswagen Tiguan",
     image: "/cars/tiguan.png",
@@ -42,7 +59,6 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
     pricePerDay: 55,
   };
 
-  // Rental days calculation (minimum 1 day)
   const days =
     pickupDate && dropoffDate
       ? Math.max(
@@ -54,18 +70,17 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
         )
       : 1;
 
-  // Base price from real car data
   const basePrice = car.pricePerDay * days;
-
-  // Coverage
   const coveragePrice = coverage === "PREMIUM" ? 12 * days : 0;
 
-  // Extras (example pricing logic)
-  const extrasTotal = Object.entries(extras || {}).reduce((sum, [key, qty]) => {
-    const extraPriceMap: Record<string, number> = {
-      "baby-seat-large": 5,
-    };
+  const extraPriceMap: Record<string, number> = {
+    "baby-seat-small": 5,
+    "baby-seat-large": 5,
+    coolbox: 4,
+    "key-secure-box": 2.5,
+  };
 
+  const extrasTotal = Object.entries(extras || {}).reduce((sum, [key, qty]) => {
     const price = extraPriceMap[key] || 0;
     return sum + price * qty * days;
   }, 0);
@@ -74,7 +89,10 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
   const vat = subtotal * 0.06;
   const total = subtotal + vat;
 
+  // Only fetch payment intent after phone is verified
   useEffect(() => {
+    if (!phoneVerified) return;
+
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -84,10 +102,31 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("CLIENT SECRET FROM API:", data.clientSecret); // 👈 এখানে দেখবে
         setClientSecret(data.clientSecret);
       });
-  }, [total]);
+  }, [total, phoneVerified]);
+
+  const handleSendOtp = useCallback(() => {
+    if (!phone.trim()) return;
+
+    const otp = generateOtp();
+    generatedOtpRef.current = otp;
+    setOtpSent(true);
+    setOtpError(null);
+    setOtpInput("");
+
+    // TODO: Replace with actual SMS sending
+    alert(`Your OTP is: ${otp}`);
+  }, [phone]);
+
+  const handleVerifyOtp = useCallback(() => {
+    if (otpInput === generatedOtpRef.current) {
+      setPhoneVerified(true);
+      setOtpError(null);
+    } else {
+      setOtpError("Invalid OTP. Please try again.");
+    }
+  }, [otpInput]);
 
   return (
     <div className="container mx-auto">
@@ -193,10 +232,6 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
                     )}
 
                     {Object.entries(extras || {}).map(([key, qty]) => {
-                      const extraPriceMap: Record<string, number> = {
-                        "baby-seat-large": 5,
-                      };
-
                       const price = extraPriceMap[key] || 0;
                       const totalExtra = price * qty * days;
 
@@ -299,28 +334,109 @@ export default function BookingSummaryPage({ car }: { car: Car }) {
         </div>
 
         {/* Right Column - Customer Info & Payment */}
-        {clientSecret && (
-          <StripeWrapper clientSecret={clientSecret}>
-            <SummaryForm
-              car={car}
-              total={total}
-              clientSecret={clientSecret}
-              booking={booking}
-            />
-          </StripeWrapper>
-        )}
+        <div>
+          <h2 className="text-xl font-display font-semibold mb-6">
+            Customer Information
+          </h2>
+
+          {/* Phone Verification */}
+          <div className="bg-card border border-border p-6 mb-6">
+            <h3 className="font-semibold mb-4">Verify Phone Number</h3>
+
+            {!phoneVerified ? (
+              <div className="space-y-4">
+                <div>
+                  <Label className="mb-1 block">Phone Number</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+1 234 567 8900"
+                      disabled={otpSent}
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleSendOtp}
+                      disabled={!phone.trim() || otpSent}
+                      className="bg-primary text-primary-foreground shrink-0"
+                    >
+                      {otpSent ? "OTP Sent" : "Send OTP"}
+                    </Button>
+                  </div>
+                </div>
+
+                {otpSent && (
+                  <div>
+                    <Label className="mb-1 block">Enter OTP</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        value={otpInput}
+                        onChange={(e) => {
+                          setOtpInput(e.target.value);
+                          setOtpError(null);
+                        }}
+                        placeholder="Enter 6-digit OTP"
+                        maxLength={6}
+                      />
+                      <Button
+                        type="button"
+                        onClick={handleVerifyOtp}
+                        disabled={otpInput.length !== 6}
+                        className="bg-primary text-primary-foreground shrink-0"
+                      >
+                        Verify
+                      </Button>
+                    </div>
+                    {otpError && (
+                      <p className="text-xs text-red-500 mt-1">{otpError}</p>
+                    )}
+                    <button
+                      type="button"
+                      onClick={handleSendOtp}
+                      className="text-xs text-primary mt-2 hover:underline"
+                    >
+                      Resend OTP
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 text-sm text-green-600">
+                <Check className="h-4 w-4" />
+                <span>Phone verified: {phone}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Payment - only shown after phone verification */}
+          {phoneVerified && clientSecret ? (
+            <StripeWrapper clientSecret={clientSecret}>
+              <SummaryForm
+                car={car}
+                total={total}
+                clientSecret={clientSecret}
+                booking={booking}
+                verifiedPhone={phone}
+              />
+            </StripeWrapper>
+          ) : phoneVerified ? (
+            <div className="bg-card border border-border p-6 text-center">
+              <p className="text-muted-foreground">Loading payment form...</p>
+            </div>
+          ) : (
+            <div className="bg-card border border-border p-6 text-center">
+              <p className="text-muted-foreground">
+                Please verify your phone number to proceed with payment.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Bottom Navigation */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button variant="ghost">Go To Step 3</Button>
-        <Button
-          className="gradient-teal text-primary-foreground px-8"
-          onClick={() => {
-            router.push("/confirmation");
-          }}
-        >
-          CONTINUE
+        <Button variant="ghost" onClick={onBack || (() => router.back())}>
+          Go To Step 3
         </Button>
       </div>
     </div>

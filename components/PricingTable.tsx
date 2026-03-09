@@ -79,6 +79,9 @@ export const PricingTable = ({
     },
   ];
 
+  const isStandardSelected = selectedCoverage === "STANDARD";
+  const isPremiumSelected = selectedCoverage === "PREMIUM";
+
   const renderValue = (
     value: string | boolean,
     isStandard: boolean,
@@ -88,7 +91,7 @@ export const PricingTable = ({
       return value ? (
         <Check className="h-5 w-5 text-primary mx-auto" />
       ) : (
-        <X className="h-5 w-5 text-primary mx-auto" />
+        <X className="h-5 w-5 text-muted-foreground/40 mx-auto" />
       );
     }
     return (
@@ -109,25 +112,48 @@ export const PricingTable = ({
       />
       <div className="grid grid-cols-3 ">
         <div></div>
-        <div className="text-center">
-          <div className="border border-border  py-4 bg-card">
-            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+        <div
+          className="text-center cursor-pointer transition-all"
+          onClick={() => onSelectCoverage?.("STANDARD")}
+        >
+          <div
+            className={`py-4 relative transition-colors ${
+              isStandardSelected
+                ? "bg-primary"
+                : "bg-card border border-border"
+            }`}
+          >
+            {isStandardSelected && (
+              <span className="absolute top-2 right-4 text-[10px] text-primary-foreground/80 uppercase tracking-wider">
+                Selected
+              </span>
+            )}
+            <p className={`text-xs uppercase tracking-wider mb-1 ${isStandardSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
               Standard
             </p>
-            <h3 className="text-lg font-semibold text-foreground">
+            <h3 className={`text-lg font-semibold ${isStandardSelected ? "text-primary-foreground" : "text-foreground"}`}>
               CDW INSURANCE
             </h3>
           </div>
         </div>
-        <div className="text-center">
-          <div className="bg-primary  py-4 relative">
-            <span className="absolute top-2 right-4 text-[10px] text-primary-foreground/80 uppercase tracking-wider">
-              Recommended
+        <div
+          className="text-center cursor-pointer transition-all"
+          onClick={() => onSelectCoverage?.("PREMIUM")}
+        >
+          <div
+            className={`py-4 relative transition-colors ${
+              isPremiumSelected
+                ? "bg-primary"
+                : "bg-card border border-border"
+            }`}
+          >
+            <span className={`absolute top-2 right-4 text-[10px] uppercase tracking-wider ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+              {isPremiumSelected ? "Selected" : "Recommended"}
             </span>
-            <p className="text-xs text-primary-foreground/80 uppercase tracking-wider mb-1">
+            <p className={`text-xs uppercase tracking-wider mb-1 ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
               Premium
             </p>
-            <h3 className="text-lg font-semibold text-primary-foreground">
+            <h3 className={`text-lg font-semibold ${isPremiumSelected ? "text-primary-foreground" : "text-foreground"}`}>
               100% COVERAGE
             </h3>
           </div>
@@ -135,32 +161,56 @@ export const PricingTable = ({
       </div>
 
       {/* Feature Rows */}
-      <div className="border border-border  overflow-hidden bg-card">
+      <div className="border border-border overflow-hidden bg-card">
         {features.map((feature, index) => (
           <div
             key={feature.name}
-            className={`grid grid-cols-3 items-center   ${
+            className={`grid grid-cols-3 items-center ${
               index !== features.length - 1 ? "border-b border-border" : ""
             }`}
           >
             <div className="text-sm font-medium text-foreground p-4">
               {feature.name}
             </div>
-            <div className="text-center text-sm p-4">
+            <div
+              className={`text-center text-sm p-4 transition-colors cursor-pointer ${
+                isStandardSelected ? "bg-primary/10" : ""
+              }`}
+              onClick={() => onSelectCoverage?.("STANDARD")}
+            >
               {renderValue(feature.standard, true, feature.isPremiumHighlight)}
             </div>
-            <div className="text-center text-sm font-medium p-4 bg-primary/10">
+            <div
+              className={`text-center text-sm font-medium p-4 transition-colors cursor-pointer ${
+                isPremiumSelected ? "bg-primary/10" : "bg-primary/5"
+              }`}
+              onClick={() => onSelectCoverage?.("PREMIUM")}
+            >
               {renderValue(feature.premium, false, feature.isPremiumHighlight)}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Add for only pricing */}
+      {/* Pricing row */}
       <div className="grid grid-cols-3 mt-4">
         <div></div>
-        <div></div>
-        <div className="text-center">
+        <div
+          className="text-center cursor-pointer"
+          onClick={() => onSelectCoverage?.("STANDARD")}
+        >
+          <p className="text-sm text-muted-foreground">Included</p>
+          <p className="text-xl font-semibold text-foreground">
+            $0{" "}
+            <span className="text-sm font-normal text-muted-foreground">
+              /day
+            </span>
+          </p>
+        </div>
+        <div
+          className="text-center cursor-pointer"
+          onClick={() => onSelectCoverage?.("PREMIUM")}
+        >
           <p className="text-sm text-muted-foreground">Add for only</p>
           <p className="text-xl font-semibold text-foreground">
             +$12{" "}
@@ -177,33 +227,26 @@ export const PricingTable = ({
           <div></div>
           <div>
             <Button
-              variant="outline"
-              className={`w-full rounded-none py-6 hover:bg-primary ${
-                selectedCoverage === "STANDARD" ? "border-primary border-2" : ""
+              className={`w-full rounded-none py-6 transition-all ${
+                isStandardSelected
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card text-foreground border border-border hover:bg-primary/5"
               }`}
-              onClick={() => {
-                if (onSelectCoverage) {
-                  onSelectCoverage("STANDARD");
-                }
-              }}
+              onClick={() => onSelectCoverage?.("STANDARD")}
             >
-              Select Package
+              {isStandardSelected ? "✓ Selected" : "Select Package"}
             </Button>
           </div>
           <div>
             <Button
-              className={`w-full bg-primary text-primary-foreground  rounded-none py-6 hover:opacity-90 ${
-                selectedCoverage === "PREMIUM"
-                  ? "ring-2 ring-offset-2 ring-primary"
-                  : ""
+              className={`w-full rounded-none py-6 transition-all ${
+                isPremiumSelected
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card text-foreground border border-border hover:bg-primary/5"
               }`}
-              onClick={() => {
-                if (onSelectCoverage) {
-                  onSelectCoverage("PREMIUM");
-                }
-              }}
+              onClick={() => onSelectCoverage?.("PREMIUM")}
             >
-              Select Package
+              {isPremiumSelected ? "✓ Selected" : "Select Package"}
             </Button>
           </div>
         </div>

@@ -11,24 +11,48 @@ import { Icons } from "../icons";
 import { PAGES } from "@/config/pages.config";
 import { CoverageType } from "@/generated/prisma/enums";
 
-export default function StepCoverageExtras({ car_slug }: { car_slug: string }) {
+export default function StepCoverageExtras({
+  car_slug,
+  carSeats,
+  onContinue: onContinueProp,
+  onBack: onBackProp,
+}: {
+  car_slug: string;
+  carSeats?: number | null;
+  onContinue?: (coverage: CoverageType, extras: Record<string, number>) => void;
+  onBack?: () => void;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { setBooking } = useBooking();
+  const { booking, setBooking } = useBooking();
 
   const [selectedCoverage, setSelectedCoverage] =
-    useState<CoverageType>("STANDARD");
+    useState<CoverageType>(booking.coverage || "STANDARD");
 
   const [extraQuantities, setExtraQuantities] = useState<
     Record<string, number>
-  >({});
+  >(booking.extras || {});
+
+  const babySeatIds = ["baby-seat-small", "baby-seat-large"];
+  const maxBabySeats = carSeats ? carSeats - 1 : Infinity;
 
   // Handle quantity increase/decrease
   const handleExtraQuantity = (id: string, delta: number) => {
-    setExtraQuantities((prev) => ({
-      ...prev,
-      [id]: Math.max(0, (prev[id] || 0) + delta),
-    }));
+    setExtraQuantities((prev) => {
+      const newQty = Math.max(0, (prev[id] || 0) + delta);
+
+      if (babySeatIds.includes(id)) {
+        const otherBabySeatId = babySeatIds.find((sid) => sid !== id)!;
+        const otherQty = prev[otherBabySeatId] || 0;
+        if (newQty + otherQty > maxBabySeats) return prev;
+      }
+
+      if (id === "coolbox" && newQty > 6) return prev;
+
+      if (id === "key-secure-box" && carSeats && newQty > carSeats) return prev;
+
+      return { ...prev, [id]: newQty };
+    });
   };
 
   const handleContinue = () => {
@@ -36,6 +60,11 @@ export default function StepCoverageExtras({ car_slug }: { car_slug: string }) {
     const filteredExtras = Object.fromEntries(
       Object.entries(extraQuantities).filter(([_, qty]) => qty > 0),
     );
+
+    if (onContinueProp) {
+      onContinueProp(selectedCoverage, filteredExtras);
+      return;
+    }
 
     // Update context
     setBooking({
@@ -153,7 +182,7 @@ export default function StepCoverageExtras({ car_slug }: { car_slug: string }) {
 
       {/* Actions */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button variant="ghost" onClick={() => router.back()}>
+        <Button variant="ghost" onClick={onBackProp || (() => router.back())}>
           Go Back
         </Button>
         <Button

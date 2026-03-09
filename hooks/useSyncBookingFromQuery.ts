@@ -4,7 +4,7 @@ import { useBooking } from "@/context/BookingContext";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-type CoverageType = "standard" | "premium";
+type CoverageType = "STANDARD" | "PREMIUM";
 
 export const useSyncBookingFromQuery = () => {
   const searchParams = useSearchParams();
@@ -42,7 +42,7 @@ export const useSyncBookingFromQuery = () => {
     if (dropoffLocation) updateData.dropoffLocation = dropoffLocation;
 
     const coverage = searchParams.get("coverage") as CoverageType | null;
-    if (coverage === "standard" || coverage === "premium") {
+    if (coverage === "STANDARD" || coverage === "PREMIUM") {
       updateData.coverage = coverage;
     }
 

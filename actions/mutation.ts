@@ -81,7 +81,15 @@ export const bookCar = async ({
         (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
       ) || 1;
 
-    const totalAmount = totalDays * pricePerDay;
+    const baseAmount = totalDays * pricePerDay;
+    const coverageAmount = booking.coverage === "PREMIUM" ? 12 * totalDays : 0;
+    const extrasAmount =
+      (booking.extras?.["baby-seat-small"] ?? 0) * 5 * totalDays +
+      (booking.extras?.["baby-seat-large"] ?? 0) * 5 * totalDays +
+      (booking.extras?.["coolbox"] ?? 0) * 4 * totalDays +
+      (booking.extras?.["key-secure-box"] ?? 0) * 2.5 * totalDays;
+    const subtotal = baseAmount + coverageAmount + extrasAmount;
+    const totalAmount = parseFloat((subtotal * 1.06).toFixed(2)); // incl. 6% VAT
 
     // 🟢 3️⃣ Transaction start
     let plainPassword: string | null = null;

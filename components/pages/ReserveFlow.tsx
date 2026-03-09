@@ -270,6 +270,33 @@ export default function ReserveFlow() {
             cars={cars}
             onSelect={handleCarSelect}
             onBack={handleBack}
+            pickupDate={booking.pickupDate ? new Date(booking.pickupDate) : undefined}
+            dropoffDate={booking.dropoffDate ? new Date(booking.dropoffDate) : undefined}
+            pickupTime={booking.pickupTime}
+            dropoffTime={booking.dropoffTime}
+            onSearchAgain={(data) => {
+              setBooking(data);
+              startTransition(async () => {
+                const locationData = {
+                  pickupDate: data.pickupDate.toISOString(),
+                  dropoffDate: data.dropoffDate.toISOString(),
+                  pickupTime: data.pickupTime,
+                  dropoffTime: data.dropoffTime,
+                  pickupLocation: booking.pickupLocation as string,
+                  dropoffLocation: booking.dropoffLocation as string,
+                };
+                const result = await getAvailableCars({ locationData });
+                if (result.success) {
+                  setCars(result.cars);
+                  updateQuery({
+                    pickupDate: locationData.pickupDate,
+                    dropoffDate: locationData.dropoffDate,
+                    pickupTime: locationData.pickupTime,
+                    dropoffTime: locationData.dropoffTime,
+                  });
+                }
+              });
+            }}
           />
         )}
 

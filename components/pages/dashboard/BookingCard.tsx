@@ -14,7 +14,20 @@ const statusStyles: Record<string, string> = {
   PENDING: "bg-[#FFFBEB] text-[#D97706] border-[#FEF3C7] left-2",
 };
 
+function calcTotal(booking: BookingWithAll): number {
+  const days = booking.totalDays;
+  const base = booking.car.pricePerDay * days;
+  const coverage = booking.coverage === "PREMIUM" ? 12 * days : 0;
+  const extras =
+    (booking.babySeatSmall ?? 0) * 5 * days +
+    (booking.babySeatLarge ?? 0) * 5 * days +
+    (booking.coolbox ?? 0) * 4 * days +
+    (booking.keySecureBox ?? 0) * 2.5 * days;
+  return parseFloat(((base + coverage + extras) * 1.06).toFixed(2));
+}
+
 export const BookingCard = ({ booking }: { booking: BookingWithAll }) => {
+  const total = calcTotal(booking);
   return (
     <Card key={booking.id} className="border border-border overflow-hidden">
       <CardContent className={cn("p-0", booking.status === "ACTIVE" && "")}>
@@ -69,11 +82,9 @@ export const BookingCard = ({ booking }: { booking: BookingWithAll }) => {
                 {booking.status === "ACTIVE" && "● "}
                 {booking.status}
               </Badge>
-              {booking.id && (
-                <div className="absolute -bottom-3 -left-3 bg-white font-bold text-black text-xs px-5 border py-0.5 rounded font-mono">
-                  PLATE: {/* {booking.plate} */}fasdfsadf
-                </div>
-              )}
+              <div className="absolute -bottom-3 -left-3 bg-white font-bold text-black text-xs px-5 border py-0.5 rounded font-mono">
+                PLATE: {booking.car.plate ?? "—"}
+              </div>
             </div>
           </div>
 
@@ -107,8 +118,7 @@ export const BookingCard = ({ booking }: { booking: BookingWithAll }) => {
                     booking.status === "ACTIVE" ? "text-2xl" : "text-lg",
                   )}
                 >
-                  ${booking.totalAmount}
-                  <span className="text-xs text-muted-foreground">.00</span>
+                  ${total.toFixed(2)}
                 </p>
                 {booking.coverage === "PREMIUM" && (
                   <p className="text-[10px] text-primary flex items-center gap-1 justify-end">

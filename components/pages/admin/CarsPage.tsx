@@ -4,7 +4,7 @@ import { PAGES } from "@/config/pages.config";
 import { getAvailabilityInfo } from "@/lib/utils";
 import { CarWithAvailability } from "@/types/system";
 import { Pencil, Plus, Search } from "lucide-react";
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DeleteCarAction } from "./DeleteCarAction";
@@ -101,7 +101,7 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-3">
                       <div className="h-12 w-16 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">
-                        <Image
+                        <CldImage
                           src={car.imageUrl}
                           alt={car.name}
                           width={48}

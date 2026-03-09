@@ -48,6 +48,7 @@ export const getAvailableCars = async ({
     const cars = await prisma.car.findMany({
       where: {
         isAvailable: true,
+        deletedAt: null,
 
         // ❌ No overlapping bookings
         bookings: {
@@ -259,6 +260,7 @@ export const getBookingsForAdmin = async () => {
         user: true,
         car: true,
         driver: true,
+        payment: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -404,6 +406,7 @@ export const getBookingByBookingAsAdmin = async (bookingId: string) => {
         user: true,
         car: true,
         driver: true,
+        payment: true,
       },
     });
     return actionResponse(booking);
@@ -445,6 +448,7 @@ export const getMyBookings = async (
         user: true,
         car: true,
         driver: true,
+        payment: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -499,6 +503,7 @@ export const getMyPayments = async (
       },
       include: {
         user: true,
+        booking: true,
       },
       orderBy: {
         createdAt: "desc",

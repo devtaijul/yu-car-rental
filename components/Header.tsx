@@ -117,6 +117,11 @@ const Header = () => {
               {/* Right */}
               <div className="hidden lg:flex items-center gap-3">
                 <LanguageSwitcher />
+                <Link href="/login">
+                  <Button variant="ghost" className="rounded-none px-6 py-2 h-auto border border-primary">
+                    SIGN IN
+                  </Button>
+                </Link>
                 <Link href="/booking">
                   <Button className="rounded-none px-6 py-2 h-auto">
                     Explore Fleet

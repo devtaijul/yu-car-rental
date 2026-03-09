@@ -109,13 +109,32 @@ export const bookCar = async ({
             firstName: customer.firstName,
             lastName: customer.lastName,
             email: customer.email,
-            phoneCode: "+880", // তুমি চাইলে dynamic করো
+            phoneCode: "+880",
             phone: customer.phone,
             password: hashedPassword,
             role: UserRole.USER,
             isVerified: false,
             dateOfBirth: new Date(customer.dateOfBirth),
             licenseNumber: customer.licenseNumber,
+            street: customer.streetAddress,
+            houseNo: customer.houseNumber,
+            postCode: customer.postCode,
+            city: customer.city,
+            country: customer.country,
+            company: customer.company,
+          },
+        });
+      } else {
+        // Update billing info for existing users
+        await tx.user.update({
+          where: { id: user.id },
+          data: {
+            street: customer.streetAddress || user.street,
+            houseNo: customer.houseNumber || user.houseNo,
+            postCode: customer.postCode || user.postCode,
+            city: customer.city || user.city,
+            country: customer.country || user.country,
+            company: customer.company || user.company,
           },
         });
       }

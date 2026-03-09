@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Button } from "./ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -12,7 +11,7 @@ import { HeaderSpace } from "./HeaderSpace";
 
 const carouselImages = [
   { id: 1, src: "/bonaire/bonaire-1.png", alt: "Sunset view" },
-  { id: 2, src: "/bonaire/bonaire-2.png", alt: "Flamingos at lagoon" },
+  { id: 2, src: "/bonaire/bonaire-2.png", alt: "Sunset view" },
   { id: 3, src: "/bonaire/bonaire-3.png", alt: "Lighthouse" },
   { id: 4, src: "/bonaire/bonaire-4.png", alt: "Beach paradise" },
   { id: 5, src: "/bonaire/bonaire-5.png", alt: "Diving" },
@@ -64,30 +63,22 @@ export const BonaireHero = () => {
   }, [emblaApi, onSelect]);
 
   const totalSlides = carouselImages.length;
+  const desktopThumbs = Array.from({ length: Math.min(5, totalSlides) }, (_, offset) => {
+    const realIndex = (currentIndex + offset) % totalSlides;
+    return { ...carouselImages[realIndex], realIndex };
+  });
 
   const activeImage =
     carouselImages[currentIndex]?.src || "/assets/bonaire-hero-sunset.jpg";
-  const [displayedBg, setDisplayedBg] = useState(activeImage);
-  const [bgOpacity, setBgOpacity] = useState(1);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setBgOpacity(0);
-
-      setTimeout(() => {
-        setDisplayedBg(activeImage);
-        setBgOpacity(1);
-      }, 400);
-    }, 0);
-
-    return () => clearTimeout(timeout);
-  }, [activeImage]);
   return (
-    <div className="relative min-h-screen bg-cover bg-center bg-no-repeat">
+    <div className="relative min-h-svh bg-cover bg-center bg-no-repeat lg:min-h-screen">
       {/* Fading background images */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700 ease-in-out"
-        style={{ backgroundImage: `url(${displayedBg})`, opacity: bgOpacity }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${activeImage})`,
+        }}
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30" />
@@ -99,31 +90,31 @@ export const BonaireHero = () => {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-4 pt-20 md:pt-32 pb-48">
+      <div className="relative z-10 container mx-auto px-4 pb-56 pt-14 sm:pt-20 md:pt-24 lg:pb-48 lg:pt-32">
         {/* Badge */}
         <div className="flex items-center gap-3 mb-6">
           <span className="w-8 h-0.5 bg-white/60" />
-          <span className="text-sm tracking-[0.2em] text-white/80 font-medium">
+          <span className="text-xs font-medium tracking-[0.16em] text-white/80 sm:text-sm sm:tracking-[0.2em]">
             SCENIC ROUTES
           </span>
         </div>
 
         {/* Title */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-[0.9] mb-6">
+        <h1 className="mb-6 text-4xl font-display font-bold leading-[0.9] text-white sm:text-5xl md:text-7xl lg:text-8xl">
           ALPINE
           <br />
           DRIVE.
         </h1>
 
         {/* Description */}
-        <p className="text-white/80 text-lg md:text-xl max-w-md mb-8 leading-relaxed">
+        <p className="mb-8 max-w-md text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
           Conquer the mountain passes with unmatched power and comfort. Every
           turn brings a new breathtaking view.
         </p>
 
         {/* CTA Button */}
         <Link href="/booking">
-          <Button className="bg-primary text-white px-10 py-6 text-base font-semibold group">
+          <Button className="group w-full bg-primary px-6 py-4 text-sm font-semibold text-white sm:w-auto sm:px-8 sm:py-5 sm:text-base md:px-10 md:py-6">
             EXPLORE FLEET
             <ArrowRight className="h-4 w-4  group-hover:translate-x-1 transition-transform" />
           </Button>
@@ -132,24 +123,24 @@ export const BonaireHero = () => {
 
       {/* Bottom Carousel Section */}
       <div className="absolute bottom-0 left-0 right-0 z-10">
-        <div className="container mx-auto px-4 pb-8">
+        <div className="container mx-auto px-4 pb-6 sm:pb-7 md:pb-8">
           {/* Mobile Layout */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             {/* Navigation controls */}
-            <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="mb-4 flex items-center justify-center gap-4 md:mb-5">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={scrollPrev}
-                className="text-white hover:bg-white/20 rounded-full h-10 w-10"
+                className="h-10 w-10 rounded-full text-white hover:bg-white/20 md:h-11 md:w-11"
               >
                 <ChevronLeft className="h-5 w-5" />
               </Button>
               <div className="text-center">
-                <span className="text-2xl font-bold text-white">
+                <span className="text-2xl font-bold text-white md:text-3xl">
                   {String(currentIndex + 1).padStart(2, "0")}
                 </span>
-                <span className="text-sm text-white/60 block">
+                <span className="block text-sm text-white/60 md:text-base">
                   /{String(totalSlides).padStart(2, "0")}
                 </span>
               </div>
@@ -157,14 +148,14 @@ export const BonaireHero = () => {
                 variant="ghost"
                 size="icon"
                 onClick={scrollNext}
-                className="text-white hover:bg-white/20 rounded-full h-10 w-10"
+                className="h-10 w-10 rounded-full text-white hover:bg-white/20 md:h-11 md:w-11"
               >
                 <ChevronRight className="h-5 w-5" />
               </Button>
             </div>
 
             {/* Carousel */}
-            <div className="overflow-hidden" ref={emblaRef}>
+            <div className="mx-auto max-w-60 overflow-hidden sm:max-w-xl md:max-w-2xl" ref={emblaRef}>
               <div className="flex gap-3 items-end">
                 {carouselImages.map((img, index) => {
                   const isActive = index === currentIndex;
@@ -172,7 +163,9 @@ export const BonaireHero = () => {
                     <div
                       key={img.id}
                       className={`min-w-0 transition-all duration-500 ease-out ${
-                        isActive ? "flex-[0_0_55%]" : "flex-[0_0_40%]"
+                        isActive
+                          ? "flex-[0_0_46%] sm:flex-[0_0_48%] md:flex-[0_0_40%]"
+                          : "flex-[0_0_30%] sm:flex-[0_0_36%] md:flex-[0_0_32%]"
                       }`}
                     >
                       <div
@@ -211,25 +204,25 @@ export const BonaireHero = () => {
           </div>
 
           {/* Desktop Layout */}
-          <div className="hidden md:flex items-end gap-4">
+          <div className="hidden lg:flex items-end gap-4">
             {/* Image thumbnails */}
             <div className="flex gap-4 flex-1 items-end">
-              {carouselImages.slice(0, 5).map((img, index) => {
-                const isActive = index === currentIndex;
+              {desktopThumbs.map((img) => {
+                const isActive = img.realIndex === currentIndex;
                 return (
                   <div
                     key={img.id}
                     className={`relative rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out transform ${
                       isActive
-                        ? "ring-2 ring-primary scale-110 shadow-2xl z-10"
-                        : "opacity-70 hover:opacity-100 hover:scale-105"
+                        ? "z-10 scale-[1.04] ring-2 ring-primary shadow-2xl"
+                        : "opacity-70 hover:opacity-100 hover:scale-[1.02]"
                     }`}
                     style={{
-                      width: isActive ? "200px" : "160px",
-                      height: isActive ? "140px" : "100px",
+                      width: isActive ? "188px" : "160px",
+                      height: isActive ? "128px" : "100px",
                       transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}
-                    onClick={() => emblaApi?.scrollTo(index)}
+                    onClick={() => emblaApi?.scrollTo(img.realIndex)}
                   >
                     <Image
                       src={img.src}
@@ -245,7 +238,7 @@ export const BonaireHero = () => {
                         isActive ? "text-white" : "text-white/70"
                       }`}
                     >
-                      {String(index + 1).padStart(2, "0")}
+                      {String(img.realIndex + 1).padStart(2, "0")}
                     </div>
                     {/* Active glow effect */}
                     {isActive && (

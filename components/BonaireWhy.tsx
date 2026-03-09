@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { TextStroke } from "./TextStroke";
 import {
   Carousel,
   CarouselContent,
@@ -12,44 +11,20 @@ import {
 } from "@/components/ui/carousel";
 import type { CarouselApi } from "@/components/ui/carousel";
 
-const whyNeedCarItems = [
+const whyNeedCarBaseItems = [
   {
-    image: `/assets/bonaire-diving.jpg`,
     category: "SHORE DIVING",
     title: "DIVE ON YOUR TERMS",
     description:
       "Bonaire is the shore-diving capital of the world. Our packages come with custom dive racks, allowing you to drive directly to over 80 dive sites.",
   },
   {
-    image: "/assets/bonaire-lighthouse.jpg",
     category: "NATIONAL PARK",
     title: "UNREACHABLE HEIGHTS",
     description:
       "Washington Slagbaai National Park requires high-clearance vehicles. Our Plazus fleet is fully compliant with park regulations for safety and access.",
   },
   {
-    image: "/assets/bonaire-beach.jpg",
-    category: "FREEDOM",
-    title: "NO LIMITS, NO LAGS",
-    description:
-      "Public transport is minimal. Taxis are costly for daily trips. A rental car gives you the freedom to chase sunsets and hidden beaches at any hour.",
-  },
-  {
-    image: `/assets/bonaire-diving.jpg`,
-    category: "SHORE DIVING",
-    title: "DIVE ON YOUR TERMS",
-    description:
-      "Bonaire is the shore-diving capital of the world. Our packages come with custom dive racks, allowing you to drive directly to over 80 dive sites.",
-  },
-  {
-    image: "/assets/bonaire-lighthouse.jpg",
-    category: "NATIONAL PARK",
-    title: "UNREACHABLE HEIGHTS",
-    description:
-      "Washington Slagbaai National Park requires high-clearance vehicles. Our Plazus fleet is fully compliant with park regulations for safety and access.",
-  },
-  {
-    image: "/assets/bonaire-beach.jpg",
     category: "FREEDOM",
     title: "NO LIMITS, NO LAGS",
     description:
@@ -57,18 +32,33 @@ const whyNeedCarItems = [
   },
 ];
 
+const whyNeedCarItems = Array.from({ length: 15 }, (_, index) => ({
+  ...whyNeedCarBaseItems[index % whyNeedCarBaseItems.length],
+  image: `/bonaire/bonaire-${index + 1}.png`,
+}));
+
 export const BonaireWhy = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [snapCount, setSnapCount] = useState(0);
 
   useEffect(() => {
     if (!api) return;
 
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
+    const updateCurrent = () => {
       setCurrent(api.selectedScrollSnap());
-    });
+      setSnapCount(api.scrollSnapList().length);
+    };
+
+    const frame = requestAnimationFrame(updateCurrent);
+    api.on("select", updateCurrent);
+    api.on("reInit", updateCurrent);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      api.off("select", updateCurrent);
+      api.off("reInit", updateCurrent);
+    };
   }, [api]);
 
   return (
@@ -92,7 +82,9 @@ export const BonaireWhy = () => {
           setApi={setApi}
           opts={{
             align: "start",
-            loop: true,
+            loop: false,
+            containScroll: "trimSnaps",
+            slidesToScroll: "auto",
           }}
           className="relative"
         >
@@ -131,7 +123,7 @@ export const BonaireWhy = () => {
 
         {/* Dots Indicator */}
         <div className="flex justify-center gap-2 mt-8">
-          {whyNeedCarItems.map((_, index) => (
+          {Array.from({ length: snapCount || whyNeedCarItems.length }, (_, index) => (
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}

@@ -9,6 +9,13 @@ export const checkoutSchema = z.object({
   licenseNumber: z.string().min(5, "License number required"),
   promoCode: z.string().optional(),
   specialRequests: z.string().optional(),
+  // Billing
+  streetAddress: z.string().optional(),
+  houseNumber: z.string().optional(),
+  postCode: z.string().optional(),
+  city: z.string().optional(),
+  country: z.string().optional(),
+  company: z.string().optional(),
   cardholderName: z.string().min(2, "Cardholder name required"),
   termsAccepted: z
     .boolean()

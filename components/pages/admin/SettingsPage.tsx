@@ -57,7 +57,7 @@ const SettingsPage = ({ settings }: { settings: PlatformSettings }) => {
         {/* Content */}
         <div className="flex-1 space-y-6">
           {/* General Settings */}
-          <GeneralSettings />
+          <GeneralSettings settings={settings} />
 
           {/* Payment Gateway */}
           <PaymentGateway settings={settings} />

@@ -63,3 +63,26 @@ export const paymentSchema = z.object({
 });
 
 export type PaymentFormValues = z.infer<typeof paymentSchema>;
+
+
+export const generalSettingsSchema = z.object({
+  platformName: z
+    .string()
+    .min(3, "Platform name must be at least 3 characters"),
+
+  supportEmail: z
+    .string()
+    .email("Please enter a valid email"),
+
+  supportPhone: z
+    .string()
+    .min(7, "Phone number is too short"),
+
+  baseCurrency: z
+    .string()
+    .min(1, "Please select currency"),
+
+     brandLogoUrl: z.string().optional(),
+});
+
+export type GeneralSettingsFormValues = z.infer<typeof generalSettingsSchema>;

@@ -110,3 +110,11 @@ export const StripeEnv = {
 } as const
 
 export type StripeEnv = (typeof StripeEnv)[keyof typeof StripeEnv]
+
+
+export const Currency = {
+  USD: 'USD',
+  EUR: 'EUR'
+} as const
+
+export type Currency = (typeof Currency)[keyof typeof Currency]

@@ -332,6 +332,11 @@ enum StripeEnv {
   LIVE
 }
 
+enum Currency {
+  USD
+  EUR
+}
+
 model PlatformSettings {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -341,7 +346,7 @@ model PlatformSettings {
   platformName String
   supportEmail String
   supportPhone String
-  baseCurrency String
+  baseCurrency Currency @default(USD)
   brandLogoUrl String?
 
   // Payment Gateway

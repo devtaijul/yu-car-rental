@@ -34,6 +34,7 @@ export default function BookingSummaryPage({
 }) {
   useSyncBookingFromQuery();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [publishableKey, setPublishableKey] = useState<string | null>(null);
   const [phoneVerified, setPhoneVerified] = useState(false);
   const [phone, setPhone] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -103,6 +104,7 @@ export default function BookingSummaryPage({
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
+        setPublishableKey(data.publishableKey);
       });
   }, [total, phoneVerified]);
 
@@ -410,8 +412,8 @@ export default function BookingSummaryPage({
           </div>
 
           {/* Payment - only shown after phone verification */}
-          {phoneVerified && clientSecret ? (
-            <StripeWrapper clientSecret={clientSecret}>
+          {phoneVerified && clientSecret && publishableKey ? (
+            <StripeWrapper clientSecret={clientSecret} publishableKey={publishableKey}>
               <SummaryForm
                 car={car}
                 total={total}

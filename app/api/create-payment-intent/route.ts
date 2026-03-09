@@ -50,5 +50,6 @@ export async function POST(req: Request) {
 
   return NextResponse.json({
     clientSecret: paymentIntent.client_secret,
+    publishableKey: settings.stripePublishableKey,
   });
 }

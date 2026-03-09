@@ -1,10 +1,18 @@
 import { CalenderIcon } from "@/components/icons/Calender.icon";
 import { CardIcon } from "@/components/icons/card.icon";
+import { DashbaordCarIcon } from "@/components/icons/DashbaordCarIcon";
 import { DashboardIcon } from "@/components/icons/dashboard.icon";
+import { DashboardCoupon } from "@/components/icons/DashboardCoupon";
+import { DashboardNavCalender } from "@/components/icons/DashboardNavCalender";
+import { DashboardSettings } from "@/components/icons/DashboardSettings";
+import { DashboardStar } from "@/components/icons/DashboardStar";
+import { DashboardUser } from "@/components/icons/DashboardUser";
+import { DashboardUserCheck } from "@/components/icons/DashboardUserCheck";
 import { FaceIcon } from "@/components/icons/Face.icon";
 import { GasIcon } from "@/components/icons/gas.icon";
 import { GrayCalenderIcon } from "@/components/icons/gray-calender.icon";
 import { HartIcon } from "@/components/icons/Hart.icon";
+import { IdentityCard } from "@/components/icons/IdentityCard";
 import { LoveHandIcon } from "@/components/icons/love-hand.icon";
 import { MilesIcon } from "@/components/icons/miles.icon";
 import { ProfileIcon } from "@/components/icons/profile.icon";
@@ -32,6 +40,14 @@ const ICON_NAMES = {
   card_icon: CardIcon,
   gray_calender_icon: GrayCalenderIcon,
   profile_icon: ProfileIcon,
+  dashboard_car_icon: DashbaordCarIcon,
+  dashboard_callendar_icon: DashboardNavCalender,
+  dashboard_user_icon: DashboardUser,
+  identity_icon: IdentityCard,
+  dashboard_user_check_icon: DashboardUserCheck,
+  dashboard_star: DashboardStar,
+  dashbaord_coupon_icon: DashboardCoupon,
+  dashboard_settings_icon: DashboardSettings
 };
 
 export { ICON_NAMES };

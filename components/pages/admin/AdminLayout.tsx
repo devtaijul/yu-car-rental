@@ -12,14 +12,14 @@ import { DashboardNav } from "../DashboardNav";
 
 const navItems = [
   { to: "/admin", icon: "dashbaord_icon", label: "Dashboard" },
-  { to: "/admin/cars", icon: "dashbaord_icon", label: "Cars" },
-  { to: "/admin/bookings", icon: "dashbaord_icon", label: "Bookings" },
-  { to: "/admin/users", icon: "dashbaord_icon", label: "Users" },
-  { to: "/admin/payments", icon: "dashbaord_icon", label: "Payments" },
-  { to: "/admin/drivers", icon: "dashbaord_icon", label: "Drivers" },
-  { to: "/admin/reviews", icon: "dashbaord_icon", label: "Reviews" },
-  { to: "/admin/coupons", icon: "dashbaord_icon", label: "Coupons" },
-  { to: "/admin/settings", icon: "dashbaord_icon", label: "Settings" },
+  { to: "/admin/cars", icon: "dashboard_car_icon", label: "Cars" },
+  { to: "/admin/bookings", icon: "dashboard_callendar_icon", label: "Bookings" },
+  { to: "/admin/users", icon: "dashboard_user_icon", label: "Users" },
+  { to: "/admin/payments", icon: "identity_icon", label: "Payments" },
+  { to: "/admin/drivers", icon: "dashboard_user_check_icon", label: "Drivers" },
+  { to: "/admin/reviews", icon: "dashboard_star", label: "Reviews" },
+  { to: "/admin/coupons", icon: "dashbaord_coupon_icon", label: "Coupons" },
+  { to: "/admin/settings", icon: "dashboard_settings_icon", label: "Settings" },
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {

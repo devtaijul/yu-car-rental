@@ -8,6 +8,7 @@ import Link from "next/link";
 import { BonaireHero } from "../BonaireHero";
 import { BonaireWhy } from "../BonaireWhy";
 import { TextStroke } from "../TextStroke";
+import { Locale } from "@/types/utils";
 
 const drivingLaws = [
   {
@@ -32,14 +33,14 @@ const drivingLaws = [
   },
 ];
 
-const Bonaire = () => {
+const Bonaire = ({ lang }: { lang: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Hero Section with Background Image */}
       <BonaireHero />
 
       {/* Why You Need a Car Section */}
-      <BonaireWhy />
+      <BonaireWhy lang={lang} />
 
       {/* Driving Laws Section */}
       <section className="py-20 bg-[#142D35]">

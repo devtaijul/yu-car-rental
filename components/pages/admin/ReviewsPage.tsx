@@ -105,23 +105,23 @@ const ReviewsPage = () => {
             Monitor, approve, and manage customer feedback for trips.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="relative">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search reviews, users..."
-              className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-56"
+              className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-full sm:w-56"
             />
           </div>
-          <select className="border rounded-lg px-4 py-2.5 text-sm bg-card focus:outline-none">
+          <select className="w-full border rounded-lg px-4 py-2.5 text-sm bg-card focus:outline-none sm:w-auto">
             <option>All Ratings</option>
             <option>5 Stars</option>
             <option>4 Stars</option>
             <option>3 Stars</option>
           </select>
-          <select className="border rounded-lg px-4 py-2.5 text-sm bg-card focus:outline-none">
+          <select className="w-full border rounded-lg px-4 py-2.5 text-sm bg-card focus:outline-none sm:w-auto">
             <option>All Status</option>
             <option>Published</option>
             <option>Pending</option>
@@ -166,8 +166,84 @@ const ReviewsPage = () => {
 
       {/* Reviews Table */}
       <div className="bg-card rounded-xl border">
+        {/* Mobile Cards */}
+        <div className="md:hidden">
+          <div className="divide-y">
+            {mockReviews.map((r) => (
+              <div key={r.id} className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center text-xs font-bold shrink-0">
+                      {r.name
+                        .split(" ")
+                        .map((w) => w[0])
+                        .join("")}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-foreground flex items-center gap-1 break-words">
+                        {r.name}
+                        {r.verified && (
+                          <CheckCircle className="h-3.5 w-3.5 text-primary" />
+                        )}
+                      </p>
+                      <p className="text-xs text-muted-foreground break-words">
+                        {r.email}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {r.date}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-xs font-semibold">
+                    {r.status}
+                  </span>
+                </div>
+
+                <div className="mt-3">
+                  <StarRating rating={r.rating} />
+                  <p className="font-semibold mt-1.5">{r.title}</p>
+                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                    {r.body}
+                  </p>
+                  <button className="text-xs font-bold text-foreground mt-1 hover:underline">
+                    READ MORE
+                  </button>
+                </div>
+
+                <div className="mt-3 text-xs text-muted-foreground space-y-1">
+                  <p className="font-medium text-foreground">{r.car}</p>
+                  <p className="text-xs text-primary font-mono"># {r.plate}</p>
+                  <p>{r.trip}</p>
+                </div>
+
+                <div className="mt-3 flex items-center justify-end gap-1">
+                  {r.status === "PENDING" ? (
+                    <>
+                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                        <Check className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                        <X className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                        <EyeOff className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                        <Trash2 className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="hidden w-full text-sm md:table">
             <thead>
               <tr className="border-b">
                 <th className="text-left py-3 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -276,13 +352,13 @@ const ReviewsPage = () => {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-6 py-4 border-t">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col gap-3 px-4 sm:px-6 py-4 border-t sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground text-center sm:text-left">
             Showing <span className="font-semibold text-foreground">1</span> to{" "}
             <span className="font-semibold text-foreground">4</span> of{" "}
             <span className="font-semibold text-foreground">3,248</span> entries
           </p>
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center justify-center gap-1 sm:justify-end">
             <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted">
               ←
             </button>

@@ -88,6 +88,12 @@ const mockBookings = [
     paymentClass: "text-success",
   },
 ];
+const statusDotVariants: Record<string, string> = {
+  ACTIVE: "bg-emerald-500",
+  PENDING: "bg-amber-500",
+  COMPLETED: "bg-blue-500",
+  CANCELLED: "bg-rose-500",
+};
 
 const BookingsPage = ({ bookings }: { bookings: BookingWithAll[] }) => {
   const [search, setSearch] = useState("");
@@ -102,31 +108,128 @@ const BookingsPage = ({ bookings }: { bookings: BookingWithAll[] }) => {
             Manage, track, and update customer reservations.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="relative">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search ID, Customer, Car..."
-              className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-64"
+              className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-full sm:w-64"
             />
           </div>
-          <button className="flex items-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors">
+          <button className="flex w-full items-center justify-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors sm:w-auto">
             <Filter className="h-4 w-4" /> Status: All
           </button>
-          <button className="flex items-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors">
+          <button className="flex w-full items-center justify-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors sm:w-auto">
             <Calendar className="h-4 w-4" /> Last 30 Days
           </button>
         </div>
       </div>
 
       <div className="bg-card rounded-xl border">
+        {/* Mobile Cards */}
+        <div className="md:hidden">
+          {bookings.length > 0 ? (
+            <div className="divide-y">
+              {bookings.map((b) => (
+                <div key={b.id} className="p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                        Booking ID
+                      </p>
+                      <p className="font-mono font-semibold text-foreground">
+                        {b.id}
+                      </p>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                      <span
+                        className={`h-2 w-2 rounded-full ${
+                          statusDotVariants[b.status] ?? "bg-muted-foreground"
+                        }`}
+                      />
+                      {b.status}
+                    </span>
+                  </div>
+
+                  <div className="mt-3">
+                    <p className="font-medium text-foreground">
+                      {b.user.firstName} {b.user.lastName}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {b.user.email}
+                    </p>
+                  </div>
+
+                  <div className="mt-3 text-xs text-muted-foreground space-y-1">
+                    <p>
+                      Car:{" "}
+                      <span className="text-foreground font-medium">
+                        {b.car.name}
+                      </span>{" "}
+                      <span className="font-mono">({b.car.plate})</span>
+                    </p>
+                    <p>From: {b.pickupLocation}</p>
+                    <p>To: {b.dropoffLocation}</p>
+                  </div>
+
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                    <p className="font-bold text-foreground">
+                      {b.totalAmount}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() =>
+                          router.push(PAGES.ADMIN.BOOKINGS.EDIT(b.id))
+                        }
+                        className="flex items-center gap-1.5 border rounded-lg px-3 py-1.5 text-xs font-medium hover:bg-muted transition-colors"
+                      >
+                        VIEW DETAILS
+                      </button>
+                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                        <Pencil className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                      <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                        <X className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="py-16">
+              <div className="flex flex-col items-center justify-center text-center px-6">
+                <div className="h-14 w-14 rounded-full bg-muted flex items-center justify-center mb-4">
+                  <Calendar className="h-6 w-6 text-muted-foreground" />
+                </div>
+
+                <h3 className="text-lg font-semibold text-foreground">
+                  No bookings found
+                </h3>
+
+                <p className="text-sm text-muted-foreground mt-1 max-w-sm">
+                  There are no bookings available yet. When customers make a
+                  reservation, they will appear here.
+                </p>
+
+                <button
+                  onClick={() => router.push(PAGES.ADMIN.BOOKINGS.CREATE)}
+                  className="mt-5 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"
+                >
+                  Create Booking
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="hidden w-full min-w-[900px] text-sm md:table">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-3 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                <th className="text-left py-3 px-4 sm:px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   Booking ID
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -144,7 +247,7 @@ const BookingsPage = ({ bookings }: { bookings: BookingWithAll[] }) => {
                 <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="text-right py-3 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                <th className="text-right py-3 px-4 sm:px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -156,7 +259,7 @@ const BookingsPage = ({ bookings }: { bookings: BookingWithAll[] }) => {
                     key={b.id}
                     className="border-b last:border-0 hover:bg-muted/30 transition-colors"
                   >
-                    <td className="py-4 px-6 font-mono font-medium text-foreground">
+                    <td className="py-4 px-4 sm:px-6 font-mono font-medium text-foreground">
                       {b.id}
                     </td>
                     <td className="py-4 px-4">
@@ -200,7 +303,7 @@ const BookingsPage = ({ bookings }: { bookings: BookingWithAll[] }) => {
                         {b.totalAmount}
                       </p>
                     </td>
-                    <td className="py-4 px-6">
+                    <td className="py-4 px-4 sm:px-6">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() =>
@@ -251,14 +354,14 @@ const BookingsPage = ({ bookings }: { bookings: BookingWithAll[] }) => {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-6 py-4 border-t">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col gap-3 px-4 sm:px-6 py-4 border-t sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground text-center sm:text-left">
             Showing <span className="font-semibold text-foreground">1</span> to{" "}
             <span className="font-semibold text-foreground">5</span> of{" "}
             <span className="font-semibold text-foreground">1,204</span>{" "}
             bookings
           </p>
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center justify-center gap-1 sm:justify-end">
             <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted">
               ←
             </button>

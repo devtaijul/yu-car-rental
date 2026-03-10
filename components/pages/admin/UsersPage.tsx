@@ -101,7 +101,7 @@ const UsersPage = () => {
         </div>
         <button
           onClick={() => router.push(PAGES.ADMIN.USERS.CREATE)}
-          className="flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+          className="flex w-full items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity sm:w-auto"
         >
           <UserPlus className="h-4 w-4" /> ADD NEW USER
         </button>
@@ -118,30 +118,101 @@ const UsersPage = () => {
             className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-full"
           />
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex border rounded-lg overflow-hidden">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <div className="flex w-full border rounded-lg overflow-hidden sm:w-auto">
             {statusTabs.map((tab, i) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(i)}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === i ? "bg-card text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                className={`flex-1 px-4 py-2 text-sm font-medium transition-colors sm:flex-none ${activeTab === i ? "bg-card text-foreground" : "text-muted-foreground hover:text-foreground"}`}
               >
                 {tab}
               </button>
             ))}
           </div>
-          <button className="flex items-center gap-2 border rounded-lg px-4 py-2 text-sm font-medium hover:bg-muted transition-colors">
+          <button className="flex w-full items-center justify-center gap-2 border rounded-lg px-4 py-2 text-sm font-medium hover:bg-muted transition-colors sm:w-auto">
             <Filter className="h-4 w-4" /> Filters
           </button>
-          <button className="flex items-center gap-2 border rounded-lg px-4 py-2 text-sm font-medium hover:bg-muted transition-colors">
+          <button className="flex w-full items-center justify-center gap-2 border rounded-lg px-4 py-2 text-sm font-medium hover:bg-muted transition-colors sm:w-auto">
             <Download className="h-4 w-4" /> Export
           </button>
         </div>
       </div>
 
       <div className="bg-card rounded-xl border">
+        {/* Mobile Cards */}
+        <div className="md:hidden">
+          <div className="divide-y">
+            {mockUsers.map((user) => (
+              <div key={user.id} className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div
+                      className={`h-10 w-10 rounded-full flex items-center justify-center text-xs font-bold ${user.color}`}
+                    >
+                      {user.initials}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-medium text-foreground break-words">
+                        {user.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground break-words">
+                        {user.email}
+                      </p>
+                      <p className="text-xs text-muted-foreground"># {user.id}</p>
+                    </div>
+                  </div>
+                  <span
+                    className={`${statusBadgeBase} ${
+                      statusBadgeVariants[user.status] ??
+                      "border-border bg-muted/40 text-muted-foreground"
+                    }`}
+                  >
+                    <span
+                      className={`h-2 w-2 rounded-full ${
+                        statusDotVariants[user.status] ?? "bg-muted-foreground"
+                      }`}
+                    />
+                    {user.status}
+                  </span>
+                </div>
+
+                <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+                  <span>
+                    Bookings:{" "}
+                    <span className="font-semibold text-foreground">
+                      {user.bookings}
+                    </span>
+                  </span>
+                  <span>
+                    Spent:{" "}
+                    <span className="font-semibold text-foreground">
+                      {user.spent}
+                    </span>
+                  </span>
+                </div>
+
+                <div className="mt-3 flex items-center justify-end gap-1">
+                  <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  </button>
+                  <button
+                    onClick={() => router.push(PAGES.ADMIN.USERS.EDIT(user.id))}
+                    className="p-2 rounded-lg hover:bg-muted transition-colors"
+                  >
+                    <Pencil className="h-4 w-4 text-muted-foreground" />
+                  </button>
+                  <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                    <Ban className="h-4 w-4 text-muted-foreground" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="hidden w-full text-sm md:table">
             <thead>
               <tr className="border-b">
                 <th className="text-left py-3 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -235,13 +306,13 @@ const UsersPage = () => {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-6 py-4 border-t">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col gap-3 px-4 sm:px-6 py-4 border-t sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground text-center sm:text-left">
             Showing <span className="font-semibold text-foreground">1</span> to{" "}
             <span className="font-semibold text-foreground">6</span> of{" "}
             <span className="font-semibold text-foreground">8,921</span> users
           </p>
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center justify-center gap-1 sm:justify-end">
             <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted">
               ←
             </button>

@@ -116,7 +116,7 @@ export const PaymentsPage = () => {
             Manage billing history and track transactions.
           </p>
         </div>
-        <button className="flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity">
+        <button className="flex w-full items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity sm:w-auto">
           <Download className="h-4 w-4" /> EXPORT REPORT
         </button>
       </div>
@@ -126,7 +126,9 @@ export const PaymentsPage = () => {
         {stats.map((s, i) => (
           <div
             key={s.label}
-            className={`p-6 ${i < stats.length - 1 ? "border-r" : ""}`}
+            className={`p-6 ${
+              i < stats.length - 1 ? "border-b md:border-b-0 md:border-r" : ""
+            }`}
           >
             <div className="flex items-center gap-2 mb-2">
               <span className={`status-dot ${s.dot}`} />
@@ -141,8 +143,8 @@ export const PaymentsPage = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex items-center gap-3">
-        <div className="relative flex-1 max-w-md">
+      <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative w-full sm:flex-1 sm:max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             value={search}
@@ -151,17 +153,66 @@ export const PaymentsPage = () => {
             className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-full"
           />
         </div>
-        <button className="flex items-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors">
+        <button className="flex w-full items-center justify-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors sm:w-auto">
           All Statuses
         </button>
-        <button className="flex items-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors">
+        <button className="flex w-full items-center justify-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors sm:w-auto">
           <Filter className="h-4 w-4" /> FILTERS
         </button>
       </div>
 
       <div className="bg-card rounded-xl border">
+        {/* Mobile Cards */}
+        <div className="md:hidden">
+          <div className="divide-y">
+            {mockPayments.map((p) => (
+              <div key={p.id} className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                      Invoice ID
+                    </p>
+                    <p className="font-mono font-semibold text-foreground">
+                      {p.id}
+                    </p>
+                  </div>
+                  <span
+                    className={`${paymentBadgeBase} ${
+                      paymentBadgeVariants[p.status] ??
+                      "border-border bg-muted/40 text-muted-foreground"
+                    }`}
+                  >
+                    {p.status}
+                  </span>
+                </div>
+
+                <div className="mt-3">
+                  <p className="font-medium text-foreground">{p.customer}</p>
+                  <p className="text-xs text-muted-foreground">
+                    Booking Ref: {p.ref}
+                  </p>
+                </div>
+
+                <div className="mt-3 text-xs text-muted-foreground space-y-1">
+                  <p>
+                    Amount:{" "}
+                    <span className={`font-semibold ${p.amountClass || "text-foreground"}`}>
+                      {p.amount}
+                    </span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <span>{p.methodIcon}</span>
+                    <span>{p.method}</span>
+                  </p>
+                  <p>Date: {p.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="hidden w-full text-sm md:table">
             <thead>
               <tr className="border-b">
                 <th className="text-left py-3 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -224,13 +275,13 @@ export const PaymentsPage = () => {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-6 py-4 border-t">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col gap-3 px-4 sm:px-6 py-4 border-t sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground text-center sm:text-left">
             Showing <span className="font-semibold text-foreground">1</span> to{" "}
             <span className="font-semibold text-foreground">8</span> of{" "}
             <span className="font-semibold text-foreground">482</span> results
           </p>
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center justify-center gap-1 sm:justify-end">
             <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted">
               ←
             </button>

@@ -141,22 +141,22 @@ const DriversPage = () => {
             Manage verification, licenses, and driver activity.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="relative">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search drivers..."
-              className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-56"
+              className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-full sm:w-56"
             />
           </div>
-          <button className="flex items-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors">
+          <button className="flex w-full items-center justify-center gap-2 border rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors sm:w-auto">
             <Filter className="h-4 w-4" /> Filters
           </button>
           <button
             onClick={() => router.push(PAGES.ADMIN.DRIVERS.CREATE)}
-            className="flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+            className="flex w-full items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity sm:w-auto"
           >
             <Plus className="h-4 w-4" /> Add Driver
           </button>
@@ -164,20 +164,122 @@ const DriversPage = () => {
       </div>
 
       <div className="bg-card rounded-xl border">
-        <div className="flex border-b px-6">
+        <div className="flex border-b px-4 sm:px-6 overflow-x-auto">
           {tabs.map((tab, i) => (
             <button
               key={tab}
               onClick={() => setActiveTab(i)}
-              className={`py-4 px-4 text-sm font-medium transition-colors ${activeTab === i ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+              className={`whitespace-nowrap py-4 px-4 text-sm font-medium transition-colors ${activeTab === i ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
             >
               {tab}
             </button>
           ))}
         </div>
 
+        {/* Mobile Cards */}
+        <div className="md:hidden">
+          <div className="divide-y">
+            {mockDrivers.map((d) => (
+              <div key={d.id} className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="h-10 w-10 rounded-full bg-foreground/10 flex items-center justify-center text-xs font-bold text-foreground">
+                      {d.hasImage ? "Image" : d.initials}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-foreground break-words">
+                        {d.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground break-words">
+                        {d.contact}
+                      </p>
+                    </div>
+                  </div>
+                  <span
+                    className={`${statusBadgeBase} ${statusBadgeVariants[d.status] ??
+                      "border-border bg-muted/40 text-muted-foreground"
+                      }`}
+                  >
+                    <span
+                      className={`h-2 w-2 rounded-full ${statusDotVariants[d.status] ?? "bg-muted-foreground"
+                        }`}
+                    />
+                    {d.status}
+                  </span>
+                </div>
+
+                <div className="mt-3 text-xs text-muted-foreground space-y-1">
+                  <p>
+                    License:{" "}
+                    <span className="font-mono font-medium text-foreground">
+                      {d.license}
+                    </span>
+                  </p>
+                  <p
+                    className={`${d.licenseExp.includes("2024")
+                        ? "text-destructive"
+                        : "text-muted-foreground"
+                      }`}
+                  >
+                    {d.licenseExp}
+                  </p>
+                </div>
+
+                <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+                  <span>
+                    Trips:{" "}
+                    <span className="font-semibold text-foreground">
+                      {d.trips}
+                    </span>
+                  </span>
+                  {d.rating > 0 ? (
+                    <span className="flex items-center gap-1">
+                      <Star className="h-3.5 w-3.5 text-warning fill-warning" />
+                      <span className="font-semibold text-foreground">
+                        {d.rating}
+                      </span>
+                      <span>({d.reviews})</span>
+                    </span>
+                  ) : (
+                    <span className="italic">No ratings yet</span>
+                  )}
+                </div>
+
+                <div className={`mt-3 flex items-center gap-1.5 text-xs ${d.docsClass}`}>
+                  {d.docsIcon === "check" && <CheckCircle className="h-4 w-4" />}
+                  {d.docsIcon === "alert" && <AlertCircle className="h-4 w-4" />}
+                  {d.docsIcon === "error" && <XCircle className="h-4 w-4" />}
+                  <div>
+                    <span className="font-medium">{d.docsStatus}</span>
+                    {d.docsSub && (
+                      <p className="text-xs text-destructive">{d.docsSub}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-center justify-end gap-1">
+                  <button
+                    onClick={() =>
+                      router.push(PAGES.ADMIN.DRIVERS.EDIT(d.id.toString()))
+                    }
+                    className="p-2 rounded-lg hover:bg-muted transition-colors"
+                  >
+                    <Pencil className="h-4 w-4 text-muted-foreground" />
+                  </button>
+                  <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  </button>
+                  <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                    <Ban className="h-4 w-4 text-muted-foreground" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="hidden w-full text-sm md:table">
             <thead>
               <tr className="border-b">
                 <th className="text-left py-3 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -226,15 +328,13 @@ const DriversPage = () => {
                   </td>
                   <td className="py-4 px-4 text-center">
                     <span
-                      className={`${statusBadgeBase} ${
-                        statusBadgeVariants[d.status] ??
+                      className={`${statusBadgeBase} ${statusBadgeVariants[d.status] ??
                         "border-border bg-muted/40 text-muted-foreground"
-                      }`}
+                        }`}
                     >
                       <span
-                        className={`h-2 w-2 rounded-full ${
-                          statusDotVariants[d.status] ?? "bg-muted-foreground"
-                        }`}
+                        className={`h-2 w-2 rounded-full ${statusDotVariants[d.status] ?? "bg-muted-foreground"
+                          }`}
                       />
                       {d.status}
                     </span>
@@ -318,13 +418,14 @@ const DriversPage = () => {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-6 py-4 border-t">
-          <p className="text-sm text-muted-foreground">
+        <div className="flex flex-col gap-3 px-4 sm:px-6 py-4 border-t sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground text-center sm:text-left">
             Showing <span className="font-semibold text-foreground">1</span> to{" "}
             <span className="font-semibold text-foreground">5</span> of{" "}
-            <span className="font-semibold text-foreground">1,420</span> drivers
+            <span className="font-semibold text-foreground">1,420</span>{" "}
+            drivers
           </p>
-          <div className="flex items-center gap-1">
+          <div className="flex w-full flex-wrap items-center justify-center gap-1 sm:w-auto sm:justify-end">
             <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted">
               ←
             </button>

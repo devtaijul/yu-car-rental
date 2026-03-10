@@ -1,8 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn, stripLocale } from "@/lib/utils";
-import { LogOut, Menu, X } from "lucide-react";
+import { ChevronDown, LogOut, Menu, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,8 +29,9 @@ const navItems = [
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const location = usePathname();
+  const normalizedLocation = stripLocale(location);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (status === "loading")
@@ -35,76 +42,113 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
     );
 
   return (
-    <div className="min-h-screen flex overflow-x-hidden bg-muted/20">
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+      <div className="min-h-screen flex overflow-x-hidden bg-muted/20">
+          {/* Mobile overlay */}
+          {sidebarOpen && (
+              <div
+                  className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+                  onClick={() => setSidebarOpen(false)}
+              />
+          )}
 
-      {/* Sidebar */}
-      <aside
-        className={cn(
-          "fixed inset-y-0 left-0 z-50 w-[17rem] bg-card border-r transform transition-transform duration-300 sm:w-64 lg:translate-x-0 lg:static lg:z-auto",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full",
-        )}
-      >
-        <div className="flex items-center justify-between border-b p-4">
-          <Link href="/admin" className="flex items-center gap-2">
-            <Image
-              src="/assets/logo-nav.png"
-              alt="Logo"
-              className="max-w-32 sm:max-w-38"
-              width={1000}
-              height={500}
-            />
-          </Link>
-          <button
-            className="rounded p-1 hover:bg-muted lg:hidden"
-            onClick={() => setSidebarOpen(false)}
+          {/* Sidebar */}
+          <aside
+              className={cn(
+                  "fixed inset-y-0 left-0 z-50 w-[17rem] bg-card border-r transform transition-transform duration-300 sm:w-64 lg:translate-x-0 lg:static lg:z-auto",
+                  sidebarOpen ? "translate-x-0" : "-translate-x-full",
+              )}
           >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-        <DashboardNav navItems={navItems} setSidebarOpen={setSidebarOpen} />
-        <div className="border-t p-3">
-          <Button
-            variant="ghost"
-            className="w-full justify-start gap-3 text-sm text-muted-foreground"
-            onClick={() => signOut({ callbackUrl: "/en/login" })}
-          >
-            <LogOut className="h-4 w-4" /> Sign Out
-          </Button>
-          <Link
-            href="/"
-            className="block px-3 py-2 text-xs text-muted-foreground hover:text-primary"
-          >
-            {"< Back to Website"}
-          </Link>
-        </div>
-      </aside>
+              <div className="flex items-center justify-between border-b p-4">
+                  <Link href="/admin" className="flex items-center gap-2">
+                      <Image
+                          src="/assets/logo-nav.png"
+                          alt="Logo"
+                          className="max-w-32 sm:max-w-38"
+                          width={1000}
+                          height={500}
+                      />
+                  </Link>
+                  <button
+                      className="rounded p-1 hover:bg-muted lg:hidden"
+                      onClick={() => setSidebarOpen(false)}
+                  >
+                      <X className="h-5 w-5" />
+                  </button>
+              </div>
+              <DashboardNav
+                  navItems={navItems}
+                  setSidebarOpen={setSidebarOpen}
+              />
+              <div className="border-t p-3">
+                  <Button
+                      variant="ghost"
+                      className="w-full justify-start gap-3 text-sm text-muted-foreground"
+                      onClick={() => signOut({ callbackUrl: "/en/login" })}
+                  >
+                      <LogOut className="h-4 w-4" /> Sign Out
+                  </Button>
+                  <Link
+                      href="/"
+                      className="block px-3 py-2 text-xs text-muted-foreground hover:text-primary"
+                  >
+                      {"< Back to Website"}
+                  </Link>
+              </div>
+          </aside>
 
-      {/* Main */}
-      <div className="flex-1 flex flex-col min-h-screen">
-        <header className="sticky top-0 z-30 flex items-center gap-3 border-b bg-card/80 px-3 py-3 backdrop-blur sm:px-4 lg:px-6">
-          <button
-            className="rounded p-1 hover:bg-muted lg:hidden"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu className="h-5 w-5" />
-          </button>
-          <h1 className="truncate font-display text-base font-semibold sm:text-lg">
-            {navItems.find((n) =>
-              n.to === "/admin"
-                ? stripLocale(location) === "/admin"
-                : location.startsWith(n.to),
-            )?.label || "Admin"}
-          </h1>
-        </header>
-        <main className="flex-1 p-3 sm:p-4 lg:p-6">{children}</main>
+          {/* Main */}
+          <div className="flex-1 flex flex-col min-h-screen">
+              <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b bg-card/80 px-3 py-3 backdrop-blur sm:px-4 lg:px-6">
+                  <button
+                      className="rounded p-1 hover:bg-muted lg:hidden"
+                      onClick={() => setSidebarOpen(true)}
+                  >
+                      <Menu className="h-5 w-5" />
+                  </button>
+                  <h1 className="truncate font-display text-base font-semibold sm:text-lg">
+                      {navItems.find((n) =>
+                          n.to === "/admin"
+                              ? normalizedLocation === "/admin"
+                              : normalizedLocation.startsWith(n.to),
+                      )?.label || "Admin"}
+                  </h1>
+                  <div className="flex items-center gap-4">
+                      {/* Admin dropdown using shadcn/ui */}
+                      <DropdownMenu>
+                          <DropdownMenuTrigger className="flex items-center gap-2 focus:outline-none">
+                              <div className="text-right hidden sm:block">
+                                  <p className="text-sm font-semibold">
+                                      {session?.user?.firstname}{" "}
+                                      {session?.user?.lastname}
+                                  </p>
+                                  <p className="text-[10px] font-bold text-primary uppercase tracking-wider">
+                                      {session?.user?.email}
+                                  </p>
+                              </div>
+                              <div className="w-9 h-9 rounded-full gradient-teal flex items-center justify-center text-primary-foreground font-bold text-sm">
+                                  {(
+                                      session?.user?.firstname?.charAt(0) ?? ""
+                                  ).toUpperCase()}
+                                  {(
+                                      session?.user?.lastname?.charAt(0) ?? ""
+                                  ).toUpperCase()}
+                              </div>
+                              <ChevronDown className="h-3 w-3 text-muted-foreground" />
+                          </DropdownMenuTrigger>
+
+                          <DropdownMenuContent align="end" className="w-40">
+                              <DropdownMenuItem
+                                  className="text-destructive"
+                                  onClick={() => signOut({ callbackUrl: "/" })}
+                              >
+                                  Logout
+                              </DropdownMenuItem>
+                          </DropdownMenuContent>
+                      </DropdownMenu>
+                  </div>
+              </header>
+              <main className="flex-1 p-3 sm:p-4 lg:p-6">{children}</main>
+          </div>
       </div>
-    </div>
   );
 }

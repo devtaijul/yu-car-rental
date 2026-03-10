@@ -59,12 +59,14 @@ export const bookCar = async ({
   payment,
   carId,
   pricePerDay,
+  discount = 0,
 }: {
   customer: CheckoutFormValues;
   booking: BookingState;
   payment: PaymentIntent & { latest_charge?: string | null };
   carId: string;
   pricePerDay: number;
+  discount?: number;
 }) => {
   try {
     // 🔴 1️⃣ Payment must be successful
@@ -109,13 +111,32 @@ export const bookCar = async ({
             firstName: customer.firstName,
             lastName: customer.lastName,
             email: customer.email,
-            phoneCode: "+880", // তুমি চাইলে dynamic করো
+            phoneCode: "+880",
             phone: customer.phone,
             password: hashedPassword,
             role: UserRole.USER,
             isVerified: false,
             dateOfBirth: new Date(customer.dateOfBirth),
             licenseNumber: customer.licenseNumber,
+            street: customer.streetAddress,
+            houseNo: customer.houseNumber,
+            postCode: customer.postCode,
+            city: customer.city,
+            country: customer.country,
+            company: customer.company,
+          },
+        });
+      } else {
+        // Update billing info for existing users
+        await tx.user.update({
+          where: { id: user.id },
+          data: {
+            street: customer.streetAddress || user.street,
+            houseNo: customer.houseNumber || user.houseNo,
+            postCode: customer.postCode || user.postCode,
+            city: customer.city || user.city,
+            country: customer.country || user.country,
+            company: customer.company || user.company,
           },
         });
       }
@@ -140,13 +161,23 @@ export const bookCar = async ({
           pickupTime: booking.pickupTime as string,
           dropoffTime: booking.dropoffTime as string,
           totalAmount,
+          discount,
+          specialRequests: customer.specialRequests,
           driversDOB: new Date(customer.dateOfBirth),
           driversLicNo: customer.licenseNumber,
           status: BookingStatus.PENDING,
         },
       });
 
-      // ✅ 3.4 Create Payment
+      // ✅ 3.4 Increment coupon usage if promo was applied
+      if (customer.promoCode && discount > 0) {
+        await tx.coupon.updateMany({
+          where: { code: customer.promoCode, isActive: true },
+          data: { usedCount: { increment: 1 } },
+        });
+      }
+
+      // ✅ 3.5 Create Payment
       await tx.payment.create({
         data: {
           bookingId: createdBooking.id,
@@ -520,5 +551,99 @@ export const generalSettingsMutation = async (
     console.error(error);
 
     return actionError("Failed to update general settings", error);
+  }
+};
+
+export const updateProfile = async (data: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneCode: string;
+  phone: string;
+  dateOfBirth: string;
+  licenseNumber: string;
+  company?: string;
+  street: string;
+  houseNo: string;
+  postCode: string;
+  city: string;
+  country: string;
+  stateRegion: string;
+}) => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.update({
+      where: { email: session.user.email },
+      data: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phoneCode: data.phoneCode,
+        phone: data.phone,
+        dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : undefined,
+        licenseNumber: data.licenseNumber,
+        company: data.company || null,
+        street: data.street,
+        houseNo: data.houseNo,
+        postCode: data.postCode,
+        city: data.city,
+        country: data.country,
+        stateRegion: data.stateRegion,
+      },
+    });
+
+    return actionResponse(user);
+  } catch (error) {
+    console.error("Update profile error:", error);
+    return actionError("Failed to update profile");
+  }
+};
+
+export const updatePassword = async (data: {
+  currentPassword: string;
+  newPassword: string;
+}) => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) return actionError("User not found");
+
+    const valid = await bcrypt.compare(data.currentPassword, user.password);
+    if (!valid) return actionError("Current password is incorrect");
+
+    const hashed = await bcrypt.hash(data.newPassword, 10);
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { password: hashed },
+    });
+
+    return actionResponse({ success: true });
+  } catch (error) {
+    console.error("Update password error:", error);
+    return actionError("Failed to update password");
+  }
+};
+
+export const updateAvatar = async (avatarUrl: string) => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.update({
+      where: { email: session.user.email },
+      data: { avatarUrl },
+    });
+
+    return actionResponse(user);
+  } catch (error) {
+    console.error("Update avatar error:", error);
+    return actionError("Failed to update avatar");
   }
 };

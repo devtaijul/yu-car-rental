@@ -38,6 +38,7 @@ export type UserMinAggregateOutputType = {
   resetPasswordToken: string | null
   dateOfBirth: Date | null
   licenseNumber: string | null
+  avatarUrl: string | null
   company: string | null
   street: string | null
   houseNo: string | null
@@ -63,6 +64,7 @@ export type UserMaxAggregateOutputType = {
   resetPasswordToken: string | null
   dateOfBirth: Date | null
   licenseNumber: string | null
+  avatarUrl: string | null
   company: string | null
   street: string | null
   houseNo: string | null
@@ -88,6 +90,7 @@ export type UserCountAggregateOutputType = {
   resetPasswordToken: number
   dateOfBirth: number
   licenseNumber: number
+  avatarUrl: number
   company: number
   street: number
   houseNo: number
@@ -115,6 +118,7 @@ export type UserMinAggregateInputType = {
   resetPasswordToken?: true
   dateOfBirth?: true
   licenseNumber?: true
+  avatarUrl?: true
   company?: true
   street?: true
   houseNo?: true
@@ -140,6 +144,7 @@ export type UserMaxAggregateInputType = {
   resetPasswordToken?: true
   dateOfBirth?: true
   licenseNumber?: true
+  avatarUrl?: true
   company?: true
   street?: true
   houseNo?: true
@@ -165,6 +170,7 @@ export type UserCountAggregateInputType = {
   resetPasswordToken?: true
   dateOfBirth?: true
   licenseNumber?: true
+  avatarUrl?: true
   company?: true
   street?: true
   houseNo?: true
@@ -263,6 +269,7 @@ export type UserGroupByOutputType = {
   resetPasswordToken: string | null
   dateOfBirth: Date | null
   licenseNumber: string | null
+  avatarUrl: string | null
   company: string | null
   street: string | null
   houseNo: string | null
@@ -309,6 +316,7 @@ export type UserWhereInput = {
   resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   licenseNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   company?: Prisma.StringNullableFilter<"User"> | string | null
   street?: Prisma.StringNullableFilter<"User"> | string | null
   houseNo?: Prisma.StringNullableFilter<"User"> | string | null
@@ -337,6 +345,7 @@ export type UserOrderByWithRelationInput = {
   resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
   licenseNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   company?: Prisma.SortOrderInput | Prisma.SortOrder
   street?: Prisma.SortOrderInput | Prisma.SortOrder
   houseNo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -368,6 +377,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   licenseNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   company?: Prisma.StringNullableFilter<"User"> | string | null
   street?: Prisma.StringNullableFilter<"User"> | string | null
   houseNo?: Prisma.StringNullableFilter<"User"> | string | null
@@ -396,6 +406,7 @@ export type UserOrderByWithAggregationInput = {
   resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
   licenseNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   company?: Prisma.SortOrderInput | Prisma.SortOrder
   street?: Prisma.SortOrderInput | Prisma.SortOrder
   houseNo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -427,6 +438,7 @@ export type UserScalarWhereWithAggregatesInput = {
   resetPasswordToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   licenseNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   company?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   street?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   houseNo?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -452,6 +464,7 @@ export type UserCreateInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -480,6 +493,7 @@ export type UserUncheckedCreateInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -508,6 +522,7 @@ export type UserUpdateInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -536,6 +551,7 @@ export type UserUncheckedUpdateInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -564,6 +580,7 @@ export type UserCreateManyInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -589,6 +606,7 @@ export type UserUpdateManyMutationInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -614,6 +632,7 @@ export type UserUncheckedUpdateManyInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -639,6 +658,7 @@ export type UserCountOrderByAggregateInput = {
   resetPasswordToken?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   licenseNumber?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
   company?: Prisma.SortOrder
   street?: Prisma.SortOrder
   houseNo?: Prisma.SortOrder
@@ -664,6 +684,7 @@ export type UserMaxOrderByAggregateInput = {
   resetPasswordToken?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   licenseNumber?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
   company?: Prisma.SortOrder
   street?: Prisma.SortOrder
   houseNo?: Prisma.SortOrder
@@ -689,6 +710,7 @@ export type UserMinOrderByAggregateInput = {
   resetPasswordToken?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   licenseNumber?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
   company?: Prisma.SortOrder
   street?: Prisma.SortOrder
   houseNo?: Prisma.SortOrder
@@ -785,6 +807,7 @@ export type UserCreateWithoutBookingsInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -812,6 +835,7 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -855,6 +879,7 @@ export type UserUpdateWithoutBookingsInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -882,6 +907,7 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -909,6 +935,7 @@ export type UserCreateWithoutPaymentsInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -936,6 +963,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -979,6 +1007,7 @@ export type UserUpdateWithoutPaymentsInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1006,6 +1035,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1033,6 +1063,7 @@ export type UserCreateWithoutReviewsInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -1060,6 +1091,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   resetPasswordToken?: string | null
   dateOfBirth?: Date | string | null
   licenseNumber?: string | null
+  avatarUrl?: string | null
   company?: string | null
   street?: string | null
   houseNo?: string | null
@@ -1103,6 +1135,7 @@ export type UserUpdateWithoutReviewsInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1130,6 +1163,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   houseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1206,6 +1240,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   resetPasswordToken?: boolean
   dateOfBirth?: boolean
   licenseNumber?: boolean
+  avatarUrl?: boolean
   company?: boolean
   street?: boolean
   houseNo?: boolean
@@ -1235,6 +1270,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   resetPasswordToken?: boolean
   dateOfBirth?: boolean
   licenseNumber?: boolean
+  avatarUrl?: boolean
   company?: boolean
   street?: boolean
   houseNo?: boolean
@@ -1260,6 +1296,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   resetPasswordToken?: boolean
   dateOfBirth?: boolean
   licenseNumber?: boolean
+  avatarUrl?: boolean
   company?: boolean
   street?: boolean
   houseNo?: boolean
@@ -1285,6 +1322,7 @@ export type UserSelectScalar = {
   resetPasswordToken?: boolean
   dateOfBirth?: boolean
   licenseNumber?: boolean
+  avatarUrl?: boolean
   company?: boolean
   street?: boolean
   houseNo?: boolean
@@ -1296,7 +1334,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "phoneCode" | "phone" | "password" | "role" | "isVerified" | "verificationToken" | "resetPasswordToken" | "dateOfBirth" | "licenseNumber" | "company" | "street" | "houseNo" | "postCode" | "city" | "country" | "stateRegion" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "phoneCode" | "phone" | "password" | "role" | "isVerified" | "verificationToken" | "resetPasswordToken" | "dateOfBirth" | "licenseNumber" | "avatarUrl" | "company" | "street" | "houseNo" | "postCode" | "city" | "country" | "stateRegion" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
@@ -1327,6 +1365,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     resetPasswordToken: string | null
     dateOfBirth: Date | null
     licenseNumber: string | null
+    avatarUrl: string | null
     company: string | null
     street: string | null
     houseNo: string | null
@@ -1775,6 +1814,7 @@ export interface UserFieldRefs {
   readonly resetPasswordToken: Prisma.FieldRef<"User", 'String'>
   readonly dateOfBirth: Prisma.FieldRef<"User", 'DateTime'>
   readonly licenseNumber: Prisma.FieldRef<"User", 'String'>
+  readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly company: Prisma.FieldRef<"User", 'String'>
   readonly street: Prisma.FieldRef<"User", 'String'>
   readonly houseNo: Prisma.FieldRef<"User", 'String'>

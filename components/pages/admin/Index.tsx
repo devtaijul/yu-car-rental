@@ -99,30 +99,32 @@ const topCars = [
 
 export const DashboardOverview = () => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Welcome */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground">
+        <h1 className="text-xl font-bold text-foreground sm:text-2xl">
           Welcome back, Alex
         </h1>
-        <p className="text-muted-foreground mt-1">
+        <p className="mt-1 text-sm text-muted-foreground sm:text-base">
           Here&apos;s what&apos;s happening with your rentals today.
         </p>
       </div>
 
       {/* Stats Row 1 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {stats.map((s) => (
           <div
             key={s.label}
-            className="bg-card rounded-xl border p-6 relative overflow-hidden"
+            className="relative overflow-hidden rounded-xl border bg-card p-4 sm:p-5 lg:p-6"
           >
             <p className="text-xs font-semibold text-muted-foreground tracking-wider uppercase">
               {s.label}
             </p>
-            <p className="text-3xl font-bold mt-2 text-foreground">{s.value}</p>
+            <p className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
+              {s.value}
+            </p>
             <s.icon
-              className="absolute right-4 bottom-4 h-16 w-16 text-muted/60"
+              className="absolute bottom-3 right-3 h-12 w-12 text-muted/60 sm:bottom-4 sm:right-4 sm:h-14 sm:w-14 lg:h-16 lg:w-16"
               strokeWidth={1}
             />
           </div>
@@ -130,18 +132,20 @@ export const DashboardOverview = () => {
       </div>
 
       {/* Stats Row 2 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {stats2.map((s) => (
           <div
             key={s.label}
-            className="bg-card rounded-xl border p-6 relative overflow-hidden"
+            className="relative overflow-hidden rounded-xl border bg-card p-4 sm:p-5 lg:p-6"
           >
             <p className="text-xs font-semibold text-muted-foreground tracking-wider uppercase">
               {s.label}
             </p>
-            <p className="text-3xl font-bold mt-2 text-foreground">{s.value}</p>
+            <p className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
+              {s.value}
+            </p>
             <s.icon
-              className="absolute right-4 bottom-4 h-16 w-16 text-muted/60"
+              className="absolute bottom-3 right-3 h-12 w-12 text-muted/60 sm:bottom-4 sm:right-4 sm:h-14 sm:w-14 lg:h-16 lg:w-16"
               strokeWidth={1}
             />
           </div>
@@ -149,10 +153,10 @@ export const DashboardOverview = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
         {/* Revenue Analytics */}
-        <div className="lg:col-span-2 bg-card rounded-xl border p-6">
-          <div className="flex items-center justify-between mb-6">
+        <div className="rounded-xl border bg-card p-4 sm:p-5 lg:col-span-2 lg:p-6">
+          <div className="mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="font-bold text-foreground">Revenue Analytics</h3>
               <p className="text-sm text-muted-foreground">
@@ -211,7 +215,7 @@ export const DashboardOverview = () => {
         </div>
 
         {/* Booking Status */}
-        <div className="bg-card rounded-xl border p-6">
+        <div className="rounded-xl border bg-card p-4 sm:p-5 lg:p-6">
           <h3 className="font-bold text-foreground mb-4">Booking Status</h3>
           <div className="flex justify-center">
             <div className="relative">
@@ -240,7 +244,7 @@ export const DashboardOverview = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center gap-6 mt-4">
+          <div className="mt-4 flex flex-wrap justify-center gap-4 sm:gap-6">
             {bookingStatusData.map((d) => (
               <div key={d.name} className="text-center">
                 <div className="flex items-center gap-1.5">
@@ -260,59 +264,61 @@ export const DashboardOverview = () => {
       </div>
 
       {/* Bottom section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
         {/* Recent Bookings */}
-        <div className="lg:col-span-2 bg-card rounded-xl border p-6">
-          <div className="flex items-center justify-between mb-4">
+        <div className="rounded-xl border bg-card p-4 sm:p-5 lg:col-span-2 lg:p-6">
+          <div className="mb-4 flex items-center justify-between gap-3">
             <h3 className="font-bold text-foreground">Recent Bookings</h3>
             <Link
-              href="/bookings"
-              className="text-xs font-semibold text-primary uppercase tracking-wider hover:underline"
+              href="/admin/bookings"
+              className="text-xs font-semibold text-primary uppercase tracking-wider hover:underline shrink-0"
             >
               View All
             </Link>
           </div>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b">
-                <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Customer
-                </th>
-                <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Car
-                </th>
-                <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Date
-                </th>
-                <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="text-right py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Amount
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentBookings.map((b, i) => (
-                <tr key={i} className="border-b last:border-0">
-                  <td className="py-3 font-medium">{b.customer}</td>
-                  <td className="py-3 text-muted-foreground">{b.car}</td>
-                  <td className="py-3 text-muted-foreground">{b.date}</td>
-                  <td className="py-3">
-                    <span className="flex items-center gap-1.5">
-                      <span className={`status-dot ${b.statusClass}`} />
-                      <span className="text-sm">{b.status}</span>
-                    </span>
-                  </td>
-                  <td className="py-3 text-right font-semibold">{b.amount}</td>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px] text-sm">
+              <thead>
+                <tr className="border-b">
+                  <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Customer
+                  </th>
+                  <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Car
+                  </th>
+                  <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th className="text-left py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="text-right py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Amount
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {recentBookings.map((b, i) => (
+                  <tr key={i} className="border-b last:border-0">
+                    <td className="py-3 font-medium">{b.customer}</td>
+                    <td className="py-3 text-muted-foreground">{b.car}</td>
+                    <td className="py-3 text-muted-foreground">{b.date}</td>
+                    <td className="py-3">
+                      <span className="flex items-center gap-1.5">
+                        <span className={`status-dot ${b.statusClass}`} />
+                        <span className="text-sm">{b.status}</span>
+                      </span>
+                    </td>
+                    <td className="py-3 text-right font-semibold">{b.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Top Cars */}
-        <div className="bg-card rounded-xl border p-6">
+        <div className="rounded-xl border bg-card p-4 sm:p-5 lg:p-6">
           <h3 className="font-bold text-foreground mb-4">Top Cars</h3>
           <div className="space-y-4">
             {topCars.map((car) => (

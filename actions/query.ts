@@ -518,3 +518,109 @@ export const getMyPayments = async (
     throw actionError("Failed to fetch my payments");
   }
 };
+
+export const getMyProfile = async () => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        phoneCode: true,
+        phone: true,
+        dateOfBirth: true,
+        licenseNumber: true,
+        company: true,
+        street: true,
+        houseNo: true,
+        postCode: true,
+        city: true,
+        country: true,
+        stateRegion: true,
+        avatarUrl: true,
+        createdAt: true,
+      },
+    });
+
+    if (!user) return actionError("User not found");
+    return actionResponse(user);
+  } catch (error) {
+    console.error("Get profile error:", error);
+    throw actionError("Failed to fetch profile");
+  }
+};
+
+export const getDashboardOverview = async () => {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) return actionError("Not logged in");
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { id: true, firstName: true, lastName: true },
+    });
+    if (!user) return actionError("User not found");
+
+    const [activeBooking, upcomingBookings, pastBookings, payments] = await Promise.all([
+      prisma.booking.findFirst({
+        where: {
+          userId: user.id,
+          status: { notIn: ["CANCELLED", "COMPLETED"] },
+          startDate: { lte: new Date() },
+          endDate: { gte: new Date() },
+          deletedAt: null,
+        },
+        include: { car: true },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.booking.findMany({
+        where: {
+          userId: user.id,
+          status: { notIn: ["CANCELLED", "COMPLETED"] },
+          startDate: { gt: new Date() },
+          deletedAt: null,
+        },
+        include: { car: true },
+        orderBy: { startDate: "asc" },
+        take: 3,
+      }),
+      prisma.booking.findMany({
+        where: {
+          userId: user.id,
+          status: "COMPLETED",
+          deletedAt: null,
+        },
+        include: { car: true },
+        orderBy: { endDate: "desc" },
+        take: 3,
+      }),
+      prisma.payment.findMany({
+        where: { userId: user.id, status: "SUCCESS" },
+        select: { amount: true },
+      }),
+    ]);
+
+    const totalTrips = await prisma.booking.count({
+      where: { userId: user.id, status: { not: "CANCELLED" }, deletedAt: null },
+    });
+
+    const totalSpent = payments.reduce((sum, p) => sum + p.amount, 0);
+
+    return actionResponse({
+      user: { firstName: user.firstName, lastName: user.lastName },
+      activeBooking,
+      upcomingBookings,
+      pastBookings,
+      totalTrips,
+      totalSpent,
+    });
+  } catch (error) {
+    console.error("Get dashboard overview error:", error);
+    throw actionError("Failed to fetch dashboard overview");
+  }
+};

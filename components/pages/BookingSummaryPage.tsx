@@ -8,13 +8,13 @@ import {
   CalendarIcon,
   Car as CarIcon,
   Check,
+  ChevronRight,
   Clock,
   MapPin,
   Shield,
 } from "lucide-react";
 import { CldImage } from "next-cloudinary";
 import { useRouter } from "next/navigation";
-
 import { SummaryForm } from "../booking/SummaryForm";
 import { StripeWrapper } from "../StripeWrapper";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -34,6 +34,7 @@ export default function BookingSummaryPage({
 }) {
   useSyncBookingFromQuery();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [publishableKey, setPublishableKey] = useState<string | null>(null);
   const [phoneVerified, setPhoneVerified] = useState(false);
   const [phone, setPhone] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -50,14 +51,9 @@ export default function BookingSummaryPage({
     dropoffDate,
     pickupLocation,
     dropoffLocation,
+    pickupTime,
+    dropoffTime,
   } = booking;
-
-  const selectedCarData = {
-    name: "Volkswagen Tiguan",
-    image: "/cars/tiguan.png",
-    specs: { seats: 5, transmission: "Automatic" },
-    pricePerDay: 55,
-  };
 
   const days =
     pickupDate && dropoffDate
@@ -81,41 +77,34 @@ export default function BookingSummaryPage({
   };
 
   const extrasTotal = Object.entries(extras || {}).reduce((sum, [key, qty]) => {
-    const price = extraPriceMap[key] || 0;
-    return sum + price * qty * days;
+    return sum + (extraPriceMap[key] || 0) * qty * days;
   }, 0);
 
   const subtotal = basePrice + coveragePrice + extrasTotal;
   const vat = subtotal * 0.06;
   const total = subtotal + vat;
 
-  // Only fetch payment intent after phone is verified
   useEffect(() => {
     if (!phoneVerified) return;
-
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount: Math.round(total * 100),
-      }),
+      body: JSON.stringify({ amount: Math.round(total * 100) }),
     })
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
+        setPublishableKey(data.publishableKey);
       });
   }, [total, phoneVerified]);
 
   const handleSendOtp = useCallback(() => {
     if (!phone.trim()) return;
-
     const otp = generateOtp();
     generatedOtpRef.current = otp;
     setOtpSent(true);
     setOtpError(null);
     setOtpInput("");
-
-    // TODO: Replace with actual SMS sending
     alert(`Your OTP is: ${otp}`);
   }, [phone]);
 
@@ -128,180 +117,206 @@ export default function BookingSummaryPage({
     }
   }, [otpInput]);
 
+  const formatBookingDate = (date?: string | Date) => {
+    if (!date) return "Not selected";
+    return new Date(date).toLocaleDateString("en-US", {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   return (
     <div className="container mx-auto">
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Booking Summary - Left Column */}
-        <div>
-          <h2 className="text-xl font-display font-semibold mb-6">
+      <div className="grid lg:grid-cols-[400px_1fr] xl:grid-cols-[440px_1fr] gap-8 items-start">
+        {/* ── LEFT: Booking Summary ── */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-display font-semibold">
             Booking Summary
           </h2>
-          <div className="bg-card border border-border  overflow-hidden">
-            {selectedCarData && (
-              <>
-                <div className="h-48 gradient-color flex items-center justify-center rounded-2xl">
-                  <CldImage
-                    src={car.imageUrl}
-                    width={500}
-                    className="max-h-full object-contain"
-                    height={300}
-                    alt="Car"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-1">{car.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    e.g. Volkswagen Tiguan or similar
-                  </p>
-                  <div className="flex gap-2 mb-6">
-                    <span className="text-xs px-2 py-1 bg-primary/10 text-primary">
-                      {car.transmission}
-                    </span>
-                    <span className="text-xs px-2 py-1 bg-primary/10 text-primary">
+
+          <div className="bg-card border border-border overflow-hidden">
+            {/* Car Image */}
+            <div className="h-44 gradient-color flex items-center justify-center">
+              <CldImage
+                src={car.imageUrl}
+                width={500}
+                height={280}
+                alt={car.name}
+                className="max-h-full object-contain"
+              />
+            </div>
+
+            <div className="p-5 space-y-5">
+              {/* Car Name & Tags */}
+              <div>
+                <h3 className="text-lg font-semibold">{car.name}</h3>
+                <p className="text-xs text-muted-foreground mb-3">
+                  e.g. Volkswagen Tiguan or similar
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="text-[11px] px-2.5 py-1 bg-primary/10 text-primary font-medium">
+                    {car.transmission}
+                  </span>
+                  {car.seats && (
+                    <span className="text-[11px] px-2.5 py-1 bg-primary/10 text-primary font-medium">
                       {car.seats} Seats
                     </span>
-                    <span className="text-xs px-2 py-1 bg-primary/10 text-primary">
-                      Eco-Friendly
-                    </span>
-                  </div>
+                  )}
+                  <span className="text-[11px] px-2.5 py-1 bg-primary/10 text-primary font-medium">
+                    Eco-Friendly
+                  </span>
+                </div>
+              </div>
 
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <div>
-                        <span className="font-medium">Pick-Up Location</span>
-                        <p className="text-muted-foreground">
-                          {pickupLocation ? pickupLocation : "Not selected"}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CalendarIcon className="h-4 w-4 text-primary" />
-                      <div>
-                        <span className="font-medium">Pick-Up Date</span>
-                        <p className="text-muted-foreground">
-                          {pickupDate
-                            ? new Date(pickupDate).toLocaleDateString()
-                            : "Not selected"}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <div>
-                        <span className="font-medium">Drop-Off Location</span>
-                        <p className="text-muted-foreground">
-                          {dropoffLocation ? dropoffLocation : "Not selected"}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CalendarIcon className="h-4 w-4 text-primary" />
-                      <div>
-                        <span className="font-medium">Drop-Off Date</span>
-                        <p className="text-muted-foreground">
-                          {dropoffDate
-                            ? new Date(dropoffDate).toLocaleDateString()
-                            : "Not selected"}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-primary" />
-                      <div>
-                        <span className="font-medium">Duration</span>
-                        <p className="text-muted-foreground">{days} days</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Price Breakdown */}
-                  <div className="space-y-2 text-sm">
-                    <h2 className="text-xl font-display font-semibold mt-6 mb-3">
-                      Price Breakdown
-                    </h2>
-                    <div className="flex justify-between">
-                      <span>
-                        Base rental (${car.pricePerDay}/day × {days} days)
-                      </span>
-                      <span>${basePrice.toFixed(2)}</span>
-                    </div>
-
-                    {coverage === "PREMIUM" && (
-                      <div className="flex justify-between">
-                        <span>Premium Coverage ($12/day × {days})</span>
-                        <span>${coveragePrice.toFixed(2)}</span>
-                      </div>
-                    )}
-
-                    {Object.entries(extras || {}).map(([key, qty]) => {
-                      const price = extraPriceMap[key] || 0;
-                      const totalExtra = price * qty * days;
-
-                      return (
-                        <div key={key} className="flex justify-between">
-                          <span>
-                            {key} (${price}/day × {qty} × {days})
-                          </span>
-                          <span>${totalExtra.toFixed(2)}</span>
-                        </div>
-                      );
-                    })}
-
-                    <div className="border-t border-border pt-2 mt-2">
-                      <div className="flex justify-between">
-                        <span>Subtotal</span>
-                        <span>${subtotal.toFixed(2)}</span>
-                      </div>
-
-                      <div className="flex justify-between text-muted-foreground">
-                        <span>VAT (6%)</span>
-                        <span>${vat.toFixed(2)}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between font-semibold text-lg pt-2">
-                      <span>Total</span>
-                      <span className="text-primary">${total.toFixed(2)}</span>
-                    </div>
-                  </div>
-                  {/* No Hidden Fees */}
-                  <div className="bg-[#2F6B7F]/10 border border-[#2F6B7F] rounded-xl p-4 mt-6 text-[#2F6B7F]">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Shield className="h-4 w-4 text-[#2F6B7F]" />
-                      <span className="font-semibold text-sm">
-                        No Hidden Fees
-                      </span>
-                    </div>
-                    <ul className="space-y-1 pl-4">
-                      {[
-                        "Unlimited kilometers",
-                        "Full tank return policy",
-                        "100% Coverage included",
-                        "Free cancellation up to 48h",
-                      ].map((item) => (
-                        <li
-                          key={item}
-                          className="flex items-center gap-2 text-sm "
-                        >
-                          <Check className="h-3.5 w-3.5" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+              {/* Trip Details */}
+              <div className="space-y-3 text-sm border-t border-border pt-4">
+                <div className="flex items-start gap-2.5">
+                  <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Pick-Up Location
+                    </p>
+                    <p className="font-medium">
+                      {pickupLocation?.replace(/-/g, " ") || "Not selected"}
+                    </p>
                   </div>
                 </div>
-              </>
-            )}
+                <div className="flex items-start gap-2.5">
+                  <CalendarIcon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Pick-Up Date
+                    </p>
+                    <p className="font-medium">
+                      {formatBookingDate(pickupDate)}
+                      {pickupTime ? `, ${pickupTime}` : ""}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Drop-Off Location
+                    </p>
+                    <p className="font-medium">
+                      {dropoffLocation?.replace(/-/g, " ") || "Not selected"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CalendarIcon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Drop-Off Date
+                    </p>
+                    <p className="font-medium">
+                      {formatBookingDate(dropoffDate)}
+                      {dropoffTime ? `, ${dropoffTime}` : ""}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Clock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Duration
+                    </p>
+                    <p className="font-medium">{days} days</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Price Breakdown */}
+              <div className="border-t border-border pt-4 space-y-2 text-sm">
+                <h4 className="font-semibold text-base mb-3">
+                  Price Breakdown
+                </h4>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">
+                    Base rental (${car.pricePerDay}/day × {days} days)
+                  </span>
+                  <span className="font-medium">${basePrice.toFixed(2)}</span>
+                </div>
+                {coverage === "PREMIUM" && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      100% Coverage Package ($12/day)
+                    </span>
+                    <span className="font-medium">
+                      ${coveragePrice.toFixed(2)}
+                    </span>
+                  </div>
+                )}
+                {Object.entries(extras || {}).map(([key, qty]) => {
+                  const price = extraPriceMap[key] || 0;
+                  return (
+                    <div key={key} className="flex justify-between">
+                      <span className="text-muted-foreground capitalize">
+                        {key.replace(/-/g, " ")} (${price}/day × {qty})
+                      </span>
+                      <span className="font-medium">
+                        ${(price * qty * days).toFixed(2)}
+                      </span>
+                    </div>
+                  );
+                })}
+                {coverage !== "PREMIUM" && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      Additional driver
+                    </span>
+                    <span className="font-medium text-green-600">FREE</span>
+                  </div>
+                )}
+                <div className="border-t border-border pt-2 mt-2 space-y-1.5">
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Subtotal</span>
+                    <span>${subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>VAT (6%)</span>
+                    <span>${vat.toFixed(2)}</span>
+                  </div>
+                </div>
+                <div className="flex justify-between font-bold text-base pt-1 border-t border-border">
+                  <span>Total</span>
+                  <span className="text-primary">${total.toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* No Hidden Fees */}
+              <div className="bg-primary/5 border border-primary/20 p-4 text-primary">
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="h-4 w-4 shrink-0" />
+                  <span className="font-semibold text-sm">No Hidden Fees</span>
+                </div>
+                <ul className="space-y-1 pl-1">
+                  {[
+                    "Unlimited kilometers",
+                    "Full tank return policy",
+                    "100% Coverage included",
+                    "Free cancellation up to 48h",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-xs">
+                      <Check className="h-3 w-3 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
 
           {/* Why Choose YU */}
-          <div className="mt-6 bg-card border border-border  p-6">
-            <h4 className="font-semibold mb-4 flex items-center gap-2">
-              <div className="w-3 h-3 bg-primary rounded-sm" />
+          <div className="bg-card border border-border p-5">
+            <h4 className="font-semibold text-sm mb-4 flex items-center gap-2">
+              <div className="w-2.5 h-2.5 bg-primary rounded-sm shrink-0" />
               Why Choose YU Car Rental?
             </h4>
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               {[
                 {
                   icon: Shield,
@@ -311,24 +326,26 @@ export default function BookingSummaryPage({
                 {
                   icon: CarIcon,
                   title: "New Fleet Vehicles",
-                  desc: "Vehicles are available.",
+                  desc: "All vehicles freshly serviced and available",
                 },
                 {
                   icon: Clock,
                   title: "24/7 Support",
-                  desc: "Customer Service in multiple languages",
+                  desc: "Customer service in multiple languages",
                 },
                 {
                   icon: MapPin,
                   title: "Convenient Locations",
                   desc: "Bonaire Flamingo Airport pick-up",
                 },
-              ].map((item) => (
-                <div key={item.title} className="flex items-start gap-3">
-                  <item.icon className="h-4 w-4 text-primary mt-0.5" />
+              ].map(({ icon: Icon, title, desc }) => (
+                <div key={title} className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <Icon className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
-                    <span className="font-medium text-sm">{item.title}</span>
-                    <p className="text-xs text-muted-foreground">{item.desc}</p>
+                    <p className="font-semibold text-sm">{title}</p>
+                    <p className="text-xs text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -336,20 +353,21 @@ export default function BookingSummaryPage({
           </div>
         </div>
 
-        {/* Right Column - Customer Info & Payment */}
+        {/* ── RIGHT: Customer Info & Payment ── */}
         <div>
-          <h2 className="text-xl font-display font-semibold mb-6">
-            Customer Information
-          </h2>
-
           {/* Phone Verification */}
-          <div className="bg-card border border-border p-6 mb-6">
-            <h3 className="font-semibold mb-4">Verify Phone Number</h3>
-
-            {!phoneVerified ? (
+          {!phoneVerified ? (
+            <div className="bg-card border border-border p-6 mb-4">
+              <h3 className="font-semibold mb-1">Verify Your Phone Number</h3>
+              <p className="text-xs text-muted-foreground mb-4">
+                We&apos;ll send a one-time code to confirm your identity before
+                payment.
+              </p>
               <div className="space-y-4">
                 <div>
-                  <Label className="mb-1 block">Phone Number</Label>
+                  <Label className="mb-1.5 block text-xs text-muted-foreground">
+                    Phone Number
+                  </Label>
                   <div className="flex gap-2">
                     <Input
                       value={phone}
@@ -363,14 +381,15 @@ export default function BookingSummaryPage({
                       disabled={!phone.trim() || otpSent}
                       className="bg-primary text-primary-foreground shrink-0"
                     >
-                      {otpSent ? "OTP Sent" : "Send OTP"}
+                      {otpSent ? "Sent ✓" : "Send OTP"}
                     </Button>
                   </div>
                 </div>
-
                 {otpSent && (
                   <div>
-                    <Label className="mb-1 block">Enter OTP</Label>
+                    <Label className="mb-1.5 block text-xs text-muted-foreground">
+                      Enter OTP
+                    </Label>
                     <div className="flex gap-2">
                       <Input
                         value={otpInput}
@@ -378,7 +397,7 @@ export default function BookingSummaryPage({
                           setOtpInput(e.target.value);
                           setOtpError(null);
                         }}
-                        placeholder="Enter 6-digit OTP"
+                        placeholder="6-digit code"
                         maxLength={6}
                       />
                       <Button
@@ -403,17 +422,22 @@ export default function BookingSummaryPage({
                   </div>
                 )}
               </div>
-            ) : (
-              <div className="flex items-center gap-2 text-sm text-green-600">
-                <Check className="h-4 w-4" />
-                <span>Phone verified: {phone}</span>
-              </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-sm text-green-600 bg-green-50 border border-green-200 px-4 py-3 mb-4">
+              <Check className="h-4 w-4 shrink-0" />
+              <span>
+                Phone verified: <strong>{phone}</strong>
+              </span>
+            </div>
+          )}
 
-          {/* Payment - only shown after phone verification */}
-          {phoneVerified && clientSecret ? (
-            <StripeWrapper clientSecret={clientSecret}>
+          {/* Payment Form */}
+          {phoneVerified && clientSecret && publishableKey ? (
+            <StripeWrapper
+              clientSecret={clientSecret}
+              publishableKey={publishableKey}
+            >
               <SummaryForm
                 car={car}
                 total={total}
@@ -423,27 +447,36 @@ export default function BookingSummaryPage({
               />
             </StripeWrapper>
           ) : phoneVerified ? (
-            <div className="bg-card border border-border p-6 text-center">
-              <p className="text-muted-foreground">Loading payment form...</p>
+            <div className="bg-card border border-border p-8 text-center">
+              <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+              <p className="text-muted-foreground text-sm">
+                Loading payment form...
+              </p>
             </div>
           ) : (
-            <div className="bg-card border border-border p-6 text-center">
-              <p className="text-muted-foreground">
-                Please verify your phone number to proceed with payment.
-              </p>
+            <div className="bg-card border border-border p-8 text-center text-muted-foreground text-sm">
+              Please verify your phone number above to continue.
             </div>
           )}
         </div>
       </div>
 
       {/* Bottom Navigation */}
-      <div className="flex justify-end gap-4 mt-8">
-        <Button
-          className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300"
+      <div className="flex items-center justify-between mt-8 pt-4 border-t border-border">
+        <button
+          type="button"
           onClick={onBack || (() => router.back())}
+          className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          Go To Step 3
-        </Button>
+          ← Go To Step 3
+        </button>
+        <button
+          type="button"
+          onClick={onBack || (() => router.back())}
+          className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+        >
+          Continue <ChevronRight className="h-4 w-4" />
+        </button>
       </div>
     </div>
   );

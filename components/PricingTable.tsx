@@ -96,7 +96,7 @@ export const PricingTable = ({
     }
     return (
       <span
-        className={`${isStandard && isHighlight ? "text-destructive" : isHighlight ? "text-primary" : "text-foreground"}`}
+        className={`${isStandard && isHighlight ? "" : isHighlight ? "text-primary" : "text-foreground"}`}
       >
         {value}
       </span>

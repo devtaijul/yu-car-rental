@@ -16,15 +16,25 @@ import { useEffect, useState } from "react";
 export const BonaireWhy = ({ lang }: { lang: Locale }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [snapCount, setSnapCount] = useState(0);
 
   useEffect(() => {
     if (!api) return;
 
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
+    const updateCurrent = () => {
       setCurrent(api.selectedScrollSnap());
-    });
+      setSnapCount(api.scrollSnapList().length);
+    };
+
+    const frame = requestAnimationFrame(updateCurrent);
+    api.on("select", updateCurrent);
+    api.on("reInit", updateCurrent);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      api.off("select", updateCurrent);
+      api.off("reInit", updateCurrent);
+    };
   }, [api]);
 
   return (
@@ -48,7 +58,9 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
           setApi={setApi}
           opts={{
             align: "start",
-            loop: true,
+            loop: false,
+            containScroll: "trimSnaps",
+            slidesToScroll: "auto",
           }}
           className="relative"
         >

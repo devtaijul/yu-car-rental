@@ -49,7 +49,7 @@ export const SystemPreferences = () => {
               Soon&quot; page. Only admins can log in.
             </p>
           </div>
-          <div className="h-6 w-11 bg-muted rounded-full relative cursor-pointer">
+          <div className="h-6 w-11 bg-gray-300 rounded-full relative cursor-pointer">
             <div className="absolute left-0.5 top-0.5 h-5 w-5 bg-card shadow rounded-full" />
           </div>
         </div>

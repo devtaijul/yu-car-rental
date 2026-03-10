@@ -89,6 +89,13 @@ const recentBookings = [
   },
 ];
 
+const statusDotClasses: Record<string, string> = {
+  "status-completed": "bg-emerald-500",
+  "status-pending": "bg-amber-400",
+  "status-active": "bg-blue-500",
+  "status-cancelled": "bg-rose-500",
+};
+
 const topCars = [
   { name: "Tesla Model 3", pct: 85 },
   { name: "BMW X5", pct: 72 },
@@ -305,7 +312,9 @@ export const DashboardOverview = () => {
                     <td className="py-3 text-muted-foreground">{b.date}</td>
                     <td className="py-3">
                       <span className="flex items-center gap-1.5">
-                        <span className={`status-dot ${b.statusClass}`} />
+                        <span
+                          className={`h-2 w-2 rounded-full ${statusDotClasses[b.statusClass] ?? "bg-muted-foreground/40"}`}
+                        />
                         <span className="text-sm">{b.status}</span>
                       </span>
                     </td>

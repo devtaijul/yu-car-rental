@@ -14,6 +14,18 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const statusTabs = ["All Users", "Active", "Pending"];
+const statusBadgeBase =
+  "inline-flex items-center gap-2 rounded border px-3 py-1 text-[11px] font-bold tracking-[0.2em] uppercase";
+const statusBadgeVariants: Record<string, string> = {
+  VERIFIED: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  PENDING: "border-amber-200 bg-amber-50 text-amber-700",
+  SUSPENDED: "border-rose-200 bg-rose-50 text-rose-600",
+};
+const statusDotVariants: Record<string, string> = {
+  VERIFIED: "bg-emerald-500",
+  PENDING: "bg-amber-500",
+  SUSPENDED: "bg-rose-500",
+};
 
 const mockUsers = [
   {
@@ -185,9 +197,16 @@ const UsersPage = () => {
                     {user.spent}
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <span className={`status-badge-pill ${user.statusClass}`}>
+                    <span
+                      className={`${statusBadgeBase} ${
+                        statusBadgeVariants[user.status] ??
+                        "border-border bg-muted/40 text-muted-foreground"
+                      }`}
+                    >
                       <span
-                        className={`status-dot ${user.status === "VERIFIED" ? "status-active" : user.status === "PENDING" ? "status-pending" : "status-cancelled"}`}
+                        className={`h-2 w-2 rounded-full ${
+                          statusDotVariants[user.status] ?? "bg-muted-foreground"
+                        }`}
                       />
                       {user.status}
                     </span>

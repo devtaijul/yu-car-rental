@@ -85,7 +85,7 @@ const StarRating = ({ rating }: { rating: number }) => (
     {[1, 2, 3, 4, 5].map((i) => (
       <Star
         key={i}
-        className={`h-3.5 w-3.5 ${i <= rating ? "text-warning fill-warning" : "text-muted-foreground/30"}`}
+        className={`h-3.5 w-3.5 ${i <= rating ? "text-[#F59E0B] fill-warning" : "text-muted-foreground/30"}`}
       />
     ))}
   </div>
@@ -137,7 +137,15 @@ const ReviewsPage = () => {
             className="bg-card rounded-xl border p-5 flex items-center gap-4"
           >
             <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
-              <s.icon className="h-5 w-5 text-muted-foreground" />
+              <s.icon
+                className={`h-5 w-5 ${
+                  s.label === "AVG RATING"
+                    ? "text-amber-500"
+                    : s.label === "PENDING REVIEW"
+                      ? "text-rose-500"
+                      : "text-muted-foreground"
+                }`}
+              />
             </div>
             <div>
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">

@@ -16,6 +16,14 @@ const tabs = [
   "MAINTENANCE (56)",
 ];
 
+const statusBadgeBase =
+  "inline-flex items-center justify-center rounded border px-3 py-1 text-[11px] font-bold tracking-[0.2em] uppercase";
+const statusBadgeVariants: Record<string, string> = {
+  AVAILABLE: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  ON_RENT: "border-blue-200 bg-blue-50 text-blue-700",
+  MAINTENANCE: "border-rose-200 bg-rose-50 text-rose-600",
+};
+
 export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [search, setSearch] = useState("");
@@ -93,12 +101,20 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
               </tr>
             </thead>
             <tbody>
-              {cars.map((car) => (
-                <tr
-                  key={car.id}
-                  className="border-b last:border-0 hover:bg-muted/30 transition-colors"
-                >
-                  <td className="py-4 px-6">
+              {cars.map((car) => {
+                const availability = getAvailabilityInfo(car.availability);
+                const normalizedAvailableUntil =
+                  availability.availableUntil?.toLowerCase() ?? "";
+                const isRightNow =
+                  availability.message.toLowerCase() === "right now" ||
+                  normalizedAvailableUntil.includes("right now") ||
+                  normalizedAvailableUntil.includes("infinite");
+                return (
+                  <tr
+                    key={car.id}
+                    className="border-b last:border-0 hover:bg-muted/30 transition-colors"
+                  >
+                    <td className="py-4 px-6">
                     <div className="flex items-center gap-3">
                       <div className="h-12 w-16 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">
                         <CldImage
@@ -124,20 +140,37 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
                     </span>
                   </td>
                   <td className="py-4 px-4">
-                    <span className={`status-badge-pill ${car.carStatus}`}>
-                      {car.carStatus}
+                    <span
+                      className={`${statusBadgeBase} ${
+                        statusBadgeVariants[car.carStatus] ??
+                        "border-border bg-muted/40 text-muted-foreground"
+                      }`}
+                    >
+                      {car.carStatus.replace("_", " ")}
                     </span>
                   </td>
                   <td className="py-4 px-4">
                     <p
-                      className={`font-medium ${car.isAvailable ? "text-success" : "text-foreground"}`}
+                     className={`text-xs ${
+                          isRightNow
+                            ? "text-emerald-600 font-semibold"
+                            : "text-muted-foreground"
+                        }`}
                     >
-                      {getAvailabilityInfo(car.availability).message}
+                      {availability.message}
                     </p>
 
-                    <p className="text-xs text-muted-foreground">
-                      {getAvailabilityInfo(car.availability).availableUntil}
-                    </p>
+                    {availability.availableUntil && (
+                      <p
+                        className={`text-xs ${
+                          isRightNow
+                            ? "text-emerald-600 font-semibold"
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        {availability.availableUntil}
+                      </p>
+                    )}
                   </td>
 
                   <td className="py-4 px-6">
@@ -156,8 +189,9 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
                       <DeleteCarAction id={car.id} />
                     </div>
                   </td>
-                </tr>
-              ))}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

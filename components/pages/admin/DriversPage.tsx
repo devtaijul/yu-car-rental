@@ -22,6 +22,18 @@ const tabs = [
   "Pending Review (45)",
   "Suspended (95)",
 ];
+const statusBadgeBase =
+  "inline-flex items-center gap-2 rounded border px-3 py-1 text-[11px] font-bold tracking-[0.2em] uppercase";
+const statusBadgeVariants: Record<string, string> = {
+  VERIFIED: "border-primary/20 bg-primary/10 text-primary",
+  PENDING: "border-amber-200 bg-amber-50 text-amber-700",
+  SUSPENDED: "border-rose-200 bg-rose-50 text-rose-600",
+};
+const statusDotVariants: Record<string, string> = {
+  VERIFIED: "bg-primary",
+  PENDING: "bg-amber-500",
+  SUSPENDED: "bg-rose-500",
+};
 
 const mockDrivers = [
   {
@@ -213,9 +225,16 @@ const DriversPage = () => {
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <span className={`status-badge-pill ${d.statusClass}`}>
+                    <span
+                      className={`${statusBadgeBase} ${
+                        statusBadgeVariants[d.status] ??
+                        "border-border bg-muted/40 text-muted-foreground"
+                      }`}
+                    >
                       <span
-                        className={`status-dot ${d.status === "VERIFIED" ? "status-active" : d.status === "PENDING" ? "status-pending" : "status-cancelled"}`}
+                        className={`h-2 w-2 rounded-full ${
+                          statusDotVariants[d.status] ?? "bg-muted-foreground"
+                        }`}
                       />
                       {d.status}
                     </span>

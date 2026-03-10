@@ -14,6 +14,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const statusTabs = ["ALL", "ACTIVE", "EXPIRED"];
+const statusBadgeBase =
+  "inline-flex items-center gap-2 rounded border px-3 py-1 text-[11px] font-bold tracking-[0.2em] uppercase";
+const statusBadgeVariants: Record<string, string> = {
+  ACTIVE: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  EXPIRED: "border-slate-200 bg-slate-50 text-slate-500",
+};
+const statusDotVariants: Record<string, string> = {
+  ACTIVE: "bg-emerald-500",
+  EXPIRED: "bg-slate-400",
+};
 
 const mockCoupons = [
   {
@@ -260,14 +270,17 @@ const CouponsPage = () => {
                       </div>
                     </td>
                     <td className="py-4 px-4 text-center">
-                      <span className={`status-badge-pill ${c.statusClass}`}>
+                      <span
+                        className={`${statusBadgeBase} ${
+                          statusBadgeVariants[c.status] ??
+                          "border-border bg-muted/40 text-muted-foreground"
+                        }`}
+                      >
                         <span
-                          className={`status-dot ${c.status === "ACTIVE" ? "status-active" : ""}`}
-                          style={
-                            c.status === "EXPIRED"
-                              ? { backgroundColor: "hsl(210, 10%, 55%)" }
-                              : {}
-                          }
+                          className={`h-2 w-2 rounded-full ${
+                            statusDotVariants[c.status] ??
+                            "bg-muted-foreground"
+                          }`}
                         />
                         {c.status}
                       </span>

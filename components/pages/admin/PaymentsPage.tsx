@@ -23,6 +23,14 @@ const stats = [
     dot: "status-completed",
   },
 ];
+const paymentBadgeBase =
+  "inline-flex items-center justify-center rounded border px-3 py-1 text-[11px] font-bold tracking-[0.2em] uppercase";
+const paymentBadgeVariants: Record<string, string> = {
+  PAID: "bg-[#2C5F73] text-white",
+  PENDING: "border-amber-200 bg-amber-50 text-amber-700",
+  REFUNDED: "border-rose-200 bg-rose-50 text-rose-600",
+  FAILED: "border-red-200 bg-[#E2E8F0] text-[#2C5F73]",
+};
 
 const mockPayments = [
   {
@@ -201,7 +209,12 @@ export const PaymentsPage = () => {
                   </td>
                   <td className="py-4 px-4 text-muted-foreground">{p.date}</td>
                   <td className="py-4 px-4 text-center">
-                    <span className={`status-badge-pill ${p.statusClass}`}>
+                    <span
+                      className={`${paymentBadgeBase} ${
+                        paymentBadgeVariants[p.status] ??
+                        "border-border bg-muted/40 text-muted-foreground"
+                      }`}
+                    >
                       {p.status}
                     </span>
                   </td>

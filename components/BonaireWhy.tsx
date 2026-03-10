@@ -149,16 +149,19 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
 
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {preview.text}
+                    {preview.truncated && (
+                      <>
+                        {" "}
+                        <button
+                          type="button"
+                          onClick={() => setActiveItem(item)}
+                          className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.2em] text-primary hover:underline"
+                        >
+                          See more
+                        </button>
+                      </>
+                    )}
                   </p>
-                  {preview.truncated && (
-                    <button
-                      type="button"
-                      onClick={() => setActiveItem(item)}
-                      className="mt-2 inline-flex items-center text-xs font-semibold uppercase tracking-[0.2em] text-primary hover:underline"
-                    >
-                      See more
-                    </button>
-                  )}
                 </div>
               </CarouselItem>
             );
@@ -195,28 +198,30 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
           if (!open) setActiveItem(null);
         }}
       >
-      <DialogContent className="left-0 right-0 bottom-0 top-auto w-full translate-x-0 translate-y-0 rounded-t-2xl border-0 p-5 sm:p-6 md:p-8 data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom data-[state=open]:animate-in data-[state=closed]:animate-out max-h-[85vh] overflow-y-auto sm:mx-auto sm:w-[min(92vw,36rem)]">
+      <DialogContent className="left-1/2 top-1/2 bottom-auto right-auto w-[min(92vw,36rem)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border-0 p-5 sm:p-6 md:p-8 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=closed]:animate-out">
         {activeItem && (
           <div className="space-y-4">
-            <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl">
-              <Image
-                src={activeItem.image}
-                alt={activeItem.title}
-                fill
-                className="object-cover"
-              />
+            <div className="max-h-[75vh] overflow-y-auto pr-2">
+              <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl">
+                <Image
+                  src={activeItem.image}
+                  alt={activeItem.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <DialogHeader className="mt-4 text-left">
+                <span className="text-xs uppercase tracking-[0.2em] text-primary">
+                  {activeItem.category}
+                </span>
+                <DialogTitle className="text-2xl font-display font-bold">
+                  {activeItem.title}
+                </DialogTitle>
+                <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
+                  {activeItem.description}
+                </DialogDescription>
+              </DialogHeader>
             </div>
-            <DialogHeader className="text-left">
-              <span className="text-xs uppercase tracking-[0.2em] text-primary">
-                {activeItem.category}
-              </span>
-              <DialogTitle className="text-2xl font-display font-bold">
-                {activeItem.title}
-              </DialogTitle>
-              <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
-                {activeItem.description}
-              </DialogDescription>
-            </DialogHeader>
           </div>
         )}
       </DialogContent>

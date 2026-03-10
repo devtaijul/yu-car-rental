@@ -11,6 +11,7 @@ import { useAsyncAction } from "@/hooks/use-async-action";
 import { paymentSettingsMutation } from "@/actions/mutation";
 import { useToast } from "@/hooks/use-toast";
 import { PlatformSettings } from "@/generated/prisma/client";
+import { Paypal } from "@/components/icons/Paypal";
 
 export const PaymentGateway = ({
   settings,
@@ -100,16 +101,14 @@ export const PaymentGateway = ({
 
           <div
             onClick={() => setValue("stripeEnabled", !stripeEnabled)}
-            className={`h-6 w-11 rounded-full relative cursor-pointer transition ${
-              stripeEnabled ? "bg-primary" : "bg-muted"
-            }`}
+            className={`h-6 w-11 rounded-full relative cursor-pointer transition ${stripeEnabled ? "bg-primary" : "bg-muted"
+              }`}
           >
             <div
-              className={`absolute top-0.5 h-5 w-5 rounded-full transition ${
-                stripeEnabled
+              className={`absolute top-0.5 h-5 w-5 rounded-full transition ${stripeEnabled
                   ? "right-0.5 bg-primary-foreground"
                   : "left-0.5 bg-card shadow"
-              }`}
+                }`}
             />
           </div>
         </div>
@@ -154,22 +153,22 @@ export const PaymentGateway = ({
         {/* Paypal Toggle */}
         <div className="flex items-center justify-between pt-2 border-t">
           <div className="flex items-center gap-3">
-            <span className="text-lg">🅿️</span>
+            <span className="text-lg">
+              <Paypal />
+            </span>
             <span className="text-sm font-medium">PayPal Integration</span>
           </div>
 
           <div
             onClick={() => setValue("paypalEnabled", !paypalEnabled)}
-            className={`h-6 w-11 rounded-full relative cursor-pointer transition ${
-              paypalEnabled ? "bg-primary" : "bg-muted"
-            }`}
+            className={`h-6 w-11 rounded-full relative cursor-pointer transition ${paypalEnabled ? "bg-primary" : "bg-gray-300"
+              }`}
           >
             <div
-              className={`absolute top-0.5 h-5 w-5 rounded-full transition ${
-                paypalEnabled
+              className={`absolute top-0.5 h-5 w-5 rounded-full transition ${paypalEnabled
                   ? "right-0.5 bg-primary-foreground"
                   : "left-0.5 bg-card shadow"
-              }`}
+                }`}
             />
           </div>
         </div>

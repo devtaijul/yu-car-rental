@@ -144,7 +144,7 @@ const CreateCarPage = ({ car }: Props) => {
       year: Number(data.year),
     };
 
-    runAction(formattedData);
+    // runAction(formattedData);
   };
 
   return (

@@ -40,11 +40,6 @@ export const SummaryForm = ({
   car: Car;
   verifiedPhone?: string;
 }) => {
-
-
-  console.log("client seccret", clientSecret);
-  
-
   const router = useRouter();
   const { runAction, isProcessing } = useAsyncAction(bookCar, {
     onSuccess: (data) => {
@@ -143,7 +138,9 @@ export const SummaryForm = ({
           <div>
             <Label className="mb-1 block">Phone Number</Label>
             <Input {...register("phone")} readOnly className="bg-muted" />
-            <p className="text-xs text-green-600 text-[11px] mt-0.5">Verified</p>
+            <p className="text-xs text-green-600 text-[11px] mt-0.5">
+              Verified
+            </p>
           </div>
         </div>
 

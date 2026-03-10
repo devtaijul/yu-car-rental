@@ -217,7 +217,9 @@ export default function BookingSummaryPage({
 
                   {/* Price Breakdown */}
                   <div className="space-y-2 text-sm">
-                    <h2 className="text-xl font-display font-semibold mt-6 mb-3">Price Breakdown</h2>
+                    <h2 className="text-xl font-display font-semibold mt-6 mb-3">
+                      Price Breakdown
+                    </h2>
                     <div className="flex justify-between">
                       <span>
                         Base rental (${car.pricePerDay}/day × {days} days)
@@ -436,7 +438,10 @@ export default function BookingSummaryPage({
 
       {/* Bottom Navigation */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300" onClick={onBack || (() => router.back())}>
+        <Button
+          className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300"
+          onClick={onBack || (() => router.back())}
+        >
           Go To Step 3
         </Button>
       </div>

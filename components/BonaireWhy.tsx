@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import type { CarouselApi } from "@/components/ui/carousel";
 import {
   Carousel,
   CarouselContent,
@@ -9,35 +8,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import type { CarouselApi } from "@/components/ui/carousel";
+import { whyNeedCar } from "@/data/services";
+import { Locale } from "@/types/utils";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-const whyNeedCarBaseItems = [
-  {
-    category: "SHORE DIVING",
-    title: "DIVE ON YOUR TERMS",
-    description:
-      "Bonaire is the shore-diving capital of the world. Our packages come with custom dive racks, allowing you to drive directly to over 80 dive sites.",
-  },
-  {
-    category: "NATIONAL PARK",
-    title: "UNREACHABLE HEIGHTS",
-    description:
-      "Washington Slagbaai National Park requires high-clearance vehicles. Our Plazus fleet is fully compliant with park regulations for safety and access.",
-  },
-  {
-    category: "FREEDOM",
-    title: "NO LIMITS, NO LAGS",
-    description:
-      "Public transport is minimal. Taxis are costly for daily trips. A rental car gives you the freedom to chase sunsets and hidden beaches at any hour.",
-  },
-];
-
-const whyNeedCarItems = Array.from({ length: 15 }, (_, index) => ({
-  ...whyNeedCarBaseItems[index % whyNeedCarBaseItems.length],
-  image: `/bonaire/bonaire-${index + 1}.png`,
-}));
-
-export const BonaireWhy = () => {
+export const BonaireWhy = ({ lang }: { lang: Locale }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [snapCount, setSnapCount] = useState(0);
@@ -89,7 +65,7 @@ export const BonaireWhy = () => {
           className="relative"
         >
           <CarouselContent>
-            {whyNeedCarItems.map((item, index) => (
+            {whyNeedCar(lang).map((item, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="group p-1">
                   <div className="relative rounded-2xl overflow-hidden aspect-4/3 mb-4">
@@ -123,7 +99,7 @@ export const BonaireWhy = () => {
 
         {/* Dots Indicator */}
         <div className="flex justify-center gap-2 mt-8">
-          {Array.from({ length: snapCount || whyNeedCarItems.length }, (_, index) => (
+          {whyNeedCar(lang).map((_, index) => (
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}

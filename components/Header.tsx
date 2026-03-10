@@ -3,16 +3,19 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useSession } from "next-auth/react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
+  const { status } = useSession();
 
   const closeMobileMenu = () => {
     setIsOpen(false);
@@ -20,7 +23,7 @@ const Header = () => {
   };
 
   const navLinks = [
-    { name: "Rental Cars", href: "/cars", submenu: [] },
+    { name: "Rental Cars", href: "/#explore-fleet", submenu: [] },
     { name: "Deals", href: "/deals", submenu: [] },
     {
       name: "Services",
@@ -117,16 +120,30 @@ const Header = () => {
               {/* Right */}
               <div className="hidden lg:flex items-center gap-3">
                 <LanguageSwitcher />
-                <Link href="/login">
-                  <Button variant="ghost" className="rounded-none px-6 py-2 h-auto border border-primary">
-                    SIGN IN
-                  </Button>
-                </Link>
-                <Link href="/booking">
-                  <Button className="rounded-none px-6 py-2 h-auto">
-                    Explore Fleet
-                  </Button>
-                </Link>
+                {status === "loading" ? (
+                  <Button className="rounded-none px-6 py-2 h-8 animate-pulse" />
+                ) : status === "authenticated" ? (
+                  <Link href="/dashboard">
+                    <Button className="rounded-none px-6 py-2 h-auto">
+                      Dashboard
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/login">
+                    <Button className="rounded-none px-6 py-2 h-auto">
+                      Login
+                    </Button>
+                  </Link>
+                )}
+
+                <Button
+                  className="rounded-none px-6 py-2 h-auto"
+                  onClick={() => {
+                    router.push("/#explore-fleet");
+                  }}
+                >
+                  Explore Fleet
+                </Button>
               </div>
 
               {/* Mobile toggle */}
@@ -228,16 +245,37 @@ const Header = () => {
                   );
                 })}
 
-                <Link href="/login">
-                  <Button variant="ghost" className="w-full rounded-none px-6 py-2 h-auto border border-primary">
-                    SIGN IN
-                  </Button>
-                </Link>
-                <Link href="/booking" onClick={closeMobileMenu}>
-                  <Button className="w-full mt-3 rounded-none">
-                    Explore Fleet
-                  </Button>
-                </Link>
+                {
+                  // Login Button
+                  status === "loading" ? (
+                    <Button className="w-full mt-3 rounded-none animate-pulse" />
+                  ) : status === "authenticated" ? (
+                    <Link href="/dashboard" onClick={closeMobileMenu}>
+                      <Button className="w-full mt-3 rounded-none">
+                        Dashboard
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href="/login">
+                      <Button
+                        variant="ghost"
+                        className="w-full rounded-none px-6 py-2 h-auto border border-primary"
+                      >
+                        SIGN IN
+                      </Button>
+                    </Link>
+                  )
+                }
+
+                <Button
+                  className="w-full mt-3 rounded-none"
+                  onClick={() => {
+                    closeMobileMenu();
+                    router.push("/#explore-fleet");
+                  }}
+                >
+                  Explore Fleet
+                </Button>
               </nav>
             </div>
           </>

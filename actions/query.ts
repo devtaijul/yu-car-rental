@@ -282,6 +282,8 @@ export const getBookingsForAdmin = async () => {
 export const getUsersForAdmin = async () => {
   try {
     const users = await prisma.user.findMany();
+    console.log("users", users);
+
     return {
       success: true,
       users,
@@ -566,44 +568,45 @@ export const getDashboardOverview = async () => {
     });
     if (!user) return actionError("User not found");
 
-    const [activeBooking, upcomingBookings, pastBookings, payments] = await Promise.all([
-      prisma.booking.findFirst({
-        where: {
-          userId: user.id,
-          status: { notIn: ["CANCELLED", "COMPLETED"] },
-          startDate: { lte: new Date() },
-          endDate: { gte: new Date() },
-          deletedAt: null,
-        },
-        include: { car: true },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.booking.findMany({
-        where: {
-          userId: user.id,
-          status: { notIn: ["CANCELLED", "COMPLETED"] },
-          startDate: { gt: new Date() },
-          deletedAt: null,
-        },
-        include: { car: true },
-        orderBy: { startDate: "asc" },
-        take: 3,
-      }),
-      prisma.booking.findMany({
-        where: {
-          userId: user.id,
-          status: "COMPLETED",
-          deletedAt: null,
-        },
-        include: { car: true },
-        orderBy: { endDate: "desc" },
-        take: 3,
-      }),
-      prisma.payment.findMany({
-        where: { userId: user.id, status: "SUCCESS" },
-        select: { amount: true },
-      }),
-    ]);
+    const [activeBooking, upcomingBookings, pastBookings, payments] =
+      await Promise.all([
+        prisma.booking.findFirst({
+          where: {
+            userId: user.id,
+            status: { notIn: ["CANCELLED", "COMPLETED"] },
+            startDate: { lte: new Date() },
+            endDate: { gte: new Date() },
+            deletedAt: null,
+          },
+          include: { car: true },
+          orderBy: { createdAt: "desc" },
+        }),
+        prisma.booking.findMany({
+          where: {
+            userId: user.id,
+            status: { notIn: ["CANCELLED", "COMPLETED"] },
+            startDate: { gt: new Date() },
+            deletedAt: null,
+          },
+          include: { car: true },
+          orderBy: { startDate: "asc" },
+          take: 3,
+        }),
+        prisma.booking.findMany({
+          where: {
+            userId: user.id,
+            status: "COMPLETED",
+            deletedAt: null,
+          },
+          include: { car: true },
+          orderBy: { endDate: "desc" },
+          take: 3,
+        }),
+        prisma.payment.findMany({
+          where: { userId: user.id, status: "SUCCESS" },
+          select: { amount: true },
+        }),
+      ]);
 
     const totalTrips = await prisma.booking.count({
       where: { userId: user.id, status: { not: "CANCELLED" }, deletedAt: null },
@@ -622,5 +625,19 @@ export const getDashboardOverview = async () => {
   } catch (error) {
     console.error("Get dashboard overview error:", error);
     throw actionError("Failed to fetch dashboard overview");
+  }
+};
+
+export const getCarByIdAdmin = async (carId: string) => {
+  try {
+    const car = await prisma.car.findUnique({
+      where: {
+        id: carId,
+      },
+    });
+    return actionResponse(car);
+  } catch (error) {
+    console.error("Get car error:", error);
+    throw actionError("Failed to fetch car", error);
   }
 };

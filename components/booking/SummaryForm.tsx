@@ -169,24 +169,52 @@ export const SummaryForm = ({
         <SectionHeading title="Personal Details" />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">First Name</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              First Name
+            </Label>
             <Input {...register("firstName")} placeholder="John" />
-            {errors.firstName && <p className="text-xs text-red-500 mt-1">{errors.firstName.message}</p>}
+            {errors.firstName && (
+              <p className="text-xs text-red-500 mt-1">
+                {errors.firstName.message}
+              </p>
+            )}
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Last Name</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Last Name
+            </Label>
             <Input {...register("lastName")} placeholder="Doe" />
-            {errors.lastName && <p className="text-xs text-red-500 mt-1">{errors.lastName.message}</p>}
+            {errors.lastName && (
+              <p className="text-xs text-red-500 mt-1">
+                {errors.lastName.message}
+              </p>
+            )}
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Email Address</Label>
-            <Input type="email" {...register("email")} placeholder="john.doe@email.com" />
-            {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Email Address
+            </Label>
+            <Input
+              type="email"
+              {...register("email")}
+              placeholder="john.doe@email.com"
+            />
+            {errors.email && (
+              <p className="text-xs text-red-500 mt-1">
+                {errors.email.message}
+              </p>
+            )}
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Phone Number</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Phone Number
+            </Label>
             <div className="relative">
-              <Input {...register("phone")} readOnly className="bg-muted pr-20" />
+              <Input
+                {...register("phone")}
+                readOnly
+                className="bg-muted pr-20"
+              />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-green-600 font-bold flex items-center gap-1">
                 <Check className="h-3 w-3" /> Verified
               </span>
@@ -200,14 +228,26 @@ export const SummaryForm = ({
         <SectionHeading title="Driver's License Details" />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Date of Birth</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Date of Birth
+            </Label>
             <Input type="date" {...register("dateOfBirth")} />
-            {errors.dateOfBirth && <p className="text-xs text-red-500 mt-1">{errors.dateOfBirth.message}</p>}
+            {errors.dateOfBirth && (
+              <p className="text-xs text-red-500 mt-1">
+                {errors.dateOfBirth.message}
+              </p>
+            )}
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Driver's License Number</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Driver&apos;s License Number
+            </Label>
             <Input {...register("licenseNumber")} placeholder="1234567890" />
-            {errors.licenseNumber && <p className="text-xs text-red-500 mt-1">{errors.licenseNumber.message}</p>}
+            {errors.licenseNumber && (
+              <p className="text-xs text-red-500 mt-1">
+                {errors.licenseNumber.message}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -217,7 +257,9 @@ export const SummaryForm = ({
         <SectionHeading title="Additional Information" />
         <div className="space-y-4">
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Promo Code</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Promo Code
+            </Label>
             <div className="flex gap-2">
               <Input
                 {...register("promoCode")}
@@ -230,24 +272,33 @@ export const SummaryForm = ({
                 variant="outline"
                 onClick={handleApplyPromo}
                 disabled={promoApplied || promoLoading}
-                className={cn("shrink-0 text-primary border-primary", promoApplied && "bg-primary text-primary-foreground border-primary")}
+                className={cn(
+                  "shrink-0 text-primary border-primary",
+                  promoApplied &&
+                    "bg-primary text-primary-foreground border-primary",
+                )}
               >
                 {promoLoading ? "..." : promoApplied ? "Applied ✓" : "Apply"}
               </Button>
             </div>
-            {promoError && <p className="text-xs text-red-500 mt-1">{promoError}</p>}
+            {promoError && (
+              <p className="text-xs text-red-500 mt-1">{promoError}</p>
+            )}
             {promoApplied && (
               <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
-                <Check className="h-3 w-3" /> Discount of ${discount.toFixed(2)} applied!
+                <Check className="h-3 w-3" /> Discount of ${discount.toFixed(2)}{" "}
+                applied!
               </p>
             )}
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Special Requests</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Special Requests
+            </Label>
             <textarea
               {...register("specialRequests")}
               placeholder="e.g. early pick-up, vehicle preference, special equipment..."
-              className="flex w-full border border-input bg-background px-3 py-2 text-sm min-h-[80px] resize-none rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="flex w-full border border-input bg-background px-3 py-2 text-sm min-h-20 resize-none rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             />
           </div>
         </div>
@@ -258,27 +309,39 @@ export const SummaryForm = ({
         <SectionHeading title="Billing Information" />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Street Address</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Street Address
+            </Label>
             <Input {...register("streetAddress")} placeholder="Awboy 1" />
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">House Number</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              House Number
+            </Label>
             <Input {...register("houseNumber")} placeholder="405" />
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Post Code</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Post Code
+            </Label>
             <Input {...register("postCode")} placeholder="1160 SZ" />
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">City</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              City
+            </Label>
             <Input {...register("city")} placeholder="Amsterdaam" />
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Country</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Country
+            </Label>
             <Input {...register("country")} placeholder="Netherlands" />
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Company (Optional)</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Company (Optional)
+            </Label>
             <Input {...register("company")} placeholder="Digitore" />
           </div>
         </div>
@@ -289,7 +352,9 @@ export const SummaryForm = ({
         <SectionHeading title="Payment Information" />
         <div className="space-y-4">
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Card Number</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Card Number
+            </Label>
             <div className="flex items-center border border-input rounded-md px-3 py-2.5 bg-background">
               <div className="flex-1">
                 <CardNumberElement
@@ -298,25 +363,39 @@ export const SummaryForm = ({
                 />
               </div>
               <div className="flex gap-1.5 ml-2 shrink-0">
-                <span className="text-xs font-bold text-blue-700 border border-blue-200 px-1.5 py-0.5 rounded">VISA</span>
-                <span className="text-xs font-bold text-red-600 border border-red-200 px-1.5 py-0.5 rounded">MC</span>
+                <span className="text-xs font-bold text-blue-700 border border-blue-200 px-1.5 py-0.5 rounded">
+                  VISA
+                </span>
+                <span className="text-xs font-bold text-red-600 border border-red-200 px-1.5 py-0.5 rounded">
+                  MC
+                </span>
               </div>
             </div>
           </div>
           <div>
-            <Label className="mb-1.5 block text-xs text-muted-foreground">Cardholder Name</Label>
+            <Label className="mb-1.5 block text-xs text-muted-foreground">
+              Cardholder Name
+            </Label>
             <Input {...register("cardholderName")} placeholder="John Doe" />
-            {errors.cardholderName && <p className="text-xs text-red-500 mt-1">{errors.cardholderName.message}</p>}
+            {errors.cardholderName && (
+              <p className="text-xs text-red-500 mt-1">
+                {errors.cardholderName.message}
+              </p>
+            )}
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="mb-1.5 block text-xs text-muted-foreground">Expiry Date</Label>
+              <Label className="mb-1.5 block text-xs text-muted-foreground">
+                Expiry Date
+              </Label>
               <div className="border border-input rounded-md px-3 py-2.5 bg-background">
                 <CardExpiryElement options={stripeElementStyle} />
               </div>
             </div>
             <div>
-              <Label className="mb-1.5 block text-xs text-muted-foreground">CVV</Label>
+              <Label className="mb-1.5 block text-xs text-muted-foreground">
+                CVV
+              </Label>
               <div className="border border-input rounded-md px-3 py-2.5 bg-background">
                 <CardCvcElement options={stripeElementStyle} />
               </div>
@@ -334,16 +413,21 @@ export const SummaryForm = ({
             <Shield className="h-3 w-3" /> 100% Coverage
           </span>
           <span className="flex items-center gap-1 text-yellow-500">
-            ★★★★★ <span className="text-muted-foreground">Trustpilot Verified</span>
+            ★★★★★{" "}
+            <span className="text-muted-foreground">Trustpilot Verified</span>
           </span>
         </div>
 
         {/* Total */}
         <div className="text-center mt-4">
           {discount > 0 && (
-            <p className="text-sm text-muted-foreground line-through">${total.toFixed(2)}</p>
+            <p className="text-sm text-muted-foreground line-through">
+              ${total.toFixed(2)}
+            </p>
           )}
-          <p className="text-lg font-bold text-primary">Total: ${discountedTotal.toFixed(2)}</p>
+          <p className="text-lg font-bold text-primary">
+            Total: ${discountedTotal.toFixed(2)}
+          </p>
           <p className="text-xs text-muted-foreground">(including 6% ABB)</p>
         </div>
 
@@ -356,12 +440,15 @@ export const SummaryForm = ({
               className="mt-1 rounded border-input accent-primary"
             />
             <span className="text-muted-foreground leading-relaxed">
-              I agree to the Terms &amp; Conditions, Cancellation Policy (free up to 48h before), Fuel Policy.
-              Minimum rental 2 days. Prices include 100% coverage option.
+              I agree to the Terms &amp; Conditions, Cancellation Policy (free
+              up to 48h before), Fuel Policy. Minimum rental 2 days. Prices
+              include 100% coverage option.
             </span>
           </label>
           {errors.termsAccepted && (
-            <p className="text-xs text-red-500 mt-1">{errors.termsAccepted.message}</p>
+            <p className="text-xs text-red-500 mt-1">
+              {errors.termsAccepted.message}
+            </p>
           )}
         </div>
 

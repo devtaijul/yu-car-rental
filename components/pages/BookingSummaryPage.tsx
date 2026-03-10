@@ -60,8 +60,7 @@ export default function BookingSummaryPage({
       ? Math.max(
           1,
           Math.ceil(
-            (new Date(dropoffDate).getTime() -
-              new Date(pickupDate).getTime()) /
+            (new Date(dropoffDate).getTime() - new Date(pickupDate).getTime()) /
               (1000 * 60 * 60 * 24),
           ),
         )
@@ -131,10 +130,11 @@ export default function BookingSummaryPage({
   return (
     <div className="container mx-auto">
       <div className="grid lg:grid-cols-[400px_1fr] xl:grid-cols-[440px_1fr] gap-8 items-start">
-
         {/* ── LEFT: Booking Summary ── */}
         <div className="space-y-4">
-          <h2 className="text-xl font-display font-semibold">Booking Summary</h2>
+          <h2 className="text-xl font-display font-semibold">
+            Booking Summary
+          </h2>
 
           <div className="bg-card border border-border overflow-hidden">
             {/* Car Image */}
@@ -175,7 +175,9 @@ export default function BookingSummaryPage({
                 <div className="flex items-start gap-2.5">
                   <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">Pick-Up Location</p>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Pick-Up Location
+                    </p>
                     <p className="font-medium">
                       {pickupLocation?.replace(/-/g, " ") || "Not selected"}
                     </p>
@@ -184,16 +186,21 @@ export default function BookingSummaryPage({
                 <div className="flex items-start gap-2.5">
                   <CalendarIcon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">Pick-Up Date</p>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Pick-Up Date
+                    </p>
                     <p className="font-medium">
-                      {formatBookingDate(pickupDate)}{pickupTime ? `, ${pickupTime}` : ""}
+                      {formatBookingDate(pickupDate)}
+                      {pickupTime ? `, ${pickupTime}` : ""}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">Drop-Off Location</p>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Drop-Off Location
+                    </p>
                     <p className="font-medium">
                       {dropoffLocation?.replace(/-/g, " ") || "Not selected"}
                     </p>
@@ -202,16 +209,21 @@ export default function BookingSummaryPage({
                 <div className="flex items-start gap-2.5">
                   <CalendarIcon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">Drop-Off Date</p>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Drop-Off Date
+                    </p>
                     <p className="font-medium">
-                      {formatBookingDate(dropoffDate)}{dropoffTime ? `, ${dropoffTime}` : ""}
+                      {formatBookingDate(dropoffDate)}
+                      {dropoffTime ? `, ${dropoffTime}` : ""}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <Clock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">Duration</p>
+                    <p className="font-medium text-xs text-muted-foreground uppercase tracking-wide">
+                      Duration
+                    </p>
                     <p className="font-medium">{days} days</p>
                   </div>
                 </div>
@@ -219,7 +231,9 @@ export default function BookingSummaryPage({
 
               {/* Price Breakdown */}
               <div className="border-t border-border pt-4 space-y-2 text-sm">
-                <h4 className="font-semibold text-base mb-3">Price Breakdown</h4>
+                <h4 className="font-semibold text-base mb-3">
+                  Price Breakdown
+                </h4>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">
                     Base rental (${car.pricePerDay}/day × {days} days)
@@ -231,7 +245,9 @@ export default function BookingSummaryPage({
                     <span className="text-muted-foreground">
                       100% Coverage Package ($12/day)
                     </span>
-                    <span className="font-medium">${coveragePrice.toFixed(2)}</span>
+                    <span className="font-medium">
+                      ${coveragePrice.toFixed(2)}
+                    </span>
                   </div>
                 )}
                 {Object.entries(extras || {}).map(([key, qty]) => {
@@ -241,13 +257,17 @@ export default function BookingSummaryPage({
                       <span className="text-muted-foreground capitalize">
                         {key.replace(/-/g, " ")} (${price}/day × {qty})
                       </span>
-                      <span className="font-medium">${(price * qty * days).toFixed(2)}</span>
+                      <span className="font-medium">
+                        ${(price * qty * days).toFixed(2)}
+                      </span>
                     </div>
                   );
                 })}
                 {coverage !== "PREMIUM" && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Additional driver</span>
+                    <span className="text-muted-foreground">
+                      Additional driver
+                    </span>
                     <span className="font-medium text-green-600">FREE</span>
                   </div>
                 )}
@@ -298,10 +318,26 @@ export default function BookingSummaryPage({
             </h4>
             <div className="space-y-3.5">
               {[
-                { icon: Shield, title: "100% Coverage Included", desc: "No deposit worries with our premium package" },
-                { icon: CarIcon, title: "New Fleet Vehicles", desc: "All vehicles freshly serviced and available" },
-                { icon: Clock, title: "24/7 Support", desc: "Customer service in multiple languages" },
-                { icon: MapPin, title: "Convenient Locations", desc: "Bonaire Flamingo Airport pick-up" },
+                {
+                  icon: Shield,
+                  title: "100% Coverage Included",
+                  desc: "No deposit worries with our premium package",
+                },
+                {
+                  icon: CarIcon,
+                  title: "New Fleet Vehicles",
+                  desc: "All vehicles freshly serviced and available",
+                },
+                {
+                  icon: Clock,
+                  title: "24/7 Support",
+                  desc: "Customer service in multiple languages",
+                },
+                {
+                  icon: MapPin,
+                  title: "Convenient Locations",
+                  desc: "Bonaire Flamingo Airport pick-up",
+                },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -324,11 +360,14 @@ export default function BookingSummaryPage({
             <div className="bg-card border border-border p-6 mb-4">
               <h3 className="font-semibold mb-1">Verify Your Phone Number</h3>
               <p className="text-xs text-muted-foreground mb-4">
-                We&apos;ll send a one-time code to confirm your identity before payment.
+                We&apos;ll send a one-time code to confirm your identity before
+                payment.
               </p>
               <div className="space-y-4">
                 <div>
-                  <Label className="mb-1.5 block text-xs text-muted-foreground">Phone Number</Label>
+                  <Label className="mb-1.5 block text-xs text-muted-foreground">
+                    Phone Number
+                  </Label>
                   <div className="flex gap-2">
                     <Input
                       value={phone}
@@ -348,11 +387,16 @@ export default function BookingSummaryPage({
                 </div>
                 {otpSent && (
                   <div>
-                    <Label className="mb-1.5 block text-xs text-muted-foreground">Enter OTP</Label>
+                    <Label className="mb-1.5 block text-xs text-muted-foreground">
+                      Enter OTP
+                    </Label>
                     <div className="flex gap-2">
                       <Input
                         value={otpInput}
-                        onChange={(e) => { setOtpInput(e.target.value); setOtpError(null); }}
+                        onChange={(e) => {
+                          setOtpInput(e.target.value);
+                          setOtpError(null);
+                        }}
                         placeholder="6-digit code"
                         maxLength={6}
                       />
@@ -365,8 +409,14 @@ export default function BookingSummaryPage({
                         Verify
                       </Button>
                     </div>
-                    {otpError && <p className="text-xs text-red-500 mt-1">{otpError}</p>}
-                    <button type="button" onClick={handleSendOtp} className="text-xs text-primary mt-2 hover:underline">
+                    {otpError && (
+                      <p className="text-xs text-red-500 mt-1">{otpError}</p>
+                    )}
+                    <button
+                      type="button"
+                      onClick={handleSendOtp}
+                      className="text-xs text-primary mt-2 hover:underline"
+                    >
                       Resend OTP
                     </button>
                   </div>
@@ -376,13 +426,18 @@ export default function BookingSummaryPage({
           ) : (
             <div className="flex items-center gap-2 text-sm text-green-600 bg-green-50 border border-green-200 px-4 py-3 mb-4">
               <Check className="h-4 w-4 shrink-0" />
-              <span>Phone verified: <strong>{phone}</strong></span>
+              <span>
+                Phone verified: <strong>{phone}</strong>
+              </span>
             </div>
           )}
 
           {/* Payment Form */}
           {phoneVerified && clientSecret && publishableKey ? (
-            <StripeWrapper clientSecret={clientSecret} publishableKey={publishableKey}>
+            <StripeWrapper
+              clientSecret={clientSecret}
+              publishableKey={publishableKey}
+            >
               <SummaryForm
                 car={car}
                 total={total}
@@ -394,7 +449,9 @@ export default function BookingSummaryPage({
           ) : phoneVerified ? (
             <div className="bg-card border border-border p-8 text-center">
               <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-              <p className="text-muted-foreground text-sm">Loading payment form...</p>
+              <p className="text-muted-foreground text-sm">
+                Loading payment form...
+              </p>
             </div>
           ) : (
             <div className="bg-card border border-border p-8 text-center text-muted-foreground text-sm">

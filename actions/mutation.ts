@@ -647,3 +647,18 @@ export const updateAvatar = async (avatarUrl: string) => {
     return actionError("Failed to update avatar");
   }
 };
+
+export const updateCarMutation = async (carId: string, data: any) => {
+  try {
+    const car = await prisma.car.update({
+      where: {
+        id: carId,
+      },
+      data,
+    });
+    return actionResponse(car);
+  } catch (error) {
+    console.error("Update car error:", error);
+    return actionError("Failed to update car");
+  }
+};

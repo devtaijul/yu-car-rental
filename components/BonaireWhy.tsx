@@ -8,15 +8,63 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { whyNeedCar } from "@/data/services";
 import { Locale } from "@/types/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+type WhyItem = ReturnType<typeof whyNeedCar>[number];
+
+const DESCRIPTION_WORD_LIMIT = 24;
+
+const truncateDescription = (text: string, limit: number) => {
+  const words = text.trim().split(/\s+/);
+  if (words.length <= limit) {
+    return { text, truncated: false };
+  }
+  return {
+    text: `${words.slice(0, limit).join(" ")}...`,
+    truncated: true,
+  };
+};
+
 export const BonaireWhy = ({ lang }: { lang: Locale }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [snapCount, setSnapCount] = useState(0);
+  const [activeItem, setActiveItem] = useState<WhyItem | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  const items = whyNeedCar(lang);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(min-width: 1024px)");
+
+    const update = () => setIsDesktop(media.matches);
+    update();
+
+    if (media.addEventListener) {
+      media.addEventListener("change", update);
+    } else {
+      media.addListener(update);
+    }
+
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener("change", update);
+      } else {
+        media.removeListener(update);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -36,6 +84,15 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
       api.off("reInit", updateCurrent);
     };
   }, [api]);
+
+  const desktopDotsCount =
+    snapCount > 0 ? snapCount : Math.max(1, Math.ceil(items.length / 3));
+  const dotsCount = isDesktop ? desktopDotsCount : items.length;
+  const activeDotIndex = isDesktop
+    ? Math.min(dotsCount - 1, current)
+    : current;
+  const maxSnapIndex =
+    snapCount > 0 ? snapCount - 1 : Math.max(0, dotsCount - 1);
 
   return (
     <section className="py-20 bg-background">
@@ -60,12 +117,17 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
             align: "start",
             loop: false,
             containScroll: "trimSnaps",
-            slidesToScroll: "auto",
+            slidesToScroll: isDesktop ? 3 : "auto",
           }}
           className="relative"
         >
           <CarouselContent>
-            {whyNeedCar(lang).map((item, index) => (
+            {items.map((item, index) => {
+              const preview = truncateDescription(
+                item.description,
+                DESCRIPTION_WORD_LIMIT,
+              );
+              return (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="group p-1">
                   <div className="relative rounded-2xl overflow-hidden aspect-4/3 mb-4">
@@ -86,11 +148,21 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
                   </h3>
 
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.description}
+                    {preview.text}
                   </p>
+                  {preview.truncated && (
+                    <button
+                      type="button"
+                      onClick={() => setActiveItem(item)}
+                      className="mt-2 inline-flex items-center text-xs font-semibold uppercase tracking-[0.2em] text-primary hover:underline"
+                    >
+                      See more
+                    </button>
+                  )}
                 </div>
               </CarouselItem>
-            ))}
+            );
+            })}
           </CarouselContent>
 
           <CarouselPrevious className="hidden md:flex w-14 h-14 bg-primary text-white hover:bg-primary/80 opacity-50 left-5 top-[40%] hover:opacity-100" />
@@ -99,12 +171,16 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
 
         {/* Dots Indicator */}
         <div className="flex justify-center gap-2 mt-8">
-          {whyNeedCar(lang).map((_, index) => (
+          {Array.from({ length: dotsCount }).map((_, index) => (
             <button
               key={index}
-              onClick={() => api?.scrollTo(index)}
+              onClick={() =>
+                api?.scrollTo(
+                  isDesktop ? Math.min(maxSnapIndex, index) : index,
+                )
+              }
               className={`h-2 rounded-full transition-all duration-300 ${
-                index === current
+                index === activeDotIndex
                   ? "bg-primary w-6"
                   : "bg-muted-foreground/30 w-2 hover:bg-muted-foreground/50"
               }`}
@@ -112,6 +188,39 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
           ))}
         </div>
       </div>
+
+      <Dialog
+        open={!!activeItem}
+        onOpenChange={(open) => {
+          if (!open) setActiveItem(null);
+        }}
+      >
+      <DialogContent className="left-0 right-0 bottom-0 top-auto w-full translate-x-0 translate-y-0 rounded-t-2xl border-0 p-5 sm:p-6 md:p-8 data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom data-[state=open]:animate-in data-[state=closed]:animate-out max-h-[85vh] overflow-y-auto sm:mx-auto sm:w-[min(92vw,36rem)]">
+        {activeItem && (
+          <div className="space-y-4">
+            <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl">
+              <Image
+                src={activeItem.image}
+                alt={activeItem.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <DialogHeader className="text-left">
+              <span className="text-xs uppercase tracking-[0.2em] text-primary">
+                {activeItem.category}
+              </span>
+              <DialogTitle className="text-2xl font-display font-bold">
+                {activeItem.title}
+              </DialogTitle>
+              <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
+                {activeItem.description}
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+        )}
+      </DialogContent>
+      </Dialog>
     </section>
   );
 };

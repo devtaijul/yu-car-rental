@@ -298,7 +298,7 @@ export const SummaryForm = ({
             <textarea
               {...register("specialRequests")}
               placeholder="e.g. early pick-up, vehicle preference, special equipment..."
-              className="flex w-full border border-input bg-background px-3 py-2 text-sm min-h-[80px] resize-none rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="flex w-full border border-input bg-background px-3 py-2 text-sm min-h-20 resize-none rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             />
           </div>
         </div>

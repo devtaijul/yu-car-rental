@@ -27,7 +27,7 @@ export const AboutMobilitySection = () => {
             </div> */}
           </div>
 
-          <div className="w-full flex-1">
+          <div className="w-full ">
             <h2 className="text-3xl md:text-4xl  lg:text-6xl font-display font-bold mb-4 leading-tight">
               MOBILITY AS <span className="text-primary">RELAXED</span>
               <br />
@@ -37,8 +37,8 @@ export const AboutMobilitySection = () => {
               <div>
                 <p className="text-sm text-dark-text md:text-base leading-relaxed mb-4">
                   We understand exactly what you want to{" "}
-                  <br className="hidden lg:block" /> experience -
-                  because we&apos;ve been travelers ourselves, exploring countries
+                  <br className="hidden lg:block" /> experience - because
+                  we&apos;ve been travelers ourselves, exploring countries
                   around the world. We know the crave for simplicity and
                   reliability when arriving in a new place.
                 </p>

@@ -1,4 +1,6 @@
 import { MessageCircle } from "lucide-react";
+import { WhatsAppTransparentIcon } from "./icons/whatsapp_transparent.icon";
+import WhatsappIcon from "./icons/WhatsappIcon";
 
 const WhatsAppButton = () => {
   return (
@@ -9,7 +11,7 @@ const WhatsAppButton = () => {
       className="whatsapp-float"
       aria-label="Chat on WhatsApp"
     >
-      <MessageCircle className="h-7 w-7 text-white fill-white" />
+      <WhatsappIcon />
     </a>
   );
 };

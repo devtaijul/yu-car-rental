@@ -54,7 +54,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           {/* Sidebar */}
           <aside
               className={cn(
-                  "fixed inset-y-0 left-0 z-50 w-[17rem] bg-card border-r transform transition-transform duration-300 sm:w-64 lg:translate-x-0 lg:static lg:z-auto",
+                  "fixed inset-y-0 left-0 z-50 w-68 lg:w-[20%] bg-card border-r transform transition-transform duration-300 sm:w-64 lg:translate-x-0 lg:z-auto",
                   sidebarOpen ? "translate-x-0" : "-translate-x-full",
               )}
           >
@@ -97,7 +97,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           </aside>
 
           {/* Main */}
-          <div className="flex-1 flex flex-col min-h-screen">
+          <div className="flex-1 flex flex-col min-h-screen lg:ml-[20%]">
               <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b bg-card/80 px-3 py-3 backdrop-blur sm:px-4 lg:px-6">
                   <button
                       className="rounded p-1 hover:bg-muted lg:hidden"

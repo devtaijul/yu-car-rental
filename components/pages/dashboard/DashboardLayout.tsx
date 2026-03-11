@@ -36,7 +36,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen h-screen fixed flex  w-full">
+    <div className="fixed inset-0 flex min-h-screen w-full min-w-0 overflow-hidden">
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-foreground/30 lg:hidden"
@@ -47,7 +47,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-55 h-screen top-0 bg-card border-r border-border transform transition-transform lg:translate-x-0 lg:static lg:z-auto flex flex-col",
+          "fixed inset-y-0 left-0 top-0 z-50 h-screen w-55 lg:w-[20%] overflow-y-auto border-r border-border bg-card transform transition-transform lg:z-auto lg:translate-x-0 flex flex-col",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -92,11 +92,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex min-h-screen min-w-0 flex-col">
+      <div className="flex min-w-0 flex-1 min-h-0 flex-col lg:ml-[20%]">
         {/* Top Header */}
         <DashboardHeader setSidebarOpen={setSidebarOpen} />
 
-        <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden p-4 lg:p-6">
+        <main className="flex-1 min-w-0 min-h-0 overflow-y-auto overscroll-contain overflow-x-hidden p-4 lg:p-6">
           {children}
         </main>
       </div>

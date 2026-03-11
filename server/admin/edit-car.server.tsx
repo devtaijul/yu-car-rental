@@ -1,4 +1,5 @@
 import { getCarByIdAdmin } from "@/actions/query";
+import EditCarPage from "@/components/pages/admin/EditCarPage";
 import React from "react";
 
 export const EditCarServer = async ({ car_id }: { car_id: string }) => {
@@ -11,7 +12,5 @@ export const EditCarServer = async ({ car_id }: { car_id: string }) => {
     return <div>Car not found</div>;
   }
 
-  console.log(data.data);
-
-  return <div>EditCarServer</div>;
+  return <EditCarPage car={data.data} />;
 };

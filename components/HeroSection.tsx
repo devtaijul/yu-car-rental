@@ -17,13 +17,11 @@ export const HeroSection = async ({ lang }: { lang: Locale }) => {
 
       {/* Content */}
       <div className="relative z-10 flex-1 container mx-auto px-4 flex flex-col justify-center items-center text-center py-20">
-        <p className="font-bold  mb-4 text-white whitespace-pre-line flex items-center font-roboto">
+        <div className="font-bold  mb-4 text-white whitespace-pre-line flex items-center font-roboto">
           <hr className="border-b[0.5px] w-12 border-[#BFD1D7]" />
-          <span className="mx-4">
-            {dict.home.hero.welcome}
-          </span>
-         <hr className="border-b[0.5px] w-12 border-[#BFD1D7]" />
-        </p>
+          <span className="mx-4">{dict.home.hero.welcome}</span>
+          <hr className="border-b[0.5px] w-12 border-[#BFD1D7]" />
+        </div>
         <h1 className="text-4xl md:text-6xl lg:text-8xl font-display mb-2">
           <span className="text-white whitespace-pre-line">
             {dict.home.hero.titleMain}

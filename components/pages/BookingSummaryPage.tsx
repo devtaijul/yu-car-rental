@@ -152,9 +152,7 @@ export default function BookingSummaryPage({
               {/* Car Name & Tags */}
               <div>
                 <h3 className="text-lg font-semibold">{car.name}</h3>
-                <p className="text-xs text-muted-foreground mb-3">
-                  e.g. Volkswagen Tiguan or similar
-                </p>
+
                 <div className="flex flex-wrap gap-1.5">
                   <span className="text-[11px] px-2.5 py-1 bg-primary/10 text-primary font-medium">
                     {car.transmission}

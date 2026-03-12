@@ -104,7 +104,7 @@ export const PricingTable = ({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-12 md:py-20 lg:px-0">
+    <div className="w-full max-w-4xl mx-auto  py-12 md:py-20 lg:px-0">
       <SectionTitle
         title="Coverage Options"
         subtitle="Travel with complete peace of mind"
@@ -120,11 +120,6 @@ export const PricingTable = ({
               isStandardSelected ? "bg-primary" : "bg-card border border-border"
             }`}
           >
-            {isStandardSelected && (
-              <span className="absolute top-2 right-4 text-[10px] text-primary-foreground/80 uppercase tracking-wider">
-                Selected
-              </span>
-            )}
             <p
               className={`text-xs  tracking-wider pt-2  mb-1 ${isStandardSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
             >
@@ -149,7 +144,7 @@ export const PricingTable = ({
             <span
               className={`absolute top-2 right-4 font-bold text-[10px]  uppercase tracking-wider ${isPremiumSelected ? "text-primary-foreground/80" : "text-dark-text"}`}
             >
-              {isPremiumSelected ? "Selected" : "Recommended"}
+              Recommended
             </span>
             <p
               className={`text-xs  tracking-wider pt-2 mb-1 ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}

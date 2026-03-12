@@ -1,3 +1,4 @@
+import { PAGES } from "@/config/pages.config";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,9 +8,9 @@ const aboutRelaxed = "/assets/mobility-bg.png";
 
 export const AboutMobilitySection = () => {
   return (
-    <section className="bg-background py-14 sm:py-16 lg:py-20">
+    <section className="bg-background py-12 sm:py-16 lg:py-20">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center gap-8 sm:gap-10 lg:flex-row lg:gap-12">
+        <div className="flex flex-col items-center gap-5 sm:gap-6 lg:flex-row lg:gap-8">
           <div className="w-full overflow-hidden px-1 sm:px-2 lg:px-0">
             <Image
               src={aboutRelaxed}
@@ -28,9 +29,9 @@ export const AboutMobilitySection = () => {
           </div>
 
           <div className="w-full ">
-            <h2 className="text-3xl md:text-4xl  lg:text-6xl font-display font-bold mb-4 leading-tight">
-              MOBILITY AS <span className="text-primary">RELAXED</span>
-              <br />
+            <h2 className="text-3xl md:text-4xl  lg:text-5xl font-display font-bold mb-4 leading-tight">
+              MOBILITY AS <span className="text-primary">RELAXED</span>{" "}
+              <br className="block lg:hidden" />
               AS YOUR VACATION.
             </h2>
             <div className="grid gap-5 sm:gap-6 lg:grid-cols-2">
@@ -55,7 +56,7 @@ export const AboutMobilitySection = () => {
                   smooth and stress-free.
                 </p>
                 <Link
-                  href="/booking"
+                  href={PAGES.RESERVE_A_CAR.ROOT}
                   className="flex items-center gap-2 text-sm font-semibold text-primary tracking-[0.08em] hover:underline sm:tracking-[0.12em] lg:tracking-widest"
                 >
                   BOOK YOUR ADVENTURE <ArrowRight className="h-4 w-4" />

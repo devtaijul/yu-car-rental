@@ -127,7 +127,12 @@ export const StepLocation = ({
     dropoffTime: defaultDropoffTime,
   };
 
-  const { control, handleSubmit, setValue, formState: { errors } } = useForm<LocationStepValues>({
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<LocationStepValues>({
     resolver: zodResolver(LocationStepSchema),
     defaultValues,
   });
@@ -138,7 +143,10 @@ export const StepLocation = ({
     if (searchParams.get("pickupDate")) return; // already set from URL
 
     const firstAvailable = getFirstAvailableDate(blockedRanges);
-    const firstDropoff = getFirstAvailableDateAfter(firstAvailable, blockedRanges);
+    const firstDropoff = getFirstAvailableDateAfter(
+      firstAvailable,
+      blockedRanges,
+    );
     setValue("pickupDate", firstAvailable);
     setValue("dropoffDate", firstDropoff);
   }, [blockedRanges]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -214,7 +222,9 @@ export const StepLocation = ({
               </Label>
 
               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger className={errors.pickupLocation ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={errors.pickupLocation ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Select Pickup Location" />
                 </SelectTrigger>
 
@@ -227,7 +237,9 @@ export const StepLocation = ({
                 </SelectContent>
               </Select>
               {errors.pickupLocation && (
-                <p className="text-xs text-red-500 mt-1">{errors.pickupLocation.message}</p>
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.pickupLocation.message}
+                </p>
               )}
             </div>
           )}
@@ -242,7 +254,9 @@ export const StepLocation = ({
               </Label>
 
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger className={errors.dropoffLocation ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={errors.dropoffLocation ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Select Dropoff Location" />
                 </SelectTrigger>
 
@@ -255,7 +269,9 @@ export const StepLocation = ({
                 </SelectContent>
               </Select>
               {errors.dropoffLocation && (
-                <p className="text-xs text-red-500 mt-1">{errors.dropoffLocation.message}</p>
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.dropoffLocation.message}
+                </p>
               )}
             </div>
           )}
@@ -304,7 +320,9 @@ export const StepLocation = ({
                 </PopoverContent>
               </Popover>
               {errors.pickupDate && (
-                <p className="text-xs text-red-500 mt-1">{errors.pickupDate.message}</p>
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.pickupDate.message}
+                </p>
               )}
             </div>
           )}
@@ -321,7 +339,9 @@ export const StepLocation = ({
               </Label>
 
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger className={errors.pickupTime ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={errors.pickupTime ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Select Time" />
                 </SelectTrigger>
 
@@ -334,7 +354,9 @@ export const StepLocation = ({
                 </SelectContent>
               </Select>
               {errors.pickupTime && (
-                <p className="text-xs text-red-500 mt-1">{errors.pickupTime.message}</p>
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.pickupTime.message}
+                </p>
               )}
             </div>
           )}
@@ -365,7 +387,9 @@ export const StepLocation = ({
                 </PopoverContent>
               </Popover>
               {errors.dropoffDate && (
-                <p className="text-xs text-red-500 mt-1">{errors.dropoffDate.message}</p>
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.dropoffDate.message}
+                </p>
               )}
             </div>
           )}
@@ -382,7 +406,9 @@ export const StepLocation = ({
               </Label>
 
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger className={errors.dropoffTime ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={errors.dropoffTime ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Select Time" />
                 </SelectTrigger>
 
@@ -395,7 +421,9 @@ export const StepLocation = ({
                 </SelectContent>
               </Select>
               {errors.dropoffTime && (
-                <p className="text-xs text-red-500 mt-1">{errors.dropoffTime.message}</p>
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.dropoffTime.message}
+                </p>
               )}
             </div>
           )}
@@ -405,8 +433,9 @@ export const StepLocation = ({
       <div className="flex justify-end gap-4">
         <Button
           type="submit"
-          className="gradient-teal text-primary-foreground"
+          className="bg-primary  text-primary-foreground"
           disabled={loading}
+          size={"lg"}
         >
           {loading ? "Loading..." : "Continue"}
         </Button>

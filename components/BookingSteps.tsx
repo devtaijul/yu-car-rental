@@ -16,7 +16,11 @@ const steps = [
   { id: 4, name: "Confirmation", icon: FileCheck },
 ];
 
-const BookingSteps = ({ currentStep, carName, coverage }: BookingStepsProps) => {
+const BookingSteps = ({
+  currentStep,
+  carName,
+  coverage,
+}: BookingStepsProps) => {
   const getStepLabel = (step: (typeof steps)[number]) => {
     if (step.id === 2 && carName) return carName;
     if (step.id === 3 && coverage) {
@@ -35,10 +39,7 @@ const BookingSteps = ({ currentStep, carName, coverage }: BookingStepsProps) => 
           const isCompleted = currentStep > step.id;
 
           return (
-            <div
-              key={step.id}
-              className="flex shrink-0 items-center gap-2"
-            >
+            <div key={step.id} className="flex shrink-0 items-center gap-2">
               <div
                 className={`booking-step whitespace-nowrap ${
                   isActive
@@ -49,7 +50,7 @@ const BookingSteps = ({ currentStep, carName, coverage }: BookingStepsProps) => 
                 }`}
               >
                 <Icon className="h-4 w-4" />
-              <span className="hidden sm:inline">{getStepLabel(step)}</span>
+                <span>{getStepLabel(step)}</span>
               </div>
               {index < steps.length - 1 && (
                 <span className="mx-2 shrink-0 text-muted-foreground">

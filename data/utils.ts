@@ -37,13 +37,13 @@ export const extras = [
   {
     id: "baby-seat-large",
     icon: "face_icon",
-    name: "BABY SEAT",
+    name: "CHILD SEAT",
     description: ">18 months. (9-18 kg)",
     price: 5,
   },
   {
     id: "coolbox",
-    icon: "face_icon",
+    icon: "cool_icon",
     name: "COOLBOX",
     description:
       "Ideal for your groceries or a day at the beach. Capacity 24 liters. Space for 6x 1.5 liter bottles.",
@@ -51,7 +51,7 @@ export const extras = [
   },
   {
     id: "key-secure-box",
-    icon: "face_icon",
+    icon: "lock_icon",
     name: "KEY SECURE BOX",
     description:
       "Perfect for divers or snorkelers to safely store their car key.",

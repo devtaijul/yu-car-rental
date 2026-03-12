@@ -26,8 +26,9 @@ export default function StepCoverageExtras({
   const searchParams = useSearchParams();
   const { booking, setBooking } = useBooking();
 
-  const [selectedCoverage, setSelectedCoverage] =
-    useState<CoverageType>(booking.coverage || "STANDARD");
+  const [selectedCoverage, setSelectedCoverage] = useState<CoverageType>(
+    booking.coverage || "STANDARD",
+  );
 
   const [extraQuantities, setExtraQuantities] = useState<
     Record<string, number>
@@ -182,13 +183,14 @@ export default function StepCoverageExtras({
 
       {/* Actions */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button variant="ghost" className="text-gray-400 bg-transparent border border-transparent hover:border-gray-300 hover:bg-transparent transition-all duration-300" onClick={onBackProp || (() => router.back())}>
+        <Button
+          variant="ghost"
+          className="text-dark-text bg-transparent border border-transparent "
+          onClick={onBackProp || (() => router.back())}
+        >
           Go Back
         </Button>
-        <Button
-          onClick={handleContinue}
-          className="bg-primary text-primary-foreground"
-        >
+        <Button onClick={handleContinue} className="bg-primary text-white">
           Continue
         </Button>
       </div>

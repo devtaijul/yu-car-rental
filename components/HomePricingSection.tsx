@@ -16,10 +16,12 @@ export const HomePricingSection = () => {
   };
 
   return (
-    <PricingTable
-      isSelectable
-      selectedCoverage={selected}
-      onSelectCoverage={handleSelect}
-    />
+    <div className="px-4">
+      <PricingTable
+        isSelectable
+        selectedCoverage={selected}
+        onSelectCoverage={handleSelect}
+      />
+    </div>
   );
 };

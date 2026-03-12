@@ -7,7 +7,13 @@ import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { useState } from "react";
@@ -30,9 +36,16 @@ export const SelectCarInline = ({
   dropoffDate?: Date;
   pickupTime?: string;
   dropoffTime?: string;
-  onSearchAgain?: (data: { pickupDate: Date; dropoffDate: Date; pickupTime: string; dropoffTime: string }) => void;
+  onSearchAgain?: (data: {
+    pickupDate: Date;
+    dropoffDate: Date;
+    pickupTime: string;
+    dropoffTime: string;
+  }) => void;
 }) => {
-  const [pickupDate, setPickupDate] = useState<Date>(initialPickupDate ?? new Date());
+  const [pickupDate, setPickupDate] = useState<Date>(
+    initialPickupDate ?? new Date(),
+  );
   const [dropoffDate, setDropoffDate] = useState<Date>(
     initialDropoffDate ?? new Date(Date.now() + 86400000),
   );
@@ -47,13 +60,19 @@ export const SelectCarInline = ({
 
       {cars.length === 0 && (
         <div className="mb-8 border border-border bg-card p-6">
-          <p className="text-lg font-medium mb-1">No cars available on your selected date range</p>
-          <p className="text-sm text-muted-foreground mb-6">Adjust your pickup or dropoff dates to find available cars.</p>
+          <p className="text-lg font-medium mb-1">
+            No cars available on your selected date range
+          </p>
+          <p className="text-sm text-muted-foreground mb-6">
+            Adjust your pickup or dropoff dates to find available cars.
+          </p>
 
           <div className="grid md:grid-cols-4 gap-4">
             {/* Pickup Date */}
             <div>
-              <Label className="text-sm text-muted-foreground mb-2 block">Pickup Date</Label>
+              <Label className="text-sm text-muted-foreground mb-2 block">
+                Pickup Date
+              </Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="w-full justify-start">
@@ -72,7 +91,9 @@ export const SelectCarInline = ({
                       minDropoff.setDate(minDropoff.getDate() + 1);
                       if (dropoffDate <= date) setDropoffDate(minDropoff);
                     }}
-                    disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                    disabled={(date) =>
+                      date < new Date(new Date().setHours(0, 0, 0, 0))
+                    }
                   />
                 </PopoverContent>
               </Popover>
@@ -80,14 +101,18 @@ export const SelectCarInline = ({
 
             {/* Pickup Time */}
             <div>
-              <Label className="text-sm text-muted-foreground mb-2 block">Pickup Time</Label>
+              <Label className="text-sm text-muted-foreground mb-2 block">
+                Pickup Time
+              </Label>
               <Select value={pickupTime} onValueChange={setPickupTime}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-card">
                   {times.map((t) => (
-                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                    <SelectItem key={t} value={t}>
+                      {t}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -95,7 +120,9 @@ export const SelectCarInline = ({
 
             {/* Dropoff Date */}
             <div>
-              <Label className="text-sm text-muted-foreground mb-2 block">Dropoff Date</Label>
+              <Label className="text-sm text-muted-foreground mb-2 block">
+                Dropoff Date
+              </Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="w-full justify-start">
@@ -120,14 +147,18 @@ export const SelectCarInline = ({
 
             {/* Dropoff Time */}
             <div>
-              <Label className="text-sm text-muted-foreground mb-2 block">Dropoff Time</Label>
+              <Label className="text-sm text-muted-foreground mb-2 block">
+                Dropoff Time
+              </Label>
               <Select value={dropoffTime} onValueChange={setDropoffTime}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-card">
                   {times.map((t) => (
-                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                    <SelectItem key={t} value={t}>
+                      {t}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -136,7 +167,14 @@ export const SelectCarInline = ({
 
           <Button
             className="mt-4 gradient-teal text-primary-foreground"
-            onClick={() => onSearchAgain?.({ pickupDate, dropoffDate, pickupTime, dropoffTime })}
+            onClick={() =>
+              onSearchAgain?.({
+                pickupDate,
+                dropoffDate,
+                pickupTime,
+                dropoffTime,
+              })
+            }
           >
             Search Again
           </Button>

@@ -31,7 +31,7 @@ export const YuAdvantages = ({ lang }: { lang: Locale }) => {
           <span className="text-xs font-bold tracking-[0.12em] text-primary sm:tracking-[0.16em] md:text-base md:tracking-[0.2em]">
             WHY CHOOSE US
           </span>
-          <h2 className="mt-3 text-3xl font-display font-extrabold sm:text-4xl md:text-6xl lg:text-7xl">
+          <h2 className="mt-3 text-4xl font-display font-extrabold mb-1 sm:text-4xl md:text-6xl lg:text-7xl">
             THE{" "}
             <Image
               src={"/assets/YU.png"}
@@ -42,7 +42,7 @@ export const YuAdvantages = ({ lang }: { lang: Locale }) => {
             />
           </h2>
           <TextStroke
-            className="text-4xl font-bold italic sm:text-5xl md:text-6xl lg:text-7xl"
+            className="text-4xl  font-bold italic sm:text-5xl md:text-6xl lg:text-7xl"
             strokeWidth="1px"
           >
             ADVANTAGE.

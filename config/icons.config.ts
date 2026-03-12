@@ -1,5 +1,7 @@
 import { CalenderIcon } from "@/components/icons/Calender.icon";
 import { CardIcon } from "@/components/icons/card.icon";
+import { ChildIcon } from "@/components/icons/child.icon";
+import { CoolIcon } from "@/components/icons/cool.icon";
 import { DashbaordCarIcon } from "@/components/icons/DashbaordCarIcon";
 import { DashboardIcon } from "@/components/icons/dashboard.icon";
 import { DashboardCoupon } from "@/components/icons/DashboardCoupon";
@@ -13,6 +15,7 @@ import { GasIcon } from "@/components/icons/gas.icon";
 import { GrayCalenderIcon } from "@/components/icons/gray-calender.icon";
 import { HartIcon } from "@/components/icons/Hart.icon";
 import { IdentityCard } from "@/components/icons/IdentityCard";
+import { LockIcon } from "@/components/icons/lock.icon";
 import { LoveHandIcon } from "@/components/icons/love-hand.icon";
 import { MilesIcon } from "@/components/icons/miles.icon";
 import { ProfileIcon } from "@/components/icons/profile.icon";
@@ -47,7 +50,10 @@ const ICON_NAMES = {
   dashboard_user_check_icon: DashboardUserCheck,
   dashboard_star: DashboardStar,
   dashbaord_coupon_icon: DashboardCoupon,
-  dashboard_settings_icon: DashboardSettings
+  dashboard_settings_icon: DashboardSettings,
+  cool_icon: CoolIcon,
+  lock_icon: LockIcon,
+  child_icon: ChildIcon,
 };
 
 export { ICON_NAMES };

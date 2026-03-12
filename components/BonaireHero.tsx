@@ -64,10 +64,13 @@ export const BonaireHero = () => {
   }, [emblaApi, onSelect]);
 
   const totalSlides = carouselImages.length;
-  const desktopThumbs = Array.from({ length: Math.min(5, totalSlides) }, (_, offset) => {
-    const realIndex = (currentIndex + offset) % totalSlides;
-    return { ...carouselImages[realIndex], realIndex };
-  });
+  const desktopThumbs = Array.from(
+    { length: Math.min(5, totalSlides) },
+    (_, offset) => {
+      const realIndex = (currentIndex + offset) % totalSlides;
+      return { ...carouselImages[realIndex], realIndex };
+    },
+  );
 
   const activeImage =
     carouselImages[currentIndex]?.src || "/assets/bonaire-hero-sunset.jpg";
@@ -114,7 +117,7 @@ export const BonaireHero = () => {
         </p>
 
         {/* CTA Button */}
-        <Link href="/booking">
+        <Link href={"/#explore-fleet"}>
           <Button className="group w-auto bg-primary px-6 py-4 text-sm font-semibold text-white sm:px-8 sm:py-5 sm:text-base md:px-10 md:py-6">
             EXPLORE FLEET
             <ArrowRight className="h-4 w-4  group-hover:translate-x-1 transition-transform" />

@@ -1,14 +1,13 @@
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import {
-  Shield,
+  AlertTriangle,
+  Camera,
+  FileText,
   Headphones,
   Phone,
-  FileText,
-  Camera,
-  AlertTriangle,
-  MessageCircle,
+  Shield,
 } from "lucide-react";
 import { HeaderSpace } from "../HeaderSpace";
 import { Icons } from "../icons";
@@ -78,14 +77,14 @@ const Help = () => {
                 </div>
               </div>
 
-              <div className="border-l-5 border-primary p-10 shadow">
+              <div className="border-l-5 border-primary p-5 md:p-10 shadow">
                 <div className="space-y-6">
                   <p className="text-[#0F172A]">
-                    In case any event occurs which may have caused damage to{" "}
-                     the car, you{" "}
+                    In case any event occurs which may have caused damage to the
+                    car, you{" "}
                     <span className="font-bold text-black ">
-                      must leave the car standing exactly where the 
-                      accident happened
+                      must leave the car standing exactly where the accident
+                      happened
                     </span>
                     , even if this is in the middle of the road.
                   </p>
@@ -159,9 +158,9 @@ const Help = () => {
                     </span>
                     <a
                       href="tel:+5997852604"
-                      className="block text-2xl lg:text-3xl font-bold text-foreground hover:text-primary transition-colors"
+                      className="block text-2xl lg:text-[40px] font-bold text-foreground hover:text-primary transition-colors"
                     >
-                       +(599) 717-9292
+                      +599 717-9292
                     </a>
                   </div>
                 </div>

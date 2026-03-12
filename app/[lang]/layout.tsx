@@ -11,7 +11,7 @@ const geistRoboto = Roboto({
 
 const geistPoppins = Poppins({
   variable: "--font-poppins",
-  weight: ["200", "400", "500", "700"], // or just "400"
+  weight: ["200", "400", "500", "600", "700"], // or just "400"
   subsets: ["latin"],
 });
 

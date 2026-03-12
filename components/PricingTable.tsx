@@ -104,7 +104,7 @@ export const PricingTable = ({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-20 lg:px-0">
+    <div className="w-full max-w-4xl mx-auto px-4 py-12 md:py-20 lg:px-0">
       <SectionTitle
         title="Coverage Options"
         subtitle="Travel with complete peace of mind"
@@ -126,12 +126,12 @@ export const PricingTable = ({
               </span>
             )}
             <p
-              className={`text-xs uppercase tracking-wider mb-1 ${isStandardSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+              className={`text-xs  tracking-wider pt-2  mb-1 ${isStandardSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
             >
               Standard
             </p>
             <h3
-              className={`text-lg font-semibold ${isStandardSelected ? "text-primary-foreground" : "text-foreground"}`}
+              className={`md:text-lg text-base font-semibold ${isStandardSelected ? "text-primary-foreground" : "text-foreground"}`}
             >
               CDW INSURANCE
             </h3>
@@ -142,22 +142,22 @@ export const PricingTable = ({
           onClick={() => onSelectCoverage?.("PREMIUM")}
         >
           <div
-            className={`py-4 relative transition-colors ${
+            className={`py-4 relative  ${
               isPremiumSelected ? "bg-primary" : "bg-card border border-border"
             }`}
           >
             <span
-              className={`absolute top-2 right-4 text-[10px] uppercase tracking-wider ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+              className={`absolute top-2 right-4 font-bold text-[10px]  uppercase tracking-wider ${isPremiumSelected ? "text-primary-foreground/80" : "text-dark-text"}`}
             >
               {isPremiumSelected ? "Selected" : "Recommended"}
             </span>
             <p
-              className={`text-xs uppercase tracking-wider mb-1 ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+              className={`text-xs  tracking-wider pt-2 mb-1 ${isPremiumSelected ? "text-primary-foreground/80" : "text-muted-foreground"}`}
             >
               Premium
             </p>
             <h3
-              className={`text-lg font-semibold ${isPremiumSelected ? "text-primary-foreground" : "text-foreground"}`}
+              className={`md:text-lg text-base font-semibold ${isPremiumSelected ? "text-primary-foreground" : "text-foreground"}`}
             >
               100% COVERAGE
             </h3>
@@ -232,7 +232,7 @@ export const PricingTable = ({
           <div></div>
           <div>
             <Button
-              className={`w-full rounded-none py-6 transition-all ${
+              className={`w-full rounded-none py-6 text-xs md:text-base transition-all ${
                 isStandardSelected
                   ? "bg-primary text-primary-foreground"
                   : "bg-card text-foreground border border-border hover:bg-primary/5"
@@ -244,7 +244,7 @@ export const PricingTable = ({
           </div>
           <div>
             <Button
-              className={`w-full rounded-none py-6 transition-all ${
+              className={`w-full rounded-none py-6 text-xs md:text-base transition-all ${
                 isPremiumSelected
                   ? "bg-primary text-primary-foreground"
                   : "bg-card text-foreground border border-border hover:bg-primary/5"

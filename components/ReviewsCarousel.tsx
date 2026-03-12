@@ -5,38 +5,38 @@ import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const reviews = [
-    {
-        id: 1,
-        name: "Sofia L.",
-        car: "VEYRA TRAIL",
-        rating: 5,
-        avatar: "SL",
-        text: "The YU Car Rental Team Was Incredibly Responsive And Professional. Pick-Up And Drop-Off Were Smooth. And Online Booking Saved Me So Much Time. Highly Recommend Their Service.",
-    },
-    {
-        id: 2,
-        name: "Elena R.",
-        car: "LUXURY SUV",
-        rating: 5,
-        avatar: "ER",
-        text: "Amazing experience! The car was in perfect condition and the process was seamless from start to finish. Will definitely use again for my next trip.",
-    },
-    {
-        id: 3,
-        name: "Marcus T.",
-        car: "VEYRA TRAIL",
-        rating: 5,
-        avatar: "MT",
-        text: "Best car rental experience I've ever had. No hidden fees, great customer service, and the digital check-in was incredibly convenient.",
-    },
-    {
-        id: 4,
-        name: "Anna K.",
-        car: "LUXURY SUV",
-        rating: 4,
-        avatar: "AK",
-        text: "Very satisfied with the service. The car was clean and well-maintained. The 100% coverage option gave me complete peace of mind.",
-    },
+  {
+    id: 1,
+    name: "Sofia L.",
+    car: "VEYRA TRAIL",
+    rating: 5,
+    avatar: "SL",
+    text: "The YU Car Rental Team Was Incredibly Responsive And Professional. Pick-Up And Drop-Off Were Smooth. And Online Booking Saved Me So Much Time. Highly Recommend Their Service.",
+  },
+  {
+    id: 2,
+    name: "Elena R.",
+    car: "LUXURY SUV",
+    rating: 5,
+    avatar: "ER",
+    text: "Amazing experience! The car was in perfect condition and the process was seamless from start to finish. Will definitely use again for my next trip.",
+  },
+  {
+    id: 3,
+    name: "Marcus T.",
+    car: "VEYRA TRAIL",
+    rating: 5,
+    avatar: "MT",
+    text: "Best car rental experience I've ever had. No hidden fees, great customer service, and the digital check-in was incredibly convenient.",
+  },
+  {
+    id: 4,
+    name: "Anna K.",
+    car: "LUXURY SUV",
+    rating: 4,
+    avatar: "AK",
+    text: "Very satisfied with the service. The car was clean and well-maintained. The 100% coverage option gave me complete peace of mind.",
+  },
 ];
 
 const ReviewsCarousel = () => {
@@ -53,7 +53,7 @@ const ReviewsCarousel = () => {
   const currentReview = reviews[currentIndex];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="md:py-20 py-12 bg-background">
       <div className="container mx-auto px-4">
         {/* Header with navigation */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-8 gap-4">
@@ -92,16 +92,19 @@ const ReviewsCarousel = () => {
         <div className="flex flex-col lg:flex-row gap-6 items-stretch">
           {/* Rating Card */}
           <div className="bg-primary text-primary-foreground  p-8 flex flex-col justify-center items-center lg:min-w-70">
-            <div className="text-5xl md:text-6xl font-bold font-roboto mb-3">4.6/5</div>
+            <div className="text-5xl md:text-6xl font-bold font-roboto mb-3">
+              4.6/5
+            </div>
             <hr className="w-full border-primary-foreground/20 mb-3" />
             <div className="flex justify-center gap-1 mb-3">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`h-5 w-5 ${star <= 4
+                  className={`h-5 w-5 ${
+                    star <= 4
                       ? "fill-yellow-400 text-yellow-400"
                       : "fill-yellow-400/50 text-yellow-400/50"
-                    }`}
+                  }`}
                 />
               ))}
             </div>
@@ -132,10 +135,11 @@ const ReviewsCarousel = () => {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star
                     key={star}
-                    className={`h-4 w-4 ${star <= currentReview.rating
+                    className={`h-4 w-4 ${
+                      star <= currentReview.rating
                         ? "fill-yellow-400 text-yellow-400"
                         : "fill-muted text-muted"
-                      }`}
+                    }`}
                   />
                 ))}
               </div>
@@ -172,10 +176,11 @@ const ReviewsCarousel = () => {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex
                   ? "bg-primary w-6"
                   : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                }`}
+              }`}
             />
           ))}
         </div>

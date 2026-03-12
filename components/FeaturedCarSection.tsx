@@ -5,7 +5,7 @@ import { FeaturedCarSkeleton } from "./skeleton/FeaturedCarSkeleton";
 
 export const FeaturedCarSection = () => {
   return (
-    <section className="py-20 bg-muted/50" id="explore-fleet">
+    <section className="py-12 md:py-20 bg-muted/50" id="explore-fleet">
       <div className="container mx-auto px-4">
         <SectionTitle title="Explore Our Fleet" subtitle="Featured Cars" />
 

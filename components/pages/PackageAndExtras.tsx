@@ -1,7 +1,6 @@
-import React from "react";
+import BookingSteps from "../BookingSteps";
 import Header from "../Header";
 import { HeaderSpace } from "../HeaderSpace";
-import BookingSteps from "../BookingSteps";
 import StepCoverageExtras from "../booking/StepCoverageExtras";
 
 export const PackageAndExtras = ({ car_slug }: { car_slug: string }) => {

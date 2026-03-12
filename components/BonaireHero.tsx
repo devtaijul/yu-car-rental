@@ -29,7 +29,18 @@ const carouselImages = [
 
 export const BonaireHero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel({
+  const initialImage =
+    carouselImages[0]?.src || "/assets/bonaire-hero-sunset.jpg";
+  const [activeImage, setActiveImage] = useState(initialImage);
+  const [prevImage, setPrevImage] = useState(initialImage);
+  const [fadeKey, setFadeKey] = useState(0);
+  const [emblaRefMobile, emblaApiMobile] = useEmblaCarousel({
+    align: "start",
+    loop: true,
+    slidesToScroll: 1,
+    watchDrag: true,
+  });
+  const [emblaRefDesktop, emblaApiDesktop] = useEmblaCarousel({
     align: "start",
     loop: true,
     slidesToScroll: 1,
@@ -37,53 +48,101 @@ export const BonaireHero = () => {
   });
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+    emblaApiMobile?.scrollPrev();
+    emblaApiDesktop?.scrollPrev();
+  }, [emblaApiMobile, emblaApiDesktop]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+    emblaApiMobile?.scrollNext();
+    emblaApiDesktop?.scrollNext();
+  }, [emblaApiMobile, emblaApiDesktop]);
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setCurrentIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    requestAnimationFrame(() => onSelect());
-
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-
-    return () => {
-      emblaApi.off("select", onSelect);
-      emblaApi.off("reInit", onSelect);
-    };
-  }, [emblaApi, onSelect]);
-
-  const totalSlides = carouselImages.length;
-  const desktopThumbs = Array.from(
-    { length: Math.min(5, totalSlides) },
-    (_, offset) => {
-      const realIndex = (currentIndex + offset) % totalSlides;
-      return { ...carouselImages[realIndex], realIndex };
+  const syncToIndex = useCallback(
+    (index: number, source: "mobile" | "desktop") => {
+      const next =
+        carouselImages[index]?.src || "/assets/bonaire-hero-sunset.jpg";
+      if (next !== activeImage) {
+        setPrevImage(activeImage);
+        setActiveImage(next);
+        setFadeKey((key) => key + 1);
+      }
+      setCurrentIndex(index);
+      if (
+        source !== "mobile" &&
+        emblaApiMobile &&
+        emblaApiMobile.selectedScrollSnap() !== index
+      ) {
+        emblaApiMobile.scrollTo(index);
+      }
+      if (
+        source !== "desktop" &&
+        emblaApiDesktop &&
+        emblaApiDesktop.selectedScrollSnap() !== index
+      ) {
+        emblaApiDesktop.scrollTo(index);
+      }
     },
+    [activeImage, emblaApiDesktop, emblaApiMobile],
   );
 
-  const activeImage =
-    carouselImages[currentIndex]?.src || "/assets/bonaire-hero-sunset.jpg";
+  const onSelectMobile = useCallback(() => {
+    if (!emblaApiMobile) return;
+    syncToIndex(emblaApiMobile.selectedScrollSnap(), "mobile");
+  }, [emblaApiMobile, syncToIndex]);
+
+  const onSelectDesktop = useCallback(() => {
+    if (!emblaApiDesktop) return;
+    syncToIndex(emblaApiDesktop.selectedScrollSnap(), "desktop");
+  }, [emblaApiDesktop, syncToIndex]);
+
+  useEffect(() => {
+    if (!emblaApiMobile) return;
+
+    requestAnimationFrame(() => onSelectMobile());
+
+    emblaApiMobile.on("select", onSelectMobile);
+    emblaApiMobile.on("reInit", onSelectMobile);
+
+    return () => {
+      emblaApiMobile.off("select", onSelectMobile);
+      emblaApiMobile.off("reInit", onSelectMobile);
+    };
+  }, [emblaApiMobile, onSelectMobile]);
+
+  useEffect(() => {
+    if (!emblaApiDesktop) return;
+
+    requestAnimationFrame(() => onSelectDesktop());
+
+    emblaApiDesktop.on("select", onSelectDesktop);
+    emblaApiDesktop.on("reInit", onSelectDesktop);
+
+    return () => {
+      emblaApiDesktop.off("select", onSelectDesktop);
+      emblaApiDesktop.off("reInit", onSelectDesktop);
+    };
+  }, [emblaApiDesktop, onSelectDesktop]);
+
+  const totalSlides = carouselImages.length;
 
   return (
     <div className="relative min-h-svh bg-cover bg-center bg-no-repeat lg:min-h-screen">
       {/* Fading background images */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${activeImage})`,
-        }}
-      />
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${prevImage})`,
+          }}
+        />
+        <div
+          key={fadeKey}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-in fade-in-0 duration-700"
+          style={{
+            backgroundImage: `url(${activeImage})`,
+          }}
+        />
+      </div>
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30" />
 
@@ -161,7 +220,7 @@ export const BonaireHero = () => {
             {/* Carousel */}
             <div
               className="max-w-60 overflow-hidden touch-pan-y sm:max-w-xl md:max-w-2xl"
-              ref={emblaRef}
+              ref={emblaRefMobile}
             >
               <div className="flex items-end gap-3 select-none">
                 {carouselImages.map((img, index) => {
@@ -214,13 +273,14 @@ export const BonaireHero = () => {
           {/* Desktop Layout */}
           <div className="hidden lg:flex items-end gap-4">
             {/* Image thumbnails */}
-            <div className="flex gap-4 flex-1 items-end">
-              {desktopThumbs.map((img) => {
-                const isActive = img.realIndex === currentIndex;
+            <div className="flex-1 overflow-hidden" ref={emblaRefDesktop}>
+              <div className="flex gap-4 items-end select-none">
+              {carouselImages.map((img, index) => {
+                const isActive = index === currentIndex;
                 return (
                   <div
                     key={img.id}
-                    className={`relative rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out transform ${
+                    className={`relative shrink-0 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out transform ${
                       isActive
                         ? "z-10 scale-[1.04] ring-2 ring-primary shadow-2xl"
                         : "opacity-70 hover:opacity-100 hover:scale-[1.02]"
@@ -230,7 +290,7 @@ export const BonaireHero = () => {
                       height: isActive ? "128px" : "100px",
                       transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}
-                    onClick={() => emblaApi?.scrollTo(img.realIndex)}
+                    onClick={() => emblaApiDesktop?.scrollTo(index)}
                   >
                     <Image
                       src={img.src}
@@ -246,7 +306,7 @@ export const BonaireHero = () => {
                         isActive ? "text-white" : "text-white/70"
                       }`}
                     >
-                      {String(img.realIndex + 1).padStart(2, "0")}
+                      {String(index + 1).padStart(2, "0")}
                     </div>
                     {/* Active glow effect */}
                     {isActive && (
@@ -255,6 +315,7 @@ export const BonaireHero = () => {
                   </div>
                 );
               })}
+              </div>
             </div>
 
             {/* Navigation controls */}

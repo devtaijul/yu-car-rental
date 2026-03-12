@@ -47,8 +47,8 @@ const SettingsPage = ({ settings }: { settings: PlatformSettings }) => {
   ];
 
   useEffect(() => {
-    const targets = sectionRefs.current.filter(
-      (el): el is HTMLDivElement => Boolean(el),
+    const targets = sectionRefs.current.filter((el): el is HTMLDivElement =>
+      Boolean(el),
     );
     if (!targets.length) return;
 
@@ -72,72 +72,70 @@ const SettingsPage = ({ settings }: { settings: PlatformSettings }) => {
   }, []);
 
   return (
-      <div className="space-y-6">
-          <div>
-              <h1 className="text-2xl font-bold text-foreground">
-                  Platform Settings
-              </h1>
-              <p className="text-muted-foreground mt-1">
-                  Manage system configurations, payment gateways, and security
-                  preferences.
-              </p>
-          </div>
-
-          <div className="flex gap-6">
-              {/* Sidebar Navigation */}
-              <div className="w-52 shrink-0 hidden lg:block">
-                  <div className="pr-1">
-                      <nav className="space-y-1 fixed w-[15%] overflow-y-auto overscroll-contain">
-                          {sections.map((section, i) => (
-                              <button
-                                  key={section.id}
-                                  onClick={() => {
-                                      setActiveSection(i);
-                                      const el = sectionRefs.current[i];
-                                      if (el) {
-                                          el.scrollIntoView({
-                                              behavior: "smooth",
-                                              block: "start",
-                                          });
-                                      }
-                                  }}
-                                  className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                                      activeSection === i
-                                          ? "bg-accent text-accent-foreground font-semibold"
-                                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                                  }`}
-                                  aria-current={
-                                      activeSection === i ? "true" : "false"
-                                  }
-                              >
-                                  {section.label}
-                                  {activeSection === i && (
-                                      <span className="float-right">›</span>
-                                  )}
-                              </button>
-                          ))}
-                      </nav>
-                  </div>
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 space-y-6 lg:ml-[10%]">
-                  {sections.map((section, i) => (
-                      <section
-                          key={section.id}
-                          id={section.id}
-                          ref={(el) => {
-                              sectionRefs.current[i] = el;
-                          }}
-                          data-index={i}
-                          className="scroll-mt-24"
-                      >
-                          {section.render}
-                      </section>
-                  ))}
-              </div>
-          </div>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">
+          Platform Settings
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          Manage system configurations, payment gateways, and security
+          preferences.
+        </p>
       </div>
+
+      <div className="flex gap-6">
+        {/* Sidebar Navigation */}
+        <div className="w-52 shrink-0 hidden lg:block">
+          <div className="pr-1">
+            <nav className="space-y-1 fixed w-[15%] overflow-y-auto overscroll-contain">
+              {sections.map((section, i) => (
+                <button
+                  key={section.id}
+                  onClick={() => {
+                    setActiveSection(i);
+                    const el = sectionRefs.current[i];
+                    if (el) {
+                      el.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                  }}
+                  className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    activeSection === i
+                      ? "bg-accent text-accent-foreground font-semibold"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
+                  aria-current={activeSection === i ? "true" : "false"}
+                >
+                  {section.label}
+                  {activeSection === i && (
+                    <span className="float-right">›</span>
+                  )}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 space-y-6 lg:ml-[10%]">
+          {sections.map((section, i) => (
+            <section
+              key={section.id}
+              id={section.id}
+              ref={(el: HTMLDivElement | null) => {
+                sectionRefs.current[i] = el;
+              }}
+              data-index={i}
+              className="scroll-mt-24"
+            >
+              {section.render}
+            </section>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -36,7 +36,7 @@ export const YuAdvantages = ({ lang }: { lang: Locale }) => {
             <Image
               src={"/assets/YU.png"}
               alt="Relaxed mobility"
-              className="inline-block w-20 align-baseline sm:w-24 md:w-32 lg:max-w-36"
+              className="inline-block w-20 align-baseline sm:w-24 md:w-32 lg:max-w-36 lg:-mb-5 -mb-4  "
               width={800}
               height={500}
             />

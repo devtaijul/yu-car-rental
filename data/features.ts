@@ -1,7 +1,7 @@
 export const features: { title: string; details: string; icon: string }[] = [
   {
     title: "Distinctive fleet",
-    details: "From high-end convertibles to premium SUVs",
+    details: "From high-end SUV's to premium pickups",
     icon: "car_icon",
   },
   {

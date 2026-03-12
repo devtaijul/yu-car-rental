@@ -97,9 +97,9 @@ const advantages = [
 
 const AboutUs = async ({ lang }: { lang: Locale }) => {
     return (
-        <div className="min-h-screen flex flex-col bg-background">
+        <div className="flex flex-col bg-background">
             {/* Hero Section */}
-            <div className="relative min-h-[90vh] bg-background overflow-hidden">
+            <div className="relative bg-background overflow-hidden">
                 <div className="relative z-20">
                     <Header />
                     <HeaderSpace />
@@ -198,7 +198,7 @@ const AboutUs = async ({ lang }: { lang: Locale }) => {
                         />{" "}
                         EXPERIENCE
                     </span>
-                    <h2 className="text-3xl md:text-5xl lg:text-7xl text-center font-bold mt-3 mb-6">
+                    <h2 className="text-5xl md:text-5xl lg:text-7xl text-center font-bold mt-3 mb-6">
                         OUR{" "}
                         <TextStroke strokeWidth="1px" className="italic">
                             HEARTFELT
@@ -226,12 +226,12 @@ const AboutUs = async ({ lang }: { lang: Locale }) => {
                         READY TO EXPLORE BONAIRE AT YOUR OWN PACE?
                     </span>
                     <div>
-                        <h2 className="text-4xl md:text-5xl lg:text-9xl font-display tracking-tighter font-bold  mt-4 mb-2">
+                        <h2 className="text-5xl lg:text-9xl font-display tracking-tighter font-bold  mt-4 mb-2">
                             YOUR KEY TO
                         </h2>
                         <TextStroke
                             strokeWidth="1px"
-                            className="text-4xl md:text-5xl lg:text-9xl tracking-tighter font-bold italic"
+                            className="text-5xl lg:text-9xl tracking-tighter font-bold italic"
                         >
                             FREEDOM.
                         </TextStroke>
@@ -241,7 +241,7 @@ const AboutUs = async ({ lang }: { lang: Locale }) => {
                         target="_blank"
                         className="mt-10 inline-block sm:mt-12"
                     >
-                        <Button className="mt-10 w-full bg-primary px-6 py-4 font-extrabold tracking-[0.15rem] border-primary-foreground/30 sm:mt-12 sm:w-auto sm:px-10 sm:py-5 sm:tracking-[0.2rem] lg:px-16 lg:py-8 lg:tracking-[0.25rem]">
+                        <Button className="lg:mt-10 w-full bg-primary px-6 py-4 font-extrabold tracking-[0.15rem] border-primary-foreground/30 sm:mt-12 sm:w-auto sm:px-10 sm:py-5 sm:tracking-[0.2rem] lg:px-16 lg:py-8 lg:tracking-[0.25rem]">
                             BOOK TODAY
                         </Button>
                     </Link>

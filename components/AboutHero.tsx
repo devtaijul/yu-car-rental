@@ -9,7 +9,7 @@ export const AboutHero = () => {
         PREMIUM ISLAND MOBILITY
       </div>
       <div className="relative z-10 container mx-auto px-4 pt-8 md:pt-16">
-        <div className="min-h-[60vh] relative">
+        <div className=" relative">
           <div
             className="absolute w-full h-full top-0 left-0  bg-cover bg-center"
             style={{

@@ -195,12 +195,8 @@ const AirportPickup = () => {
                             <br />
                             SEQUENCE.
                         </h2>
-                        <p className="text-left text-sm font-medium leading-relaxed tracking-wider text-dark-text uppercase lg:mt-0 lg:text-right">
-                            A meticulously choreographed transition from cabin{" "}
-                            <br />
-                            to cockpit, designed for the discerning traveler who{" "}
-                            <br />
-                            values time above all else.
+                        <p className="text-left text-sm font-medium leading-relaxed tracking-wider text-dark-text uppercase lg:mt-0 lg:text-right lg:w-[40%]">
+                            A meticulously choreographed transition from cabin to cockpit, designed for the discerning traveler who values time above all else.
                         </p>
                     </div>
 

@@ -82,9 +82,9 @@ const Help = () => {
                 <div className="space-y-6">
                   <p className="text-[#0F172A]">
                     In case any event occurs which may have caused damage to{" "}
-                    <br /> the car, you{" "}
+                     the car, you{" "}
                     <span className="font-bold text-black ">
-                      must leave the car standing exactly where the <br />
+                      must leave the car standing exactly where the 
                       accident happened
                     </span>
                     , even if this is in the middle of the road.

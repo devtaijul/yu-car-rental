@@ -30,19 +30,21 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
   const router = useRouter();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+        <div className="lg:flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Cars Inventory</h1>
-            <p className="text-muted-foreground mt-1">
+            <h1 className="text-xl font-bold text-foreground sm:text-2xl">
+              Cars Inventory
+            </h1>
+            <p className="mt-1 text-sm text-muted-foreground sm:text-base">
               Manage your fleet, track status, and update details.
             </p>
           </div>
           <button
             onClick={() => router.push(PAGES.ADMIN.CARS.CREATE)}
-            className="flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity sm:self-start w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:self-start sm:px-5 sm:text-sm"
           >
             <Plus className="h-4 w-4" /> ADD NEW CAR
           </button>
@@ -55,20 +57,20 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by model or plate..."
-            className="pl-10 pr-4 py-2.5 text-sm border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring/30 w-full"
+            className="w-full rounded-lg border bg-card py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-ring/30"
           />
         </div>
       </div>
 
       {/* Table Card */}
-      <div className="bg-card rounded-xl border">
+      <div className="bg-card rounded-xl border md:w-full w-[95vw]">
         {/* Tabs — horizontally scrollable on mobile */}
-        <div className="flex border-b px-2 sm:px-6 overflow-x-auto scrollbar-hide">
+        <div className="flex overflow-x-auto border-b px-2 scrollbar-hide sm:px-6">
           {tabs.map((tab, i) => (
             <button
               key={tab}
               onClick={() => setActiveTab(i)}
-              className={`py-4 px-3 sm:px-4 text-xs font-semibold tracking-wider transition-colors whitespace-nowrap flex-shrink-0 ${
+              className={`shrink-0 whitespace-nowrap px-3 py-4 text-[11px] font-semibold tracking-wider transition-colors sm:px-4 sm:text-xs ${
                 activeTab === i
                   ? "text-primary border-b-2 border-primary"
                   : "text-muted-foreground hover:text-foreground"
@@ -191,7 +193,7 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
         </div>
 
         {/* Mobile Card List */}
-        <div className="md:hidden divide-y">
+        <div className="md:hidden w-min">
           {cars.map((car) => {
             const availability = getAvailabilityInfo(car.availability);
             const normalizedAvailableUntil =
@@ -201,9 +203,9 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
               normalizedAvailableUntil.includes("right now") ||
               normalizedAvailableUntil.includes("infinite");
             return (
-              <div key={car.id} className="p-4 flex gap-3">
+              <div key={car.id} className="flex gap-3 p-4">
                 {/* Car Image */}
-                <div className="h-14 w-20 rounded-lg bg-muted flex-shrink-0 flex items-center justify-center overflow-hidden">
+                <div className="flex h-12 w-16 p-2 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted">
                   <CldImage
                     src={car.imageUrl}
                     alt={car.name}
@@ -214,16 +216,18 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
                 </div>
 
                 {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start md:justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="font-semibold text-foreground truncate">{car.name}</p>
+                      <p className="text-sm font-semibold text-foreground">
+                        {car.name}
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         {car.carType} • {car.year}
                       </p>
                     </div>
                     <span
-                      className={`${statusBadgeBase} flex-shrink-0 ${
+                      className={`${statusBadgeBase} shrink-0 text-[10px] ${
                         statusBadgeVariants[car.carStatus] ??
                         "border-border bg-muted/40 text-muted-foreground"
                       }`}
@@ -232,31 +236,48 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
                     </span>
                   </div>
 
-                  <div className="mt-2 flex items-center justify-between gap-2">
+                  <div className="mt-3 space-y-2">
                     <div>
-                      <span className="font-mono text-xs font-semibold text-foreground">
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        Plate
+                      </p>
+                      <p className="font-mono text-sm font-semibold text-foreground">
                         {car.plate}
-                      </span>
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        Next Available
+                      </p>
                       <p
-                        className={`text-xs mt-0.5 ${
+                        className={`text-xs ${
                           isRightNow
                             ? "text-emerald-600 font-semibold"
                             : "text-muted-foreground"
                         }`}
                       >
                         {availability.message}
-                        {availability.availableUntil &&
-                          ` · ${availability.availableUntil}`}
                       </p>
+                      {availability.availableUntil && (
+                        <p
+                          className={`text-xs ${
+                            isRightNow
+                              ? "text-emerald-600 font-semibold"
+                              : "text-muted-foreground"
+                          }`}
+                        >
+                          {availability.availableUntil}
+                        </p>
+                      )}
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-1 flex-shrink-0">
+                    <div className="flex items-center gap-1">
                       <button
                         onClick={() =>
                           router.push(PAGES.ADMIN.CARS.EDIT(car.id.toString()))
                         }
-                        className="p-2 rounded-lg hover:bg-muted transition-colors"
+                        className="rounded-lg p-2 transition-colors hover:bg-muted"
                       >
                         <Pencil className="h-4 w-4 text-muted-foreground" />
                       </button>
@@ -270,30 +291,30 @@ export const CarsPage = ({ cars }: { cars: CarWithAvailability[] }) => {
         </div>
 
         {/* Pagination */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 sm:px-6 py-4 border-t">
-          <p className="text-sm text-muted-foreground text-center sm:text-left">
+        <div className="flex flex-col items-center justify-between gap-3 border-t px-4 py-4 sm:flex-row sm:px-6">
+          <p className="text-center text-xs text-muted-foreground sm:text-left sm:text-sm">
             Showing <span className="font-semibold text-foreground">1</span> to{" "}
             <span className="font-semibold text-foreground">5</span> of{" "}
             <span className="font-semibold text-foreground">1,248</span> entries
           </p>
           <div className="flex items-center gap-1">
-            <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted transition-colors">
+            <button className="rounded-lg px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted sm:px-3 sm:text-sm">
               ←
             </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg bg-primary text-primary-foreground font-semibold">
+            <button className="rounded-lg bg-primary px-2.5 py-1.5 text-xs font-semibold text-primary-foreground sm:px-3 sm:text-sm">
               1
             </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg text-foreground hover:bg-muted transition-colors">
+            <button className="rounded-lg px-2.5 py-1.5 text-xs text-foreground transition-colors hover:bg-muted sm:px-3 sm:text-sm">
               2
             </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg text-foreground hover:bg-muted transition-colors">
+            <button className="rounded-lg px-2.5 py-1.5 text-xs text-foreground transition-colors hover:bg-muted sm:px-3 sm:text-sm">
               3
             </button>
             <span className="px-2 text-muted-foreground">...</span>
-            <button className="hidden sm:block px-3 py-1.5 text-sm rounded-lg text-foreground hover:bg-muted transition-colors">
+            <button className="hidden rounded-lg px-3 py-1.5 text-sm text-foreground transition-colors hover:bg-muted sm:block">
               250
             </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted transition-colors">
+            <button className="rounded-lg px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted sm:px-3 sm:text-sm">
               →
             </button>
           </div>

@@ -11,6 +11,7 @@ import One from "../icons/One";
 import Three from "../icons/Three";
 import Two from "../icons/Two";
 import { TextStroke } from "../TextStroke";
+import { PAGES } from "@/config/pages.config";
 
 const airportHero = "/assets/Arrival Hall.png";
 const arrivalsImg = "/assets/Airport-1.png";
@@ -389,12 +390,12 @@ const AirportPickup = () => {
             </TextStroke>
           </div>
           <div className="mt-12 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
-            <Link href="/booking">
+            <Link href={PAGES.RESERVE_A_CAR.ROOT}>
               <Button className="w-full bg-primary px-10 py-6 font-extrabold tracking-[0.25rem] sm:w-auto md:px-12 lg:px-16 lg:py-8">
                 BOOK TODAY
               </Button>
             </Link>
-            <Link href="/booking">
+            <Link href="/#explore-fleet">
               <Button
                 variant="outline"
                 className="w-full border-primary px-10 py-6 font-extrabold tracking-[0.25rem] text-dark-text hover:bg-primary-foreground hover:text-primary sm:w-auto md:px-12 lg:px-16 lg:py-8"

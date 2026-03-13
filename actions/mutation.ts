@@ -13,6 +13,8 @@ import {
 } from "@/generated/prisma/enums";
 import { CarCreateInput } from "@/generated/prisma/models";
 import { sendContractEmail } from "@/lib/email/sendContractEmail";
+import { sendSms } from "@/lib/sms/sendSms";
+import { ENV } from "@/lib/env";
 import { CarRentalInvoice } from "@/lib/pdf/CarRentalInvoice.tsx";
 import { ContractDocument } from "@/lib/pdf/ContractDocument";
 import prisma from "@/lib/prisma";
@@ -231,6 +233,15 @@ export const bookCar = async ({
       });
     } catch (emailError) {
       console.error("[bookCar] Failed to send confirmation email:", emailError);
+    }
+
+    // Send SMS confirmation (non-blocking)
+    if (customer.phone) {
+      const bookingUrl = `${ENV.APP_URL}/dashboard/bookings/${result.id}`;
+      sendSms(
+        customer.phone,
+        `Hi ${customer.firstName}, your YU Car Rental booking is confirmed! View your booking here: ${bookingUrl}`,
+      ).catch((e) => console.error("[bookCar] Failed to send confirmation SMS:", e));
     }
 
     return actionResponse(result);

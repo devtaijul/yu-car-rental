@@ -1,12 +1,33 @@
-import { getUsersForAdmin } from "@/actions/query";
+import { getUsersByAdmin } from "@/actions/query";
 import UsersPage from "@/components/pages/admin/UsersPage";
 
-export const AdminUserManagementServer = async () => {
-  const data = await getUsersForAdmin();
+export const AdminUserManagementServer = async ({
+  page,
+  limit,
+  search,
+}: {
+  page: string;
+  limit: string;
+  search: string;
+}) => {
+  const data = await getUsersByAdmin(page, limit, search);
 
   if (!data.success) {
     return <div>Something is wrong</div>;
   }
 
-  return <UsersPage />;
+  if (!data.data) {
+    return <div>Users not found</div>;
+  }
+
+  console.log(data.data);
+
+  return (
+    <UsersPage
+      users={data.data.users}
+      page={page}
+      limit={limit}
+      totalCount={data.data.totalUsers}
+    />
+  );
 };

@@ -642,16 +642,86 @@ export const getCarByIdAdmin = async (carId: string) => {
   }
 };
 
-export const getUsersByAdmin = async (page: string, limit: string) => {
+export const getUsersByAdmin = async (
+  page: string,
+  limit: string,
+  search: string,
+) => {
   try {
+    const pageNumber = parseInt(page);
+    const limitNumber = parseInt(limit);
+
     const users = await prisma.user.findMany({
       orderBy: {
         createdAt: "desc",
       },
-      skip: (parseInt(page) - 1) * parseInt(limit),
-      take: parseInt(limit),
+      where: {
+        OR: [
+          {
+            firstName: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            lastName: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            email: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            phone: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+
+      include: {
+        _count: {
+          select: {
+            bookings: true,
+          },
+        },
+
+        bookings: {
+          select: {
+            totalAmount: true,
+          },
+        },
+      },
+
+      skip: (pageNumber - 1) * limitNumber,
+      take: limitNumber,
     });
-    return actionResponse(users);
+
+    const formattedUsers = users.map((user) => {
+      const totalSpend = user.bookings.reduce(
+        (sum, booking) => sum + booking.totalAmount,
+        0,
+      );
+
+      return {
+        ...user,
+        totalBookings: user._count.bookings,
+        totalSpend,
+        bookings: undefined,
+      };
+    });
+
+    const totalUsers = await prisma.user.count();
+
+    return actionResponse({
+      users: formattedUsers,
+      totalUsers,
+    });
   } catch (error) {
     console.error("Get users error:", error);
     throw actionError("Failed to fetch users");

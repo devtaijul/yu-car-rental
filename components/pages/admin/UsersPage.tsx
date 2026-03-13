@@ -1,6 +1,7 @@
 "use client";
 
 import { PAGES } from "@/config/pages.config";
+import { User } from "@/generated/prisma/client";
 import {
   Search,
   UserPlus,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PaginationAdmin } from "./PaginationAdmin";
 
 const statusTabs = ["All Users", "Active", "Pending"];
 const statusBadgeBase =
@@ -21,71 +23,46 @@ const statusBadgeVariants: Record<string, string> = {
   PENDING: "border-amber-200 bg-amber-50 text-amber-700",
   SUSPENDED: "border-rose-200 bg-rose-50 text-rose-600",
 };
+
+const statusBadgeVariantsFn = (status: boolean) => {
+  if (status) {
+    return statusBadgeVariants.VERIFIED;
+  } else {
+    return statusBadgeVariants.PENDING;
+  }
+};
+
 const statusDotVariants: Record<string, string> = {
   VERIFIED: "bg-emerald-500",
   PENDING: "bg-amber-500",
   SUSPENDED: "bg-rose-500",
 };
 
-const mockUsers = [
-  {
-    id: "YU-8432",
-    name: "Sarah Jenkins",
-    email: "sarah.j@company.net",
-    initials: "SJ",
-    color: "bg-primary/20",
-    bookings: 3,
-    spent: "$890.00",
-    status: "VERIFIED",
-    statusClass: "badge-verified",
-  },
-  {
-    id: "YU-9044",
-    name: "David Kim",
-    email: "david.kim88@gmail.com",
-    initials: "DK",
-    color: "bg-muted",
-    bookings: 0,
-    spent: "$0.00",
-    status: "PENDING",
-    statusClass: "badge-pending",
-  },
-  {
-    id: "YU-7721",
-    name: "Elena Rodriguez",
-    email: "elena.r@example.com",
-    initials: "ER",
-    color: "bg-success/20",
-    bookings: 8,
-    spent: "$2,840.00",
-    status: "VERIFIED",
-    statusClass: "badge-verified",
-  },
-  {
-    id: "YU-6588",
-    name: "Marcus Chen",
-    email: "marcus.chen@startup.io",
-    initials: "MC",
-    color: "bg-warning/20",
-    bookings: 2,
-    spent: "$420.00",
-    status: "SUSPENDED",
-    statusClass: "badge-suspended",
-  },
-  {
-    id: "YU-8102",
-    name: "Amanda Patel",
-    email: "amanda.p@example.com",
-    initials: "AP",
-    color: "bg-accent",
-    bookings: 1,
-    spent: "$180.00",
-    status: "VERIFIED",
-    statusClass: "badge-verified",
-  },
-];
+const statusDotVariantsFn = (status: boolean) => {
+  if (status) {
+    return statusDotVariants.VERIFIED;
+  } else {
+    return statusDotVariants.PENDING;
+  }
+};
 
-const UsersPage = () => {
+const UsersPage = ({
+  users,
+  page,
+  limit,
+  totalCount,
+}: {
+  users: (User & {
+    totalBookings: number;
+    totalSpend: number;
+    _count: {
+      bookings: number;
+    };
+  })[];
+  page: string;
+  limit: string;
+  totalCount: number;
+}) => {
   const [activeTab, setActiveTab] = useState(0);
   const [search, setSearch] = useState("");
   const router = useRouter();
@@ -143,41 +120,45 @@ const UsersPage = () => {
         {/* Mobile Cards */}
         <div className="md:hidden">
           <div className="divide-y">
-            {mockUsers.map((user) => (
+            {users.map((user) => (
               <div key={user.id} className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
                     <div
-                      className={`h-10 w-10 rounded-full flex items-center justify-center text-xs font-bold ${user.color}`}
+                      className={`h-10 w-10 rounded-full flex items-center justify-center text-xs font-bold `}
                     >
-                      {user.initials}
+                      {user.firstName.charAt(0).toUpperCase() +
+                        user.lastName.charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0">
-                      <p className="font-medium text-foreground break-words">
-                        {user.name}
+                      <p className="font-medium text-foreground wrap-break-word">
+                        {user.firstName} {user.lastName}
                       </p>
-                      <p className="text-xs text-muted-foreground break-words">
+                      <p className="text-xs text-muted-foreground wrap-break-word">
                         {user.email}
                       </p>
-                      <p className="text-xs text-muted-foreground"># {user.id}</p>
+                      <p className="text-xs text-muted-foreground">
+                        # {user.id}
+                      </p>
                     </div>
                   </div>
                   <span
                     className={`${statusBadgeBase} ${
-                      statusBadgeVariants[user.status] ??
+                      statusBadgeVariantsFn(user.isVerified) ??
                       "border-border bg-muted/40 text-muted-foreground"
                     }`}
                   >
                     <span
                       className={`h-2 w-2 rounded-full ${
-                        statusDotVariants[user.status] ?? "bg-muted-foreground"
+                        statusDotVariantsFn(user.isVerified) ??
+                        "bg-muted-foreground"
                       }`}
                     />
-                    {user.status}
+                    {user.isVerified ? "Verified" : "Unverified"}
                   </span>
                 </div>
 
-                <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+                {/* <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
                   <span>
                     Bookings:{" "}
                     <span className="font-semibold text-foreground">
@@ -190,7 +171,7 @@ const UsersPage = () => {
                       {user.spent}
                     </span>
                   </span>
-                </div>
+                </div> */}
 
                 <div className="mt-3 flex items-center justify-end gap-1">
                   <button className="p-2 rounded-lg hover:bg-muted transition-colors">
@@ -236,7 +217,7 @@ const UsersPage = () => {
               </tr>
             </thead>
             <tbody>
-              {mockUsers.map((user) => (
+              {users.map((user) => (
                 <tr
                   key={user.id}
                   className="border-b last:border-0 hover:bg-muted/30 transition-colors"
@@ -244,13 +225,14 @@ const UsersPage = () => {
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`h-10 w-10 rounded-full flex items-center justify-center text-xs font-bold ${user.color}`}
+                        className={`h-10 w-10 rounded-full flex items-center justify-center text-xs font-bold `}
                       >
-                        {user.initials}
+                        {user.firstName.charAt(0).toUpperCase() +
+                          user.lastName.charAt(1).toUpperCase()}
                       </div>
                       <div>
                         <p className="font-medium text-foreground">
-                          {user.name}
+                          {user.firstName + " " + user.lastName}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           # {user.id}
@@ -262,24 +244,25 @@ const UsersPage = () => {
                     {user.email}
                   </td>
                   <td className="py-4 px-4 text-center font-semibold">
-                    {user.bookings}
+                    {user.totalBookings}
                   </td>
                   <td className="py-4 px-4 text-center font-bold">
-                    {user.spent}
+                    ${user.totalSpend}
                   </td>
                   <td className="py-4 px-4 text-center">
                     <span
                       className={`${statusBadgeBase} ${
-                        statusBadgeVariants[user.status] ??
+                        statusBadgeVariantsFn(user.isVerified) ??
                         "border-border bg-muted/40 text-muted-foreground"
                       }`}
                     >
                       <span
                         className={`h-2 w-2 rounded-full ${
-                          statusDotVariants[user.status] ?? "bg-muted-foreground"
+                          statusDotVariantsFn(user.isVerified) ??
+                          "bg-muted-foreground"
                         }`}
                       />
-                      {user.status}
+                      {user.isVerified ? "Verified" : "Unverified"}
                     </span>
                   </td>
                   <td className="py-4 px-6">
@@ -306,34 +289,11 @@ const UsersPage = () => {
           </table>
         </div>
 
-        <div className="flex flex-col gap-3 px-4 sm:px-6 py-4 border-t sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-muted-foreground text-center sm:text-left">
-            Showing <span className="font-semibold text-foreground">1</span> to{" "}
-            <span className="font-semibold text-foreground">6</span> of{" "}
-            <span className="font-semibold text-foreground">8,921</span> users
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-1 sm:justify-end">
-            <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted">
-              ←
-            </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg bg-primary text-primary-foreground font-semibold">
-              1
-            </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg hover:bg-muted">
-              2
-            </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg hover:bg-muted">
-              3
-            </button>
-            <span className="px-2 text-muted-foreground">...</span>
-            <button className="px-3 py-1.5 text-sm rounded-lg hover:bg-muted">
-              48
-            </button>
-            <button className="px-3 py-1.5 text-sm rounded-lg text-muted-foreground hover:bg-muted">
-              →
-            </button>
-          </div>
-        </div>
+        <PaginationAdmin
+          page={parseInt(page)}
+          limit={parseInt(limit)}
+          totalCount={totalCount}
+        />
       </div>
     </div>
   );

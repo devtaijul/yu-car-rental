@@ -322,7 +322,7 @@ export const whyNeedCarItems: Record<
       category: "OCEAN VIEW",
       title: "LOOKING INTO THE HORIZON",
       description:
-        "Along the shoreline, where freedom becomes almost tangible, you look out over the endless horizon. The ocean stretches before you as a place where thoughts settle and new insights quietly take shape. In that moment, you feel depth — not because you search for it, but because the sea offers it to you: clear, honest, without noise. You breathe in the calm, look far ahead, leave the pressure of the day behind, and embrace the simple truth that life is bigger than what you carry today. Here you find space. Here you find yourself. \n Wil je dat ik deze Engelse versie nog iets krachtiger of meer richting YU Car Rental positioneer?",
+        "Along the shoreline, where freedom becomes almost tangible, you look out over the endless horizon. The ocean stretches before you as a place where thoughts settle and new insights quietly take shape. In that moment, you feel depth — not because you search for it, but because the sea offers it to you: clear, honest, without noise. You breathe in the calm, look far ahead, leave the pressure of the day behind, and embrace the simple truth that life is bigger than what you carry today. Here you find space. Here you find yourself.",
     },
     {
       id: "18",

@@ -641,3 +641,19 @@ export const getCarByIdAdmin = async (carId: string) => {
     throw actionError("Failed to fetch car", error);
   }
 };
+
+export const getUsersByAdmin = async (page: string, limit: string) => {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      skip: (parseInt(page) - 1) * parseInt(limit),
+      take: parseInt(limit),
+    });
+    return actionResponse(users);
+  } catch (error) {
+    console.error("Get users error:", error);
+    throw actionError("Failed to fetch users");
+  }
+};

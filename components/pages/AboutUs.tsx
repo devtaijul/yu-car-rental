@@ -24,6 +24,7 @@ import { Icons } from "../icons";
 import { Marquee } from "../Marquee";
 import { TextStroke } from "../TextStroke";
 import { YuAdvantages } from "../YuAdvantages";
+import { PAGES } from "@/config/pages.config";
 
 const marqueeItems = [
   "PURE ENJOYMENT",
@@ -229,7 +230,7 @@ const AboutUs = async ({ lang }: { lang: Locale }) => {
             </TextStroke>
           </div>
           <Link
-            href="https://bonaireisland.com"
+            href={PAGES.RESERVE_A_CAR.ROOT}
             target="_blank"
             className="mt-10 inline-block sm:mt-12"
           >

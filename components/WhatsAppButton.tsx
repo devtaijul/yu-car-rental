@@ -1,11 +1,9 @@
-import { MessageCircle } from "lucide-react";
-import { WhatsAppTransparentIcon } from "./icons/whatsapp_transparent.icon";
 import WhatsappIcon from "./icons/WhatsappIcon";
 
 const WhatsAppButton = () => {
   return (
     <a
-      href="https://wa.me/1234567890"
+      href="https://wa.me/+5997955565"
       target="_blank"
       rel="noopener noreferrer"
       className="whatsapp-float"

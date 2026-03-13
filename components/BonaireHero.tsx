@@ -8,29 +8,32 @@ import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 import Header from "./Header";
 import { HeaderSpace } from "./HeaderSpace";
+import { whyNeedCar } from "@/data/services";
+import { Locale } from "@/types/utils";
 
-const carouselImages = [
-  { id: 1, src: "/bonaire/bonaire-1.png", alt: "Sunset view" },
-  { id: 2, src: "/bonaire/bonaire-2.png", alt: "Sunset view" },
-  { id: 3, src: "/bonaire/bonaire-3.png", alt: "Lighthouse" },
-  { id: 4, src: "/bonaire/bonaire-4.png", alt: "Beach paradise" },
-  { id: 5, src: "/bonaire/bonaire-5.png", alt: "Diving" },
-  { id: 6, src: "/bonaire/bonaire-6.png", alt: "Island driving" },
-  { id: 7, src: "/bonaire/bonaire-7.png", alt: "Sunset view" },
-  { id: 8, src: "/bonaire/bonaire-8.png", alt: "Flamingos at lagoon" },
-  { id: 9, src: "/bonaire/bonaire-9.png", alt: "Lighthouse" },
-  { id: 10, src: "/bonaire/bonaire-10.png", alt: "Beach paradise" },
-  { id: 11, src: "/bonaire/bonaire-11.png", alt: "Diving" },
-  { id: 12, src: "/bonaire/bonaire-12.png", alt: "Island driving" },
-  { id: 13, src: "/bonaire/bonaire-13.png", alt: "Sunset view" },
-  { id: 14, src: "/bonaire/bonaire-14.png", alt: "Flamingos at lagoon" },
-  { id: 15, src: "/bonaire/bonaire-15.png", alt: "Lighthouse" },
+const heroFallbackSlides = [
+  {
+    id: "hero-fallback",
+    image: "/assets/bonaire-hero-sunset.jpg",
+    category: "SCENIC ROUTES",
+    title: "ALPINE DRIVE.",
+    description:
+      "Conquer the mountain passes with unmatched power and comfort. Every turn brings a new breathtaking view.",
+  },
 ];
 
-export const BonaireHero = () => {
+const DESCRIPTION_WORD_LIMIT = 24;
+
+const truncateWords = (text: string, limit: number) => {
+  const words = text.trim().split(/\s+/);
+  if (words.length <= limit) return text;
+  return `${words.slice(0, limit).join(" ")}...`;
+};
+
+export const BonaireHero = ({ lang }: { lang: Locale }) => {
+  const slides = whyNeedCar(lang) ?? heroFallbackSlides;
+  const initialImage = slides[0]?.image || heroFallbackSlides[0].image;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const initialImage =
-    carouselImages[0]?.src || "/assets/bonaire-hero-sunset.jpg";
   const [activeImage, setActiveImage] = useState(initialImage);
   const [prevImage, setPrevImage] = useState(initialImage);
   const [fadeKey, setFadeKey] = useState(0);
@@ -59,8 +62,7 @@ export const BonaireHero = () => {
 
   const syncToIndex = useCallback(
     (index: number, source: "mobile" | "desktop") => {
-      const next =
-        carouselImages[index]?.src || "/assets/bonaire-hero-sunset.jpg";
+      const next = slides[index]?.image || heroFallbackSlides[0].image;
       if (next !== activeImage) {
         setPrevImage(activeImage);
         setActiveImage(next);
@@ -82,7 +84,7 @@ export const BonaireHero = () => {
         emblaApiDesktop.scrollTo(index);
       }
     },
-    [activeImage, emblaApiDesktop, emblaApiMobile],
+    [activeImage, emblaApiDesktop, emblaApiMobile, slides],
   );
 
   const onSelectMobile = useCallback(() => {
@@ -123,7 +125,14 @@ export const BonaireHero = () => {
     };
   }, [emblaApiDesktop, onSelectDesktop]);
 
-  const totalSlides = carouselImages.length;
+  const totalSlides = slides.length;
+  const activeSlide = slides[currentIndex] ?? slides[0] ?? heroFallbackSlides[0];
+  const heroCategory = activeSlide?.category || heroFallbackSlides[0].category;
+  const heroTitle = activeSlide?.title || heroFallbackSlides[0].title;
+  const heroDescription = truncateWords(
+    activeSlide?.description || heroFallbackSlides[0].description,
+    DESCRIPTION_WORD_LIMIT,
+  );
 
   return (
     <div className="relative min-h-svh bg-cover bg-center bg-no-repeat lg:min-h-screen">
@@ -137,7 +146,7 @@ export const BonaireHero = () => {
         />
         <div
           key={fadeKey}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-in fade-in-0 duration-700"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-in fade-in-0 duration-1000 ease-out"
           style={{
             backgroundImage: `url(${activeImage})`,
           }}
@@ -158,21 +167,18 @@ export const BonaireHero = () => {
         <div className="flex items-center gap-3 mb-6">
           <span className="w-8 h-0.5 bg-white/60" />
           <span className="text-xs font-medium tracking-[0.16em] text-white/80 sm:text-sm sm:tracking-[0.2em]">
-            SCENIC ROUTES
+            {heroCategory}
           </span>
         </div>
 
         {/* Title */}
         <h1 className="mb-6 text-4xl font-display font-bold leading-[0.9] text-white sm:text-5xl md:text-7xl lg:text-8xl">
-          ALPINE
-          <br />
-          DRIVE.
+          {heroTitle}
         </h1>
 
         {/* Description */}
         <p className="mb-8 max-w-md text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
-          Conquer the mountain passes with unmatched power and comfort. Every
-          turn brings a new breathtaking view.
+          {heroDescription}
         </p>
 
         {/* CTA Button */}
@@ -219,19 +225,19 @@ export const BonaireHero = () => {
 
             {/* Carousel */}
             <div
-              className="max-w-60 overflow-hidden touch-pan-y sm:max-w-xl md:max-w-2xl"
+              className="w-full overflow-hidden touch-pan-y sm:max-w-xl md:max-w-2xl"
               ref={emblaRefMobile}
             >
               <div className="flex items-end gap-3 select-none">
-                {carouselImages.map((img, index) => {
+                {slides.map((img, index) => {
                   const isActive = index === currentIndex;
                   return (
                     <div
                       key={img.id}
                       className={`min-w-0 transition-all duration-500 ease-out ${
                         isActive
-                          ? "flex-[0_0_46%] sm:flex-[0_0_48%] md:flex-[0_0_40%]"
-                          : "flex-[0_0_30%] sm:flex-[0_0_36%] md:flex-[0_0_32%]"
+                          ? "flex-[0_0_30%] sm:flex-[0_0_40%] md:flex-[0_0_40%]"
+                          : "flex-[0_0_20%] sm:flex-[0_0_28%] md:flex-[0_0_32%]"
                       }`}
                     >
                       <div
@@ -242,8 +248,8 @@ export const BonaireHero = () => {
                         }`}
                       >
                         <Image
-                          src={img.src}
-                          alt={img.alt}
+                          src={img.image}
+                          alt={img.title}
                           draggable={false}
                           className={`w-full h-full object-cover transition-transform duration-500 ${
                             isActive ? "scale-100" : "scale-95"
@@ -275,7 +281,7 @@ export const BonaireHero = () => {
             {/* Image thumbnails */}
             <div className="flex-1 overflow-hidden" ref={emblaRefDesktop}>
               <div className="flex gap-4 items-end select-none">
-              {carouselImages.map((img, index) => {
+              {slides.map((img, index) => {
                 const isActive = index === currentIndex;
                 return (
                   <div
@@ -293,8 +299,8 @@ export const BonaireHero = () => {
                     onClick={() => emblaApiDesktop?.scrollTo(index)}
                   >
                     <Image
-                      src={img.src}
-                      alt={img.alt}
+                      src={img.image}
+                      alt={img.title}
                       className={`w-full h-full object-cover transition-transform duration-500 ${
                         isActive ? "scale-100" : "scale-100"
                       }`}

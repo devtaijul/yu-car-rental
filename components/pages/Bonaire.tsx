@@ -37,7 +37,7 @@ const Bonaire = ({ lang }: { lang: Locale }) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Hero Section with Background Image */}
-      <BonaireHero />
+      <BonaireHero lang={lang} />
 
       {/* Why You Need a Car Section */}
       <BonaireWhy lang={lang} />

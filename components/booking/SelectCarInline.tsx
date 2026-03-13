@@ -49,8 +49,8 @@ export const SelectCarInline = ({
   const [dropoffDate, setDropoffDate] = useState<Date>(
     initialDropoffDate ?? new Date(Date.now() + 86400000),
   );
-  const [pickupTime, setPickupTime] = useState(initialPickupTime ?? "10:00");
-  const [dropoffTime, setDropoffTime] = useState(initialDropoffTime ?? "10:00");
+  const [pickupTime, setPickupTime] = useState(initialPickupTime ?? "18:00");
+  const [dropoffTime, setDropoffTime] = useState(initialDropoffTime ?? "18:00");
 
   return (
     <div>

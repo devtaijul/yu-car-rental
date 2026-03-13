@@ -59,8 +59,8 @@ const BookingSearch = () => {
   } = useForm<LocationFormValues>({
     resolver: zodResolver(locationFormSchema),
     defaultValues: {
-      pickupTime: "10:00",
-      dropoffTime: "10:00",
+      pickupTime: "18:00",
+      dropoffTime: "18:00",
     },
   });
 

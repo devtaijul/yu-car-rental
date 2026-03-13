@@ -1,7 +1,7 @@
 "use client";
 
 import { CoverageType } from "@/generated/prisma/enums";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export interface BookingState {
   pickupDate?: Date;
@@ -21,6 +21,37 @@ interface BookingContextType {
   resetBooking: () => void;
 }
 
+const STORAGE_KEY = "yu_booking_state";
+
+const defaultState: BookingState = {
+  coverage: "STANDARD",
+  extras: {},
+};
+
+function loadFromStorage(): BookingState {
+  if (typeof window === "undefined") return defaultState;
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState;
+    const parsed = JSON.parse(raw);
+    // Dates are serialized as strings — restore them
+    if (parsed.pickupDate) parsed.pickupDate = new Date(parsed.pickupDate);
+    if (parsed.dropoffDate) parsed.dropoffDate = new Date(parsed.dropoffDate);
+    return { ...defaultState, ...parsed };
+  } catch {
+    return defaultState;
+  }
+}
+
+function saveToStorage(state: BookingState) {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // ignore storage errors
+  }
+}
+
 const BookingContext = createContext<BookingContextType | null>(null);
 
 export const BookingProvider = ({
@@ -28,23 +59,22 @@ export const BookingProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [booking, setBookingState] = useState<BookingState>({
-    coverage: "STANDARD",
-    extras: {},
-  });
+  const [booking, setBookingState] = useState<BookingState>(loadFromStorage);
+
+  // Persist every change to sessionStorage
+  useEffect(() => {
+    saveToStorage(booking);
+  }, [booking]);
 
   const setBooking = (data: Partial<BookingState>) => {
     setBookingState((prev) => ({ ...prev, ...data }));
   };
 
   const resetBooking = () => {
-    setBookingState({
-      coverage: "STANDARD",
-      extras: {},
-    });
+    const fresh = defaultState;
+    setBookingState(fresh);
+    sessionStorage.removeItem(STORAGE_KEY);
   };
-
-  console.log("booking", booking);
 
   return (
     <BookingContext.Provider value={{ booking, setBooking, resetBooking }}>

@@ -72,6 +72,16 @@ export type BookingMinAggregateOutputType = {
   totalAmount: number | null
   discount: number | null
   specialRequests: string | null
+  customerFirstName: string | null
+  customerLastName: string | null
+  customerEmail: string | null
+  customerPhone: string | null
+  customerStreet: string | null
+  customerHouseNo: string | null
+  customerPostCode: string | null
+  customerCity: string | null
+  customerCountry: string | null
+  customerCompany: string | null
   status: $Enums.BookingStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -102,6 +112,16 @@ export type BookingMaxAggregateOutputType = {
   totalAmount: number | null
   discount: number | null
   specialRequests: string | null
+  customerFirstName: string | null
+  customerLastName: string | null
+  customerEmail: string | null
+  customerPhone: string | null
+  customerStreet: string | null
+  customerHouseNo: string | null
+  customerPostCode: string | null
+  customerCity: string | null
+  customerCountry: string | null
+  customerCompany: string | null
   status: $Enums.BookingStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -132,6 +152,16 @@ export type BookingCountAggregateOutputType = {
   totalAmount: number
   discount: number
   specialRequests: number
+  customerFirstName: number
+  customerLastName: number
+  customerEmail: number
+  customerPhone: number
+  customerStreet: number
+  customerHouseNo: number
+  customerPostCode: number
+  customerCity: number
+  customerCountry: number
+  customerCompany: number
   status: number
   createdAt: number
   updatedAt: number
@@ -186,6 +216,16 @@ export type BookingMinAggregateInputType = {
   totalAmount?: true
   discount?: true
   specialRequests?: true
+  customerFirstName?: true
+  customerLastName?: true
+  customerEmail?: true
+  customerPhone?: true
+  customerStreet?: true
+  customerHouseNo?: true
+  customerPostCode?: true
+  customerCity?: true
+  customerCountry?: true
+  customerCompany?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -216,6 +256,16 @@ export type BookingMaxAggregateInputType = {
   totalAmount?: true
   discount?: true
   specialRequests?: true
+  customerFirstName?: true
+  customerLastName?: true
+  customerEmail?: true
+  customerPhone?: true
+  customerStreet?: true
+  customerHouseNo?: true
+  customerPostCode?: true
+  customerCity?: true
+  customerCountry?: true
+  customerCompany?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -246,6 +296,16 @@ export type BookingCountAggregateInputType = {
   totalAmount?: true
   discount?: true
   specialRequests?: true
+  customerFirstName?: true
+  customerLastName?: true
+  customerEmail?: true
+  customerPhone?: true
+  customerStreet?: true
+  customerHouseNo?: true
+  customerPostCode?: true
+  customerCity?: true
+  customerCountry?: true
+  customerCompany?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -363,6 +423,16 @@ export type BookingGroupByOutputType = {
   totalAmount: number
   discount: number
   specialRequests: string | null
+  customerFirstName: string | null
+  customerLastName: string | null
+  customerEmail: string | null
+  customerPhone: string | null
+  customerStreet: string | null
+  customerHouseNo: string | null
+  customerPostCode: string | null
+  customerCity: string | null
+  customerCountry: string | null
+  customerCompany: string | null
   status: $Enums.BookingStatus
   createdAt: Date
   updatedAt: Date
@@ -416,6 +486,16 @@ export type BookingWhereInput = {
   totalAmount?: Prisma.FloatFilter<"Booking"> | number
   discount?: Prisma.FloatFilter<"Booking"> | number
   specialRequests?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerFirstName?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerLastName?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerPhone?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerStreet?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerHouseNo?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerPostCode?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCity?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCountry?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCompany?: Prisma.StringNullableFilter<"Booking"> | string | null
   status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
@@ -450,6 +530,16 @@ export type BookingOrderByWithRelationInput = {
   totalAmount?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   specialRequests?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerFirstName?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerLastName?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerStreet?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerHouseNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPostCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCity?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCompany?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -487,6 +577,16 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   totalAmount?: Prisma.FloatFilter<"Booking"> | number
   discount?: Prisma.FloatFilter<"Booking"> | number
   specialRequests?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerFirstName?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerLastName?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerPhone?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerStreet?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerHouseNo?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerPostCode?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCity?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCountry?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCompany?: Prisma.StringNullableFilter<"Booking"> | string | null
   status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
@@ -521,6 +621,16 @@ export type BookingOrderByWithAggregationInput = {
   totalAmount?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   specialRequests?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerFirstName?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerLastName?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerStreet?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerHouseNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPostCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCity?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCountry?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCompany?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -559,6 +669,16 @@ export type BookingScalarWhereWithAggregatesInput = {
   totalAmount?: Prisma.FloatWithAggregatesFilter<"Booking"> | number
   discount?: Prisma.FloatWithAggregatesFilter<"Booking"> | number
   specialRequests?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerFirstName?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerLastName?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerEmail?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerPhone?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerStreet?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerHouseNo?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerPostCode?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerCity?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerCountry?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
+  customerCompany?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
   status?: Prisma.EnumBookingStatusWithAggregatesFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
@@ -586,6 +706,16 @@ export type BookingCreateInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -620,6 +750,16 @@ export type BookingUncheckedCreateInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -648,6 +788,16 @@ export type BookingUpdateInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -682,6 +832,16 @@ export type BookingUncheckedUpdateInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -713,6 +873,16 @@ export type BookingCreateManyInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -740,6 +910,16 @@ export type BookingUpdateManyMutationInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -770,6 +950,16 @@ export type BookingUncheckedUpdateManyInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -810,6 +1000,16 @@ export type BookingCountOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   specialRequests?: Prisma.SortOrder
+  customerFirstName?: Prisma.SortOrder
+  customerLastName?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
+  customerPhone?: Prisma.SortOrder
+  customerStreet?: Prisma.SortOrder
+  customerHouseNo?: Prisma.SortOrder
+  customerPostCode?: Prisma.SortOrder
+  customerCity?: Prisma.SortOrder
+  customerCountry?: Prisma.SortOrder
+  customerCompany?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -851,6 +1051,16 @@ export type BookingMaxOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   specialRequests?: Prisma.SortOrder
+  customerFirstName?: Prisma.SortOrder
+  customerLastName?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
+  customerPhone?: Prisma.SortOrder
+  customerStreet?: Prisma.SortOrder
+  customerHouseNo?: Prisma.SortOrder
+  customerPostCode?: Prisma.SortOrder
+  customerCity?: Prisma.SortOrder
+  customerCountry?: Prisma.SortOrder
+  customerCompany?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -881,6 +1091,16 @@ export type BookingMinOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   specialRequests?: Prisma.SortOrder
+  customerFirstName?: Prisma.SortOrder
+  customerLastName?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
+  customerPhone?: Prisma.SortOrder
+  customerStreet?: Prisma.SortOrder
+  customerHouseNo?: Prisma.SortOrder
+  customerPostCode?: Prisma.SortOrder
+  customerCity?: Prisma.SortOrder
+  customerCountry?: Prisma.SortOrder
+  customerCompany?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -1072,6 +1292,16 @@ export type BookingCreateWithoutUserInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1104,6 +1334,16 @@ export type BookingUncheckedCreateWithoutUserInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1164,6 +1404,16 @@ export type BookingScalarWhereInput = {
   totalAmount?: Prisma.FloatFilter<"Booking"> | number
   discount?: Prisma.FloatFilter<"Booking"> | number
   specialRequests?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerFirstName?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerLastName?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerPhone?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerStreet?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerHouseNo?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerPostCode?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCity?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCountry?: Prisma.StringNullableFilter<"Booking"> | string | null
+  customerCompany?: Prisma.StringNullableFilter<"Booking"> | string | null
   status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
@@ -1191,6 +1441,16 @@ export type BookingCreateWithoutCarInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1223,6 +1483,16 @@ export type BookingUncheckedCreateWithoutCarInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1277,6 +1547,16 @@ export type BookingCreateWithoutDriverInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1309,6 +1589,16 @@ export type BookingUncheckedCreateWithoutDriverInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1363,6 +1653,16 @@ export type BookingCreateWithoutPaymentInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1396,6 +1696,16 @@ export type BookingUncheckedCreateWithoutPaymentInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1439,6 +1749,16 @@ export type BookingUpdateWithoutPaymentInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1472,6 +1792,16 @@ export type BookingUncheckedUpdateWithoutPaymentInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1501,6 +1831,16 @@ export type BookingCreateManyUserInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1528,6 +1868,16 @@ export type BookingUpdateWithoutUserInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1560,6 +1910,16 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1590,6 +1950,16 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1619,6 +1989,16 @@ export type BookingCreateManyCarInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1646,6 +2026,16 @@ export type BookingUpdateWithoutCarInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1678,6 +2068,16 @@ export type BookingUncheckedUpdateWithoutCarInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1708,6 +2108,16 @@ export type BookingUncheckedUpdateManyWithoutCarInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1737,6 +2147,16 @@ export type BookingCreateManyDriverInput = {
   totalAmount: number
   discount?: number
   specialRequests?: string | null
+  customerFirstName?: string | null
+  customerLastName?: string | null
+  customerEmail?: string | null
+  customerPhone?: string | null
+  customerStreet?: string | null
+  customerHouseNo?: string | null
+  customerPostCode?: string | null
+  customerCity?: string | null
+  customerCountry?: string | null
+  customerCompany?: string | null
   status?: $Enums.BookingStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1764,6 +2184,16 @@ export type BookingUpdateWithoutDriverInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1796,6 +2226,16 @@ export type BookingUncheckedUpdateWithoutDriverInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1826,6 +2266,16 @@ export type BookingUncheckedUpdateManyWithoutDriverInput = {
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discount?: Prisma.FloatFieldUpdateOperationsInput | number
   specialRequests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerFirstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerLastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerStreet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerHouseNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPostCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerCompany?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1858,6 +2308,16 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   totalAmount?: boolean
   discount?: boolean
   specialRequests?: boolean
+  customerFirstName?: boolean
+  customerLastName?: boolean
+  customerEmail?: boolean
+  customerPhone?: boolean
+  customerStreet?: boolean
+  customerHouseNo?: boolean
+  customerPostCode?: boolean
+  customerCity?: boolean
+  customerCountry?: boolean
+  customerCompany?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1892,6 +2352,16 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   totalAmount?: boolean
   discount?: boolean
   specialRequests?: boolean
+  customerFirstName?: boolean
+  customerLastName?: boolean
+  customerEmail?: boolean
+  customerPhone?: boolean
+  customerStreet?: boolean
+  customerHouseNo?: boolean
+  customerPostCode?: boolean
+  customerCity?: boolean
+  customerCountry?: boolean
+  customerCompany?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1925,6 +2395,16 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   totalAmount?: boolean
   discount?: boolean
   specialRequests?: boolean
+  customerFirstName?: boolean
+  customerLastName?: boolean
+  customerEmail?: boolean
+  customerPhone?: boolean
+  customerStreet?: boolean
+  customerHouseNo?: boolean
+  customerPostCode?: boolean
+  customerCity?: boolean
+  customerCountry?: boolean
+  customerCompany?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1958,13 +2438,23 @@ export type BookingSelectScalar = {
   totalAmount?: boolean
   discount?: boolean
   specialRequests?: boolean
+  customerFirstName?: boolean
+  customerLastName?: boolean
+  customerEmail?: boolean
+  customerPhone?: boolean
+  customerStreet?: boolean
+  customerHouseNo?: boolean
+  customerPostCode?: boolean
+  customerCity?: boolean
+  customerCountry?: boolean
+  customerCompany?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "babySeatLarge" | "bookingId" | "babySeatSmall" | "coolbox" | "keySecureBox" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "specialRequests" | "status" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "carId" | "driverId" | "babySeatLarge" | "bookingId" | "babySeatSmall" | "coolbox" | "keySecureBox" | "startDate" | "pickupLocation" | "dropoffLocation" | "endDate" | "totalDays" | "coverage" | "pickupTime" | "dropoffTime" | "pricePerDay" | "driversDOB" | "driversLicNo" | "totalAmount" | "discount" | "specialRequests" | "customerFirstName" | "customerLastName" | "customerEmail" | "customerPhone" | "customerStreet" | "customerHouseNo" | "customerPostCode" | "customerCity" | "customerCountry" | "customerCompany" | "status" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   car?: boolean | Prisma.CarDefaultArgs<ExtArgs>
@@ -2014,6 +2504,16 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     totalAmount: number
     discount: number
     specialRequests: string | null
+    customerFirstName: string | null
+    customerLastName: string | null
+    customerEmail: string | null
+    customerPhone: string | null
+    customerStreet: string | null
+    customerHouseNo: string | null
+    customerPostCode: string | null
+    customerCity: string | null
+    customerCountry: string | null
+    customerCompany: string | null
     status: $Enums.BookingStatus
     createdAt: Date
     updatedAt: Date
@@ -2468,6 +2968,16 @@ export interface BookingFieldRefs {
   readonly totalAmount: Prisma.FieldRef<"Booking", 'Float'>
   readonly discount: Prisma.FieldRef<"Booking", 'Float'>
   readonly specialRequests: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerFirstName: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerLastName: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerEmail: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerPhone: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerStreet: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerHouseNo: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerPostCode: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerCity: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerCountry: Prisma.FieldRef<"Booking", 'String'>
+  readonly customerCompany: Prisma.FieldRef<"Booking", 'String'>
   readonly status: Prisma.FieldRef<"Booking", 'BookingStatus'>
   readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Booking", 'DateTime'>

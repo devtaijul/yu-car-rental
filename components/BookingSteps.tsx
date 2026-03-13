@@ -7,6 +7,7 @@ interface BookingStepsProps {
   currentStep: number;
   carName?: string;
   coverage?: string;
+  onStepClick?: (step: number) => void;
 }
 
 const steps = [
@@ -20,6 +21,7 @@ const BookingSteps = ({
   currentStep,
   carName,
   coverage,
+  onStepClick,
 }: BookingStepsProps) => {
   const getStepLabel = (step: (typeof steps)[number]) => {
     if (step.id === 2 && carName) return carName;
@@ -38,6 +40,8 @@ const BookingSteps = ({
           const isActive = currentStep === step.id;
           const isCompleted = currentStep > step.id;
 
+          const isClickable = isCompleted && onStepClick;
+
           return (
             <div key={step.id} className="flex shrink-0 items-center gap-2">
               <div
@@ -47,7 +51,8 @@ const BookingSteps = ({
                     : isCompleted
                       ? "text-primary"
                       : "booking-step-inactive"
-                }`}
+                } ${isClickable ? "cursor-pointer hover:opacity-80 transition-opacity" : ""}`}
+                onClick={isClickable ? () => onStepClick(step.id) : undefined}
               >
                 <Icon className="h-4 w-4" />
                 <span>{getStepLabel(step)}</span>

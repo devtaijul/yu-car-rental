@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/context/BookingContext";
 import { Car } from "@/generated/prisma/client";
-import { useSyncBookingFromQuery } from "@/hooks/useSyncBookingFromQuery";
 import {
   CalendarIcon,
   Car as CarIcon,
@@ -32,14 +31,14 @@ export default function BookingSummaryPage({
   car: Car;
   onBack?: () => void;
 }) {
-  useSyncBookingFromQuery();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [publishableKey, setPublishableKey] = useState<string | null>(null);
   const [phoneVerified, setPhoneVerified] = useState(false);
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+599");
   const [otpSent, setOtpSent] = useState(false);
   const [otpInput, setOtpInput] = useState("");
   const [otpError, setOtpError] = useState<string | null>(null);
+  const [otpSending, setOtpSending] = useState(false);
   const generatedOtpRef = useRef<string | null>(null);
   const router = useRouter();
   const { booking } = useBooking();
@@ -55,16 +54,16 @@ export default function BookingSummaryPage({
     dropoffTime,
   } = booking;
 
-  const days =
-    pickupDate && dropoffDate
-      ? Math.max(
-          1,
-          Math.ceil(
-            (new Date(dropoffDate).getTime() - new Date(pickupDate).getTime()) /
-              (1000 * 60 * 60 * 24),
-          ),
-        )
-      : 1;
+  const days = (() => {
+    if (!pickupDate || !dropoffDate) return 1;
+    const [pickupHour, pickupMin] = (pickupTime || "18:00").split(":").map(Number);
+    const [dropoffHour, dropoffMin] = (dropoffTime || "18:00").split(":").map(Number);
+    const start = new Date(pickupDate);
+    start.setHours(pickupHour, pickupMin, 0, 0);
+    const end = new Date(dropoffDate);
+    end.setHours(dropoffHour, dropoffMin, 0, 0);
+    return Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
+  })();
 
   const basePrice = car.pricePerDay * days;
   const coveragePrice = coverage === "PREMIUM" ? 12 * days : 0;
@@ -98,14 +97,28 @@ export default function BookingSummaryPage({
       });
   }, [total, phoneVerified]);
 
-  const handleSendOtp = useCallback(() => {
+  const handleSendOtp = useCallback(async () => {
     if (!phone.trim()) return;
     const otp = generateOtp();
     generatedOtpRef.current = otp;
-    setOtpSent(true);
     setOtpError(null);
     setOtpInput("");
-    alert(`Your OTP is: ${otp}`);
+    setOtpSent(false);
+    setOtpSending(true);
+
+    try {
+      const res = await fetch("/api/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, otp }),
+      });
+      if (!res.ok) throw new Error("Failed to send SMS");
+      setOtpSent(true);
+    } catch {
+      setOtpError("Failed to send verification code. Please try again.");
+    } finally {
+      setOtpSending(false);
+    }
   }, [phone]);
 
   const handleVerifyOtp = useCallback(() => {
@@ -369,17 +382,29 @@ export default function BookingSummaryPage({
                   <div className="flex gap-2">
                     <Input
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+1 234 567 8900"
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (!val.startsWith("+599")) return;
+                        setPhone(val);
+                      }}
+                      placeholder="+599 7890123"
                       disabled={otpSent}
                     />
                     <Button
                       type="button"
                       onClick={handleSendOtp}
-                      disabled={!phone.trim() || otpSent}
+                      disabled={!phone.trim() || otpSent || otpSending}
                       className="bg-primary text-primary-foreground shrink-0"
                     >
-                      {otpSent ? "Sent ✓" : "Send OTP"}
+                      {otpSending ? (
+                        <span className="flex items-center gap-2">
+                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z" />
+                          </svg>
+                          Sending...
+                        </span>
+                      ) : otpSent ? "Sent ✓" : "Send OTP"}
                     </Button>
                   </div>
                 </div>
@@ -413,9 +438,10 @@ export default function BookingSummaryPage({
                     <button
                       type="button"
                       onClick={handleSendOtp}
-                      className="text-xs text-primary mt-2 hover:underline"
+                      disabled={otpSending}
+                      className="text-xs text-primary mt-2 hover:underline disabled:opacity-50"
                     >
-                      Resend OTP
+                      {otpSending ? "Sending..." : "Resend OTP"}
                     </button>
                   </div>
                 )}

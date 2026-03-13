@@ -115,8 +115,8 @@ export const StepLocation = ({
     return getFirstAvailableDateAfter(initialPickupDate, blockedRanges);
   }, [searchParams, initialPickupDate, blockedRanges]);
 
-  const defaultPickupTime = searchParams.get("pickupTime") || "10:00";
-  const defaultDropoffTime = searchParams.get("dropoffTime") || "10:00";
+  const defaultPickupTime = searchParams.get("pickupTime") || "18:00";
+  const defaultDropoffTime = searchParams.get("dropoffTime") || "18:00";
 
   const defaultValues: LocationStepValues = {
     pickupLocation: "",
@@ -187,8 +187,8 @@ export const StepLocation = ({
     const query = new URLSearchParams({
       pickupDate: data.pickupDate.toISOString(),
       dropoffDate: data.dropoffDate.toISOString(),
-      pickupTime: data.pickupTime || "10:00",
-      dropoffTime: data.dropoffTime || "10:00",
+      pickupTime: data.pickupTime || "18:00",
+      dropoffTime: data.dropoffTime || "18:00",
       pickupLocation: data.pickupLocation,
       dropoffLocation: data.dropoffLocation,
     });

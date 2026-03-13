@@ -96,8 +96,8 @@ export default function ReserveFlow() {
     setBooking({
       pickupDate: new Date(pickupDate),
       dropoffDate: new Date(dropoffDate),
-      pickupTime: pickupTime || "10:00",
-      dropoffTime: dropoffTime || "10:00",
+      pickupTime: pickupTime || "18:00",
+      dropoffTime: dropoffTime || "18:00",
       pickupLocation: pickupLocation || "",
       dropoffLocation: dropoffLocation || "",
       ...(carSlug ? { carSlug } : {}),
@@ -110,8 +110,8 @@ export default function ReserveFlow() {
     const locationData = {
       pickupDate,
       dropoffDate,
-      pickupTime: pickupTime || "10:00",
-      dropoffTime: dropoffTime || "10:00",
+      pickupTime: pickupTime || "18:00",
+      dropoffTime: dropoffTime || "18:00",
       pickupLocation: pickupLocation || "",
       dropoffLocation: dropoffLocation || "",
     };
@@ -241,7 +241,7 @@ export default function ReserveFlow() {
         <Header />
         <HeaderSpace />
         <div className="container mx-auto px-4 py-8">
-          <BookingSteps currentStep={step} carName={selectedCarName} coverage={selectedCoverage} />
+          <BookingSteps currentStep={step} carName={selectedCarName} coverage={selectedCoverage} onStepClick={(s) => { setStep(s); updateQuery({ step: String(s) }); }} />
           <div className="flex items-center justify-center py-20">
             <p className="text-muted-foreground">Restoring your booking...</p>
           </div>
@@ -255,7 +255,7 @@ export default function ReserveFlow() {
       <Header />
       <HeaderSpace />
       <div className="container mx-auto px-4 py-8">
-        <BookingSteps currentStep={step} carName={selectedCarName} coverage={selectedCoverage} />
+        <BookingSteps currentStep={step} carName={selectedCarName} coverage={selectedCoverage} onStepClick={(s) => { setStep(s); updateQuery({ step: String(s) }); }} />
 
         {step === 1 && (
           <StepLocation

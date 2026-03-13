@@ -9,12 +9,14 @@ export async function sendContractEmail({
   pdfBuffer,
   bookingId,
   plainPassword,
+  adminEmail,
 }: {
   email: string;
   name: string;
   pdfBuffer: Buffer;
   bookingId: string;
   plainPassword?: string;
+  adminEmail?: string;
 }) {
   const loginSection = plainPassword
     ? `
@@ -30,27 +32,54 @@ export async function sendContractEmail({
     `
     : "";
 
+  const customerHtml = `
+    <div style="font-family:Arial,sans-serif;background:#f6f9fc;padding:40px;">
+      <div style="max-width:560px;margin:auto;background:white;padding:32px;border-radius:10px;">
+        <h2 style="margin-top:0;color:#111827;">Booking Confirmed!</h2>
+        <p style="color:#374151;">Hello ${name},</p>
+        <p style="color:#374151;">Your car rental booking has been confirmed. Please find your rental contract attached to this email.</p>
+        <p style="color:#374151;"><strong>Booking ID:</strong> ${bookingId}</p>
+        ${loginSection}
+        <p style="font-size:12px;color:#9ca3af;margin-top:24px;">© ${new Date().getFullYear()} YU Car Rental</p>
+      </div>
+    </div>
+  `;
+
+  const attachment = {
+    filename: `contract-${bookingId}.pdf`,
+    content: pdfBuffer,
+  };
+
+  // Send to customer
   await resend.emails.send({
     from: "Booking <onboarding@resend.dev>",
     to: email,
     subject: `Booking Confirmed – ${bookingId}`,
-    html: `
+    html: customerHtml,
+    attachments: [attachment],
+  });
+
+  // Send to admin if provided
+  if (adminEmail) {
+    const adminHtml = `
       <div style="font-family:Arial,sans-serif;background:#f6f9fc;padding:40px;">
         <div style="max-width:560px;margin:auto;background:white;padding:32px;border-radius:10px;">
-          <h2 style="margin-top:0;color:#111827;">Booking Confirmed!</h2>
-          <p style="color:#374151;">Hello ${name},</p>
-          <p style="color:#374151;">Your car rental booking has been confirmed. Please find your rental contract attached to this email.</p>
+          <h2 style="margin-top:0;color:#111827;">New Booking Received</h2>
+          <p style="color:#374151;">A new booking has been completed.</p>
           <p style="color:#374151;"><strong>Booking ID:</strong> ${bookingId}</p>
-          ${loginSection}
+          <p style="color:#374151;"><strong>Customer:</strong> ${name} (${email})</p>
+          <p style="color:#374151;">The rental contract is attached for your records.</p>
           <p style="font-size:12px;color:#9ca3af;margin-top:24px;">© ${new Date().getFullYear()} YU Car Rental</p>
         </div>
       </div>
-    `,
-    attachments: [
-      {
-        filename: `contract-${bookingId}.pdf`,
-        content: pdfBuffer,
-      },
-    ],
-  });
+    `;
+
+    await resend.emails.send({
+      from: "Booking <onboarding@resend.dev>",
+      to: adminEmail,
+      subject: `New Booking – ${bookingId}`,
+      html: adminHtml,
+      attachments: [attachment],
+    });
+  }
 }

@@ -78,7 +78,7 @@ const Help = () => {
               </div>
 
               <div className="border-l-5 border-primary p-5 md:p-10 shadow">
-                <div className="space-y-6">
+                <div className="space-y-6 text-base md:text-lg  lg:text-xl">
                   <p className="text-[#0F172A]">
                     In case any event occurs which may have caused damage to the
                     car, you{" "}
@@ -90,16 +90,16 @@ const Help = () => {
                   </p>
                   <p className="text-[#0F172A]">
                     Stay there and call{" "}
-                    <span className="font-bold text-black">
+                    <span className="font-bold text-black uppercase text-xl md:text-2xl lg:text-3xl">
                       CRS-Caribbean Road Service
                     </span>
                     <br />
                     at{" "}
                     <a
                       href="tel:+5997179292"
-                      className="text-primary text-xl md:text-2xl lg:text-3xl font-extrabold hover:underline"
+                      className="text-primary text-2xl md:text-3xl leading-relaxed lg:text-4xl font-extrabold hover:underline"
                     >
-                      +599 785-2604
+                      +599 717 9292
                     </a>
                   </p>
                 </div>
@@ -153,14 +153,14 @@ const Help = () => {
                     service:
                   </p>
                   <div>
-                    <span className="text-xs lg:text-lg font-bold tracking-[0.15em] text-primary uppercase">
+                    {/* <span className="text-xs lg:text-lg font-bold tracking-[0.15em] text-primary uppercase">
                       Road Service Bonaire
-                    </span>
+                    </span> */}
                     <a
                       href="tel:+5997852604"
                       className="block text-2xl lg:text-[40px] font-bold text-foreground hover:text-primary transition-colors"
                     >
-                      +599 717-9292
+                      +599 785 2604
                     </a>
                   </div>
                 </div>

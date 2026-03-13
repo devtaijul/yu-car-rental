@@ -1,15 +1,14 @@
 "use client";
 
-import { Button } from "./ui/button";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
-import useEmblaCarousel from "embla-carousel-react";
-import Link from "next/link";
-import Header from "./Header";
-import { HeaderSpace } from "./HeaderSpace";
 import { whyNeedCar } from "@/data/services";
 import { Locale } from "@/types/utils";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
+import Header from "./Header";
+import { HeaderSpace } from "./HeaderSpace";
+import { Button } from "./ui/button";
 
 const heroFallbackSlides = [
   {
@@ -51,13 +50,19 @@ export const BonaireHero = ({ lang }: { lang: Locale }) => {
   });
 
   const scrollPrev = useCallback(() => {
-    emblaApiMobile?.scrollPrev();
-    emblaApiDesktop?.scrollPrev();
+    if (window.innerWidth < 1024) {
+      emblaApiMobile?.scrollPrev();
+    } else {
+      emblaApiDesktop?.scrollPrev();
+    }
   }, [emblaApiMobile, emblaApiDesktop]);
 
   const scrollNext = useCallback(() => {
-    emblaApiMobile?.scrollNext();
-    emblaApiDesktop?.scrollNext();
+    if (window.innerWidth < 1024) {
+      emblaApiMobile?.scrollNext();
+    } else {
+      emblaApiDesktop?.scrollNext();
+    }
   }, [emblaApiMobile, emblaApiDesktop]);
 
   const syncToIndex = useCallback(
@@ -126,7 +131,8 @@ export const BonaireHero = ({ lang }: { lang: Locale }) => {
   }, [emblaApiDesktop, onSelectDesktop]);
 
   const totalSlides = slides.length;
-  const activeSlide = slides[currentIndex] ?? slides[0] ?? heroFallbackSlides[0];
+  const activeSlide =
+    slides[currentIndex] ?? slides[0] ?? heroFallbackSlides[0];
   const heroCategory = activeSlide?.category || heroFallbackSlides[0].category;
   const heroTitle = activeSlide?.title || heroFallbackSlides[0].title;
   const heroDescription = truncateWords(
@@ -182,12 +188,12 @@ export const BonaireHero = ({ lang }: { lang: Locale }) => {
         </p>
 
         {/* CTA Button */}
-        <Link href={"/#explore-fleet"}>
+        {/*  <Link href={"/#explore-fleet"}>
           <Button className="group w-auto bg-primary px-6 py-4 text-sm font-semibold text-white sm:px-8 sm:py-5 sm:text-base md:px-10 md:py-6">
             EXPLORE FLEET
             <ArrowRight className="h-4 w-4  group-hover:translate-x-1 transition-transform" />
           </Button>
-        </Link>
+        </Link> */}
       </div>
 
       {/* Bottom Carousel Section */}
@@ -281,46 +287,46 @@ export const BonaireHero = ({ lang }: { lang: Locale }) => {
             {/* Image thumbnails */}
             <div className="flex-1 overflow-hidden" ref={emblaRefDesktop}>
               <div className="flex gap-4 items-end select-none">
-              {slides.map((img, index) => {
-                const isActive = index === currentIndex;
-                return (
-                  <div
-                    key={img.id}
-                    className={`relative shrink-0 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out transform ${
-                      isActive
-                        ? "z-10 scale-[1.04] ring-2 ring-primary shadow-2xl"
-                        : "opacity-70 hover:opacity-100 hover:scale-[1.02]"
-                    }`}
-                    style={{
-                      width: isActive ? "188px" : "160px",
-                      height: isActive ? "128px" : "100px",
-                      transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                    }}
-                    onClick={() => emblaApiDesktop?.scrollTo(index)}
-                  >
-                    <Image
-                      src={img.image}
-                      alt={img.title}
-                      className={`w-full h-full object-cover transition-transform duration-500 ${
-                        isActive ? "scale-100" : "scale-100"
-                      }`}
-                      width={500}
-                      height={500}
-                    />
+                {slides.map((img, index) => {
+                  const isActive = index === currentIndex;
+                  return (
                     <div
-                      className={`absolute bottom-2 right-2 text-sm font-semibold drop-shadow-lg transition-all duration-300 ${
-                        isActive ? "text-white" : "text-white/70"
+                      key={img.id}
+                      className={`relative shrink-0 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 ease-out transform ${
+                        isActive
+                          ? "z-10 scale-[1.04] ring-2 ring-primary shadow-2xl"
+                          : "opacity-70 hover:opacity-100 hover:scale-[1.02]"
                       }`}
+                      style={{
+                        width: isActive ? "188px" : "160px",
+                        height: isActive ? "128px" : "100px",
+                        transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                      }}
+                      onClick={() => emblaApiDesktop?.scrollTo(index)}
                     >
-                      {String(index + 1).padStart(2, "0")}
+                      <Image
+                        src={img.image}
+                        alt={img.title}
+                        className={`w-full h-full object-cover transition-transform duration-500 ${
+                          isActive ? "scale-100" : "scale-100"
+                        }`}
+                        width={500}
+                        height={500}
+                      />
+                      <div
+                        className={`absolute bottom-2 right-2 text-sm font-semibold drop-shadow-lg transition-all duration-300 ${
+                          isActive ? "text-white" : "text-white/70"
+                        }`}
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </div>
+                      {/* Active glow effect */}
+                      {isActive && (
+                        <div className="absolute inset-0 bg-linear-to-t from-primary/20 to-transparent" />
+                      )}
                     </div>
-                    {/* Active glow effect */}
-                    {isActive && (
-                      <div className="absolute inset-0 bg-linear-to-t from-primary/20 to-transparent" />
-                    )}
-                  </div>
-                );
-              })}
+                  );
+                })}
               </div>
             </div>
 

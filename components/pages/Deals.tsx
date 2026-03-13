@@ -8,6 +8,7 @@ import Link from "next/link";
 import { HeaderSpace } from "../HeaderSpace";
 import { TextStroke } from "../TextStroke";
 import { Icons } from "../icons";
+import { PAGES } from "@/config/pages.config";
 
 const discountDetails: {
   id: number;
@@ -232,7 +233,7 @@ const Deals = () => {
                 We Handle the Details — You Enjoy the Experience.
               </p>
 
-              <Link href="/booking">
+              <Link href={PAGES.RESERVE_A_CAR.ROOT}>
                 <Button className="bg-primary text-white hover:opacity-90 px-8 py-3 h-auto font-semibold uppercase tracking-wide">
                   Get Started Now
                 </Button>

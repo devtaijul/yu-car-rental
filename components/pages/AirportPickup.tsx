@@ -367,8 +367,8 @@ const AirportPickup = () => {
 
                 <span>
                   DIRECT DASHBOARD ACCESS
-                  <br />
-                  <span className="text-gray-400">WhatsApp: +599 717 8000</span>
+                  {/* <br />
+                  <span className="text-gray-400">WhatsApp: +599 717 8000</span> */}
                 </span>
               </div>
             </div>

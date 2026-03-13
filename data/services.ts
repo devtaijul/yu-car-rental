@@ -18,7 +18,7 @@ export const services = {
       icon: "Clock",
       title: "New and Fuel Efficient  Cars and Unlimited Miles ",
       description:
-        "Cruise around the island in style and eco-friendliness with our top-of-the-line SUV's and pickups. Enjoy a smooth and efficient ride while exploring Bonaire's stunning landscapes. ",
+        "Cruise around the island in style  with our top-of-the-line SUV's and pickups. Enjoy a smooth and efficient ride while exploring Bonaire's stunning landscapes. ",
     },
     {
       icon: "Shield",

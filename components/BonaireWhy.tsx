@@ -88,9 +88,7 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
   const desktopDotsCount =
     snapCount > 0 ? snapCount : Math.max(1, Math.ceil(items.length / 3));
   const dotsCount = isDesktop ? desktopDotsCount : items.length;
-  const activeDotIndex = isDesktop
-    ? Math.min(dotsCount - 1, current)
-    : current;
+  const activeDotIndex = isDesktop ? Math.min(dotsCount - 1, current) : current;
   const maxSnapIndex =
     snapCount > 0 ? snapCount - 1 : Math.max(0, dotsCount - 1);
 
@@ -128,43 +126,43 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
                 DESCRIPTION_WORD_LIMIT,
               );
               return (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="group p-1">
-                  <div className="relative rounded-2xl overflow-hidden aspect-4/3 mb-4">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="group p-1">
+                    <div className="relative rounded-2xl overflow-hidden aspect-4/3 mb-4">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+
+                    <span className="text-xs tracking-[0.15em] text-primary font-medium">
+                      {item.category}
+                    </span>
+
+                    <h3 className="text-xl font-display font-bold mt-1 mb-2">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {preview.text}
+                      {preview.truncated && (
+                        <>
+                          {" "}
+                          <button
+                            type="button"
+                            onClick={() => setActiveItem(item)}
+                            className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.2em] text-primary hover:underline"
+                          >
+                            See more
+                          </button>
+                        </>
+                      )}
+                    </p>
                   </div>
-
-                  <span className="text-xs tracking-[0.15em] text-primary font-medium">
-                    {item.category}
-                  </span>
-
-                  <h3 className="text-xl font-display font-bold mt-1 mb-2">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {preview.text}
-                    {preview.truncated && (
-                      <>
-                        {" "}
-                        <button
-                          type="button"
-                          onClick={() => setActiveItem(item)}
-                          className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.2em] text-primary hover:underline"
-                        >
-                          See more
-                        </button>
-                      </>
-                    )}
-                  </p>
-                </div>
-              </CarouselItem>
-            );
+                </CarouselItem>
+              );
             })}
           </CarouselContent>
 
@@ -178,9 +176,7 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
             <button
               key={index}
               onClick={() =>
-                api?.scrollTo(
-                  isDesktop ? Math.min(maxSnapIndex, index) : index,
-                )
+                api?.scrollTo(isDesktop ? Math.min(maxSnapIndex, index) : index)
               }
               className={`h-2 rounded-full transition-all duration-300 ${
                 index === activeDotIndex
@@ -198,33 +194,33 @@ export const BonaireWhy = ({ lang }: { lang: Locale }) => {
           if (!open) setActiveItem(null);
         }}
       >
-      <DialogContent className="left-1/2 top-1/2 bottom-auto right-auto w-[min(92vw,36rem)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border-0 p-5 sm:p-6 md:p-8 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=closed]:animate-out">
-        {activeItem && (
-          <div className="space-y-4">
-            <div className="max-h-[75vh] overflow-y-auto pr-2">
-              <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl">
-                <Image
-                  src={activeItem.image}
-                  alt={activeItem.title}
-                  fill
-                  className="object-cover"
-                />
+        <DialogContent className="left-1/2 top-1/2 bottom-auto right-auto w-[min(92vw,36rem)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border-0 p-5 sm:p-6 md:p-8 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=closed]:animate-out">
+          {activeItem && (
+            <div className="space-y-4">
+              <div className="max-h-[75vh] overflow-y-auto pr-2">
+                <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl">
+                  <Image
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <DialogHeader className="mt-4 text-left">
+                  <span className="text-xs uppercase tracking-[0.2em] text-primary">
+                    {activeItem.category}
+                  </span>
+                  <DialogTitle className="text-2xl font-display font-bold">
+                    {activeItem.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
+                    {activeItem.description}
+                  </DialogDescription>
+                </DialogHeader>
               </div>
-              <DialogHeader className="mt-4 text-left">
-                <span className="text-xs uppercase tracking-[0.2em] text-primary">
-                  {activeItem.category}
-                </span>
-                <DialogTitle className="text-2xl font-display font-bold">
-                  {activeItem.title}
-                </DialogTitle>
-                <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
-                  {activeItem.description}
-                </DialogDescription>
-              </DialogHeader>
             </div>
-          </div>
-        )}
-      </DialogContent>
+          )}
+        </DialogContent>
       </Dialog>
     </section>
   );

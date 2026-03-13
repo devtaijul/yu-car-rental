@@ -226,6 +226,18 @@ model Booking {
   discount        Float        @default(0)
   specialRequests String?
 
+  // Customer details snapshot at time of booking
+  customerFirstName String?
+  customerLastName  String?
+  customerEmail     String?
+  customerPhone     String?
+  customerStreet    String?
+  customerHouseNo   String?
+  customerPostCode  String?
+  customerCity      String?
+  customerCountry   String?
+  customerCompany   String?
+
   status    BookingStatus @default(PENDING)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt

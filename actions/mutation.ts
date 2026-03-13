@@ -74,14 +74,18 @@ export const bookCar = async ({
       return actionError("Payment failed");
     }
 
-    // 🔵 2️⃣ Calculate total days
+    // 🔵 2️⃣ Calculate total days (6PM–6PM rule: uses actual pickup/dropoff times)
+    const [pickupHour, pickupMin] = (booking.pickupTime || "18:00").split(":").map(Number);
+    const [dropoffHour, dropoffMin] = (booking.dropoffTime || "18:00").split(":").map(Number);
     const startDate = new Date(booking.pickupDate!);
+    startDate.setHours(pickupHour, pickupMin, 0, 0);
     const endDate = new Date(booking.dropoffDate!);
+    endDate.setHours(dropoffHour, dropoffMin, 0, 0);
 
     const totalDays =
-      Math.ceil(
+      Math.max(1, Math.ceil(
         (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
-      ) || 1;
+      ));
 
     const baseAmount = totalDays * pricePerDay;
     const coverageAmount = booking.coverage === "PREMIUM" ? 12 * totalDays : 0;
@@ -166,6 +170,16 @@ export const bookCar = async ({
           driversDOB: new Date(customer.dateOfBirth),
           driversLicNo: customer.licenseNumber,
           status: BookingStatus.PENDING,
+          customerFirstName: customer.firstName,
+          customerLastName: customer.lastName,
+          customerEmail: customer.email,
+          customerPhone: customer.phone,
+          customerStreet: customer.streetAddress,
+          customerHouseNo: customer.houseNumber,
+          customerPostCode: customer.postCode,
+          customerCity: customer.city,
+          customerCountry: customer.country,
+          customerCompany: customer.company,
         },
       });
 
@@ -200,13 +214,20 @@ export const bookCar = async ({
 
     // Generate PDF + Send Email (non-blocking — never fail the booking over email)
     try {
-      const pdfBuffer = await generateContractPdf(result.id);
+      const [pdfBuffer, platformSettings] = await Promise.all([
+        generateContractPdf(result.id),
+        prisma.platformSettings.findFirst(),
+      ]);
       await sendContractEmail({
         email: customer.email,
         name: customer.firstName,
         pdfBuffer,
         bookingId: result.id,
         plainPassword: plainPassword ?? undefined,
+        adminEmail:
+          platformSettings?.notifyNewBooking && platformSettings?.supportEmail
+            ? platformSettings.supportEmail
+            : undefined,
       });
     } catch (emailError) {
       console.error("[bookCar] Failed to send confirmation email:", emailError);

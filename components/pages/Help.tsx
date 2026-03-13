@@ -143,7 +143,7 @@ const Help = () => {
 
               <div className="space-y-8">
                 {/* Mechanical Difficulties */}
-                {/*  <div className="bg-[#F8FAFC] border border-[#E2E8F0] p-6">
+                <div className="bg-[#F8FAFC] border border-[#E2E8F0] p-6">
                   <h4 className="text-sm lg:text-lg font-roboto font-bold tracking-[0.15em] text-primary uppercase mb-2">
                     Mechanical Difficulties
                   </h4>
@@ -163,7 +163,7 @@ const Help = () => {
                       +599 717-9292
                     </a>
                   </div>
-                </div> */}
+                </div>
 
                 {/* Notification Card */}
                 <div className="bg-primary  p-6 text-primary-foreground">

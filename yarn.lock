@@ -5000,7 +5000,7 @@ react-leaflet@^5.0.0:
 
 react-phone-number-input@^3.4.16:
   version "3.4.16"
-  resolved "https://registry.npmjs.org/react-phone-number-input/-/react-phone-number-input-3.4.16.tgz"
+  resolved "https://registry.yarnpkg.com/react-phone-number-input/-/react-phone-number-input-3.4.16.tgz#e442cdb790ce3138c14e1a705b4e254528855aff"
   integrity sha512-ix1+SIyGuLxnlAeW+XQNhwOmmDd4Zmr6Ng1eQl0E2XS8xIuue3gdZeBG4LGTMjTIFneOTO9pUPL+AEDhV6+r+A==
   dependencies:
     classnames "^2.5.1"

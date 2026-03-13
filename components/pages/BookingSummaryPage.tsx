@@ -14,11 +14,12 @@ import {
 } from "lucide-react";
 import { CldImage } from "next-cloudinary";
 import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SummaryForm } from "../booking/SummaryForm";
 import { StripeWrapper } from "../StripeWrapper";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { PhoneInput } from "../ui/phone-input";
 
 function generateOtp(): string {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -35,6 +36,7 @@ export default function BookingSummaryPage({
   const [publishableKey, setPublishableKey] = useState<string | null>(null);
   const [phoneVerified, setPhoneVerified] = useState(false);
   const [phone, setPhone] = useState("+599");
+
   const [otpSent, setOtpSent] = useState(false);
   const [otpInput, setOtpInput] = useState("");
   const [otpError, setOtpError] = useState<string | null>(null);
@@ -56,13 +58,20 @@ export default function BookingSummaryPage({
 
   const days = (() => {
     if (!pickupDate || !dropoffDate) return 1;
-    const [pickupHour, pickupMin] = (pickupTime || "18:00").split(":").map(Number);
-    const [dropoffHour, dropoffMin] = (dropoffTime || "18:00").split(":").map(Number);
+    const [pickupHour, pickupMin] = (pickupTime || "18:00")
+      .split(":")
+      .map(Number);
+    const [dropoffHour, dropoffMin] = (dropoffTime || "18:00")
+      .split(":")
+      .map(Number);
     const start = new Date(pickupDate);
     start.setHours(pickupHour, pickupMin, 0, 0);
     const end = new Date(dropoffDate);
     end.setHours(dropoffHour, dropoffMin, 0, 0);
-    return Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
+    return Math.max(
+      1,
+      Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)),
+    );
   })();
 
   const basePrice = car.pricePerDay * days;
@@ -380,31 +389,26 @@ export default function BookingSummaryPage({
                     Phone Number
                   </Label>
                   <div className="flex gap-2">
-                    <Input
+                    <PhoneInput
                       value={phone}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        if (!val.startsWith("+599")) return;
-                        setPhone(val);
-                      }}
-                      placeholder="+599 7890123"
-                      disabled={otpSent}
+                      onChange={setPhone}
+                      placeholder="Enter a phone number"
+                      defaultCountry="BQ"
+                      className="w-full rounded-none"
+                      international
                     />
+
                     <Button
                       type="button"
                       onClick={handleSendOtp}
                       disabled={!phone.trim() || otpSent || otpSending}
                       className="bg-primary text-primary-foreground shrink-0"
                     >
-                      {otpSending ? (
-                        <span className="flex items-center gap-2">
-                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z" />
-                          </svg>
-                          Sending...
-                        </span>
-                      ) : otpSent ? "Sent ✓" : "Send OTP"}
+                      {otpSending
+                        ? "Sending..."
+                        : otpSent
+                          ? "Sent ✓"
+                          : "Send OTP"}
                     </Button>
                   </div>
                 </div>

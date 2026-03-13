@@ -23,15 +23,15 @@ const arrivalSteps = [
     image: arrivalsImg,
     title: "PERSONAL \n MEET & GREET",
     description:
-      "Step into the arrival hall to find your dedicated \n concierge waiting. A personalized tablet display \n ensures you spot us immediately amidst the crowd. No \n wandering, no confusion.",
+      "Step into the arrivals hall and find your dedicated  guide waiting for you. \n A personalized tablet display ensures you’ll spot us  right away in the crowd. \n No wandering around, no confusion.",
     imagePosition: "right" as const,
     backgroundWaterMark: One,
   },
   {
     image: luggageImg,
-    title: "LUGGAGE \n CONCIERGE",
+    title: "LUGGAGE",
     description:
-      "Your transition should be weightless. Our team \n manages your luggage from the arrival hall directly \n to the trunk of your vehicle. Focus on the island air \n while we handle the logistics.",
+      "Your transfer should be hassle-free. Our team will handle your luggage \n directly from the arrivals hall to the trunk of your vehicle. \n Enjoy the island air while we take care of the logistics.",
     imagePosition: "left" as const,
     backgroundWaterMark: Two,
   },
@@ -39,7 +39,7 @@ const arrivalSteps = [
     image: drivingImg,
     title: "DIRECT-TO-DRIVE \n PROTOCOL",
     description:
-      "Our team is ready to welcome you. Your documents are \n pre-processed, your vehicle is climate-controlled \n and the keys are ready. Arrival to departure in under \n 300 seconds.",
+      "Ons team staat klaar om u te verwelkomen. Uw documenten zijn vooraf verwerkt, \n uw voertuig is klimaatgereguleerd en de sleutels zijn klaar.\n Aankomst tot vertrek in minder dan 300 seconden.",
     imagePosition: "right" as const,
     backgroundWaterMark: Three,
   },

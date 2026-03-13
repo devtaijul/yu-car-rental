@@ -126,8 +126,7 @@ export default function BookingDetailsPage({
             ← Back to Overview
           </Link>
           <h1 className="text-4xl font-display font-black uppercase tracking-tight">
-            Booking{" "}
-            <span className="text-primary">Details</span>
+            Booking <span className="text-primary">Details</span>
           </h1>
         </div>
         <div className="flex items-center gap-3">
@@ -155,7 +154,7 @@ export default function BookingDetailsPage({
                   width={600}
                   height={400}
                   alt="Car"
-                  className="max-w-[280px] object-contain"
+                  className="max-w-70 object-contain"
                 />
               </div>
               {/* Active badge */}
@@ -337,7 +336,10 @@ export default function BookingDetailsPage({
           </Card>
 
           {/* Map */}
-          <div className="border border-[#f1f5f9] shadow-sm overflow-hidden" style={{ zIndex: 0 }}>
+          <div
+            className="border border-[#f1f5f9] shadow-sm overflow-hidden"
+            style={{ zIndex: 0 }}
+          >
             <LeafletMap
               pickupCoords={locationCoords[booking.pickupLocation]}
               dropoffCoords={locationCoords[booking.dropoffLocation]}

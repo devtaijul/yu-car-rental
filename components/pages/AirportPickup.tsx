@@ -76,7 +76,7 @@ const AirportPickup = () => {
       </div>
       <div className="relative min-h-[80vh] bg-background w-full">
         <div className="absolute right-0 top-2/3 z-50 hidden -translate-y-1/2 translate-x-1/3 rotate-90 font-bold tracking-[0.3rem] text-primary opacity-80 xl:block">
-          ESTABLISHED 2009 — BONAIRE
+          PREMIUM ISLAND MOBILITY
         </div>
         <div className="relative min-h-[80vh] flex items-center pt-28 sm:pt-32 lg:pt-44">
           <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
@@ -139,7 +139,10 @@ const AirportPickup = () => {
                   Available Carriers
                 </span>
                 <div className="mt-3 flex flex-wrap items-center gap-3 text-sm font-bold tracking-[0.2em] text-black sm:text-base">
-                  <span>KLM • TUI • DELTA • AMERICAN • Corendon</span>
+                  <span>
+                    KLM • TUI • DELTA • AMERICAN • Corendon • Z Air • Divi Divi
+                    Air
+                  </span>
                   {/*  <Link
                     href="/help"
                     className="hover:text-foreground transition-colors"
